@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:docname="mars.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 100 100"
+   height="100"
+   width="100">
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="skeletal"
+       id="path-effect1839"
+       is_visible="true"
+       lpeversion="1"
+       pattern="M 0,5 C 0,2.24 2.24,0 5,0 7.76,0 10,2.24 10,5 10,7.76 7.76,10 5,10 2.24,10 0,7.76 0,5 Z"
+       copytype="single_stretched"
+       prop_scale="0.3857"
+       scale_y_rel="false"
+       spacing="0"
+       normal_offset="0"
+       tang_offset="0"
+       prop_units="false"
+       vertical_pattern="false"
+       hide_knot="false"
+       fuse_tolerance="0" />
+    <inkscape:path-effect
+       fuse_tolerance="0"
+       hide_knot="false"
+       vertical_pattern="false"
+       prop_units="false"
+       tang_offset="0"
+       normal_offset="0"
+       spacing="0"
+       scale_y_rel="false"
+       prop_scale="0.3857"
+       copytype="single_stretched"
+       pattern="M 0,5 C 0,2.24 2.24,0 5,0 7.76,0 10,2.24 10,5 10,7.76 7.76,10 5,10 2.24,10 0,7.76 0,5 Z"
+       lpeversion="1"
+       is_visible="true"
+       id="path-effect1102"
+       effect="skeletal" />
+    <linearGradient
+       id="linearGradient1594"
+       inkscape:collect="always">
+      <stop
+         id="stop1590"
+         offset="0"
+         style="stop-color:#000000;stop-opacity:0" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0.3162"
+         offset="0.4753"
+         id="stop3100" />
+      <stop
+         id="stop1592"
+         offset="1"
+         style="stop-color:#280b0b;stop-opacity:0.9448" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient1312"
+       inkscape:collect="always">
+      <stop
+         id="stop1308"
+         offset="0"
+         style="stop-color:#ff6600;stop-opacity:0.4705" />
+      <stop
+         id="stop1310"
+         offset="1"
+         style="stop-color:#e9afaf;stop-opacity:0" />
+    </linearGradient>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="Arrow1Lend"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend">
+      <path
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path989" />
+    </marker>
+    <inkscape:path-effect
+       fuse_tolerance="0"
+       hide_knot="false"
+       vertical_pattern="false"
+       prop_units="false"
+       tang_offset="0"
+       normal_offset="0"
+       spacing="0"
+       scale_y_rel="false"
+       prop_scale="0.3857"
+       copytype="single_stretched"
+       pattern="M 0,5 C 0,2.24 2.24,0 5,0 7.76,0 10,2.24 10,5 10,7.76 7.76,10 5,10 2.24,10 0,7.76 0,5 Z"
+       lpeversion="1"
+       is_visible="true"
+       id="path-effect984"
+       effect="skeletal" />
+    <inkscape:path-effect
+       fuse_tolerance="0"
+       hide_knot="false"
+       vertical_pattern="false"
+       prop_units="false"
+       tang_offset="0"
+       normal_offset="0"
+       spacing="0"
+       scale_y_rel="false"
+       prop_scale="0.3857"
+       copytype="single_stretched"
+       pattern="M 0,5 C 0,2.24 2.24,0 5,0 7.76,0 10,2.24 10,5 10,7.76 7.76,10 5,10 2.24,10 0,7.76 0,5 Z"
+       lpeversion="1"
+       is_visible="true"
+       id="path-effect980"
+       effect="skeletal" />
+    <radialGradient
+       gradientTransform="matrix(2.179,2.542,-1.883,1.615,23.34,-39.26)"
+       gradientUnits="userSpaceOnUse"
+       r="22.2"
+       fy="16.81"
+       fx="16.54"
+       cy="16.81"
+       cx="16.54"
+       id="radialGradient1314"
+       xlink:href="#linearGradient1312"
+       inkscape:collect="always" />
+    <radialGradient
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(2.89,0.0145,-0.0134,2.693,-21.49,-16.62)"
+       r="18.89"
+       fy="24.19"
+       fx="24.43"
+       cy="24.19"
+       cx="24.43"
+       id="radialGradient1596"
+       xlink:href="#linearGradient1594"
+       inkscape:collect="always" />
+  </defs>
+  <sodipodi:namedview
+     inkscape:window-maximized="1"
+     inkscape:window-y="-11"
+     inkscape:window-x="-11"
+     inkscape:window-height="986"
+     inkscape:window-width="1920"
+     inkscape:snap-global="true"
+     units="px"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer2"
+     inkscape:document-units="px"
+     inkscape:cy="53.42"
+     inkscape:cx="22.58"
+     inkscape:zoom="5.655"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Planet"
+     style="display:inline;opacity:1" />
+  <g
+     style="display:inline;opacity:1"
+     inkscape:label="Craters"
+     id="layer3"
+     inkscape:groupmode="layer" />
+  <g
+     inkscape:label="Flag"
+     id="layer4"
+     inkscape:groupmode="layer" />
+  <g
+     style="display:inline;opacity:1"
+     inkscape:label="Clouds"
+     id="layer2"
+     inkscape:groupmode="layer">
+    <circle
+       r="46.6"
+       cx="49.99"
+       cy="49.99"
+       id="path833"
+       style="display:inline;fill:#d40000;stroke:none;stroke-width:2.3089;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <circle
+       style="display:inline;fill:url(#radialGradient1314);stroke-width:0;stroke-linecap:round;stroke-linejoin:round"
+       id="circle1306"
+       cy="49.99"
+       cx="49.99"
+       r="46.6" />
+    <path
+       d="M 86.94,21.59 A 57.45,54.99 0 0 1 87.55,29.57 57.45,54.99 0 0 1 30.1,84.56 57.45,54.99 0 0 1 17.29,83.18 46.6,46.6 0 0 0 49.99,96.59 46.6,46.6 0 0 0 96.59,49.99 46.6,46.6 0 0 0 86.94,21.59 Z"
+       style="display:inline;opacity:0.2895;fill:url(#radialGradient1596);stroke-width:0;stroke-linecap:round;stroke-linejoin:round"
+       id="circle927" />
+    <path
+       id="path952"
+       style="display:inline;opacity:0.1505;fill:#310202;stroke-width:16.9452;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 53.06,3.501 A 158.7,75.54 41.29 0 1 42.98,35.11 158.7,75.54 41.29 0 1 3.402,49.39 46.6,46.6 0 0 0 3.398,49.99 46.6,46.6 0 0 0 6.484,66.68 113.5,75.54 46.28 0 0 54.23,51.93 113.5,75.54 46.28 0 0 71.59,8.698 46.6,46.6 0 0 0 53.06,3.501 Z" />
+    <path
+       sodipodi:nodetypes="cscsccsc"
+       d="M 17.78,25.67 C 13.84,28.79 11.93,33.89 13.51,37.11 13.81,37.71 14.21,38.22 14.71,38.62 13.33,34.65 15.5,29.07 19.75,25.75 19.77,25.73 19.81,25.71 19.83,25.69 21.32,24.51 22.96,23.71 24.55,23.36 22.5,23.06 20.04,23.88 17.86,25.58 17.84,25.6 17.8,25.65 17.78,25.67 Z"
+       style="display:inline;opacity:0.4629;fill:#280b0b;stroke-width:0;stroke-linecap:round;stroke-linejoin:round"
+       id="path935" />
+    <path
+       d="M 19.75,25.75 A 7.676,10.84 39.2 0 0 14.72,38.64 6.299,9.372 41.78 0 0 23.67,37.34 6.299,9.372 41.78 0 0 28,25.81 6.299,9.372 41.78 0 0 24.55,23.36 7.676,10.84 39.2 0 0 19.83,25.69 7.676,10.84 39.2 0 0 19.75,25.75 Z"
+       style="display:inline;opacity:0.2495;fill:#280b0b;stroke-width:0;stroke-linecap:round;stroke-linejoin:round"
+       id="ellipse937" />
+    <path
+       id="path1530"
+       style="display:inline;opacity:0.4629;fill:#280b0b;stroke-width:0;stroke-linecap:round;stroke-linejoin:round"
+       d="M 31.06,22.29 C 29.68,23.19 29,24.66 29.57,25.58 29.68,25.73 29.8,25.88 29.99,26 29.51,24.87 30.26,23.27 31.75,22.31 31.75,22.31 31.77,22.31 31.8,22.31 32.3,21.97 32.89,21.74 33.43,21.62 32.72,21.55 31.86,21.78 31.08,22.27 31.08,22.29 31.08,22.29 31.06,22.29 Z"
+       sodipodi:nodetypes="cscsccsc" />
+    <path
+       id="path1532"
+       style="display:inline;opacity:0.2495;fill:#280b0b;stroke-width:0;stroke-linecap:round;stroke-linejoin:round"
+       d="M 31.75,22.31 A 2.408,3.468 56.32 0 0 29.99,26 1.967,3.014 56.59 0 0 33.14,25.62 1.967,3.014 56.59 0 0 34.65,22.33 1.967,3.014 56.59 0 0 33.43,21.62 2.408,3.468 56.32 0 0 31.8,22.31 2.408,3.468 56.32 0 0 31.75,22.31 Z" />
+    <path
+       id="path3135"
+       style="display:inline;opacity:0.4648;fill:#280b0b;fill-opacity:1;stroke:none;stroke-width:1.91954;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 80.01,78.58 C 78.02,78.33 76.08,79.17 74.38,80.09 72.14,81.4 70.04,83.12 68.8,85.45 68.32,86.35 67.98,87.76 68.93,88.49 69.37,88.45 69.14,87.61 69.41,87.29 70.17,85.15 71.74,83.43 73.44,81.98 75.37,80.41 77.6,79.19 80.01,78.58 Z" />
+    <path
+       id="path3181"
+       style="display:inline;opacity:0.3162;fill:#280b0b;fill-opacity:1;stroke:none;stroke-width:1.91954;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 80.01,78.58 C 77.07,79.34 74.38,80.98 72.22,83.1 70.84,84.5 69.6,86.16 69.18,88.11 68.89,88.87 70.08,88.2 70.38,88.26 73.25,87.61 75.87,86.01 78.02,84.02 79.38,82.65 80.64,81.12 81.33,79.32 81.02,78.9 80.51,78.67 80.01,78.58 Z" />
+    <path
+       id="path3102"
+       style="display:inline;opacity:0.2076;fill:#280b0b;fill-opacity:1;stroke:none;stroke-width:1.91954;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 68.91,88.49 C 70.31,89.46 72.16,88.87 73.63,88.36 76.36,87.27 78.83,85.47 80.58,83.1 81.29,82.05 82.13,80.53 81.33,79.32 80.51,81.4 79.02,83.14 77.36,84.61 74.97,86.62 72.05,88.2 68.91,88.49 Z" />
+    <path
+       id="path1025"
+       style="display:inline;opacity:0.459;fill:#280b0b;fill-opacity:1;stroke:none;stroke-width:1.47854;stroke-linecap:round;stroke-linejoin:round"
+       d="M 72.79,23.76 C 71.45,23.82 70.08,24.24 69.05,25.12 67.86,27.05 67.98,29.53 68.72,31.61 69.77,34.52 71.89,36.98 74.49,38.62 75.18,39.06 75.92,39.42 76.67,39.71 75.35,39 74.17,38.07 73.15,37.02 71.84,35.7 70.84,34.1 70.19,32.36 69.58,30.75 69.37,28.96 69.83,27.28 70.14,26.13 70.82,25.02 71.82,24.32 72.12,24.09 72.45,23.9 72.79,23.76 Z" />
+    <path
+       id="path1023"
+       style="display:inline;opacity:0.2076;fill:#000000;stroke:none;stroke-width:1.47854;stroke-linecap:round;stroke-linejoin:round"
+       d="M 72.79,23.76 C 71,24.51 69.83,26.34 69.64,28.25 69.35,30.52 70.14,32.78 71.32,34.69 72.45,36.52 74.05,38.07 75.85,39.23 76.84,39.92 78.06,40.15 79.23,40.32 80.93,40.51 82.8,40.17 84.12,39 85.24,37.23 85.19,34.99 84.63,33.06 83.83,30.39 82.09,28.08 79.93,26.38 77.91,24.79 75.39,23.69 72.79,23.76 Z" />
+    <path
+       id="path983"
+       style="display:inline;opacity:0.2914;fill:#000000;stroke:none;stroke-width:1.47854;stroke-linecap:round;stroke-linejoin:round"
+       d="M 78.81,23.8 C 76.9,23.11 74.68,22.9 72.79,23.76 76.15,23.67 79.28,25.5 81.56,27.85 83.6,30.07 85.13,32.97 85.01,36.06 84.94,37.09 84.69,38.13 84.12,39 86.12,37.32 86.39,34.4 85.7,32.03 84.69,28.5 82.05,25.5 78.81,23.8 Z" />
+    <path
+       id="path1038"
+       style="display:inline;opacity:0.4552;fill:#000000;stroke:none;stroke-width:1.47854;stroke-linecap:round;stroke-linejoin:round"
+       d="M 74.11,22.56 C 72.37,22.54 70.56,23.21 69.43,24.58 69.33,24.72 69.05,25.08 69.09,25.08 69.68,24.62 70.33,24.26 71.05,24.05 71.51,23.92 71.97,23.82 72.45,23.8 72.75,23.8 73,23.65 73.27,23.57 74.01,23.32 74.8,23.17 75.58,23.19 76.06,23.19 76.53,23.25 77.01,23.32 77.2,23.36 77.41,23.38 77.6,23.44 78.02,23.53 78.41,23.65 78.81,23.8 78.23,23.5 77.64,23.23 77.03,23.04 76.63,22.9 76.21,22.81 75.79,22.73 75.54,22.69 75.29,22.64 75.04,22.62 74.72,22.58 74.43,22.56 74.11,22.56 Z" />
+    <path
+       id="path1046"
+       style="display:inline;opacity:0.3067;fill:#280b0b;fill-opacity:1;stroke:none;stroke-width:3.27486;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 34.84,75.33 C 36.1,77.05 38.13,78.12 40.11,78.83 43.95,80.14 48.63,79.32 51.34,76.19 53.81,73.44 54.11,69.18 52.47,65.95 52.07,65.21 51.72,64.39 51.02,63.89 52.81,66.68 53.21,70.42 51.65,73.4 50.25,76.25 47.2,78.08 44.07,78.35 40.76,78.71 37.34,77.53 34.84,75.33 Z" />
+    <path
+       id="path1095"
+       style="display:inline;opacity:0.2234;fill:#280b0b;fill-opacity:1;stroke:none;stroke-width:3.27486;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 34.84,75.33 C 38.2,78.31 43.32,79.38 47.45,77.43 50.64,76 52.79,72.56 52.62,69.07 52.58,67.25 51.99,65.44 51.02,63.89 47.71,60.93 42.67,59.88 38.55,61.71 35.66,62.97 33.5,65.84 33.26,69.01 33.08,71.21 33.68,73.46 34.84,75.33 Z" />
+    <path
+       id="path1089"
+       style="display:inline;opacity:0.4571;fill:#280b0b;fill-opacity:1;stroke:none;stroke-width:3.27486;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 41.39,59.15 C 37.55,59.12 33.62,61.45 32.36,65.17 31.02,68.86 32.4,73.12 35.15,75.79 33.14,72.96 32.53,68.97 34.19,65.82 35.62,62.9 38.76,61.08 41.95,60.85 45.48,60.53 49.11,61.92 51.59,64.44 49.34,61.12 45.38,59.08 41.39,59.15 Z" />
+    <path
+       sodipodi:open="true"
+       transform="matrix(0.9146,-0.4043,0.455,0.8905,0,0)"
+       sodipodi:arc-type="arc"
+       sodipodi:end="1.049"
+       sodipodi:start="0.6283"
+       sodipodi:ry="51.9"
+       sodipodi:rx="53.47"
+       sodipodi:cy="14.06"
+       sodipodi:cx="5.489"
+       sodipodi:type="arc"
+       id="path1264"
+       style="opacity:0.6648;fill:none;stroke:#ff6600;stroke-width:4.62149;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 48.75,44.57 A 53.47,51.9 0 0 1 32.14,59.05" />
+    <path
+       sodipodi:open="true"
+       style="opacity:0.6648;fill:none;stroke:#ff6600;stroke-width:5.25162;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path1282"
+       sodipodi:type="arc"
+       sodipodi:cx="10.32"
+       sodipodi:cy="34.92"
+       sodipodi:rx="53.47"
+       sodipodi:ry="51.9"
+       sodipodi:start="1.119"
+       sodipodi:end="1.665"
+       sodipodi:arc-type="arc"
+       transform="matrix(0.9146,-0.4043,0.455,0.8905,0,0)"
+       d="M 33.66,81.61 A 53.47,51.9 0 0 1 5.29,86.59" />
+    <path
+       sodipodi:open="true"
+       transform="matrix(0.9642,-0.2651,0.3185,0.9479,0,0)"
+       sodipodi:arc-type="arc"
+       sodipodi:end="1.777"
+       sodipodi:start="1.145"
+       sodipodi:ry="51.92"
+       sodipodi:rx="53.46"
+       sodipodi:cy="26.25"
+       sodipodi:cx="13.08"
+       sodipodi:type="arc"
+       id="path1284"
+       style="opacity:0.6648;fill:none;stroke:#ff6600;stroke-width:5.25224;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 35.16,73.53 A 53.46,51.92 0 0 1 2.134,77.07" />
+    <path
+       style="opacity:0.6648;fill:none;stroke:#ff6600;stroke-width:4.62139;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path1288"
+       sodipodi:type="arc"
+       sodipodi:cx="0.3434"
+       sodipodi:cy="10.07"
+       sodipodi:rx="53.46"
+       sodipodi:ry="51.91"
+       sodipodi:start="0.6283"
+       sodipodi:end="0.9658"
+       sodipodi:arc-type="arc"
+       transform="matrix(0.8409,-0.5412,0.5879,0.8089,0,0)"
+       sodipodi:open="true"
+       d="M 43.59,40.58 A 53.46,51.91 0 0 1 30.75,52.77" />
+  </g>
+</svg>

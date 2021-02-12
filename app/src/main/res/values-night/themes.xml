@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="AppThemeCommon">
+
+        <item name="colorPrimary">@color/grayDarker</item>
+        <item name="colorPrimaryVariant">@color/gray</item>
+        <item name="colorOnPrimary">@color/redLight</item>
+
+        <item name="colorSecondary">@color/redLight</item>
+        <item name="colorSecondaryVariant">@color/red</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="colorBackground">@color/almostBlack</item>
+        <item name="colorOnBackground">@color/grayDark</item>
+        <item name="colorSnackbarBackground">@color/grayLighterer</item>
+        <item name="colorOnSnackbarBackground">@android:color/black</item>
+
+        <item name="colorError">@color/orangeLight</item>
+
+        <item name="android:windowBackground">@drawable/ot_background_splash</item>
+
+        <!--        This is for the MaterialCardView background-->
+        <item name="colorSurface">@color/grayDarkOverlayRed</item>
+        <item name="colorOnSurface">@color/white</item>
+
+
+        <item name="colorOnPicture">@color/white</item>
+
+
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@color/redLight</item>
+        <item name="android:textColorTertiary">@color/gray</item>
+
+
+        <!--  The color of the icons and some widgets like TextInputLayout-->
+        <item name="colorControlNormal">?colorSecondary</item>
+        <item name="android:colorControlActivated">?colorSecondary</item>
+        <item name="colorControlActivated">?colorSecondary</item>
+        <item name="colorControlHighlight">@color/grayLighter</item>
+        <item name="colorControlHighlightAlt">@color/control_highlight_alt</item>
+        <item name="colorControlInactive">@color/grayLighterPlus</item>
+        <item name="android:listDivider">?colorSecondary</item>
+
+
+        <item name="colorChipBackground">@color/grayLight</item>
+        <item name="colorChipText">@color/white</item>
+    </style>
+
+
+
+    <!--    For the menus-->
+    <style name="AppTheme.PopupTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!--        The background color is set with colorSurface-->
+        <item name="colorSurface">@color/grayDark</item>
+    </style>
+
+
+
+</resources>

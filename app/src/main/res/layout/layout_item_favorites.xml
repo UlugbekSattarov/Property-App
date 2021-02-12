@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="favorite"
+            type="com.example.marsrealestate.data.FavoriteProperty"/>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        app:cardElevation="18dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+
+            <ImageView
+                android:id="@+id/mars_property_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/backgrounds/scenic"
+
+                app:imageUrl="@{favorite.property.imgSrcUrl}"
+
+
+                />
+
+            <ImageView
+                android:id="@+id/corner"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/mars_property_image"
+
+                android:rotation="90"
+
+                android:src="@drawable/ic_rounded_corner"
+
+                />
+
+            <ImageView
+                android:id="@+id/corner_swipe_dismiss"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/mars_property_image"
+                android:layout_marginEnd="2dp"
+                android:translationY="2dp"
+
+                android:tint="?colorOnSecondary"
+                android:src="@drawable/ic_swipe_to_dismiss"
+
+
+                />
+
+
+
+
+            <ImageView
+                android:id="@+id/mars_property_scrim"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/mars_property_image"
+
+                app:srcCompat="@drawable/ot_gradient_bottom_top" />
+
+
+
+            <TextView
+                android:id="@+id/mars_property_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="16dp"
+
+                app:layout_constraintStart_toStartOf="@+id/mars_property_image"
+                app:layout_constraintBottom_toBottomOf="@id/mars_property_image"
+
+                android:textAppearance="?textAppearanceHeadline4"
+                android:textColor="?colorOnPicture"
+                android:text="@{@string/property(favorite.property.id)}"
+                tools:text="Property 123456" />
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/mars_property_image"
+                android:layout_margin="@dimen/margin_medium_large"
+
+                android:src="@drawable/ic_favorite"
+                android:tint="?colorOnPicture"
+
+                />
+
+
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="24dp"
+
+                android:textAppearance="?textAppearanceSubtitle1"
+                android:text="@string/lorem_short"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/chip"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/caption" />
+
+
+
+            <TextView
+                android:id="@+id/caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintTop_toBottomOf="@id/mars_property_image"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_medium"
+
+                android:textAppearance="?textAppearanceCaption"
+
+                android:text="@{@string/added_on(favorite.favorite.dateFavorited)}"
+
+                tools:text="Favorited on 16/11/2017"
+
+                />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/subtitle"
+                app:layout_constraintTop_toBottomOf="@id/mars_property_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                android:text="@{favorite.property.rental ? @string/to_rent : @string/to_buy}"
+                tools:text="To rent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

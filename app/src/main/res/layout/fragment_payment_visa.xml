@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.example.marsrealestate.util.Result"/>
+        <import type="com.example.marsrealestate.payment.options.Converter"/>
+
+        <variable
+            name="viewModel"
+            type="com.example.marsrealestate.payment.options.PaymentVisaViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+        tools:context=".purchase.PurchaseFragment">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            android:background="?colorBackground"
+            />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment"
+            android:textAppearance="?textAppearanceHeadline3"
+            app:layout_constraintEnd_toEndOf="parent"
+
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+
+            />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/card_number"
+            style="?textInputLayoutBasicStyle"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_extra_large"
+
+            app:counterEnabled="true"
+            app:counterMaxLength="16"
+
+            android:hint="Card number"
+            app:errorMessage="@{viewModel.cardNumberErrorStringId}"
+            app:startIconDrawable="@drawable/ic_credit_card"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="@={viewModel.cardNumber}"
+                android:textAppearance="?textAppearanceHeadline6"
+
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <ImageView
+            android:id="@+id/image_expiration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:src="@drawable/ic_date"
+
+
+            android:tint="?colorControlInactive"
+            app:layout_constraintStart_toStartOf="@id/card_number"
+            app:layout_constraintTop_toBottomOf="@id/card_number" />
+
+
+        <TextView
+
+            android:id="@+id/card_expiration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium"
+
+            android:text="Expiration date"
+
+            android:textAppearance="?textAppearanceHeadline6"
+            android:textColor="?colorControlInactive"
+
+            app:layout_constraintBottom_toBottomOf="@+id/image_expiration"
+            app:layout_constraintStart_toEndOf="@id/image_expiration"
+            app:layout_constraintTop_toTopOf="@+id/image_expiration" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/card_expiration_month"
+            style="?textInputLayoutDropdownStyle"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+
+
+            android:hint="Month"
+            app:errorMessage="@{viewModel.expirationMonthErrorStringID}"
+
+
+            app:layout_constraintTop_toBottomOf="@id/card_expiration"
+            app:layout_constraintStart_toStartOf="@id/card_number"
+            >
+
+            <AutoCompleteTextView
+                android:id="@+id/card_expiration_month_value"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:inputType="none"
+
+                android:text="@={Converter.expirationMonthToString(viewModel.expirationMonth)}"
+                android:textAppearance="?textAppearanceHeadline6"
+                android:textSize="18sp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_expiration"
+
+
+                tools:hint="Month"
+
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/card_expiration_year"
+            style="?textInputLayoutDropdownStyle"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+
+            android:hint="Year"
+            app:errorMessage="@{viewModel.expirationYearErrorStringID}"
+
+            app:layout_constraintTop_toBottomOf="@id/card_expiration"
+            app:layout_constraintEnd_toEndOf="@id/card_number"
+
+             >
+
+            <AutoCompleteTextView
+                android:id="@+id/card_expiration_year_value"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="none"
+
+                android:text="@={Converter.expirationYearToString(viewModel.expirationYear)}"
+
+                android:textAppearance="?textAppearanceHeadline6"
+                android:textSize="18sp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_expiration"
+                tools:hint="Year"
+
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+        <ImageView
+            android:id="@+id/image_secret"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_very_large"
+
+            android:src="@drawable/ic_secret"
+            android:tint="?colorControlInactive"
+
+            app:layout_constraintStart_toStartOf="@id/card_number"
+            app:layout_constraintTop_toBottomOf="@id/card_expiration_month" />
+
+
+        <TextView
+            android:id="@+id/secret"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium"
+
+            android:text="Secret code"
+
+            android:textAppearance="?textAppearanceHeadline6"
+            android:textColor="?colorControlInactive"
+
+            app:layout_constraintBottom_toBottomOf="@id/image_secret"
+            app:layout_constraintStart_toEndOf="@id/image_secret"
+            app:layout_constraintTop_toTopOf="@id/image_secret" />
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/card_secret"
+            style="?textInputLayoutBasicStyle"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+
+            android:hint="Code"
+            app:errorMessage="@{viewModel.secretCodeErrorStringID}"
+
+            app:layout_constraintStart_toStartOf="@id/card_number"
+            app:layout_constraintTop_toBottomOf="@id/secret"
+
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="@={viewModel.secretCode}"
+                android:textAppearance="?textAppearanceHeadline6"
+                android:textSize="18sp"
+
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_medium"
+
+            app:marginBottomPlusInsets="@{@dimen/margin_medium}"
+
+            android:text="@string/next"
+            android:onClick="@{ () -> viewModel.validateCard()}"
+            app:fadeInIf="@{ ! viewModel.operationValidateCard.isLoading }"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            app:fadeInIf="@{viewModel.operationValidateCard.isLoading }"
+
+            app:layout_constraintBottom_toBottomOf="@id/login"
+            app:layout_constraintEnd_toEndOf="@id/login"
+            app:layout_constraintStart_toStartOf="@id/login"
+            app:layout_constraintTop_toTopOf="@id/login"
+
+
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

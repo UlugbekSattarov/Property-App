@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorBackground" format="color"/>
+    <attr name="colorOnPicture" format="color"/>
+    <attr name="textColorHeadline" format="color"/>
+
+
+    <attr name="colorSnackbarBackground" format="color"/>
+    <attr name="colorOnSnackbarBackground" format="color"/>
+
+    <attr name="colorChipBackground" format="color"/>
+    <attr name="colorChipText" format="color"/>
+
+    <attr name="colorControlInactive" format="color"/>
+    <attr name="colorControlHighlightAlt" format="color"/>
+
+    <attr name="textAppearanceHeadline7" format="reference" />
+    <attr name="textAppearanceToolbarTitle" format="reference"/>
+    <attr name="textAppearanceNavigationViewItem" format="reference"/>
+
+
+    <attr name="textInputEditTextStyle" format="reference" />
+    <attr name="textInputLayoutBasicStyle" format="reference" />
+    <attr name="textInputLayoutDropdownStyle" format="reference" />
+
+    <attr name="materialTextButtonStyle" format="reference" />
+
+    <attr name="defaultSearchViewStyle" format="reference" />
+
+
+
+    <declare-styleable name="SearchView">
+        <attr name="titleText" format="string"/>
+        <attr name="hintText" format="string"/>
+        <attr name="animationDuration" format="integer"/>
+        <attr name="backgroundColor" format="color"/>
+        <attr name="titleTextAppearance" format="reference"/>
+    </declare-styleable>
+
+
+    <style name="DefaultSearchViewStyle">
+        <item name="titleText">Title</item>
+        <item name="hintText">Hint</item>
+        <item name="animationDuration">1000</item>
+        <item name="backgroundColor">?colorPrimary</item>
+        <item name="titleTextAppearance">?textAppearanceToolbarTitle</item>
+    </style>
+
+
+    <declare-styleable name="NavigationItemView">
+        <attr name="title" format="string"/>
+        <attr name="endText" format="string"/>
+        <attr name="startIcon" format="reference"/>
+        <attr name="textColor" format="reference"/>
+
+        <!--<attr name="backgroundColor" format="color"/>
+        <attr name="titleTextAppearance" format="reference"/>-->
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,181 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+
+    <aapt:attr name="android:drawable">
+        <vector
+            android:width="24dp"
+            android:height="24dp"
+            android:viewportWidth="24.0"
+            android:viewportHeight="24.0"
+            android:tint="?colorControlNormal"
+            >
+            <group android:name="toTranslate">
+                <group
+                    android:rotation="36"
+                    android:pivotX="9.46"
+                    android:pivotY="9.48">
+                    <path
+                        android:name="circle"
+                        android:pathData="M14.9521,9.4831A5.4761,5.4761 0,0 1,9.4761 14.9591,5.4761 5.4761,0 0,1 4,9.4831 5.4761,5.4761 0,0 1,9.4761 4.007,5.4761 5.4761,0 0,1 14.9521,9.4831Z"
+                        android:strokeWidth="2"
+                        android:strokeColor="#00ff00"
+                        android:strokeLineCap="butt"
+                        android:strokeAlpha="0"
+
+                        />
+                </group>
+
+                <path
+                    android:name="glassHandle"
+                    android:pathData="M12,13.41 13.4,11.8 20.49,19.0 19.0,20.49Z"
+
+                    android:fillAlpha="0"
+                    android:strokeLineJoin="round"
+                    android:fillColor="#00ff00"
+                    android:strokeLineCap="round"/>
+            </group>
+
+            <path
+                android:name="crossBar1"
+                android:fillColor="#FF000000"
+
+                android:pathData="M 19,6.41 17.59,5 5,17.59 6.41,19 Z"/>
+
+
+            <path
+                android:name="crossBar2"
+                android:fillColor="#FF000000"
+
+
+                android:pathData="M 6.41,5 5,6.41 17.59,19 19,17.59 Z"/>
+
+        </vector>
+    </aapt:attr>
+
+    <target android:name="circle">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="trimPathEnd"
+                    android:valueFrom="0.06"
+                    android:valueTo="1"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:duration="@integer/anim_search_close_half_duration"
+                    android:startOffset="@integer/anim_search_close_cross_appearing_offset"
+
+                    />
+
+                <objectAnimator
+                    android:propertyName="strokeAlpha"
+                    android:valueFrom="0"
+                    android:valueTo="1"
+                    android:duration="@integer/anim_search_close_fade_duration"
+                    android:startOffset="@integer/anim_search_close_fade_offset"
+
+                    />
+
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="glassHandle">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="pathData"
+                    android:valueTo="M12,13.41 13.4,11.8 20.49,19.0 19.0,20.49Z"
+                    android:valueFrom="M12,13.41 13.4,11.8 14.7238,13.2338 13.2338,14.7238Z"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:duration="@integer/anim_search_close_half_duration"
+                    android:valueType="pathType"
+                    android:startOffset="@integer/anim_search_close_cross_appearing_offset"
+
+                    />
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:valueFrom="0"
+                    android:valueTo="1"
+                    android:duration="@integer/anim_search_close_fade_duration"
+                    android:startOffset="@integer/anim_search_close_fade_offset"
+
+                    />
+
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="crossBar1">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="pathData"
+                    android:valueTo="M 13.4,12 12,10.6 10.59,12 12,13.41 Z"
+                    android:valueFrom="M 19,6.41 17.59,5 5,17.59 6.41,19 Z"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:duration="@integer/anim_search_close_half_duration"
+
+                    android:valueType="pathType"
+                    />
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:valueFrom="1"
+                    android:valueTo="0"
+                    android:duration="@integer/anim_search_close_fade_duration"
+                    android:startOffset="@integer/anim_search_close_fade_offset"
+
+                    />
+            </set>
+        </aapt:attr>
+    </target>
+
+
+    <target android:name="crossBar2">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="pathData"
+                    android:valueTo="M 12,10.6 10.59,12  12,13.41 13.4,12 Z"
+                    android:valueFrom="M 6.41,5 5,6.41 17.59,19 19,17.59 Z"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:duration="@integer/anim_search_close_half_duration"
+                    android:valueType="pathType"
+                    />
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:valueFrom="1"
+                    android:valueTo="0"
+                    android:duration="@integer/anim_search_close_fade_duration"
+                    android:startOffset="@integer/anim_search_close_fade_offset"
+
+                    />
+            </set>
+        </aapt:attr>
+    </target>
+
+
+    <target android:name="toTranslate">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="translateX"
+                    android:valueFrom="-1.5"
+                    android:valueTo="0"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:duration="@integer/anim_search_close_half_duration"
+                    android:startOffset="@integer/anim_search_close_cross_appearing_offset"
+
+                    />
+                <objectAnimator
+                    android:propertyName="translateY"
+                    android:valueFrom="-1.5"
+                    android:valueTo="0"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:duration="@integer/anim_search_close_half_duration"
+                    android:startOffset="@integer/anim_search_close_cross_appearing_offset"
+
+                    />
+
+            </set>
+        </aapt:attr>
+    </target>
+</animated-vector>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.marsrealestate.MainActivity"
+
+    >
+
+    <item
+        android:id="@id/dest_login"
+        android:icon="@drawable/ic_login"
+        android:checkable="true"
+
+        android:title="@string/login" />
+
+    <item
+        android:id="@id/dest_overview"
+        android:icon="@drawable/ic_search"
+        android:checkable="true"
+        android:title="@string/browse" />
+
+
+    <item
+        android:id="@id/dest_favorites"
+        android:icon="@drawable/ic_favorite"
+        android:checkable="true"
+        android:title="@string/favorites"
+
+        />
+
+
+    <item
+        android:id="@id/dest_settings"
+        android:icon="@drawable/ic_manage"
+        android:checkable="true"
+        
+
+        android:title="@string/settings" />
+
+
+</menu>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="preference_key_dark_theme" translatable="false">preference_dark_mode</string>
+
+    <string name="preference_dark_mode_always_light" translatable="false">0</string>
+    <string name="preference_dark_mode_always_dark" translatable="false">1</string>
+    <string name="preference_dark_mode_follow_system" translatable="false">2</string>
+    <string name="preference_dark_mode_follow_battery" translatable="false">3</string>
+
+    <string-array name="preferences_dark_names">
+        <item>Always Light</item>
+        <item>Always Dark</item>
+        <item>Follow system</item>
+        <item>Follow battery saver</item>
+    </string-array>
+
+<!--    There was a bug with int array, maybe it is ok now and we can use it-->
+    <string-array name="preferences_dark_values">
+        <item>@string/preference_dark_mode_always_light</item>
+        <item>@string/preference_dark_mode_always_dark</item>
+        <item>@string/preference_dark_mode_follow_system</item>
+        <item>@string/preference_dark_mode_follow_battery</item>
+    </string-array>
+
+
+</resources>

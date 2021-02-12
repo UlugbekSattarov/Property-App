@@ -1,0 +1,215 @@
+<MotionScene xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
+    <!-- A transition describes an animation via start and end state -->
+   <Transition
+        android:id="@+id/transition_searchview_to_expanded"
+        app:constraintSetStart="@id/constraint_set_searchview_collapsed"
+        app:constraintSetEnd="@id/constraint_set_searchview_expanded"
+        app:motionInterpolator="@android:interpolator/fast_out_slow_in"
+
+        app:duration="@integer/anim_search_close_total_duration">
+
+
+       <!-- <OnClick app:targetId="@id/searchview_icon_search_container"
+            app:clickAction="toggle"
+            />-->
+        <KeyFrameSet>
+
+            <KeyAttribute
+                app:framePosition="0"
+                app:motionTarget="@id/searchview_text_input"
+                android:alpha="0"
+                />
+
+            <KeyAttribute
+                app:framePosition="30"
+                app:motionTarget="@id/searchview_text_input"
+                android:alpha="0"
+                />
+
+            <KeyAttribute
+                app:framePosition="100"
+                app:motionTarget="@id/searchview_text_input"
+                android:alpha="1"
+                />
+
+
+            <KeyAttribute
+                app:framePosition="0"
+                app:motionTarget="@id/searchview_erase_text_input_container"
+                android:alpha="0"
+                android:scaleX="0"
+                android:scaleY="0"
+                />
+
+            <KeyAttribute
+                app:framePosition="50"
+                app:motionTarget="@id/searchview_erase_text_input_container"
+                android:alpha="0"
+                android:scaleX="1"
+                android:scaleY="1"
+                />
+
+            <KeyAttribute
+                app:framePosition="100"
+                app:motionTarget="@id/searchview_erase_text_input_container"
+                android:alpha="1"
+                android:scaleX="1"
+                android:scaleY="1"
+                />
+
+            <KeyPosition
+                app:framePosition="40"
+                app:motionTarget="@id/searchview_background_above_title"
+                app:keyPositionType="deltaRelative"
+                app:percentX="1"
+                />
+
+            <KeyPosition
+                app:framePosition="40"
+                app:motionTarget="@id/searchview_underline"
+                app:keyPositionType="deltaRelative"
+                app:percentX="1"
+
+                />
+        </KeyFrameSet>
+    </Transition>
+
+
+    <Transition
+        android:id="@+id/transition_searchview_to_collapsed"
+        app:constraintSetStart="@id/constraint_set_searchview_expanded"
+        app:constraintSetEnd="@id/constraint_set_searchview_collapsed"
+        app:motionInterpolator="@android:interpolator/fast_out_slow_in"
+
+        app:duration="@integer/anim_search_close_total_duration">
+
+
+       <!-- <OnClick app:targetId="@id/searchview_icon_search_container"
+            app:clickAction="toggle"
+            />-->
+        <KeyFrameSet>
+
+            <KeyAttribute
+                app:framePosition="0"
+                app:motionTarget="@id/searchview_text_input"
+                android:alpha="1"
+                />
+
+            <KeyAttribute
+                app:framePosition="15"
+                app:motionTarget="@id/searchview_text_input"
+                android:alpha="0"
+                />
+
+            <KeyAttribute
+                app:framePosition="100"
+                app:motionTarget="@id/searchview_text_input"
+                android:alpha="0"
+                />
+
+
+            <KeyAttribute
+                app:framePosition="0"
+                app:motionTarget="@id/searchview_erase_text_input_container"
+                android:alpha="1"
+                android:scaleX="1"
+                android:scaleY="1"
+                />
+
+            <KeyAttribute
+                app:framePosition="30"
+                app:motionTarget="@id/searchview_erase_text_input_container"
+                android:alpha="0"
+                android:scaleX="1"
+                android:scaleY="1"
+                />
+
+
+            <KeyAttribute
+                app:framePosition="100"
+                app:motionTarget="@id/searchview_erase_text_input_container"
+                android:alpha="0"
+                android:scaleX="0"
+                android:scaleY="0"
+                />
+
+
+
+
+
+
+            <KeyPosition
+                app:framePosition="40"
+                app:motionTarget="@id/searchview_background_above_title"
+                app:keyPositionType="deltaRelative"
+                app:percentX="1"
+
+                />
+
+            <KeyPosition
+                app:framePosition="40"
+                app:motionTarget="@id/searchview_underline"
+                app:keyPositionType="deltaRelative"
+                app:percentX="1"
+
+                />
+        </KeyFrameSet>
+    </Transition>
+
+
+
+
+    <ConstraintSet android:id="@+id/constraint_set_searchview_collapsed">
+        <Constraint
+            android:id="@id/searchview_background_above_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/searchview_icon_search_container"
+            />
+        <Constraint
+            android:id="@id/searchview_underline"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/searchview_icon_search_container"
+
+            android:layout_marginBottom="8dp"
+            />
+
+
+    </ConstraintSet>
+
+
+
+
+    <ConstraintSet android:id="@+id/constraint_set_searchview_expanded">
+        <Constraint
+            android:id="@id/searchview_background_above_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            />
+        <Constraint
+            android:id="@id/searchview_underline"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            />
+    </ConstraintSet>
+
+</MotionScene>

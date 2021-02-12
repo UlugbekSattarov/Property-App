@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppThemeCommon" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+        <item name="textAppearanceToolbarTitle">@style/MyStyle.TextAppearance.ToolbarTitleDefault</item>
+        <item name="textAppearanceNavigationViewItem">@style/MyStyle.TextAppearance.NavigationViewItem</item>
+
+        <item name="textAppearanceHeadline2">@style/MyStyle.TextAppearance.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/MyStyle.TextAppearance.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/MyStyle.TextAppearance.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/MyStyle.TextAppearance.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/MyStyle.TextAppearance.Headline6</item>
+        <item name="textAppearanceHeadline7">@style/MyStyle.TextAppearance.Headline7</item>
+        <item name="textAppearanceSubtitle1">@style/MyStyle.TextAppearance.Subtitle1</item>
+        <item name="textAppearanceCaption">@style/MyStyle.TextAppearance.Caption</item>
+        <item name="textAppearanceBody1">@style/MyStyle.TextAppearance.Body1</item>
+        <item name="textAppearanceButton">@style/MyStyle.TextAppearance.Button</item>
+
+
+
+        <item name="toolbarStyle">@style/MyStyle.Widgets.Toolbar.Default</item>
+        <item name="chipStyle">@style/MyStyle.Widgets.Chip</item>
+        <item name="snackbarStyle">@style/MyStyle.Widgets.SnackBar</item>
+        <item name="snackbarTextViewStyle">@style/MyStyle.TextAppearance.SnackbarTextViewStyle</item>
+        <item name="snackbarButtonStyle">@style/MyStyle.Widgets.Button.SnackbarButton</item>
+        <item name="materialButtonStyle">@style/MyStyle.Widgets.Button</item>
+        <item name="materialTextButtonStyle">@style/MyStyle.Widgets.Button.Text</item>
+        <item name="floatingActionButtonStyle">@style/MyStyle.Widgets.FloatingActionButton</item>
+        <item name="extendedFloatingActionButtonStyle">@style/MyStyle.Widgets.ExtendedFloatingActionButton</item>
+        <item name="textInputLayoutBasicStyle">@style/MyStyle.Widgets.TextInputLayout.Basic</item>
+        <item name="textInputLayoutDropdownStyle">@style/MyStyle.Widgets.TextInputLayout.Dropdown</item>
+        <item name="navigationViewStyle">@style/MyStyle.Widgets.NavigationViewStyle</item>
+        <item name="textInputEditTextStyle">@style/MyStyle.Widgets.TextInput</item>
+
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+
+
+    <style name="AppTheme.NavigationViewTheme" parent="AppTheme">
+
+        <item name="colorControlHighlight">?colorControlHighlightAlt</item>
+    </style>
+
+
+    <style name="AppTheme.ImageToolbarTheme" parent="AppTheme">
+        <item name="android:textColorPrimary">?colorOnPicture</item>
+        <item name="colorControlNormal">?colorOnPicture</item>
+    </style>
+
+
+</resources>

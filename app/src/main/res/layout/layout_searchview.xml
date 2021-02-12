@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout
+    android:id="@+id/searchview_mlayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:layout_height="50dp"
+    tools:context="com.example.marsrealestate.MainActivity"
+
+    app:layoutDescription="@xml/scene_search_view"
+    android:background="?colorPrimary"
+
+    >
+    <TextView
+        android:id="@+id/searchview_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        tools:text="Title text"
+
+        android:textAppearance="?textAppearanceToolbarTitle"
+        />
+
+    <View
+        android:id="@+id/searchview_background_above_title"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+
+        android:background="?colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/searchview_icon_search_container"
+        app:layout_constraintStart_toStartOf="@id/searchview_icon_search_container"
+
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
+
+    <EditText
+        android:id="@+id/searchview_text_input"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/searchview_icon_search_container"
+
+        android:textColorHint="?android:textColorPrimary"
+
+
+        tools:hint="@string/search_by_id"
+
+        android:enabled="false"
+
+        android:imeOptions="actionSearch"
+        android:inputType="number"
+
+        android:background="@android:color/transparent"
+        android:alpha="0"
+        />
+
+    <!-- Because the ripple effect of the close button is drawn on the background
+     of the container, so we have to create a container above the others
+     Ripple effect won't show without, and foreground could solve it but only
+     for API 23+-->
+    <FrameLayout
+        android:id="@+id/searchview_erase_text_input_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/searchview_icon_search_container"
+
+        android:clickable="true"
+        android:focusable="true"
+
+        android:scaleX="0"
+        android:scaleY="0"
+
+        android:background="?colorPrimary"
+
+        >
+        <ImageView
+            android:id="@+id/searchview_erase_text_input"
+            android:layout_width="@dimen/menu_item_size_mini"
+            android:layout_height="@dimen/menu_item_size_mini"
+
+            android:tint="@color/grayLighter"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_very_small"
+
+            android:duplicateParentState="true"
+
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close"
+            />
+    </FrameLayout>
+
+    <View
+        android:id="@+id/searchview_underline"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/searchview_icon_search_container"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/margin_small"
+
+        android:background="?colorSecondary"
+
+        />
+
+    <FrameLayout
+        android:id="@+id/searchview_icon_search_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="?colorPrimary"
+
+        >
+        <ImageView
+            android:id="@+id/searchview_icon_search"
+            android:layout_width="@dimen/menu_item_size"
+            android:layout_height="@dimen/menu_item_size"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_small"
+
+            android:src="@drawable/an_search_close"
+            android:tint="?colorSecondary"
+            android:background="?selectableItemBackgroundBorderless"
+            />
+    </FrameLayout>
+
+
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

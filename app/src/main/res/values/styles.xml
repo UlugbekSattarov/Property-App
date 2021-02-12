@@ -1,0 +1,219 @@
+<resources>
+
+    <!--    Themes are in themes.xml-->
+
+
+    <style name="MyStyle"/>
+    <style name="MyStyle.Widgets"/>
+
+
+    <style name="MyStyle.Widgets.Toolbar.Default" parent="Widget.MaterialComponents.Toolbar">
+        <item name="titleTextAppearance">?textAppearanceToolbarTitle</item>
+        <item name="titleTextColor">?colorOnPrimary</item>
+        <item name="android:background">?colorPrimary</item>
+        <item name="popupTheme">@style/AppTheme.PopupTheme</item>
+    </style>
+
+
+    <style name="MyStyle.Widgets.Toolbar.ImageToolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="popupTheme">@style/AppTheme.PopupTheme</item>
+    </style>
+
+
+    <style name="MyStyle.Widgets.Chip" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="chipBackgroundColor">?colorChipBackground</item>
+        <item name="android:textColor">?colorChipText</item>
+        <item name="shapeAppearanceOverlay">@style/MyStyle.ShapeAppearance.Chip</item>
+    </style>
+
+    <style name="MyStyle.Widgets.Chip.Filter" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">?colorChipBackground</item>
+        <item name="android:textColor">?colorChipText</item>
+        <item name="shapeAppearanceOverlay">@style/MyStyle.ShapeAppearance.Chip</item>
+        <item name="checkedIcon">@drawable/ic_check</item>
+    </style>
+
+    <style name="MyStyle.Widgets.SnackBar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="backgroundTint">?colorSnackbarBackground</item>
+        <item name="actionTextColorAlpha">1</item>
+<!--        <item name="android:textAppearance">@style/MyStyle.TextAppearance.SnackbarTextViewStyle</item>-->
+
+
+<!--        <item name="android:textColor">?colorSecondary</item>-->
+<!--        <item name="textColor">?colorSecondary</item>-->
+
+        <!-- Text color has to be set with code in Snackbar.make()....
+             Currently done in com.example.marsrealestate.util.ExtensionsSnackbar.withColoredText()
+        -->
+    </style>
+
+    <style name="MyStyle.Widgets.SnackBarButton" parent="Widget.MaterialComponents.Button.TextButton">
+    </style>
+
+
+
+
+    <style name="MyStyle.Widgets.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="shapeAppearanceOverlay">@style/MyStyle.ShapeAppearance.FloatingActionButton</item>
+        <item name="rippleColor">?colorOnSecondary</item>
+    </style>
+
+    <style name="MyStyle.Widgets.ExtendedFloatingActionButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="shapeAppearanceOverlay">@style/MyStyle.ShapeAppearance.ExtendedFloatingActionButton</item>
+        <item name="rippleColor">?colorOnSecondary</item>
+    </style>
+
+    <style name="MyStyle.Widgets.TextInputLayout.Basic" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/control_activable</item>
+        <item name="startIconTint">@color/control_activable</item>
+        <item name="endIconTint">@color/control_activable</item>
+        <item name="hintTextColor">@color/control_activable</item>
+    </style>
+
+    <style name="MyStyle.Widgets.TextInputLayout.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@color/control_activable</item>
+        <item name="startIconTint">@color/control_activable</item>
+        <item name="endIconTint">@color/control_activable</item>
+        <item name="hintTextColor">@color/control_activable</item>
+    </style>
+
+
+    <style name="MyStyle.Widgets.TextInput" parent="">
+        <item name="android:textAppearance">?textAppearanceHeadline7</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+
+    <style name="MyStyle.Widgets.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">?colorSecondary</item>
+        <item name="android:textColor">?colorOnSecondary</item>
+        <item name="rippleColor">?colorControlHighlight</item>
+    </style>
+
+    <style name="MyStyle.Widgets.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
+<!--        <item name="android:stateListAnimator">@null</item>-->
+        <item name="elevation">2dp</item>
+        <item name="android:elevation">2dp</item>
+<!--        <item name="strokeColor">?colorSecondary</item>-->
+<!--        <item name="strokeWidth">1dp</item>-->
+
+<!--        <item name="android:backgroundTint">?colorPrimary</item>-->
+<!--        <item name="android:textColor">?colorOnPrimary</item>-->
+        <item name="android:backgroundTint">?colorPrimary</item>
+        <item name="android:textColor">?colorOnPrimary</item>
+        <item name="rippleColor">@color/control_highlight_alt</item>
+
+    </style>
+
+    <style name="MyStyle.Widgets.Button.SnackbarButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:textColor">?colorSecondaryVariant</item>
+        <item name="rippleColor">@color/control_highlight_alt</item>
+
+    </style>
+
+
+<!--    Currently unused because NavigationView is not customizable enough-->
+    <style name="MyStyle.Widgets.NavigationViewStyle" parent="Widget.Design.NavigationView">
+
+        <!--Background material shape is done with binding adapter because
+        there is no other way with basic styling-->
+        <item name="theme">@style/AppTheme.NavigationViewTheme</item>
+<!--        <item name="android:background">?colorBackground</item>-->
+        <item name="itemTextColor">@color/control_activable</item>
+        <item name="itemIconTint">@color/control_activable</item>
+        <item name="itemTextAppearance">?textAppearanceNavigationViewItem</item>
+        <item name="itemShapeAppearanceOverlay">@style/MyStyle.ShapeAppearance.NavigationItemView</item>
+        <item name="itemShapeFillColor">@color/nav_view_item_background</item>
+        <item name="itemShapeInsetEnd">20dp</item>
+    </style>
+
+
+    <style name="MyStyle.TextAppearance"/>
+
+    <style name="MyStyle.TextAppearance.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="android:textSize">44sp</item>
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textSize">38sp</item>
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textSize">32sp</item>
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Headline7" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/raleway_medium</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/raleway_medium</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/lato</item>
+    </style>
+
+
+
+
+    <style name="MyStyle.TextAppearance.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/raleway_bold</item>
+<!--        <item name="android:textStyle">bold</item>-->
+    </style>
+
+
+
+    <style name="MyStyle.TextAppearance.ToolbarTitleDefault" >
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?colorSecondary</item>
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.NavigationViewItem" >
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.SnackbarTextViewStyle" >
+        <item name="android:textColor">?colorOnSnackbarBackground</item>
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.TitleOnPicture" parent="MyStyle.TextAppearance.Headline4">
+        <item name="android:textColor">?colorOnPicture</item>
+    </style>
+
+
+    <style name="MyStyle.TextAppearance.CollapsingToolbar.TitleExpanded" parent="MyStyle.TextAppearance.TitleOnPicture">
+        <item name="android:textSize">38sp</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.CollapsingToolbar.TitleCollapsed" parent="MyStyle.TextAppearance.TitleOnPicture">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>

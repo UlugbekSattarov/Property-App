@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.example.marsrealestate.util.Result"/>
+
+        <variable
+            name="viewModel"
+            type="com.example.marsrealestate.overview.OverviewViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.marsrealestate.MainActivity"
+        >
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:translationZ="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/toolbar_height"
+                    android:padding="0dp"
+                    tools:menu="@menu/overview_fragment_menu">
+
+                    <com.example.marsrealestate.custom.SearchView
+                        android:id="@+id/toolbar_searchview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        app:hintText="@string/search_by_id"
+                        app:inputText="@{viewModel.queryString}"
+
+                        app:onViewCollapseExpand="@{(collapsed) -> collapsed ? viewModel.clearQueryStringAndUpdate() : null }"
+                        app:onSearch="@{ (str) -> viewModel.updateQueryString(str) }"
+                        app:titleText="@string/mars_properties"
+
+                        />
+
+                </androidx.appcompat.widget.Toolbar>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp"
+                    >
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:paddingStart="25dp"
+                        android:paddingEnd="25dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        app:chipSpacing="10dp"
+
+                        app:marsApiFilter="@={viewModel.filter}"
+                        app:selectionRequired="true"
+                        app:singleSelection="true"
+
+                        >
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_all"
+                            style="@style/MyStyle.Widgets.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+
+                            android:text="@string/all"
+                            tools:checked="true" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_rent"
+                            style="@style/MyStyle.Widgets.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:text="@string/to_rent" />
+
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_buy"
+                            style="@style/MyStyle.Widgets.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:text="@string/to_buy" />
+                    </com.google.android.material.chip.ChipGroup>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/card_expiration_year"
+                        style="?textInputLayoutDropdownStyle"
+
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+
+                        android:hint="Sort by"
+
+
+                        >
+
+                        <AutoCompleteTextView
+                            android:id="@+id/sorting_option"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="none"
+
+                            app:marsApiSorting="@={viewModel.sortedBy}"
+
+                            android:textAppearance="?textAppearanceHeadline6"
+                            android:textSize="14sp"
+
+
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            >
+            <ImageView
+                android:id="@+id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                android:scaleType="fitXY"
+                android:src="@drawable/an_loading_horizontal"
+                android:translationZ="20dp"
+
+                android:background="?colorBackground"
+
+                app:fadeInIf="@{viewModel.status.isLoading}" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/photos_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                android:scrollbars="vertical"
+
+                app:itemSpacing="@{@dimen/card_spacing}"
+                app:columnNumber="@{@integer/columnNumber}"
+                app:endSpace="@{@dimen/margin_extra_large}"
+
+                tools:itemCount="16"
+                tools:listitem="@layout/layout_item_overview"
+
+
+                />
+
+
+            <ImageView
+                android:id="@+id/image_no_network2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="30dp"
+
+                android:tint="?colorOnBackground"
+                android:src="@drawable/ic_network_unavailable"
+
+                android:visibility="@{viewModel.status.isError ? View.VISIBLE : View.GONE}"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_no_network2"
+                android:layout_marginTop="20dp"
+
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:textColor="?colorOnBackground"
+
+                android:text="No properties found"
+                android:visibility="@{(viewModel.status.isSuccess &amp;&amp; viewModel.properties.empty) ? View.VISIBLE : View.GONE}"
+
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

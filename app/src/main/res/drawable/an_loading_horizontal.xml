@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:width="100dp"
+            android:height="10dp"
+            android:viewportWidth="100"
+            android:viewportHeight="10"
+            android:tint="?colorSecondary"
+            >
+
+            <group android:name="rect1"
+                android:translateX="-80"
+                >
+                <path
+                    android:pathData="M0,-0h78.882v10h-78.882z"
+                    android:fillColor="#aad400"
+                    />
+            </group>
+            <group android:name="rect2"
+                android:translateX="-80"
+                >
+                <path
+                    android:pathData="M0,-0h78.882v10h-78.882z"
+                    android:fillColor="#aad400"
+                    />
+            </group>
+        </vector>
+
+    </aapt:attr>
+    <target android:name="rect1">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="translateX"
+                    android:valueFrom="-25"
+                    android:valueTo="155"
+                    android:duration="2000"
+
+
+
+                    android:repeatCount="infinite"
+                    android:repeatMode="restart"
+
+                    />
+
+                <objectAnimator
+                    android:propertyName="scaleX"
+                    android:valueFrom="0.3f"
+                    android:valueTo="1.2f"
+                    android:duration="2000"
+
+
+
+                    android:repeatCount="infinite"
+                    android:repeatMode="restart"
+
+                    />
+
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="rect2">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="translateX"
+                    android:valueFrom="-85"
+                    android:valueTo="100"
+                    android:duration="2000"
+
+                    android:startOffset="200"
+
+                    android:repeatCount="infinite"
+                    android:repeatMode="restart"
+
+                    />
+
+                <objectAnimator
+                    android:propertyName="scaleX"
+                    android:valueFrom="0.8f"
+                    android:valueTo="0.2f"
+                    android:duration="2000"
+
+                    android:startOffset="200"
+
+                    android:repeatCount="infinite"
+                    android:repeatMode="restart"
+
+                    />
+
+            </set>
+        </aapt:attr>
+    </target>
+</animated-vector>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:title="Dark mode"
+        android:summary="Select when to use dark mode"
+
+        
+
+        android:icon="@drawable/ic_dark_mode"
+
+        android:defaultValue="@string/preference_dark_mode_follow_system"
+        android:key="@string/preference_key_dark_theme"
+        android:entries="@array/preferences_dark_names"
+        android:entryValues="@array/preferences_dark_values"
+
+        />
+
+
+
+
+</PreferenceScreen>

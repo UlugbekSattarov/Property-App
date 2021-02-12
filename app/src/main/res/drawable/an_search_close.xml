@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/checked"
+        android:state_checked="true"
+        android:drawable="@drawable/ic_close"/>
+
+    <item
+        android:id="@+id/base"
+        android:drawable="@drawable/ic_search_anim"/>
+
+    <transition
+        android:drawable="@drawable/an_search_close_unchecked_to_checked"
+        android:fromId="@id/base"
+        android:toId="@id/checked">
+
+    </transition>
+
+    <transition
+        android:drawable="@drawable/an_search_close_checked_to_unchecked"
+        android:fromId="@id/checked"
+        android:toId="@id/base"
+        />
+</animated-selector>

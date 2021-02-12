@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MyStyle.ShapeAppearance.FloatingActionButton" parent="MyStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28dp</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerSizeTopRight">12dp</item>
+
+    </style>
+
+    <style name="MyStyle.ShapeAppearance.NavigationItemView" parent="MyStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">0dp</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerSizeTopRight">25dp</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeBottomRight">25dp</item>
+
+    </style>
+
+
+    <style name="MyStyle.ShapeAppearance.ExtendedFloatingActionButton" parent="MyStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">22dp</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerSizeTopRight">12dp</item>
+
+    </style>
+
+
+
+    <style name="MyStyle.ShapeAppearance.Chip" parent="MyStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+    </style>
+
+
+
+    <style name="MyStyle.ShapeAppearance.NavigationView" parent="MyStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">0dp</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeBottomRight">40dp</item>
+    </style>
+
+
+
+</resources>

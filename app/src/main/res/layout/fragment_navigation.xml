@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.example.marsrealestate.navigation.NavigationViewModel" />
+
+        <variable
+            name="loginViewModel"
+            type="com.example.marsrealestate.login.LoginViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.example.marsrealestate.navigation.NavigationFragment" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_width="280dp"
+
+        tools:context=".navigation.NavigationFragment">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="@dimen/margin_medium"
+
+            android:elevation="-1dp"
+
+            android:src="@drawable/ot_mars"
+
+            android:visibility="@{ @bool/showPlanetNavigation ? View.VISIBLE : View.GONE }"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/topImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_margin="@dimen/margin_medium"
+
+                    android:text="@string/app_name"
+                    android:textAppearance="?textAppearanceHeadline5"
+                    android:textColor="?colorSecondary"
+
+                    android:scaleType="centerCrop"
+                    />
+
+                <com.example.marsrealestate.custom.NavigationItemView
+                    android:id="@+id/login"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+
+
+                    android:layout_marginEnd="@dimen/margin_medium"
+
+
+
+                    tools:startIcon="@drawable/ic_login"
+                    tools:title="@string/login"
+                    app:title="@{ loginViewModel.userLogged != null ? @string/welcome_xxx(loginViewModel.userLogged) : @string/login}"
+                    app:startIcon="@{loginViewModel.isLoggedIn() ? @drawable/mars_image_1_square : @drawable/ic_login}"
+                    app:textColor="@color/control_activable"
+
+                    android:onClick="@{ () -> fragment.changeDestination(@id/dest_login)}"
+                    app:isActive="@{ viewModel.currentDestinationId == @id/dest_login}"
+
+                    />
+
+                <com.example.marsrealestate.custom.NavigationItemView
+                    android:id="@+id/overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+
+                    android:layout_marginEnd="@dimen/margin_medium"
+
+                    app:title="@string/browse"
+                    app:startIcon="@drawable/ic_search"
+                    app:textColor="@color/control_activable"
+
+                    android:onClick="@{ () -> fragment.changeDestination(@id/dest_overview)}"
+                    app:isActive="@{ viewModel.currentDestinationId == @id/dest_overview}"
+
+
+                    />
+
+                <com.example.marsrealestate.custom.NavigationItemView
+                    android:id="@+id/favorites"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+
+
+                    android:layout_marginEnd="@dimen/margin_medium"
+
+
+                    app:title="@string/favorites"
+                    app:startIcon="@drawable/ic_favorite"
+                    app:textColor="@color/control_activable"
+
+                    android:onClick="@{ () -> fragment.changeDestination(@id/dest_favorites)}"
+                    app:isActive="@{ viewModel.currentDestinationId == @id/dest_favorites}"
+                    app:endText="@{viewModel.favoritesCount.toString()}"
+
+                    />
+
+                <com.example.marsrealestate.custom.NavigationItemView
+                    android:id="@+id/settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+
+                    android:layout_marginEnd="@dimen/margin_medium"
+
+                    app:title="@string/settings"
+                    app:startIcon="@drawable/ic_manage"
+                    app:textColor="@color/control_activable"
+
+                    android:onClick="@{ () -> fragment.changeDestination(@id/dest_settings)}"
+                    app:isActive="@{ viewModel.currentDestinationId == @id/dest_settings}"
+
+
+                    />
+
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    </ScrollView>-->
+</layout>
