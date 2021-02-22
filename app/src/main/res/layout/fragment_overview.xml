@@ -60,6 +60,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginBottom="10dp"
+
                     >
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/chip_group"
@@ -68,7 +69,7 @@
 
                         android:paddingStart="25dp"
                         android:paddingEnd="25dp"
-                        android:paddingTop="4dp"
+                        android:paddingTop="8dp"
                         android:paddingBottom="4dp"
                         app:chipSpacing="10dp"
 
@@ -109,6 +110,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/card_expiration_year"
                         style="?textInputLayoutDropdownStyle"
+                        app:boxStrokeWidth="0dp"
+                        android:paddingBottom="0dp"
 
                         android:layout_width="140dp"
                         android:layout_height="wrap_content"
@@ -191,7 +194,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="30dp"
 
-                android:tint="?colorOnBackground"
+                app:tint="?colorOnBackground"
                 android:src="@drawable/ic_network_unavailable"
 
                 android:visibility="@{viewModel.status.isError ? View.VISIBLE : View.GONE}"

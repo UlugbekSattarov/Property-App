@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.LayoutItemOverviewBinding
 import com.example.marsrealestate.util.SharedElementTransition
-import kotlinx.android.synthetic.main.layout_item_overview.view.*
 
 interface OnLastItemDisplayedListener { fun onLastItemDisplayed() }
 
@@ -30,7 +29,7 @@ class OverviewAdapter(private val onClickListener: OnClickListener,
         super.onViewAttachedToWindow(holder)
     }
 
-    class MarsPropertyViewHolder(private var binding: LayoutItemOverviewBinding):
+    class MarsPropertyViewHolder(private val binding: LayoutItemOverviewBinding):
             RecyclerView.ViewHolder(binding.root) {
         fun bind(marsProperty: MarsProperty) {
 

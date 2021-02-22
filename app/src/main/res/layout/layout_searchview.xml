@@ -96,7 +96,7 @@
             android:layout_width="@dimen/menu_item_size_mini"
             android:layout_height="@dimen/menu_item_size_mini"
 
-            android:tint="@color/grayLighter"
+            app:tint="@color/grayLighter"
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_very_small"
 
@@ -140,7 +140,7 @@
             android:layout_marginStart="@dimen/margin_small"
 
             android:src="@drawable/an_search_close"
-            android:tint="?colorSecondary"
+            app:tint="?colorSecondary"
             android:background="?selectableItemBackgroundBorderless"
             />
     </FrameLayout>

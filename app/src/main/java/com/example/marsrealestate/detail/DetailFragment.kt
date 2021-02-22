@@ -1,5 +1,6 @@
 package com.example.marsrealestate.detail
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.FloatRange
+import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
@@ -60,6 +62,7 @@ class DetailFragment : Fragment() {
 
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -77,9 +80,9 @@ class DetailFragment : Fragment() {
 
 
 
-        viewDataBinding.viewpager.adapter = DetailViewPagerAdapter()
-        viewDataBinding.viewpager.setPageTransformer(DetailViewPagerPageTransformer())
-        viewDataBinding.viewpager.offscreenPageLimit = 3
+
+        setupViewPager()
+
 
         //Functional
         requireActivity().setupToolbarIfDrawerLayoutPresent(this,viewDataBinding.toolbar)
@@ -90,6 +93,7 @@ class DetailFragment : Fragment() {
 
         return viewDataBinding.root
     }
+
 
 
 
@@ -159,6 +163,32 @@ class DetailFragment : Fragment() {
     }
 
 
+    private fun setupViewPager() {
+        viewDataBinding.viewpager.apply {
+            adapter = DetailViewPagerAdapter(property)
+            setPageTransformer(DetailViewPagerPageTransformer())
+            offscreenPageLimit = 3
+
+            registerOnPageChangeCallback(object :
+                ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    viewDataBinding.viewpagerCaption.animate().alpha(0f).withEndAction {
+                        val orientation = when (position) {
+                            0 -> "South"
+                            1 -> "East"
+                            2 -> "North"
+                            else -> "West"
+                        }
+                        viewDataBinding.viewpagerCaption.text = "View from $orientation"
+                        viewDataBinding.viewpagerCaption.animate().alpha(1f).start()
+
+                    }.start()
+
+                }
+            })
+        }
+    }
 
 
 }

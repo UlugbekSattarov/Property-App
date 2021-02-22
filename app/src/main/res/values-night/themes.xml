@@ -12,7 +12,7 @@
         <item name="colorOnSecondary">@color/white</item>
 
         <item name="colorBackground">@color/almostBlack</item>
-        <item name="colorOnBackground">@color/grayDark</item>
+        <item name="colorOnBackground">@color/grayLighter</item>
         <item name="colorSnackbarBackground">@color/grayLighterer</item>
         <item name="colorOnSnackbarBackground">@android:color/black</item>
 

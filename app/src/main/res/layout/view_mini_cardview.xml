@@ -11,11 +11,13 @@
     android:layout_height="match_parent"
     android:layout_marginStart="30dp"
     android:layout_marginEnd="30dp"
+    android:layout_marginBottom="20dp"
 
     tools:layout_height="200dp"
     tools:layout_width="200dp"
 
     app:cardCornerRadius="20dp"
+    app:cardElevation="10dp"
 
     >
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,21 +37,6 @@
             tools:src="@tools:sample/backgrounds/scenic"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mini_img"
-
-            android:layout_margin="4dp"
-            android:layout_marginBottom="4dp"
-            android:text="Lorem "
-            style="@style/TextAppearance.MaterialComponents.Subtitle1"
-
-            android:textSize="12sp"
-
-            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
