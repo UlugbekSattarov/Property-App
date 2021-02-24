@@ -3,6 +3,7 @@ package com.example.marsrealestate.data.network
 import com.example.marsrealestate.R
 import com.example.marsrealestate.data.MarsProperty
 import kotlinx.coroutines.delay
+import kotlin.random.Random
 
 
 class MarsApiServiceNoServerImpl : MarsApiService {
@@ -22,7 +23,11 @@ class MarsApiServiceNoServerImpl : MarsApiService {
         List(30) { MarsProperty("${it +140_000}",
             "${images[it%images.size]}",
             types[it%types.size],
-            100_000.0 + (0..200_000).random()) }.asSequence()
+            100_000.0 + (0..200_000).random(),
+            surfaceArea = (Random.nextFloat() * 50) + 0.2f,
+            latitude = (Random.nextFloat() * 180) - 90,
+            longitude = (Random.nextFloat() * 360)
+            ) }.asSequence()
     }
 
 

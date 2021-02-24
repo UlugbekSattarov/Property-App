@@ -1,6 +1,7 @@
 package com.example.marsrealestate.data
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
@@ -14,10 +15,16 @@ data class MarsProperty (
     @Json(name = "img_src") val imgSrcUrl: String,
 
     val type: String,
-    val price: Double)  : Parcelable {
+    val price: Double,
+    val surfaceArea : Float ,
+    val latitude : Float,
+    val longitude : Float)  : Parcelable {
 
     val isRental
         get() = type == "rent"
+
+
+
 
 }
 

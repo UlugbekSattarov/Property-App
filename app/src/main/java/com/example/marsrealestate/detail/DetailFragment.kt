@@ -1,8 +1,11 @@
 package com.example.marsrealestate.detail
 
+import android.icu.text.NumberFormat
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +15,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
+import androidx.databinding.InverseMethod
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -31,6 +35,7 @@ import com.example.marsrealestate.login.LoginViewModelFactory
 import com.example.marsrealestate.util.*
 import com.google.android.material.transition.MaterialContainerTransform
 import java.lang.Exception
+import java.lang.NumberFormatException
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -45,9 +50,11 @@ class DetailFragment : Fragment() {
         }
         catch (e: Exception) {
             Log.i("$this",e.toString())
-            MarsProperty("0000", "", "rent", 123456.0)
+            MarsProperty("0000", "", "rent", 123456.0,surfaceArea = 12.2f,latitude = 23.56f,longitude = 223.48f)
         }
     }
+
+
 
 
     private val viewModel : DetailViewModel by viewModels {
@@ -76,8 +83,6 @@ class DetailFragment : Fragment() {
         setupSharedElementTransition(transitionName)
         loadSharedImageBeforeEnterTransition(property.imgSrcUrl,viewDataBinding.imageToolbar)
         lifecycleScope.launchWhenResumed { animOnResume() }
-
-
 
 
 
@@ -158,7 +163,7 @@ class DetailFragment : Fragment() {
             .start()
         toolbarScrim.animate().alpha(1f)
             .setStartDelay(300)
-            .setDuration(1800)
+            .setDuration(900)
             .start()
     }
 
@@ -189,7 +194,20 @@ class DetailFragment : Fragment() {
             })
         }
     }
+}
 
+object MarsCoordsToStringConverter {
+
+    private fun formatLatitudeToString(value: Float): String {
+        val lat = String.format("%.1f", abs(value))
+        return if (value > 0) "$lat° N" else "$lat° S"
+
+    }
+
+    private fun formatLongitudeToString(value: Float): String  = String.format("%.1f° E",value)
+
+   @JvmStatic
+    fun formatCoordsToString(prop: MarsProperty): String  = "${formatLatitudeToString(prop.latitude)}\n${formatLongitudeToString(prop.longitude)}"
 
 }
 

@@ -16,6 +16,9 @@ class DetailViewModel(private val prop : MarsProperty, private val repository: M
     private val _property = MutableLiveData<MarsProperty>(prop)
     val property : LiveData<MarsProperty> = _property
 
+    private val _propertyViewCount = MutableLiveData<Int>((0..3).random())
+    val propertyViewCount : LiveData<Int> = _propertyViewCount
+
 
     private val _propertyAddedRemovedToFavorites = MutableLiveData<Result<MarsProperty>>()
     val propertyAddedRemovedToFavorites : LiveData<Result<MarsProperty>> = _propertyAddedRemovedToFavorites
@@ -24,6 +27,7 @@ class DetailViewModel(private val prop : MarsProperty, private val repository: M
 
     private val _navigateToPayment = MutableLiveData<Event<MarsProperty>>()
     val navigateToPayment: LiveData<Event<MarsProperty>> = _navigateToPayment
+
 
 
 

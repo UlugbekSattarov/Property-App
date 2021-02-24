@@ -43,6 +43,7 @@ object ServiceLocator {
         return Room.databaseBuilder(context,
             MarsDatabase::class.java,
             "mars_database.db")
+            .addMigrations(MarsDatabase.MIGRATION_1_2)
             .build()
     }
 

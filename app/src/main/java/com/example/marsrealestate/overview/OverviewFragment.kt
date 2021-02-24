@@ -95,7 +95,7 @@ class OverviewFragment : Fragment() {
 
     private fun bli() {
 
-        val property = MarsProperty("140158", "${R.drawable.mars_landscape_2}", "", 0.toDouble())
+        val property = MarsProperty("140158", "${R.drawable.mars_landscape_2}", "", 0.toDouble(),22f,58f,-50f)
 
 
         val deeplink = findNavController().createDeepLink()

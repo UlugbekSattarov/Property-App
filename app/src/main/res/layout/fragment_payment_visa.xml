@@ -87,7 +87,7 @@
             android:src="@drawable/ic_date"
 
 
-            android:tint="?colorControlInactive"
+            app:tint="?colorControlInactive"
             app:layout_constraintStart_toStartOf="@id/card_number"
             app:layout_constraintTop_toBottomOf="@id/card_number" />
 
@@ -189,7 +189,7 @@
             android:layout_marginTop="@dimen/margin_very_large"
 
             android:src="@drawable/ic_secret"
-            android:tint="?colorControlInactive"
+            app:tint="?colorControlInactive"
 
             app:layout_constraintStart_toStartOf="@id/card_number"
             app:layout_constraintTop_toBottomOf="@id/card_expiration_month" />
