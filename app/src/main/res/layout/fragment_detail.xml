@@ -6,6 +6,7 @@
     <data>
         <import type="com.example.marsrealestate.detail.MarsCoordsToStringConverter"/>
         <import type="android.text.Html"/>
+        <import type="android.view.View"/>
 
 
         <variable
@@ -193,6 +194,7 @@
                     app:tint="?colorSecondary" />
 
                 <TextView
+                    android:id="@+id/price_text"
                     style="?textAppearanceSubtitle1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -205,6 +207,22 @@
                     tools:text="234 k$"
                     android:text="@{String.format(`%.1f k$`, viewModel.property.price / 1000)}"
 
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/price_text"
+                    app:layout_constraintEnd_toEndOf="@id/price_text"
+                    app:layout_constraintTop_toBottomOf="@id/price_text"
+                    android:layout_marginTop="@dimen/margin_very_small"
+
+                    android:visibility="@{viewModel.property.rental ? View.VISIBLE : View.GONE}"
+                    style="?textAppearanceCaption"
+                    android:textSize="10sp"
+                    android:textColor="?android:textColorTertiary"
+                    tools:text="Per month"
+                    android:text="Per month"
                     />
 
                 <ImageView

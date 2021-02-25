@@ -15,6 +15,7 @@ import kotlinx.coroutines.*
 import java.lang.Exception
 import java.lang.NumberFormatException
 import java.util.Collections.addAll
+import kotlin.random.Random
 
 
 class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
@@ -28,21 +29,31 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
     private val _navigateToProperty = MutableLiveData<Event<MarsProperty>>()
     val navigateToProperty: LiveData<Event<MarsProperty>> = _navigateToProperty
 
+    //Ugly but necessary because otherwise the loadNextPage function is triggered too often, notably three times
+    // on startup because there are 3 default properties
+    private var ignoreFirstFilterChange = true
+    private var ignoreFirstQueryStringChange = true
+    private var ignoreFirstSortedByFilterChange = true
 
-    val filter = MutableLiveData<MarsApiFilter.MarsPropertyType>()
-    val queryString = MutableLiveData<String>()
-    val sortedBy = MutableLiveData<MarsApiPropertySorting>()
+    val filter = MutableLiveData<MarsApiFilter.MarsPropertyType>(MarsApiFilter.MarsPropertyType.ALL)
+    val queryString = MutableLiveData<String>("")
+    val sortedBy = MutableLiveData<MarsApiPropertySorting>(MarsApiPropertySorting.Default)
 
 
     private val _properties = MediatorLiveData<MutableList<MarsProperty>>().apply {
         value = mutableListOf()
 
-        addSource(filter) { loadNextPage(true) }
-        addSource(queryString) { loadNextPage(true) }
-        addSource(sortedBy) { loadNextPage(true) }
+        addSource(filter) { if (ignoreFirstFilterChange) ignoreFirstFilterChange = false else loadNextPage(true) }
+        addSource(queryString) { if (ignoreFirstQueryStringChange) ignoreFirstQueryStringChange = false else loadNextPage(true) }
+        addSource(sortedBy) { if (ignoreFirstSortedByFilterChange) ignoreFirstSortedByFilterChange = false else loadNextPage(true) }
     }
 
     val properties : LiveData<List<MarsProperty>> = _properties.map { it }
+
+
+
+//    private val _properties = MutableLiveData<MutableList<MarsProperty>>()
+//    val properties : LiveData<List<MarsProperty>> = _properties.map { it }
 
 
     private val itemsPerPage = 7
@@ -50,19 +61,14 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
 
 
     init {
-        //This will trigger loadNextPage()
-        filter.value = MarsApiFilter.MarsPropertyType.ALL
+        loadNextPage(true)
     }
 
 
-
-    /**
-     * To be used from xml, will trigger [loadNextPage] with reset = true
-     *
-     */
     fun updateQueryString(str : String?) {
-        if (queryString.value != str)
+        if (queryString.value != str) {
             queryString.value = str
+        }
     }
 
     fun clearQueryStringAndUpdate() = updateQueryString(null)
@@ -70,12 +76,13 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
 
     fun loadNextPage(reset : Boolean = false) {
         _status.postValue(Result.Loading())
+        Log.d("############","########${Random.nextInt(10)}")
         viewModelScope.launch {
 
             try {
                 val pageToLoad = if (reset) 1 else pageLoadedCount + 1
 
-                val newProps = requestNewPropertiesFromRepo(pageToLoad,itemsPerPage,sortedBy.value ?: MarsApiPropertySorting.PriceAscending)
+                val newProps = requestNewPropertiesFromRepo(pageToLoad,itemsPerPage,sortedBy.value ?: MarsApiPropertySorting.Default)
 
                 if (reset) {
                     //Replacing the previous list in case of reset
@@ -106,7 +113,7 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
         }
     }
 
-    private suspend fun requestNewPropertiesFromRepo(pageToLoad: Int, itemsPerPage: Int, sorting: MarsApiPropertySorting = MarsApiPropertySorting.PriceAscending) : List<MarsProperty> {
+    private suspend fun requestNewPropertiesFromRepo(pageToLoad: Int, itemsPerPage: Int, sorting: MarsApiPropertySorting = MarsApiPropertySorting.Default) : List<MarsProperty> {
         val query = MarsApiQuery(
             pageToLoad, itemsPerPage,
             MarsApiFilter(

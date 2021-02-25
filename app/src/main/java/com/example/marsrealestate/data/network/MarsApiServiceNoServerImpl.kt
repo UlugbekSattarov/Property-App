@@ -23,7 +23,7 @@ class MarsApiServiceNoServerImpl : MarsApiService {
         List(30) { MarsProperty("${it +140_000}",
             "${images[it%images.size]}",
             types[it%types.size],
-            100_000.0 + (0..200_000).random(),
+            (100_000.0 + (0..200_000).random()) / (if (types[it%types.size] == "rent") 10 else 1) ,
             surfaceArea = (Random.nextFloat() * 50) + 0.2f,
             latitude = (Random.nextFloat() * 180) - 90,
             longitude = (Random.nextFloat() * 360)
@@ -38,10 +38,11 @@ class MarsApiServiceNoServerImpl : MarsApiService {
         return properties
             .filter { p -> query.filter?.matches(p) ?: true }
             .run {
-                if (sortedBy == MarsApiPropertySorting.PriceAscending)
-                     sortedBy { p -> p.price}
-                else
-                    sortedByDescending { p -> p.price}
+                when (sortedBy) {
+                    MarsApiPropertySorting.PriceAscending -> sortedBy { p -> p.price}
+                    MarsApiPropertySorting.PriceDescending -> sortedByDescending { p -> p.price}
+                    else -> this
+                }
             }
             .drop(query.itemsPerPage * (query.pageNumber -1))
             .take(query.itemsPerPage)

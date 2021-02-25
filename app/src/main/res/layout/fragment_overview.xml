@@ -55,7 +55,7 @@
 
                 </androidx.appcompat.widget.Toolbar>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -110,16 +110,14 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/card_expiration_year"
                         style="?textInputLayoutDropdownStyle"
-                        app:boxStrokeWidth="0dp"
-                        android:paddingBottom="0dp"
-
                         android:layout_width="140dp"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
 
+                        android:layout_marginEnd="@dimen/margin_very_small"
                         android:hint="Sort by"
 
-
-                        >
+                        app:boxStrokeWidth="0dp">
 
                         <AutoCompleteTextView
                             android:id="@+id/sorting_option"
@@ -127,17 +125,14 @@
                             android:layout_height="match_parent"
                             android:inputType="none"
 
-                            app:marsApiSorting="@={viewModel.sortedBy}"
-
                             android:textAppearance="?textAppearanceHeadline6"
+
                             android:textSize="14sp"
-
-
-                            />
+                            app:marsApiSorting="@={viewModel.sortedBy}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                </LinearLayout>
+                </RelativeLayout>
 
 
             </LinearLayout>

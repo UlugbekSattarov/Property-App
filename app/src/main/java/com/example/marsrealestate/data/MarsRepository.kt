@@ -8,7 +8,7 @@ import java.util.*
 
 interface MarsRepository {
 
-    suspend fun getProperties(query: MarsApiQuery,sortedBy : MarsApiPropertySorting = MarsApiPropertySorting.PriceAscending) : List<MarsProperty>
+    suspend fun getProperties(query: MarsApiQuery,sortedBy : MarsApiPropertySorting = MarsApiPropertySorting.Default) : List<MarsProperty>
     suspend fun getProperty(id: String) : MarsProperty?
     fun observeProperty(id: String) : LiveData<MarsProperty?>
 

@@ -24,7 +24,7 @@ data class MarsApiFilter(private val type: MarsPropertyType = MarsPropertyType.A
 
 }
 
-enum class MarsApiPropertySorting { PriceAscending, PriceDescending}
+enum class MarsApiPropertySorting { Default,PriceAscending, PriceDescending}
 
 class MarsApiQuery(val pageNumber: Int = 1,
                    val itemsPerPage: Int = 10,
