@@ -1,9 +1,12 @@
 package com.example.marsrealestate.util
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Build
 import android.util.TypedValue
 import android.widget.RemoteViews
@@ -11,13 +14,16 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.os.bundleOf
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.example.marsrealestate.R
 import com.example.marsrealestate.data.MarsProperty
 
 
 object NotificationHelper {
 
-    const val CHANNEL_ID_PROPERTY_BOUGHT = "CHANNEL_PROPERTY_BOUGHT"
+    private const val CHANNEL_ID_PROPERTY_BOUGHT = "CHANNEL_PROPERTY_BOUGHT"
     private var propertyBoughtNotifId = 0
 
     fun createNotificationChannel(context: Context) {
@@ -39,33 +45,30 @@ object NotificationHelper {
         }
     }
 
+    fun notifyPropertyBought(context: Context, navController: NavController,property: MarsProperty) {
 
-    fun notifyPropertyBought(context: Context, intent: PendingIntent,property: MarsProperty) {
+        val deeplink = navController.createDeepLink()
+            .setArguments(bundleOf("MarsProperty" to property))
+            .setGraph(R.navigation.nav_graph_main)
+            .setDestination(R.id.dest_detail)
+            .createPendingIntent()
 
-        val typedValue = TypedValue()
-        context.theme?.resolveAttribute(R.attr.colorSecondary, typedValue, true)
+        val notif = buildNotificationPropertyBought(context,deeplink,property)
 
-        val imagePropertyBought = ResourcesCompat.getDrawable(
-            context.resources,
-            property.imgSrcUrl.toInt(),
-            context.theme
-        )?.toBitmap()
-//
-        val collapsed = RemoteViews(context.packageName, R.layout.layout_notification_collapsed).apply {
-            setTextColor(R.id.timestamp, typedValue.data)
-            setTextColor(R.id.notification_title, typedValue.data)
-            setTextViewText(
-                R.id.label_bought,
-                context.resources.getString(R.string.success_bought, property.id)
-            )
-            setImageViewBitmap(R.id.leading_icon, imagePropertyBought)
-        }
+        NotificationManagerCompat.from(context).notify(propertyBoughtNotifId++, notif)
+
+    }
+
+    private fun buildNotificationPropertyBought(context: Context, intent: PendingIntent,property: MarsProperty) : Notification {
+
+        val colorSecondary = resolveColorSecondary(context)
+        val imagePropertyBought = getPropertyImage(context,property)
 
 
 
         val builder = NotificationCompat.Builder(context, "CHANNEL_ID")
             .setSmallIcon(R.drawable.mars_notification)
-            .setColor(typedValue.data)
+            .setColor(colorSecondary)
             .setContentTitle("Property bought !")
             .setContentText(context.resources.getString(R.string.success_bought, property.id))
             .setLargeIcon(imagePropertyBought)
@@ -75,12 +78,47 @@ object NotificationHelper {
                 .bigPicture(imagePropertyBought)
                 .bigLargeIcon(null)
             )
-
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
             .setContentIntent(intent)
 
-        NotificationManagerCompat.from(context).notify(propertyBoughtNotifId++, builder.build())
 
+        return builder.build()
     }
+
+
+
+    private fun resolveColorSecondary(context: Context) : Int {
+        val typedValue = TypedValue()
+        context.theme?.resolveAttribute(R.attr.colorSecondary, typedValue, true)
+        return typedValue.data
+    }
+
+    private fun getPropertyImage(context: Context,property: MarsProperty) : Bitmap {
+        return ResourcesCompat.getDrawable(
+            context.resources,
+            property.imgSrcUrl.toInt(),
+            context.theme
+        )?.toBitmap() ?: Bitmap.createBitmap(0,0,Bitmap.Config.ALPHA_8)
+    }
+
+    private fun buildCollapsedNotif(context: Context,colorSecondary : Int,property: MarsProperty,imagePropertyBought : Bitmap) {
+        val collapsed = RemoteViews(context.packageName, R.layout.layout_notification_collapsed).apply {
+            setTextColor(R.id.timestamp, colorSecondary)
+            setTextColor(R.id.notification_title, colorSecondary)
+            setTextViewText(
+                R.id.label_bought,
+                context.resources.getString(R.string.success_bought, property.id)
+            )
+            setImageViewBitmap(R.id.leading_icon, imagePropertyBought)
+        }
+    }
+
+
+
+
+
+
+
+
 }

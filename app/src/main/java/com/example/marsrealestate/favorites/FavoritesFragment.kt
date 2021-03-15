@@ -19,6 +19,7 @@ import com.example.marsrealestate.util.SharedElementTransition
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.Hold
+import com.google.android.material.transition.MaterialFadeThrough
 
 
 class FavoritesFragment : Fragment() {
@@ -33,6 +34,13 @@ class FavoritesFragment : Fragment() {
 
     //Useful for shared element transition
     private var selectedProperty : View? = null
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialFadeThrough()
+        exitTransition = MaterialFadeThrough()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

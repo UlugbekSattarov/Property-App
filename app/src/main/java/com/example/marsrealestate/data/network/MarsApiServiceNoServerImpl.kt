@@ -48,6 +48,9 @@ class MarsApiServiceNoServerImpl : MarsApiService {
             .take(query.itemsPerPage)
             .toList()
     }
+
+
+    override suspend fun getProperty(id: String): MarsProperty? = properties.firstOrNull { it.id == id }
 }
 
 

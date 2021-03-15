@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/margin_medium"
+
+        android:clipToPadding="false"
+
+        >
+
+        <TextView
+            android:id="@+id/purchase_progression_circle_1_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@id/purchase_progression_circle_1"
+            app:layout_constraintEnd_toEndOf="@id/purchase_progression_circle_1"
+            app:layout_constraintBottom_toTopOf="@id/purchase_progression_circle_1"
+
+            android:layout_marginTop="@dimen/margin_small"
+            android:text="Option"
+            tools:text="Option"
+            android:textAlignment="center"
+
+            android:textAppearance="?textAppearanceSubtitle1"
+
+            android:textSize="@dimen/purchase_progression_text_size_emphasized"
+
+            />
+
+        <TextView
+            android:id="@+id/purchase_progression_circle_2_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/purchase_progression_circle_1_caption"
+            app:layout_constraintStart_toStartOf="@id/purchase_progression_circle_2"
+            app:layout_constraintEnd_toEndOf="@id/purchase_progression_circle_2"
+            app:layout_constraintBottom_toBottomOf="@id/purchase_progression_circle_1_caption"
+
+            android:layout_marginTop="@dimen/margin_very_small"
+            android:text="Payment"
+            tools:text="Payment"
+            android:textAlignment="center"
+
+            android:textAppearance="?textAppearanceSubtitle1"
+            android:textSize="@dimen/purchase_progression_text_size_emphasized"
+
+
+
+            />
+
+        <TextView
+            android:id="@+id/purchase_progression_circle_3_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/purchase_progression_circle_1_caption"
+            app:layout_constraintStart_toStartOf="@id/purchase_progression_circle_3"
+            app:layout_constraintEnd_toEndOf="@id/purchase_progression_circle_3"
+            app:layout_constraintBottom_toBottomOf="@id/purchase_progression_circle_1_caption"
+
+            android:layout_marginTop="@dimen/margin_very_small"
+            android:text="Recap"
+            tools:text="Recap"
+            android:textAlignment="center"
+
+            android:textAppearance="?textAppearanceSubtitle1"
+            android:textSize="@dimen/purchase_progression_text_size_emphasized"
+
+
+            />
+
+        <!--
+        Bars are put before the rest in order to be in the
+        background compared to the circles
+        -->
+        <View
+            android:id="@+id/purchase_progression_bar_1_background"
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+
+
+            app:layout_constraintStart_toStartOf="@id/purchase_progression_circle_center_1"
+            app:layout_constraintEnd_toEndOf="@id/purchase_progression_circle_center_2"
+            app:layout_constraintTop_toTopOf="@id/purchase_progression_circle_center_1"
+            app:layout_constraintBottom_toBottomOf="@id/purchase_progression_circle_center_1"
+            android:background="?colorControlInactiveAlt"
+            android:transformPivotX="0dp"
+            />
+
+        <View
+            android:id="@+id/purchase_progression_bar_2_background"
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            app:layout_constraintStart_toStartOf="@id/purchase_progression_circle_center_2"
+            app:layout_constraintEnd_toEndOf="@id/purchase_progression_circle_center_3"
+            app:layout_constraintTop_toTopOf="@id/purchase_progression_circle_center_2"
+            app:layout_constraintBottom_toBottomOf="@id/purchase_progression_circle_center_2"
+            android:background="?colorControlInactiveAlt"
+            android:transformPivotX="0dp"
+            />
+
+        <View
+            android:id="@+id/purchase_progression_bar_1"
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            app:layout_constraintStart_toStartOf="@id/purchase_progression_circle_center_1"
+            app:layout_constraintEnd_toEndOf="@id/purchase_progression_circle_center_2"
+            app:layout_constraintTop_toTopOf="@id/purchase_progression_circle_center_1"
+            app:layout_constraintBottom_toBottomOf="@id/purchase_progression_circle_center_1"
+            android:background="?colorSecondary"
+            android:transformPivotX="0dp"
+            android:scaleX="0"
+            />
+
+        <View
+            android:id="@+id/purchase_progression_bar_2"
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            app:layout_constraintStart_toStartOf="@id/purchase_progression_circle_center_2"
+            app:layout_constraintEnd_toEndOf="@id/purchase_progression_circle_center_3"
+            app:layout_constraintTop_toTopOf="@id/purchase_progression_circle_center_2"
+            app:layout_constraintBottom_toBottomOf="@id/purchase_progression_circle_center_2"
+            android:background="?colorSecondary"
+            android:transformPivotX="0dp"
+            android:scaleX="0"
+            />
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/purchase_progression_circle_1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/purchase_progression_circle_1_caption"
+
+            android:layout_marginTop="@dimen/margin_very_small"
+            android:layout_marginStart="@dimen/margin_medium"
+            app:cardBackgroundColor="?colorSecondary"
+            tools:cardCornerRadius="25dp"
+            app:cardElevation="10dp"
+
+            android:clickable="false"
+            app:rippleColor="@null"
+            app:elevation="0dp"
+            />
+
+        <View
+            android:id="@+id/purchase_progression_circle_center_1"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            app:layout_constraintStart_toStartOf="@id/purchase_progression_circle_1"
+            app:layout_constraintEnd_toEndOf="@id/purchase_progression_circle_1"
+            app:layout_constraintTop_toTopOf="@id/purchase_progression_circle_1"
+            app:layout_constraintBottom_toBottomOf="@id/purchase_progression_circle_1"
+            android:background="@android:color/transparent"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/purchase_progression_circle_2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/purchase_progression_circle_1"
+            app:layout_constraintBottom_toBottomOf="@id/purchase_progression_circle_1"
+
+            app:cardBackgroundColor="?colorControlInactiveAlt"
+            tools:cardCornerRadius="25dp"
+
+            app:cardElevation="10dp"
+            android:clickable="false"
+            app:elevation="0dp"
+            app:rippleColor="@null"
+
+            tools:scaleX="0.7"
+            tools:scaleY="0.7"
+            />
+
+        <View
+            android:id="@+id/purchase_progression_circle_center_2"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            app:layout_constraintStart_toStartOf="@id/purchase_progression_circle_2"
+            app:layout_constraintEnd_toEndOf="@id/purchase_progression_circle_2"
+            app:layout_constraintTop_toTopOf="@id/purchase_progression_circle_2"
+            app:layout_constraintBottom_toBottomOf="@id/purchase_progression_circle_2"
+            android:background="@android:color/transparent"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/purchase_progression_circle_3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/purchase_progression_circle_1"
+            app:layout_constraintBottom_toBottomOf="@id/purchase_progression_circle_1"
+            android:layout_marginEnd="@dimen/margin_medium"
+
+            tools:cardCornerRadius="25dp"
+            app:cardBackgroundColor="?colorControlInactiveAlt"
+            android:clickable="false"
+            app:rippleColor="@null"
+
+            app:cardElevation="10dp"
+
+            tools:scaleX="0.7"
+            tools:scaleY="0.7"
+
+
+            />
+
+        <View
+            android:id="@+id/purchase_progression_circle_center_3"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            app:layout_constraintStart_toStartOf="@id/purchase_progression_circle_3"
+            app:layout_constraintEnd_toEndOf="@id/purchase_progression_circle_3"
+            app:layout_constraintTop_toTopOf="@id/purchase_progression_circle_3"
+            app:layout_constraintBottom_toBottomOf="@id/purchase_progression_circle_3"
+            android:background="@android:color/transparent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -12,6 +12,7 @@
     <attr name="colorChipText" format="color"/>
 
     <attr name="colorControlInactive" format="color"/>
+    <attr name="colorControlInactiveAlt" format="color"/>
     <attr name="colorControlHighlightAlt" format="color"/>
 
     <attr name="textAppearanceHeadline7" format="reference" />

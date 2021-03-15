@@ -14,33 +14,49 @@ import kotlinx.coroutines.launch
 import java.lang.StringBuilder
 
 class RecapPaymentViewModel(
-    propertyId : String,
+    private val propertyId : String,
     paymentOption : PaymentOption,
-    repository: MarsRepository
+    private val repository: MarsRepository
 ) : ViewModel() {
 
-    val propertyToBuy : LiveData<MarsProperty?> = repository.observeProperty(propertyId)
+
+    private val _propertyToBuy : MutableLiveData<MarsProperty?> = MutableLiveData()
+    val propertyToBuy : LiveData<MarsProperty?> = _propertyToBuy
+
+    val isPropertyValid = propertyToBuy.map { prop -> prop != null }
 
     val paymentOption : LiveData<PaymentOption> = MutableLiveData(paymentOption)
 
-    private val _operationConfirmTransaction : MutableLiveData<Result<Nothing>> = MutableLiveData()
-    val operationConfirmTransaction : LiveData<Result<Nothing>> = _operationConfirmTransaction
+    private val _transactionState : MutableLiveData<Result<Nothing>> = MutableLiveData()
+    val transactionState : LiveData<Result<Nothing>> = _transactionState
+
+    private val _transactionCompleted = MutableLiveData<Event<MarsProperty>>()
+    val transactionCompleted: LiveData<Event<MarsProperty>> = _transactionCompleted
 
     private val _navigateToHome = MutableLiveData<Event<Boolean>>()
     val navigateToHome: LiveData<Event<Boolean>> = _navigateToHome
 
+    init {
+        viewModelScope.launch {
+            _propertyToBuy.postValue(repository.getProperty(propertyId))
+        }
+    }
 
     fun confirmTransaction() {
-        _operationConfirmTransaction.value = Result.Loading()
+        _transactionState.value = Result.Loading()
 
-        if (propertyToBuy.value == null || paymentOption.value == null)
-            _operationConfirmTransaction.postValue(Result.Error())
+        val property = propertyToBuy.value
 
+        if (property == null || paymentOption.value == null) {
+            _transactionState.postValue(Result.Error())
+            return
+        }
 
         viewModelScope.launch {
             delay(2000)
-            Log.i("aaa","aaaaaaaaaa")
-            _operationConfirmTransaction.postValue(Result.Success())
+            Log.i(RecapPaymentViewModel::class.toString(),"Property bought : $property")
+            _transactionCompleted.postValue(Event(property))
+            _transactionState.postValue(Result.Success())
             _navigateToHome.postValue(Event(true))
         }
     }

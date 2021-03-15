@@ -17,8 +17,6 @@
     <dimen name="toolbar_height">50dp</dimen>
 
 
-
-
     <dimen name="menu_item_size">24dp</dimen>
     <!--    Divide menu_item_size by 2.5-->
     <dimen name="menu_item_size_ripple_radius">20dp</dimen>
@@ -32,7 +30,7 @@
 
     <dimen name="recycler_bottom_space">60dp</dimen>
 
-<!--    Margins-->
+    <!--    Margins-->
     <dimen name="margin_very_small">4dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
@@ -42,10 +40,18 @@
     <dimen name="margin_extra_large">40dp</dimen>
 
 
-
-<!--    Font sizes-->
+    <!--    Font sizes-->
     <dimen name="font_size_price_rent">24sp</dimen>
     <dimen name="font_size_price_buy">26sp</dimen>
     <dimen name="viewpager_item_margin">30dp</dimen>
+
+
+    <!--For PurchaseProgressionView-->
+    <dimen name="purchase_progression_circle_diameter">25dp</dimen>
+    <dimen name="purchase_progression_bar_width">7dp</dimen>
+    <dimen name="purchase_progression_text_size_emphasized">15sp</dimen>
+    <dimen name="purchase_progression_text_size_minimized">12sp</dimen>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
 
 </resources>

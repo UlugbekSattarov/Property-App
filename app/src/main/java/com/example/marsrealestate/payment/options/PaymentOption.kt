@@ -28,17 +28,20 @@ data class VisaCard (
         if (cardNumber.length != VISA_CARD_NUMBER_LENGTH)
             return "Wrong format"
 
-        with(StringBuilder(cardNumber)) {
-            with( replace(0,
-                VISA_CARD_NUMBER_LENGTH - 4 ,
-                List(12) { "x" }.joinToString("")
-            )){
-                for (i in 1 until 4) {
-                    insert((i * 4) + i-1, ' ')
-                }
-                return toString()
-            }
-        }
+//        with(StringBuilder(cardNumber)) {
+//            with( replace(0,
+//                VISA_CARD_NUMBER_LENGTH - 4 ,
+//                List(12) { "x" }.joinToString("")
+//            )){
+//                for (i in 1 until 4) {
+//                    insert((i * 4) + i-1, ' ')
+//                }
+//                return toString()
+//            }
+//        }
+
+        val lastDigits = cardNumber.drop(VISA_CARD_NUMBER_LENGTH - 4)
+        return "... xxxx $lastDigits"
     }
 }
 

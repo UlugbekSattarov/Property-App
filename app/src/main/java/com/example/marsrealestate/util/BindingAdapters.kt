@@ -3,46 +3,26 @@
 
 package com.example.marsrealestate.util
 
-import android.app.ActionBar
-import android.content.res.ColorStateList
 import android.graphics.drawable.AnimatedVectorDrawable
-import android.graphics.drawable.ClipDrawable
-import android.graphics.drawable.ColorDrawable
-import android.transition.Transition
-import android.transition.TransitionManager
-import android.util.Log
-import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewPropertyAnimator
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.view.animation.LayoutAnimationController
-import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.ListAdapter
 import android.widget.TextView
-import androidx.annotation.AnimRes
-import androidx.annotation.IdRes
-import androidx.annotation.StyleRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
-import androidx.core.transition.doOnCancel
-import androidx.core.transition.doOnEnd
-import androidx.core.view.*
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.children
+import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.marsrealestate.R
-import com.example.marsrealestate.custom.Stagger
-import com.example.marsrealestate.data.FavoriteProperty
-import com.example.marsrealestate.data.MarsProperty
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
@@ -329,4 +309,19 @@ fun TextView.popupOnMessage(msgId : Int?) {
         }
 
     }
+}
+
+@BindingAdapter("layoutWidth","layoutHeight",requireAll = false)
+fun View.setLayoutSize(oldWidth : Float?, oldHeight: Float?,newWidth : Float?, newHeight : Float? ) {
+    val v = this
+    updateLayoutParams<ViewGroup.LayoutParams> {
+        if (newWidth != null && newWidth != oldWidth && newWidth != 0f)
+            width = newWidth.toInt()
+        if (newHeight != null && newHeight != oldHeight && newHeight != 0f)
+            height = newHeight.toInt()
+
+
+//        androidx.transition.TransitionManager.beginDelayedTransition(v as ViewGroup)
+    }
+
 }

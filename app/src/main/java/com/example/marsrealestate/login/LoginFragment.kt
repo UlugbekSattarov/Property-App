@@ -31,10 +31,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.textfield.TextInputLayout
-import com.google.android.material.transition.FadeProvider
-import com.google.android.material.transition.MaterialArcMotion
-import com.google.android.material.transition.MaterialFade
-import com.google.android.material.transition.ScaleProvider
+import com.google.android.material.transition.*
 
 /**
  * A simple [Fragment] subclass.
@@ -50,6 +47,11 @@ class LoginFragment : Fragment() {
 
     private lateinit var viewDataBinding: FragmentLoginBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialFadeThrough()
+        exitTransition = MaterialFadeThrough()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

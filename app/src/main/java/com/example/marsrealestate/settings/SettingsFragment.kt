@@ -12,10 +12,14 @@ import com.example.marsrealestate.R
 import com.example.marsrealestate.databinding.FragmentSettingsBinding
 import com.example.marsrealestate.util.PreferenceDarkMode
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
+import com.google.android.material.transition.MaterialFadeThrough
+import com.google.android.material.transition.MaterialSharedAxis
 
 class SettingsFragment : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enterTransition = MaterialFadeThrough()
+        exitTransition = MaterialFadeThrough()
         super.onCreate(savedInstanceState)
 
     }

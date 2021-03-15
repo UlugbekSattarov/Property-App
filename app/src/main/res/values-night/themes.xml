@@ -40,6 +40,7 @@
         <item name="colorControlHighlight">@color/grayLighter</item>
         <item name="colorControlHighlightAlt">@color/control_highlight_alt</item>
         <item name="colorControlInactive">@color/grayLighterPlus</item>
+        <item name="colorControlInactiveAlt">@color/grayLighterPlus</item>
         <item name="android:listDivider">?colorSecondary</item>
 
 

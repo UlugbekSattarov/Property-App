@@ -12,6 +12,7 @@
         <item name="titleTextColor">?colorOnPrimary</item>
         <item name="android:background">?colorPrimary</item>
         <item name="popupTheme">@style/AppTheme.PopupTheme</item>
+<!--        <item name="android:layout_height">200dp</item>-->
     </style>
 
 

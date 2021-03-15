@@ -67,7 +67,7 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
 
     fun updateQueryString(str : String?) {
         if (queryString.value != str) {
-            queryString.value = str
+            queryString.value = str ?: ""
         }
     }
 
@@ -90,8 +90,9 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
                 }
                 else if (newProps.isNotEmpty()) {
                     //Adding new elements if no reset
-                    val a = _properties.value?.apply { addAll(newProps) }
-                    _properties.postValue(a)
+                    val currentProps = _properties.value ?: mutableListOf()
+                    currentProps.addAll(newProps)
+                    _properties.postValue(currentProps)
                 }
 
 

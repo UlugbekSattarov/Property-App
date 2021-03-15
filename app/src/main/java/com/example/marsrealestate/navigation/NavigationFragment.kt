@@ -64,14 +64,14 @@ class NavigationFragment : Fragment() {
         requireActivity().closeDrawerIfPresent{
 
             val opt = NavOptions.Builder()
-                .setExitAnim(R.anim.fragment_fade_exit)
-                .setPopExitAnim(R.anim.fragment_fade_exit)
-                .setEnterAnim(R.anim.fragment_fade_enter)
-                .setPopEnterAnim(R.anim.fragment_fade_enter)
-                .setPopUpTo(R.id.dest_blank,
-                false)
+//                .setExitAnim(android.R.anim.fade_out)
+//                .setPopExitAnim(android.R.anim.fade_out)
+//                .setEnterAnim(android.R.anim.fade_in)
+//                .setPopEnterAnim(android.R.anim.fade_in)
+//                .setPopUpTo(navDestinationId, false)
                 .build()
 
+            navController.popBackStack(R.id.nav_graph_main,false)
             navController.navigate(navDestinationId,null,opt)
             viewModel.setCurrentDestination(navDestinationId)
         }

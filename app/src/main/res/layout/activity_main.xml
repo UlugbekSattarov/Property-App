@@ -20,7 +20,17 @@
 
         android:background="?colorBackground">
 
+
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
         <fragment
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
@@ -30,9 +40,21 @@
             app:navGraph="@navigation/nav_graph_main" />
 
 
-<!--
-        app:headerLayout="@layout/layout_nav_header"
-        app:menu="@menu/drawer_menu"-->
+        <com.example.marsrealestate.custom.PurchaseProgressionView
+            android:id="@+id/purchase_progression"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_max="450dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="@dimen/margin_small"
+            />
+</androidx.constraintlayout.widget.ConstraintLayout>
+        <!--
+                app:headerLayout="@layout/layout_nav_header"
+                app:menu="@menu/drawer_menu"-->
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigation_view"
             android:layout_width="280dp"

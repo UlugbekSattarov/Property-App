@@ -43,6 +43,9 @@
                         android:id="@+id/toolbar_searchview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:elevation="10dp"
+                        android:clickable="true"
+                        android:focusable="true"
 
                         app:hintText="@string/search_by_id"
                         app:inputText="@{viewModel.queryString}"

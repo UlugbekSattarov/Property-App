@@ -14,6 +14,16 @@
         app:title="@string/settings"
         />
 
+    <!--<com.example.marsrealestate.custom.SearchView
+        android:id="@+id/toolbar_searchview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+
+        app:hintText="@string/search_by_id"
+        app:titleText="@string/mars_properties"
+        />-->
+
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"

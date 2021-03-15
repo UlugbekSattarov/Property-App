@@ -28,22 +28,10 @@
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
 
+            android:layout_marginTop="@dimen/margin_small"
             android:background="?colorBackground"
             />
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Payment"
-            android:textAppearance="?textAppearanceHeadline3"
-            app:layout_constraintEnd_toEndOf="parent"
-
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-
-            />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -56,14 +44,17 @@
             app:counterEnabled="true"
             app:counterMaxLength="16"
 
+
+
             android:hint="Card number"
+            app:expandedHintEnabled="true"
+            app:hintAnimationEnabled="true"
             app:errorMessage="@{viewModel.cardNumberErrorStringId}"
             app:startIconDrawable="@drawable/ic_credit_card"
 
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
 
             >
 
@@ -73,6 +64,8 @@
                 android:inputType="number"
                 android:text="@={viewModel.cardNumber}"
                 android:textAppearance="?textAppearanceHeadline6"
+                android:textSize="18sp"
+
 
                 />
 
@@ -111,9 +104,11 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/card_expiration_month"
             style="?textInputLayoutDropdownStyle"
-            android:layout_width="150dp"
+            android:layout_width="155dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
+            android:paddingEnd="10dp"
+            android:clipToPadding="false"
 
 
             android:hint="Month"
@@ -127,7 +122,7 @@
             <AutoCompleteTextView
                 android:id="@+id/card_expiration_month_value"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
 
                 android:inputType="none"
 
@@ -135,11 +130,8 @@
                 android:textAppearance="?textAppearanceHeadline6"
                 android:textSize="18sp"
 
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card_expiration"
 
 
-                tools:hint="Month"
 
                 />
 
@@ -151,6 +143,8 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
+            android:padding="1dp"
+
 
             android:hint="Year"
             app:errorMessage="@{viewModel.expirationYearErrorStringID}"
@@ -171,9 +165,6 @@
                 android:textAppearance="?textAppearanceHeadline6"
                 android:textSize="18sp"
 
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card_expiration"
-                tools:hint="Year"
 
                 />
 
@@ -216,7 +207,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/card_secret"
             style="?textInputLayoutBasicStyle"
-            android:layout_width="150dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
 
@@ -226,6 +217,7 @@
             app:layout_constraintStart_toStartOf="@id/card_number"
             app:layout_constraintTop_toBottomOf="@id/secret"
 
+            android:elevation="1dp"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -239,13 +231,6 @@
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
-
-
-
 
 
         <com.google.android.material.button.MaterialButton

@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
@@ -19,6 +18,7 @@ import com.example.marsrealestate.databinding.FragmentPaymentVisaBinding
 import com.example.marsrealestate.payment.CartViewModel
 import com.example.marsrealestate.payment.CartViewModelFactory
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
+import com.google.android.material.transition.MaterialSharedAxis
 
 
 class PaymentVisaFragment : Fragment() {
@@ -27,7 +27,7 @@ class PaymentVisaFragment : Fragment() {
         PaymentVisaViewModelFactory()
     }
 
-    private val cartViewModel: CartViewModel by navGraphViewModels(R.id.graph_payment) {
+    private val cartViewModel: CartViewModel by navGraphViewModels(R.id.nav_graph_payment) {
         CartViewModelFactory((activity as MainActivity).marsRepository)
     }
 
@@ -55,8 +55,9 @@ class PaymentVisaFragment : Fragment() {
     private fun setupNavigation() {
         viewModel.onCardValidated.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {card ->
+                val propId = cartViewModel.propertyToBuyId.value ?: throw Exception("PropertyId was null when trying to call PaymentVisaFragmentDirections.actionDestPaymentVisaToRecapPaymentFragment")
                 val direction = PaymentVisaFragmentDirections
-                    .actionDestPaymentVisaToRecapPaymentFragment(cartViewModel.propertyToBuyId.value ?: return@let,card)
+                    .actionDestPaymentVisaToRecapPaymentFragment(propId,card)
                 findNavController().navigate(direction)
             }
         }

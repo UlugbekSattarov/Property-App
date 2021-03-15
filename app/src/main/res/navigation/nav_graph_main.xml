@@ -5,6 +5,8 @@
     android:id="@+id/nav_graph_main"
     app:startDestination="@id/dest_overview">
 
+
+
     <fragment
         android:id="@+id/dest_overview"
         android:name="com.example.marsrealestate.overview.OverviewFragment"
@@ -46,16 +48,16 @@
         <action
             android:id="@+id/action_dest_detail_to_dest_login"
             app:destination="@id/dest_login"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_dest_detail_to_dest_choose_payment"
-            app:destination="@id/graph_payment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
+            app:destination="@id/nav_graph_payment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim">
 
@@ -96,15 +98,18 @@
             android:defaultValue="@null" />
         <action
             android:id="@+id/action_dest_login_to_dest_choose_payment"
-            app:destination="@id/graph_payment" >
+            app:destination="@id/nav_graph_payment" >
             <argument
                 android:name="propertyToBuyId"
                 app:argType="string" />
         </action>
     </fragment>
 
-    <navigation android:id="@+id/graph_payment"
+    <navigation
+        android:id="@+id/nav_graph_payment"
         app:startDestination="@id/dest_choose_payment">
+
+
         <fragment
             android:id="@+id/dest_choose_payment"
             android:name="com.example.marsrealestate.payment.ChoosePaymentFragment"
@@ -117,7 +122,12 @@
                 android:defaultValue="@null" />
             <action
                 android:id="@+id/action_dest_choose_payment_to_dest_payment_visa"
-                app:destination="@id/dest_payment_visa" />
+                app:destination="@id/dest_payment_visa"
+                app:enterAnim="@anim/shared_axis_x_enter"
+                app:exitAnim="@anim/shared_axis_x_exit"
+                app:popEnterAnim="@anim/shared_axis_x_pop_enter"
+                app:popExitAnim="@anim/shared_axis_x_pop_exit"
+                />
         </fragment>
         <fragment
             android:id="@+id/dest_payment_visa"
@@ -125,7 +135,14 @@
             tools:layout="@layout/fragment_payment_visa" >
             <action
                 android:id="@+id/action_dest_payment_visa_to_recapPaymentFragment"
-                app:destination="@id/dest_payment_recap" />
+                app:destination="@id/dest_payment_recap"
+                app:enterAnim="@anim/shared_axis_x_enter"
+                app:exitAnim="@anim/shared_axis_x_exit"
+                app:popEnterAnim="@anim/shared_axis_x_pop_enter"
+                app:popExitAnim="@anim/shared_axis_x_pop_exit"
+
+
+                />
         </fragment>
         <fragment
             android:id="@+id/dest_payment_recap"
@@ -141,4 +158,6 @@
                 app:argType="com.example.marsrealestate.payment.options.PaymentOption" />
         </fragment>
     </navigation>
+
+
 </navigation>

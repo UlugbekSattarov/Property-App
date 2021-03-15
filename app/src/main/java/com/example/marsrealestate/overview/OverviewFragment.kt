@@ -30,6 +30,7 @@ import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.Hold
+import com.google.android.material.transition.MaterialFadeThrough
 
 class OverviewFragment : Fragment() {
 
@@ -50,6 +51,8 @@ class OverviewFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        enterTransition = MaterialFadeThrough()
+        exitTransition = MaterialFadeThrough()
 
     }
 
@@ -94,18 +97,8 @@ class OverviewFragment : Fragment() {
     }
 
     private fun bli() {
-
         val property = MarsProperty("140158", "${R.drawable.mars_landscape_2}", "", 0.toDouble(),22f,58f,-50f)
-
-
-        val deeplink = findNavController().createDeepLink()
-            .setArguments(bundleOf("MarsProperty" to property))
-            .setGraph(R.navigation.nav_graph_main)
-            .setDestination(R.id.dest_detail)
-            .createPendingIntent()
-
-
-        NotificationHelper.notifyPropertyBought(requireContext(),deeplink,property)
+        NotificationHelper.notifyPropertyBought(requireContext(),findNavController(),property)
     }
 
     private fun setupAppBarLayoutVisualState() {
