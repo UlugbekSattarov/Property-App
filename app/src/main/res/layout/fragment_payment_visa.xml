@@ -12,13 +12,19 @@
             type="com.example.marsrealestate.payment.options.PaymentVisaViewModel" />
     </data>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
 
+        >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
 
-
-        tools:context=".purchase.PurchaseFragment">
+        >
 
 
         <androidx.appcompat.widget.Toolbar
@@ -266,4 +272,6 @@
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 </layout>

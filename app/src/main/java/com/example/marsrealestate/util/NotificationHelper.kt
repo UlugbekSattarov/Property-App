@@ -97,7 +97,7 @@ object NotificationHelper {
     private fun getPropertyImage(context: Context,property: MarsProperty) : Bitmap {
         return ResourcesCompat.getDrawable(
             context.resources,
-            property.imgSrcUrl.toInt(),
+            property.imgSrcUrl.toIntOrNull() ?: R.drawable.ot_mars,
             context.theme
         )?.toBitmap() ?: Bitmap.createBitmap(0,0,Bitmap.Config.ALPHA_8)
     }

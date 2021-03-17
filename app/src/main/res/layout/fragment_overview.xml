@@ -17,6 +17,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.marsrealestate.MainActivity"
+        app:marginTopPlusInsets="@{0f}"
+        app:marginLeftPlusInsets="@{0f}"
+        app:marginRightPlusInsets="@{0f}"
         >
 
         <com.google.android.material.appbar.AppBarLayout

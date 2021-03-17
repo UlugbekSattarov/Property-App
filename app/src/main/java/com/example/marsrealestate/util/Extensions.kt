@@ -28,7 +28,8 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import java.lang.Exception
 
-fun Activity.setupToolbarIfDrawerLayoutPresent(fragment : Fragment, toolbar: Toolbar ) {
+@Deprecated("Use setupToolbarIfDrawerLayoutPresent instead")
+fun Activity.setupToolbarIfDrawerLayoutPresentOld(fragment : Fragment, toolbar: Toolbar ) {
     try {
         findViewById<DrawerLayout>(R.id.drawerlayout)?.let {
             val config = AppBarConfiguration(setOf(
@@ -53,6 +54,37 @@ fun Activity.setupToolbarIfDrawerLayoutPresent(fragment : Fragment, toolbar: Too
             toolbar.setNavigationOnClickListener { navigateUp(navController,config) }
 
         }
+    }
+    catch (e : Exception) {
+        Log.e("Extensions",e.stackTrace.toString())
+    }
+}
+
+fun Activity.setupToolbarIfDrawerLayoutPresent(fragment : Fragment, toolbar: Toolbar ) {
+    try {
+
+        val toplevelDestinations = setOf(
+            R.id.dest_overview,
+            R.id.dest_favorites,
+            R.id.dest_login,
+            R.id.dest_settings)
+
+
+        val navController = fragment.findNavController()
+        val id = navController.currentDestination?.id ?: return
+
+        if (toplevelDestinations.contains(id)) {
+            toolbar.setNavigationIcon(R.drawable.ic_drawer_menu)
+        }
+        else
+            toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+
+        toolbar.setNavigationOnClickListener {
+            val drawer = findViewById<DrawerLayout>(R.id.drawerlayout)
+            val config = AppBarConfiguration(toplevelDestinations, drawer)
+            navigateUp(navController,config)
+        }
+
     }
     catch (e : Exception) {
         Log.e("Extensions",e.stackTrace.toString())

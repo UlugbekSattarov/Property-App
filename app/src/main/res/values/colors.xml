@@ -3,7 +3,9 @@
     <color name="white">#fff</color>
     <color name="whiteDark">#ffcccccc</color>
     <color name="red">#b71c1c</color>
+    <color name="redSemiTransparent">#26b71c1c</color>
     <color name="redLight">#ff5252</color>
+    <color name="redLightSemiTransparent">#26ff5252</color>
 
     <color name="gray">#424242</color>
     <color name="gray2">#525252</color>

@@ -24,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:background="?colorBackground"
+        android:clipToPadding="false"
 
         app:forceDispatchInsetsToChildren="@{true}"
         >
@@ -31,13 +32,14 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/image_toolbar_expanded_height"
-
+            app:forceDispatchInsetsToChildren="@{true}"
             >
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsing"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:minHeight="@dimen/toolbar_height"
+                app:forceDispatchInsetsToChildren="@{true}"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
 
                 app:expandedTitleTextAppearance="@style/MyStyle.TextAppearance.CollapsingToolbar.TitleExpanded"
@@ -74,6 +76,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/toolbar_height"
                     app:layout_collapseMode="pin"
+                    app:marginTopPlusInsets="@{0f}"
+                    tools:layout_marginTop="@dimen/margin_medium"
 
 
                     style="@style/MyStyle.Widgets.Toolbar.ImageToolbar"

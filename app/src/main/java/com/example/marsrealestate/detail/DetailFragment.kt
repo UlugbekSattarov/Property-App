@@ -6,12 +6,11 @@ import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.util.TypedValue
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import androidx.annotation.FloatRange
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
@@ -84,7 +83,9 @@ class DetailFragment : Fragment() {
         loadSharedImageBeforeEnterTransition(property.imgSrcUrl,viewDataBinding.imageToolbar)
         lifecycleScope.launchWhenResumed { animOnResume() }
 
-
+        requireActivity().window.setFlags(
+            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
 
         setupViewPager()
 

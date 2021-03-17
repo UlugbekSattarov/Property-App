@@ -12,14 +12,19 @@
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
 
-        android:clipToPadding="false"
-
-
-        tools:context=".purchase.PurchaseFragment">
+        >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
 
 
         <androidx.appcompat.widget.Toolbar
@@ -422,4 +427,6 @@
 -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 </layout>

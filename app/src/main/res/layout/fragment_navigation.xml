@@ -57,6 +57,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:clipToPadding="false"
+                android:clipChildren="false"
                 >
                 <TextView
                     android:id="@+id/topImage"
@@ -71,6 +73,7 @@
 
                     android:scaleType="centerCrop"
                     />
+
 
                 <com.example.marsrealestate.custom.NavigationItemView
                     android:id="@+id/login"

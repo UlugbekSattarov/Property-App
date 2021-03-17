@@ -74,6 +74,8 @@ class OverviewFragment : Fragment() {
         setupNoMoreProperties()
         setupAppBarLayoutVisualState()
 
+
+
         postponeEnterTransition()
         viewDataBinding.root.doOnPreDraw { startPostponedEnterTransition() }
         return viewDataBinding.root

@@ -33,6 +33,7 @@
         <item name="textInputEditTextStyle">@style/MyStyle.Widgets.TextInput</item>
 
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
 

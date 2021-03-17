@@ -103,14 +103,14 @@
 <!--        <item name="android:textColor">?colorOnPrimary</item>-->
         <item name="android:backgroundTint">?colorPrimary</item>
         <item name="android:textColor">?colorOnPrimary</item>
-        <item name="rippleColor">@color/control_highlight_alt</item>
+        <item name="rippleColor">?colorControlHighlightAlt</item>
 
     </style>
 
     <style name="MyStyle.Widgets.Button.SnackbarButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:backgroundTint">@android:color/transparent</item>
         <item name="android:textColor">?colorSecondaryVariant</item>
-        <item name="rippleColor">@color/control_highlight_alt</item>
+        <item name="rippleColor">?colorControlHighlightAlt</item>
 
     </style>
 
@@ -126,7 +126,6 @@
         <item name="itemIconTint">@color/control_activable</item>
         <item name="itemTextAppearance">?textAppearanceNavigationViewItem</item>
         <item name="itemShapeAppearanceOverlay">@style/MyStyle.ShapeAppearance.NavigationItemView</item>
-        <item name="itemShapeFillColor">@color/nav_view_item_background</item>
         <item name="itemShapeInsetEnd">20dp</item>
     </style>
 

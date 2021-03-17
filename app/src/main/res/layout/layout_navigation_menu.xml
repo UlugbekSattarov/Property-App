@@ -14,21 +14,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
+        android:clipChildren="false"
+        android:clipToPadding="false"
 
+        android:elevation="0dp"
         app:cardElevation="0dp"
         app:shapeAppearanceOverlay="@style/MyStyle.ShapeAppearance.NavigationItemView"
-        app:cardBackgroundColor="@color/nav_view_item_background"
+        app:shapeAppearance="@style/MyStyle.ShapeAppearance.NavigationItemView"
 
         app:checkedIcon="@null"
 
         app:rippleColor="?colorControlHighlightAlt"
+        tools:cardBackgroundColor="?colorControlHighlightAlt"
 
         android:clickable="true"
         android:focusable="true"
         android:checkable="true"
-        app:checkedIconTint="?colorControlHighlightAlt"
 
-        tools:cardBackgroundColor="?colorControlHighlightAlt"
         tools:layout_height="50dp"
         tools:layout_width="280dp"
         tools:context="com.example.marsrealestate.MainActivity"
