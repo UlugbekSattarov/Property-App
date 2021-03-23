@@ -113,7 +113,7 @@ class OverviewFragment : Fragment() {
 
     @Suppress("UNCHECKED_CAST")
     private fun setupRecyclerView() {
-        viewModel.properties.observe(viewLifecycleOwner) {
+        viewModel.properties.observe(viewLifecycleOwner, Observer {
             if ( it.isNotEmpty()) {
                 playListAnimationOnlyOnce()
             }
@@ -121,7 +121,7 @@ class OverviewFragment : Fragment() {
             //otherwise we have to call notifyDatasetChanged but it can cause some visual trouble
             //with the layout animation
             (viewDataBinding.photosGrid.adapter as? androidx.recyclerview.widget.ListAdapter<Any, RecyclerView.ViewHolder>)?.submitList(it.toList())
-        }
+        })
 
         viewDataBinding.photosGrid.adapter = OverviewAdapter(OverviewAdapter.OnClickListener { property, viewClicked ->
             this.selectedProperty = viewClicked
@@ -143,11 +143,11 @@ class OverviewFragment : Fragment() {
     }
 
     private fun setupNoMoreProperties() {
-        viewModel.endOfData.observe(viewLifecycleOwner) {
+        viewModel.endOfData.observe(viewLifecycleOwner, Observer {
             if (it) {
                 Snackbar.make(viewDataBinding.root,R.string.no_more_properties, Snackbar.LENGTH_LONG).show()
             }
-        }
+        })
     }
 
     private fun setupNavigation() {

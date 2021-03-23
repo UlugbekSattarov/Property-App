@@ -19,11 +19,13 @@ import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.marsrealestate.R
+import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.databinding.FragmentLoginBinding
 import com.example.marsrealestate.overview.OverviewFragmentDirections
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
@@ -42,7 +44,7 @@ class LoginFragment : Fragment() {
 
 
     private val viewModel: LoginViewModel by activityViewModels {
-        LoginViewModelFactory()
+        LoginViewModelFactory(ServiceLocator.getMarsRepository(requireContext()))
     }
 
     private lateinit var viewDataBinding: FragmentLoginBinding
@@ -72,7 +74,7 @@ class LoginFragment : Fragment() {
 
 
     private fun setupNavigation() {
-        viewModel.loggedInEvent.observe(viewLifecycleOwner) {
+        viewModel.loggedInEvent.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let {
 
                 if (navArgs.redirection == R.id.dest_choose_payment ) {
@@ -83,7 +85,7 @@ class LoginFragment : Fragment() {
                     }
                 }
             }
-        }
+        })
     }
 
 

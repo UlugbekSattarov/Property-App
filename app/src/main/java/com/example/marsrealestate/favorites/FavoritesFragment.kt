@@ -76,11 +76,11 @@ class FavoritesFragment : Fragment() {
 
 
         //For the animation on the first appearance of the items
-        viewModel.favorites.observe(viewLifecycleOwner) {
+        viewModel.favorites.observe(viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) {
                 playListAnimationOnlyOnce()
             }
-        }
+        })
     }
 
     private fun playListAnimationOnlyOnce() {
@@ -94,7 +94,7 @@ class FavoritesFragment : Fragment() {
 
 
     private fun setupOnPropertyRemoved() {
-        viewModel.propertyRemoved.observe(viewLifecycleOwner) {
+        viewModel.propertyRemoved.observe(viewLifecycleOwner, Observer {
             if (it.isSuccess()) {
                 Snackbar.make(viewDataBinding.root,"Property removed",Snackbar.LENGTH_LONG).apply {
                     setAction(android.R.string.cancel) {
@@ -102,7 +102,7 @@ class FavoritesFragment : Fragment() {
                     }.show()
                 }
             }
-        }
+        })
     }
 
     private fun setupNavigation() {

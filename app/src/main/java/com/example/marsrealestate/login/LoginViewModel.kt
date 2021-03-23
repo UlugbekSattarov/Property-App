@@ -7,6 +7,7 @@ import androidx.annotation.NavigationRes
 import androidx.lifecycle.*
 import com.example.marsrealestate.R
 import com.example.marsrealestate.data.MarsProperty
+import com.example.marsrealestate.data.MarsRepository
 import com.example.marsrealestate.util.*
 import com.example.marsrealestate.util.FormValidation.NO_ERROR
 import kotlinx.coroutines.delay
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(private val repository: MarsRepository) : ViewModel() {
 
 
     val email : MutableLiveData<String> = MutableLiveData()
@@ -67,11 +68,17 @@ class LoginViewModel : ViewModel() {
 
         _operationLogging.value = Result.Loading()
         viewModelScope.launch {
-            delay(1000)
-            _operationLogging.postValue(Result.Success())
-            _isLoggedIn.postValue(true)
-            _userLogged.postValue("user")
-            _loggedInEvent.postValue(Event(true))
+            val result = repository.login(email.value ?: "", password.value ?: "")
+
+            if (result.isSuccess()) {
+                _operationLogging.postValue(Result.Success())
+                _isLoggedIn.postValue(true)
+                _userLogged.postValue("user")
+                _loggedInEvent.postValue(Event(true))
+            }
+            else {
+                _operationLogging.postValue(Result.Error())
+            }
         }
     }
 
@@ -82,10 +89,10 @@ class LoginViewModel : ViewModel() {
 
 
 
-class LoginViewModelFactory() : ViewModelProvider.NewInstanceFactory() {
+class LoginViewModelFactory(private val repository: MarsRepository) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return LoginViewModel() as T
+        return LoginViewModel(repository) as T
     }
 }

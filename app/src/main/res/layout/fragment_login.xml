@@ -30,6 +30,8 @@
             app:layout_constraintTop_toTopOf="parent"
 
             android:background="?colorBackground"
+            app:navigationContentDescription="@string/navigate_up"
+
             />
 
         <TextView
@@ -65,6 +67,7 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
@@ -96,6 +99,7 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/pasword_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -108,7 +112,7 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/login"
+            android:id="@+id/button_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_medium"
@@ -134,10 +138,10 @@
 
             app:fadeInIf="@{viewModel.operationLogging.isLoading }"
 
-            app:layout_constraintBottom_toBottomOf="@id/login"
-            app:layout_constraintEnd_toEndOf="@id/login"
-            app:layout_constraintStart_toStartOf="@id/login"
-            app:layout_constraintTop_toTopOf="@id/login"
+            app:layout_constraintBottom_toBottomOf="@id/button_login"
+            app:layout_constraintEnd_toEndOf="@id/button_login"
+            app:layout_constraintStart_toStartOf="@id/button_login"
+            app:layout_constraintTop_toTopOf="@id/button_login"
 
             />
 

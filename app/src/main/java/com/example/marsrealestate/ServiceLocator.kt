@@ -20,6 +20,7 @@ object ServiceLocator {
      * Should not be set outside of test scope
      */
     @Volatile
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     var marsRepository : MarsRepository? = null
         @VisibleForTesting set
 

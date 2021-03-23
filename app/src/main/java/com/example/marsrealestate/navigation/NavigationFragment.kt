@@ -13,6 +13,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.marsrealestate.MainActivity
 import com.example.marsrealestate.R
+import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.databinding.FragmentNavigationBinding
 import com.example.marsrealestate.login.LoginViewModel
 import com.example.marsrealestate.login.LoginViewModelFactory
@@ -30,7 +31,7 @@ class NavigationFragment : Fragment() {
     }
 
     private val loginViewModel: LoginViewModel by activityViewModels {
-        LoginViewModelFactory()
+        LoginViewModelFactory(ServiceLocator.getMarsRepository(requireContext()))
     }
 
 

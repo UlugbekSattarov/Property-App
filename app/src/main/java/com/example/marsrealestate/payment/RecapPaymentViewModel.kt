@@ -53,7 +53,6 @@ class RecapPaymentViewModel(
         }
 
         viewModelScope.launch {
-            delay(2000)
             Log.i(RecapPaymentViewModel::class.toString(),"Property bought : $property")
             _transactionCompleted.postValue(Event(property))
             _transactionState.postValue(Result.Success())

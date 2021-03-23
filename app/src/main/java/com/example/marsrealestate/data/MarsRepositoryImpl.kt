@@ -7,10 +7,17 @@ import com.example.marsrealestate.data.network.MarsApiFilter
 import com.example.marsrealestate.data.network.MarsApiPropertySorting
 import com.example.marsrealestate.data.network.MarsApiQuery
 import com.example.marsrealestate.data.network.MarsApiService
+import com.example.marsrealestate.util.Result
+import kotlinx.coroutines.delay
 import java.util.*
 
 class MarsRepositoryImpl(private val remoteDataSource: MarsApiService,
                          private val localDataSource : MarsPropertyDAO) : MarsRepository {
+
+    override suspend fun login(username: String, password: String): Result<Boolean> {
+        delay(1000)
+        return Result.Success(true)
+    }
 
 
     override suspend fun getProperties(query: MarsApiQuery,sortedBy : MarsApiPropertySorting ): List<MarsProperty> =

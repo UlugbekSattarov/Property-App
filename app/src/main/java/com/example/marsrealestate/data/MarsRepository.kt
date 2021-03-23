@@ -8,6 +8,8 @@ import java.util.*
 
 interface MarsRepository {
 
+    suspend fun login(username : String, password : String) : com.example.marsrealestate.util.Result<Boolean>
+
     suspend fun getProperties(query: MarsApiQuery,sortedBy : MarsApiPropertySorting = MarsApiPropertySorting.Default) : List<MarsProperty>
     suspend fun getProperty(id: String) : MarsProperty?
     fun observeProperty(id: String) : LiveData<MarsProperty?>

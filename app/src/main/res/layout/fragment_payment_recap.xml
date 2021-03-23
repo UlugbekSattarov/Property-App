@@ -12,339 +12,39 @@
     </data>
 
 
-
-
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
         android:fitsSystemWindows="true"
 
         >
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
 
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?colorBackground"
-            app:layout_constraintEnd_toStartOf="parent"
-
-            android:layout_marginTop="@dimen/margin_small"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintWidth_max="500dp"
-
-            android:layout_marginTop="@dimen/margin_very_large"
-            android:layout_marginStart="@dimen/margin_large"
-            android:layout_marginEnd="@dimen/margin_large"
-
-            app:strokeColor="@color/grayLighter"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
+            android:elevation="0dp"
+            app:elevation="0dp"
             >
-            <!--<androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/margin_very_large"
+                android:layout_height="wrap_content"
 
-                >
 
+                android:layout_marginTop="@dimen/margin_small"
+                android:background="?colorBackground"
 
+                app:navigationContentDescription="@string/navigate_up"
 
-                <TextView
-                    android:id="@+id/card_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                />
 
+        </com.google.android.material.appbar.AppBarLayout>
 
-                    android:text="Card "
-                    android:textAppearance="?textAppearanceHeadline5"
-
-
-                    app:layout_constraintEnd_toStartOf="@+id/card_number_detail"
-
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/card_number_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-
-                    android:text='@{viewModel.paymentOption.labelHidden ?? " " }'
-                    android:textAppearance="?textAppearanceHeadline5"
-
-                    app:layout_constraintBottom_toBottomOf="@id/card_number"
-
-
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-
-                    app:layout_constraintStart_toEndOf="@+id/card_number"
-                    tools:text="... xxxx 0456" />
-
-                <TextView
-                    android:id="@+id/property_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_extra_large"
-
-
-                    android:text="Property"
-                    android:textAppearance="?textAppearanceHeadline5"
-
-
-                    app:layout_constraintStart_toStartOf="@id/card_number"
-                    app:layout_constraintTop_toBottomOf="@id/card_number"
-
-                    />
-
-                <TextView
-                    android:id="@+id/property_id_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_extra_large"
-
-
-                    android:text="@{viewModel.propertyToBuy.id}"
-                    android:textAppearance="?textAppearanceHeadline5"
-                    app:layout_constraintEnd_toEndOf="@id/card_number_detail"
-
-
-                    app:layout_constraintTop_toBottomOf="@id/card_number"
-                    tools:text="1547809"
-
-                    />
-
-                <TextView
-                    android:id="@+id/price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_extra_large"
-
-
-                    android:text="Price"
-                    android:textAppearance="?textAppearanceHeadline5"
-
-                    android:textStyle="bold"
-
-                    app:layout_constraintStart_toStartOf="@id/property_id"
-                    app:layout_constraintTop_toBottomOf="@id/property_id"
-
-                    />
-
-                <TextView
-                    android:id="@+id/price_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_extra_large"
-
-
-                    android:text="@{@string/display_price_money(viewModel.propertyToBuy.price) }"
-                    android:textAppearance="?textAppearanceHeadline5"
-                    android:textColor="?colorSecondary"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@id/card_number_detail"
-
-
-                    app:layout_constraintTop_toBottomOf="@id/property_id"
-                    tools:text="30000 $"
-
-                    />
-
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>-->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-
-                android:paddingTop="@dimen/margin_large"
-                android:paddingBottom="@dimen/margin_very_large"
-
-
-                >
-
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Transaction"
-
-                    android:textAppearance="?textAppearanceHeadline5"
-                    android:layout_marginStart="@dimen/margin_very_large"
-
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-
-                    />
-
-
-                <TextView
-                    android:id="@+id/card_number"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-
-
-                    android:text="Card "
-                    android:textAppearance="?textAppearanceHeadline7"
-                    android:textSize="16sp"
-                    android:textColor="?android:textColorTertiary"
-
-                    android:layout_marginTop="@dimen/margin_very_large"
-
-                    app:layout_constraintWidth_percent=".35"
-                    app:layout_constraintEnd_toStartOf="@id/property_id"
-                    app:layout_constraintHorizontal_chainStyle="spread"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/title" />
-
-
-                <TextView
-                    android:id="@+id/card_number_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-
-                    android:text='@{viewModel.paymentOption.labelHidden ?? " " }'
-                    android:textAppearance="?textAppearanceHeadline6"
-
-                    app:layout_constraintStart_toStartOf="@id/card_number"
-
-                    app:layout_constraintTop_toBottomOf="@id/card_number"
-                    tools:text="... xxxx 0456" />
-
-
-                <TextView
-                    android:id="@+id/property_id"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-
-
-                    android:text="Property"
-                    android:textAppearance="?textAppearanceHeadline7"
-                    android:textColor="?android:textColorTertiary"
-                    android:textSize="16sp"
-                    app:layout_constraintWidth_percent=".35"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/card_number"
-                    app:layout_constraintTop_toTopOf="@id/card_number"
-
-
-
-                    />
-
-
-                <TextView
-                    android:id="@+id/property_id_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-
-                    android:text="@{viewModel.propertyToBuy.id ?? ``}"
-                    android:textAppearance="?textAppearanceHeadline6"
-
-
-                    app:layout_constraintStart_toStartOf="@id/property_id"
-                    app:layout_constraintTop_toBottomOf="@id/property_id"
-                    tools:text="1547809"
-
-                    />
-
-                <TextView
-                    android:id="@+id/type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_large"
-
-
-                    android:text="Type"
-                    android:textAppearance="?textAppearanceHeadline7"
-                    android:textSize="16sp"
-                    android:textColor="?android:textColorTertiary"
-
-                    app:layout_constraintStart_toStartOf="@id/card_number"
-                    app:layout_constraintTop_toBottomOf="@id/card_number_detail"
-
-                    />
-
-                <TextView
-                    android:id="@+id/type_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-
-                    android:text="@{viewModel.propertyToBuy.rental ? @string/rent : @string/buy }"
-                    android:textAppearance="?textAppearanceHeadline6"
-
-                    app:layout_constraintStart_toStartOf="@id/type"
-
-                    app:layout_constraintTop_toBottomOf="@id/type"
-                    tools:text="Rent"
-
-                    />
-
-                <TextView
-                    android:id="@+id/price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-
-                    android:text="Price"
-                    android:textAppearance="?textAppearanceHeadline7"
-                    android:textSize="16sp"
-                    android:textColor="?android:textColorTertiary"
-
-                    app:layout_constraintStart_toStartOf="@id/property_id"
-                    app:layout_constraintTop_toTopOf="@id/type"
-
-                    />
-
-                <TextView
-                    android:id="@+id/price_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-
-                    android:text="@{@string/display_price_money(viewModel.propertyToBuy.price) }"
-                    android:textAppearance="?textAppearanceHeadline6"
-                    android:textColor="?colorSecondary"
-                    android:textStyle="bold"
-
-                    app:layout_constraintStart_toStartOf="@id/price"
-
-                    app:layout_constraintTop_toBottomOf="@id/price"
-                    tools:text="30000 $"
-
-                    />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:id="@+id/error_message"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_medium"
 
 
             android:alpha="0"
@@ -353,26 +53,27 @@
             android:textColor="?colorError"
             app:fadeInIf="@{ (! viewModel.isPropertyValid()) || viewModel.transactionState.isError }"
 
-            app:layout_constraintBottom_toBottomOf="@id/confirm_button"
-            app:layout_constraintEnd_toStartOf="@id/confirm_button"
-            app:layout_constraintTop_toTopOf="@id/confirm_button"
-
+            tools:alpha="1"
+            tools:text="Error"
+            app:layout_anchor="@id/button_confirm"
+            app:layout_anchorGravity="start|center_vertical"
+            android:translationX="-100dp"
+            android:textAlignment="textEnd"
             />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/confirm_button"
+            android:id="@+id/button_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_medium"
 
-            android:onClick="@{ () -> viewModel.confirmTransaction()}"
+            android:layout_gravity="bottom|end"
 
+            android:onClick="@{ () -> viewModel.confirmTransaction()}"
             android:text="@string/confirm"
             app:fadeInIf="@{ (viewModel.isPropertyValid()) &amp;&amp; (! viewModel.transactionState.isLoading) }"
 
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:marginBottomPlusInsets="@{@dimen/margin_medium}" />
+            />
 
         <ProgressBar
             android:id="@+id/progress"
@@ -383,50 +84,255 @@
             android:visibility="invisible"
             app:fadeInIf="@{viewModel.transactionState.isLoading }"
 
-            app:layout_constraintBottom_toBottomOf="@id/confirm_button"
-            app:layout_constraintEnd_toEndOf="@id/confirm_button"
-            app:layout_constraintStart_toStartOf="@id/confirm_button"
-            app:layout_constraintTop_toTopOf="@id/confirm_button"
-
+            app:layout_anchor="@id/button_confirm"
+            app:layout_anchorGravity="center"
 
             />
 
-        <!--<androidx.constraintlayout.helper.widget.Flow
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="34dp"
-            tools:layout_editor_absoluteY="324dp"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
 
-            android:layout_marginBottom="50dp"
-            app:constraint_referenced_ids="K1,K2"
-            app:flow_horizontalGap="10dp"
-            app:flow_verticalGap="10dp"
-            app:flow_wrapMode="chain"
+
             >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                >
 
 
-        </androidx.constraintlayout.helper.widget.Flow>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_max="500dp"
+
+                    android:layout_marginTop="@dimen/margin_very_large"
+                    android:layout_marginStart="@dimen/margin_large"
+                    android:layout_marginEnd="@dimen/margin_large"
+                    android:layout_marginBottom="@dimen/margin_large"
+
+                    app:strokeColor="@color/grayLighter"
+                    app:strokeWidth="1dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="10dp"
+                    >
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+
+                        android:paddingTop="@dimen/margin_large"
+                        android:paddingBottom="@dimen/margin_very_large"
 
 
-        <View
-            android:id="@+id/K1"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
+                        >
 
-            android:background="?colorSecondary"/>
+                        <TextView
+                            android:id="@+id/title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Transaction"
 
-        <View
-            android:id="@+id/K2"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
+                            android:textAppearance="?textAppearanceHeadline5"
+                            android:layout_marginStart="@dimen/margin_very_large"
 
-            android:background="?colorSecondary"/>
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
 
--->
+                            />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+
+                        <TextView
+                            android:id="@+id/card_number"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+
+
+                            android:text="Card "
+                            android:textAppearance="?textAppearanceHeadline7"
+                            android:textSize="16sp"
+                            android:textColor="?android:textColorTertiary"
+
+                            android:layout_marginTop="@dimen/margin_very_large"
+
+                            app:layout_constraintWidth_percent=".35"
+                            app:layout_constraintEnd_toStartOf="@id/property_id"
+                            app:layout_constraintHorizontal_chainStyle="spread"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/title" />
+
+
+                        <TextView
+                            android:id="@+id/card_number_detail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+
+                            android:text='@{viewModel.paymentOption.labelHidden ?? " " }'
+                            android:textAppearance="?textAppearanceHeadline6"
+
+                            app:layout_constraintStart_toStartOf="@id/card_number"
+
+                            app:layout_constraintTop_toBottomOf="@id/card_number"
+                            tools:text="... xxxx 0456" />
+
+
+                        <TextView
+                            android:id="@+id/property_id"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+
+
+                            android:text="Property"
+                            android:textAppearance="?textAppearanceHeadline7"
+                            android:textColor="?android:textColorTertiary"
+                            android:textSize="16sp"
+                            app:layout_constraintWidth_percent=".35"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/card_number"
+                            app:layout_constraintTop_toTopOf="@id/card_number"
+
+
+
+                            />
+
+
+                        <TextView
+                            android:id="@+id/property_id_detail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+
+                            android:text="@{viewModel.propertyToBuy.id ?? ``}"
+                            android:textAppearance="?textAppearanceHeadline6"
+
+
+                            app:layout_constraintStart_toStartOf="@id/property_id"
+                            app:layout_constraintTop_toBottomOf="@id/property_id"
+                            tools:text="1547809"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_large"
+
+
+                            android:text="Type"
+                            android:textAppearance="?textAppearanceHeadline7"
+                            android:textSize="16sp"
+                            android:textColor="?android:textColorTertiary"
+
+                            app:layout_constraintStart_toStartOf="@id/card_number"
+                            app:layout_constraintTop_toBottomOf="@id/card_number_detail"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/type_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+
+                            android:text="@{viewModel.propertyToBuy.rental ? @string/rent : @string/buy }"
+                            android:textAppearance="?textAppearanceHeadline6"
+
+                            app:layout_constraintStart_toStartOf="@id/type"
+
+                            app:layout_constraintTop_toBottomOf="@id/type"
+                            tools:text="Rent"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+
+                            android:text="Price"
+                            android:textAppearance="?textAppearanceHeadline7"
+                            android:textSize="16sp"
+                            android:textColor="?android:textColorTertiary"
+
+                            app:layout_constraintStart_toStartOf="@id/property_id"
+                            app:layout_constraintTop_toTopOf="@id/type"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/price_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+
+                            android:text="@{@string/display_price_money(viewModel.propertyToBuy.price) }"
+                            android:textAppearance="?textAppearanceHeadline6"
+                            android:textColor="?colorSecondary"
+                            android:textStyle="bold"
+
+                            app:layout_constraintStart_toStartOf="@id/price"
+
+                            app:layout_constraintTop_toBottomOf="@id/price"
+                            tools:text="30000 $"
+
+                            />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+
+                <!--<androidx.constraintlayout.helper.widget.Flow
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteX="34dp"
+                    tools:layout_editor_absoluteY="324dp"
+
+                    android:layout_marginBottom="50dp"
+                    app:constraint_referenced_ids="K1,K2"
+                    app:flow_horizontalGap="10dp"
+                    app:flow_verticalGap="10dp"
+                    app:flow_wrapMode="chain"
+                    >
+
+
+                </androidx.constraintlayout.helper.widget.Flow>
+
+
+                <View
+                    android:id="@+id/K1"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+
+                    android:background="?colorSecondary"/>
+
+                <View
+                    android:id="@+id/K2"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+
+                    android:background="?colorSecondary"/>
+
+        -->
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

@@ -8,6 +8,9 @@ import com.example.marsrealestate.data.FavoriteProperty
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.data.MarsRepository
 import com.example.marsrealestate.data.network.MarsApiFilter
+import com.example.marsrealestate.data.network.MarsApiPropertySorting
+import com.example.marsrealestate.data.network.MarsApiQuery
+import com.example.marsrealestate.util.Result
 import java.lang.Exception
 import java.util.*
 
@@ -33,7 +36,7 @@ class FakeTestRepository : MarsRepository {
         val random = Random()
         return MutableList<MarsProperty>(100) {
             val type = if (it %2 == 0) "rent" else "buy"
-            MarsProperty(it.toString(),"",type,random.nextDouble())
+            MarsProperty(it.toString(),"",type,random.nextDouble(),45.2f,56f,250f)
         }
     }
 
@@ -66,13 +69,19 @@ class FakeTestRepository : MarsRepository {
        refreshFavorites()
    }
 
+    override suspend fun login(username: String, password: String): Result<Boolean> {
+        return Result.Success(true)
+    }
 
 
-    override suspend fun getProperties(filter: MarsApiFilter): List<MarsProperty> {
+    override suspend fun getProperties(query: MarsApiQuery,
+                                       sortedBy: MarsApiPropertySorting): List<MarsProperty> {
         if (willThrowExceptionForTesting)
             throw Exception("Exception throwed for testing")
         return properties
     }
+
+
 
     override suspend fun getProperty(id: String): MarsProperty? {
         return properties.find { it.id == id }

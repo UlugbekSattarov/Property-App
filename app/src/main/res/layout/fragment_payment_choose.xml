@@ -30,6 +30,8 @@
             android:layout_marginTop="@dimen/margin_small"
             android:background="?colorBackground"
 
+            app:navigationContentDescription="@string/navigate_up"
+
 
             />
 

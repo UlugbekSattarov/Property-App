@@ -47,19 +47,24 @@ class MainActivity : AppCompatActivity() {
     private fun hideOrRevealPurchaseProgressBar(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             viewBinding.purchaseProgression.apply {
-                val newAlpha : Float
-                val startDelay : Long
-                when (destination.id) {
-                    R.id.dest_choose_payment -> { newAlpha = 1f; startDelay = 50; currentStep = 0 }
-                    R.id.dest_payment_visa -> { newAlpha = 1f; startDelay = 50; currentStep = 1  }
-                    R.id.dest_payment_recap -> { newAlpha = 1f; startDelay = 50; currentStep = 2  }
-                    else -> { newAlpha = 0f; startDelay = 0; currentStep = 0  }
+
+                runOnUiThread {
+
+                    val newAlpha : Float
+                    val startDelay : Long
+                    when (destination.id) {
+                        R.id.dest_choose_payment -> { newAlpha = 1f; startDelay = 50; currentStep = 0 }
+                        R.id.dest_payment_visa -> { newAlpha = 1f; startDelay = 50; currentStep = 1  }
+                        R.id.dest_payment_recap -> { newAlpha = 1f; startDelay = 50; currentStep = 2  }
+                        else -> { newAlpha = 0f; startDelay = 0; currentStep = 0  }
+                    }
+                    if (newAlpha == 1f)
+                        visibility = View.VISIBLE
+                    animate().alpha(newAlpha).setStartDelay(startDelay)
+                        .withEndAction { if (newAlpha == 0f) visibility = View.INVISIBLE }
+                        .setDuration(200).start()
                 }
-                if (newAlpha == 1f)
-                    visibility = View.VISIBLE
-                animate().alpha(newAlpha).setStartDelay(startDelay)
-                    .withEndAction { if (newAlpha == 0f) visibility = View.INVISIBLE }
-                    .setDuration(200).start()
+
             }
         }
     }

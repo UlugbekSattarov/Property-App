@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
@@ -27,6 +28,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.marsrealestate.MainActivity
 import com.example.marsrealestate.R
+import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.FragmentDetailBinding
 import com.example.marsrealestate.login.LoginViewModel
@@ -61,7 +63,7 @@ class DetailFragment : Fragment() {
     }
 
     private val loginViewModel : LoginViewModel by activityViewModels {
-        LoginViewModelFactory()
+        LoginViewModelFactory(ServiceLocator.getMarsRepository(requireContext()))
     }
 
     private lateinit var viewDataBinding : FragmentDetailBinding
@@ -136,7 +138,7 @@ class DetailFragment : Fragment() {
 
 
     private fun setupNavigation() {
-        viewModel.navigateToPayment.observe(viewLifecycleOwner) {
+        viewModel.navigateToPayment.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let { property ->
 
                 val action = if (loginViewModel.isLoggedIn().not())
@@ -149,7 +151,7 @@ class DetailFragment : Fragment() {
 
                 findNavController().navigate(action)
             }
-        }
+        })
     }
 
 

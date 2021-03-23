@@ -2,14 +2,13 @@ package com.example.marsrealestate.payment.options
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.example.marsrealestate.MainActivity
@@ -18,7 +17,7 @@ import com.example.marsrealestate.databinding.FragmentPaymentVisaBinding
 import com.example.marsrealestate.payment.CartViewModel
 import com.example.marsrealestate.payment.CartViewModelFactory
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
-import com.google.android.material.transition.MaterialSharedAxis
+import java.util.*
 
 
 class PaymentVisaFragment : Fragment() {
@@ -53,14 +52,14 @@ class PaymentVisaFragment : Fragment() {
 
 
     private fun setupNavigation() {
-        viewModel.onCardValidated.observe(viewLifecycleOwner) {
+        viewModel.onCardValidated.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it.getContentIfNotHandled()?.let {card ->
                 val propId = cartViewModel.propertyToBuyId.value ?: throw Exception("PropertyId was null when trying to call PaymentVisaFragmentDirections.actionDestPaymentVisaToRecapPaymentFragment")
                 val direction = PaymentVisaFragmentDirections
                     .actionDestPaymentVisaToRecapPaymentFragment(propId,card)
                 findNavController().navigate(direction)
             }
-        }
+        })
     }
 
 
@@ -69,8 +68,10 @@ class PaymentVisaFragment : Fragment() {
         val adapterMonths = ArrayAdapter(requireContext(),R.layout.view_picker_item,months)
         viewDataBinding.cardExpirationMonthValue.setAdapter(adapterMonths)
 
+//        val currentYear = SimpleDateFormat("yyyy",Locale.getDefault()).format(Date()).toInt()
+        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
 
-        val years = List(8) { it + 2020 }
+        val years = List(8) { it + currentYear }
         val adapterYears = ArrayAdapter(requireContext(), R.layout.view_picker_item, years)
         viewDataBinding.cardExpirationYearValue.setAdapter(adapterYears)
     }

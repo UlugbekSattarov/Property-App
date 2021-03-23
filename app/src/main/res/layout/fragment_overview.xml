@@ -40,7 +40,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/toolbar_height"
                     android:padding="0dp"
-                    tools:menu="@menu/overview_fragment_menu">
+                    tools:menu="@menu/overview_fragment_menu"
+                    tools:navigationIcon="@drawable/ic_drawer_menu"
+
+                    app:navigationContentDescription="@string/navigate_up"
+                    >
 
                     <com.example.marsrealestate.custom.SearchView
                         android:id="@+id/toolbar_searchview"
