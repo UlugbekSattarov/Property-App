@@ -79,19 +79,36 @@ class FakeTestRepository : MarsRepository {
         if (willThrowExceptionForTesting)
             throw Exception("Exception throwed for testing")
         return properties
+            .filter { p -> query.filter?.matches(p) ?: true }
+            .run {
+                when (sortedBy) {
+                    MarsApiPropertySorting.PriceAscending -> sortedBy { p -> p.price}
+                    MarsApiPropertySorting.PriceDescending -> sortedByDescending { p -> p.price}
+                    else -> this
+                }
+            }
+            .drop(query.itemsPerPage * (query.pageNumber -1))
+            .take(query.itemsPerPage)
+            .toList()
     }
 
 
 
     override suspend fun getProperty(id: String): MarsProperty? {
+        if (willThrowExceptionForTesting)
+            throw Exception("Exception throwed for testing")
         return properties.find { it.id == id }
     }
 
     override fun observeProperty(id: String): LiveData<MarsProperty?> {
+        if (willThrowExceptionForTesting)
+            throw Exception("Exception throwed for testing")
         return MutableLiveData(properties.find { it.id == id })
     }
 
     override fun observeFavorites(): LiveData<List<FavoriteProperty>> {
+        if (willThrowExceptionForTesting)
+            throw Exception("Exception throwed for testing")
         return observableFavorites
     }
 

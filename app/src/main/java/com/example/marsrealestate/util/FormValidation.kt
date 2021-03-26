@@ -9,6 +9,8 @@ import com.google.android.material.textfield.TextInputLayout
 
 object FormValidation {
     const val NO_ERROR = -1
+
+    fun isError(stringId : Int) = stringId != NO_ERROR
 }
 
 fun LiveData<Int>.noError() = value == NO_ERROR

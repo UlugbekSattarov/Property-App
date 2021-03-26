@@ -56,7 +56,7 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
 //    val properties : LiveData<List<MarsProperty>> = _properties.map { it }
 
 
-    private val itemsPerPage = 7
+    val itemsPerPage = 7
     private var pageLoadedCount = 0
 
 
@@ -107,8 +107,8 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
             }
 
             catch (e : Exception) {
-                _status.postValue(Result.Error())
 //                _properties.postValue(mutableListOf())
+                _status.postValue(Result.Error())
                 Log.e(this@OverviewViewModel::class.simpleName,Log.getStackTraceString(e))
             }
         }

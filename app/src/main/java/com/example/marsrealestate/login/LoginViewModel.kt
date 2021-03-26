@@ -13,6 +13,7 @@ import com.example.marsrealestate.util.FormValidation.NO_ERROR
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.util.regex.Pattern
 
 
 class LoginViewModel(private val repository: MarsRepository) : ViewModel() {
@@ -39,7 +40,9 @@ class LoginViewModel(private val repository: MarsRepository) : ViewModel() {
 
 
     val emailErrorStringId = email.map {
-        if(android.util.Patterns.EMAIL_ADDRESS.matcher(it).matches())
+        val pattern = Pattern.compile("^[a-zA-Z0-9_.+-]+@\\w+\\.\\w+\$")
+
+        if (pattern.matcher(it).matches())
             NO_ERROR
         else
             R.string.incorrect_email
@@ -63,8 +66,10 @@ class LoginViewModel(private val repository: MarsRepository) : ViewModel() {
         email.postValue(email.value ?: "")
         password.postValue(password.value ?: "")
 
-        if (emailErrorStringId.isError() || passwordErrorStringID.isError())
+        if (emailErrorStringId.isError() || passwordErrorStringID.isError()) {
+            _operationLogging.value = Result.Error()
             return
+        }
 
         _operationLogging.value = Result.Loading()
         viewModelScope.launch {
