@@ -1,9 +1,11 @@
 package com.example.marsrealestate.util
 
 import android.app.Activity
+import android.content.Context
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
+import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -121,6 +123,13 @@ fun Activity.closeDrawerIfPresent(toDoAfter : () -> Unit) {
     catch (e : Exception) {
         Log.e("Extensions",e.stackTrace.toString())
     }
+}
+
+@ColorInt
+fun Context.resolveColor(attr : Int) :  Int{
+    val typedValue = TypedValue()
+    theme.resolveAttribute(attr, typedValue, true)
+    return typedValue.data
 }
 
 fun Snackbar.withColoredText() : Snackbar {

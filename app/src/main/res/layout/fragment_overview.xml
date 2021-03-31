@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.marsrealestate.MainActivity"
-        app:marginTopPlusInsets="@{0f}"
+
         app:marginLeftPlusInsets="@{0f}"
         app:marginRightPlusInsets="@{0f}"
         >
@@ -32,6 +32,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:marginTopPlusInsets="@{0f}"
                 android:orientation="vertical"
                 app:layout_scrollFlags="scroll|enterAlways|snap">
 
@@ -65,64 +66,79 @@
 
                 </androidx.appcompat.widget.Toolbar>
 
-                <RelativeLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginBottom="10dp"
 
                     >
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/chip_group"
-                        android:layout_width="wrap_content"
+
+                    <HorizontalScrollView
+                        android:id="@+id/chip_group_scroll"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-
-                        android:paddingStart="25dp"
-                        android:paddingEnd="25dp"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="4dp"
-                        app:chipSpacing="10dp"
-
-                        app:marsApiFilter="@={viewModel.filter}"
-                        app:selectionRequired="true"
-                        app:singleSelection="true"
-
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/sort_by"
+                        android:scrollbars="none"
+                        android:layout_marginEnd="@dimen/margin_very_small"
                         >
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_all"
-                            style="@style/MyStyle.Widgets.Chip.Filter"
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chip_group"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
 
+                            android:paddingStart="25dp"
+                            android:paddingEnd="25dp"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="4dp"
+                            app:chipSpacing="10dp"
 
-                            android:text="@string/all"
-                            tools:checked="true" />
+                            app:singleLine="true"
+                            app:marsApiFilter="@={viewModel.filter}"
+                            app:selectionRequired="true"
+                            app:singleSelection="true"
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_rent"
-                            style="@style/MyStyle.Widgets.Chip.Filter"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            >
 
-                            android:text="@string/to_rent" />
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chip_all"
+                                style="@style/MyStyle.Widgets.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
 
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_buy"
-                            style="@style/MyStyle.Widgets.Chip.Filter"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                                android:text="@string/all"
+                                tools:checked="true" />
 
-                            android:text="@string/to_buy" />
-                    </com.google.android.material.chip.ChipGroup>
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chip_rent"
+                                style="@style/MyStyle.Widgets.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:text="@string/to_rent" />
+
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chip_buy"
+                                style="@style/MyStyle.Widgets.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:text="@string/to_buy" />
+                        </com.google.android.material.chip.ChipGroup>
+
+
+                    </HorizontalScrollView>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/card_expiration_year"
+                        android:id="@+id/sort_by"
                         style="?textInputLayoutDropdownStyle"
                         android:layout_width="140dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
 
                         android:layout_marginEnd="@dimen/margin_very_small"
                         android:hint="Sort by"
@@ -142,7 +158,7 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                </RelativeLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </LinearLayout>

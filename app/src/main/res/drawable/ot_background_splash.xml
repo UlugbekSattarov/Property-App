@@ -5,19 +5,16 @@
     <item android:drawable="?colorBackground"/>
 
 
-    <item
-        android:gravity="center"
+    <item>
+<!--     Before API 23, we have to use a bitmap if we don't want the image to be stretched.
+         A vector asset could be displayed but it would be stretched to fit the screen size which doesn't look good -->
+<!--        We can't reference directly the @mipmap folder so we have to use an asset from @drawable-->
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/ic_launcher_pre_v23"
 
-        android:drawable="@drawable/ic_launcher_foreground">
+            >
+        </bitmap>
     </item>
-
-
-
-
-
-
-
-
-
 
 </layer-list>

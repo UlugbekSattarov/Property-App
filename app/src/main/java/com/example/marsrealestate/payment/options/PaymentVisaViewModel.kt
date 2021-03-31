@@ -83,7 +83,7 @@ class PaymentVisaViewModel : ViewModel() {
 
             _operationValidateCard.value = Result.Loading()
             viewModelScope.launch {
-                delay(1000)
+//                delay(1000)
                 _operationValidateCard.postValue(Result.Success(card))
                 _onCardValidated.postValue(Event(card))
             }

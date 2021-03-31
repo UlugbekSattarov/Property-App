@@ -98,7 +98,7 @@ class PurchaseProgressionView @JvmOverloads constructor(
                 width = circleDiameter.toInt()
                 height = circleDiameter.toInt()
             }
-            it.radius = circleDiameter
+            it.radius = circleDiameter /2f
         }
 
         progressBars.forEach { it.updateLayoutParams<ViewGroup.LayoutParams> { height = progressBarWidth.toInt() } }

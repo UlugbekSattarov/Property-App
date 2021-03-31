@@ -7,6 +7,6 @@
     android:maxLines="1"
     android:textAppearance="?attr/textAppearanceHeadline5"
     tools:text="2020"
-    android:text="bla"
+
 
     />

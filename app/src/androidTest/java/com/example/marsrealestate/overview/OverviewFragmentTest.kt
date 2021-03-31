@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -75,7 +76,7 @@ class OverviewFragmentTest {
 
 
         //Check that "buy" properties are removed after the click on chip_rent
-        onView(withId(R.id.chip_rent)).perform(click())
+        onView(withId(R.id.chip_rent)).perform(scrollTo(),click())
         onView(withId(R.id.photos_grid)).check { view, noViewFoundException ->
             noViewFoundException?.let { throw it }
             val list = view as RecyclerView
@@ -86,7 +87,7 @@ class OverviewFragmentTest {
         }
 
         //Check that "rent" properties are removed after the click on chip_buy
-        onView(withId(R.id.chip_buy)).perform(click())
+        onView(withId(R.id.chip_buy)).perform(scrollTo(),click())
         onView(withId(R.id.photos_grid)).check { view, noViewFoundException ->
             noViewFoundException?.let { throw it }
             val list = view as RecyclerView

@@ -8,16 +8,19 @@ import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.VectorDrawable
+import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.databinding.BindingAdapter
 import com.example.marsrealestate.R
 import com.example.marsrealestate.databinding.LayoutNavigationMenuBinding
+import com.example.marsrealestate.util.resolveColor
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.shape.ShapeAppearanceModel
 
@@ -55,29 +58,32 @@ class NavigationItemView @JvmOverloads constructor(
             }
         }
 
-    private val defaultTextColor = kotlin.run {
-        val typedValue = TypedValue()
-        context.theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
-        typedValue.data
-    }
+    private val defaultTextColor = context.resolveColor(android.R.attr.textColorPrimary)
+    private val defaultColorInactive = context.resolveColor(R.attr.colorControlInactive)
+    private val defaultColorActive = context.resolveColor(R.attr.colorControlNormal)
 
-    private val defaultBackgroundHighlightColor = kotlin.run {
-        val typedValue = TypedValue()
-        context.theme.resolveAttribute(R.attr.colorControlHighlightAlt, typedValue, true)
-        typedValue.data
-    }
+    private val defaultBackgroundHighlightColor = context.resolveColor(R.attr.colorControlHighlightAlt)
 
+    private var _defaultTextColorList : ColorStateList =  ResourcesCompat.getColorStateList(resources,
+        R.color.control_activable,context.theme) ?: ColorStateList.valueOf(defaultTextColor)
 
-    private var _defaultTextColorList : ColorStateList = ColorStateList.valueOf(
-        ResourcesCompat.getColor(resources,R.color.control_activable,context.theme))
 
 
 
     private val _textColor : Int
         @ColorInt
         get() {
-            val state = if (isActive) android.R.attr.state_checked else 0
-            return _defaultTextColorList.getColorForState(intArrayOf(state), defaultTextColor)
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val state = if (isActive) android.R.attr.state_checked else 0
+                _defaultTextColorList.getColorForState(intArrayOf(state), defaultTextColor)
+
+            } else {
+                if (isActive)
+                    defaultColorActive
+                else
+                    defaultColorInactive
+            }
+
         }
 
     private val _backgroundTint : Int

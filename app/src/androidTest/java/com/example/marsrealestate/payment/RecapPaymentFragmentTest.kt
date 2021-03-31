@@ -28,6 +28,7 @@ import com.example.marsrealestate.testshared.data.FakeTestRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -48,9 +49,6 @@ class RecapPaymentFragmentTest {
     var mainCoroutineRule =
         MainCoroutineRule()
 
-    @get:Rule
-    var activityRule: ActivityScenarioRule<MainActivity>
-            = ActivityScenarioRule(MainActivity::class.java)
 
 
     val props = listOf(
@@ -68,11 +66,11 @@ class RecapPaymentFragmentTest {
     fun setup() {
         ServiceLocator.marsRepository = FakeTestRepository().apply { setPropertiesDataset(props) }
         context  = ApplicationProvider.getApplicationContext()
-        navController = TestNavHostController(context = context)
+        navController = TestNavHostController(context)
         navController.setViewModelStore(ViewModelStore())
         navController.setGraph(R.navigation.nav_graph_main)
         navController.setCurrentDestination(R.id.dest_payment_recap)
-        navController.navigate(R.id.dest_payment_recap)
+//        navController.navigate(R.id.dest_payment_recap)
     }
 
 
@@ -96,6 +94,7 @@ class RecapPaymentFragmentTest {
                 }
             }
         }
+
 
         //Checking that the id, the price and the payment option displayed are correct
         onView(withId(R.id.property_id_detail)).check(matches(withText(prop.id)))
