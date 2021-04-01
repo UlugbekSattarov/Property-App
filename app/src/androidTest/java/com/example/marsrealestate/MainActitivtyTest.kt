@@ -8,7 +8,6 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
@@ -81,9 +80,9 @@ class MainActitivtyTest {
 //        idling.increment()
 
 
-        Espresso.onView(ViewMatchers.withContentDescription(R.string.navigate_up))
-            .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.settings)).perform(ViewActions.click())
+        onView(ViewMatchers.withContentDescription(R.string.navigate_up))
+            .perform(click())
+        onView(withId(R.id.settings)).perform(click())
 
 
         scenario.onActivity { activity ->
@@ -92,9 +91,9 @@ class MainActitivtyTest {
         }
 
 
-        Espresso.onView(ViewMatchers.withContentDescription(R.string.navigate_up))
-            .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.overview)).perform(ViewActions.click())
+        onView(ViewMatchers.withContentDescription(R.string.navigate_up))
+            .perform(click())
+        onView(withId(R.id.overview)).perform(click())
 
 
         val positionToClick = 0
@@ -114,12 +113,12 @@ class MainActitivtyTest {
 //        onData(allOf()).inAdapterView(withId(R.id.photos_grid)).atPosition(0).perform(click())
 
         //Perform clicl at position [positionToClick]
-        Espresso.onView(ViewMatchers.withId(R.id.photos_grid)).perform(
+        onView(withId(R.id.photos_grid)).perform(
             RecyclerViewActions.actionOnItemAtPosition<OverviewAdapter.MarsPropertyViewHolder>(positionToClick,
-                ViewActions.click()
+                click()
             ))
         //Check that the property displayed in detail view is the same one we clicked before
-        Espresso.onView(ViewMatchers.withId(R.id.coords)).check(
+        onView(withId(R.id.coords)).check(
             ViewAssertions.matches(
                 ViewMatchers.withText(
                     MarsCoordsToStringConverter.formatCoordsToString(property)
@@ -127,21 +126,23 @@ class MainActitivtyTest {
             )
         )
 
-        Espresso.onView(ViewMatchers.withId(R.id.extended_fab)).perform(ViewActions.click())
+        onView(withId(R.id.extended_fab)).perform(click())
         //After click on the buy/rent button, the login opens so we type login info
-        Espresso.onView(ViewMatchers.withId(R.id.email_value))
-            .perform(ViewActions.typeText("a@a.a"))
-        Espresso.onView(ViewMatchers.withId(R.id.pasword_value))
-            .perform(ViewActions.typeText("aaaa"))
+        onView(withId(R.id.email_value))
+            .perform(scrollTo(),typeText("a@a.a"))
+        onView(withId(R.id.pasword_value))
+            .perform(scrollTo(),typeText("aaaa"))
 
-        Espresso.onView(
+        onView(
             Matchers.allOf(
-                ViewMatchers.withClassName(Matchers.endsWith("MaterialButton")),
-                ViewMatchers.withId(R.id.button_login)
+                isAssignableFrom(MaterialButton::class.java),
+                withId(R.id.button_login)
             )
-        ).perform(ViewActions.click())
+        ).perform(closeSoftKeyboard(),scrollTo(),click())
 
-        Espresso.onView(ViewMatchers.withId(R.id.payment_option_visa)).perform(ViewActions.click())
+
+
+        onView(withId(R.id.payment_option_visa)).perform(click())
 
 
 
@@ -156,17 +157,17 @@ class MainActitivtyTest {
 
         //First click display the dropDown Menu
 //        onView(withId(R.id.card_expiration_month)).perform(swipeUp())
-        onView(withId(R.id.card_expiration_month_value)).perform(scrollTo(),ViewActions.click())
+        onView(withId(R.id.card_expiration_month_value)).perform(scrollTo(),click())
         //Second click selects an element from the dropDown
         Espresso.onData(Matchers.allOf())
             .inRoot(RootMatchers.isPlatformPopup())
-            .atPosition(0).perform(ViewActions.click())
+            .atPosition(0).perform(click())
 
 //        onView(withId(R.id.card_expiration_year)).perform(swipeUp())
-        onView(withId(R.id.card_expiration_year_value)).perform(scrollTo(),ViewActions.click())
+        onView(withId(R.id.card_expiration_year_value)).perform(scrollTo(),click())
         Espresso.onData(Matchers.allOf())
             .inRoot(RootMatchers.isPlatformPopup())
-            .atPosition(0).perform(ViewActions.click())
+            .atPosition(0).perform(click())
 
 //        onView(isAssignableFrom(NestedScrollView::class.java)).perform(swipeUp())
 
