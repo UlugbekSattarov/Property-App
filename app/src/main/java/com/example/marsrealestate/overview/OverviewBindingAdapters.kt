@@ -1,7 +1,7 @@
 package com.example.marsrealestate.overview
 
-import android.transition.TransitionInflater
-import android.transition.TransitionManager
+import androidx.transition.TransitionInflater
+import androidx.transition.TransitionManager
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
