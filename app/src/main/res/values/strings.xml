@@ -142,6 +142,7 @@
     <string name="browse">Browse</string>
 
     <string name="added_on">Added on %1$td %1$tb %1$tY %1$tk:%1$tM</string>
+    <string name="available_since">Available since %1$td %1$tb %1$tY </string>
     <string name="more_infos">More infos</string>
 
 

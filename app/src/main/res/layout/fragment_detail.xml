@@ -351,7 +351,7 @@
 
                     app:cardBackgroundColor="?colorBackground"
                     app:strokeWidth="1dp"
-                    app:strokeColor="@color/grayLighter"
+                    app:strokeColor="?android:listDivider"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="0dp"
 
@@ -382,13 +382,15 @@
                             android:layout_height="wrap_content"
                             app:layout_constraintStart_toEndOf="@id/img_trivia_1"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/img_trivia_1"
+                            app:layout_constraintBottom_toBottomOf="@id/img_trivia_1"
                             android:layout_marginStart="@dimen/margin_medium"
 
 
                             android:text="@{ Html.fromHtml(@string/available_for_purchase_since)}"
                             style="?textAppearanceHeadline7"
                             android:textColor="?android:textColorTertiary"
+                            tools:text="This property is available for purchase since 02/03/2021"
                             />
 
                         <View
@@ -397,8 +399,8 @@
                             android:layout_height="1dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/trivia_1"
-                            android:background="@color/grayLighter"
-                            android:layout_marginTop="@dimen/margin_medium"
+                            android:background="?android:listDivider"
+                            android:layout_marginTop="@dimen/margin_medium_large"
                             />
 
                         <LinearLayout
@@ -406,7 +408,7 @@
                             android:layout_height="wrap_content"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/trivia_divider"
-                            android:layout_marginTop="@dimen/margin_small"
+                            android:layout_marginTop="@dimen/margin_medium"
 
                             android:orientation="horizontal"
                             android:paddingTop="@dimen/margin_small"
@@ -430,6 +432,7 @@
                                 android:text="@{ viewModel.propertyViewCount == 0 ? Html.fromHtml(@string/zero_people_have_already_seen_this_property) :  Html.fromHtml(@plurals/x_people_have_already_seen_this_property(viewModel.propertyViewCount,viewModel.propertyViewCount))}"
                                 style="?textAppearanceHeadline7"
                                 android:textColor="?android:textColorTertiary"
+                                tools:text="Three people have already seen this property"
                                 />
 
                         </LinearLayout>
@@ -467,7 +470,7 @@
                     app:layout_constraintEnd_toEndOf="@id/share_text"
 
 
-                    app:chipStrokeColor="@color/grayLighter"
+                    app:chipStrokeColor="?android:listDivider"
                     app:chipStrokeWidth="1.5dp"
                     app:chipBackgroundColor="?colorBackground"
                     app:chipIcon="@drawable/ic_share_24"

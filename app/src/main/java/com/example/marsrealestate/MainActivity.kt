@@ -21,19 +21,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-
 
         navController = Navigation.findNavController(viewBinding.root.findViewById<View>(R.id.nav_host_fragment))
         viewBinding.navigationView.setupWithNavController(navController)
 
         hideOrRevealPurchaseProgressBar(navController)
 
-
     }
-
 
     override fun onBackPressed() {
         if (viewBinding.drawerlayout.isDrawerOpen(GravityCompat.START))

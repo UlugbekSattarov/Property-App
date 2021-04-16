@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="colorBackground" format="color"/>
+    <attr name="colorSuccess" format="color"/>
     <attr name="colorOnPicture" format="color"/>
     <attr name="textColorHeadline" format="color"/>
 

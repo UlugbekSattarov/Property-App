@@ -17,6 +17,7 @@
         <item name="colorOnSnackbarBackground">@android:color/black</item>
 
         <item name="colorError">@color/orangeLight</item>
+        <item name="colorSuccess">@color/materialGreen400</item>
 
         <item name="android:windowBackground">@drawable/ot_background_splash</item>
 
@@ -30,7 +31,7 @@
 
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@color/redLight</item>
-        <item name="android:textColorTertiary">@color/gray</item>
+        <item name="android:textColorTertiary">@color/grayLighterPlus</item>
 
 
         <!--  The color of the icons and some widgets like TextInputLayout-->
@@ -41,7 +42,8 @@
         <item name="colorControlHighlightAlt">@color/redLightSemiTransparent</item>
         <item name="colorControlInactive">@color/grayLighterPlus</item>
         <item name="colorControlInactiveAlt">@color/grayLighterPlus</item>
-        <item name="android:listDivider">?colorSecondary</item>
+
+        <item name="android:listDivider">@color/grayLighter</item>
 
 
         <item name="colorChipBackground">@color/grayLight</item>

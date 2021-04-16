@@ -31,7 +31,7 @@ class NavigationFragment : Fragment() {
     }
 
     private val loginViewModel: LoginViewModel by activityViewModels {
-        LoginViewModelFactory(ServiceLocator.getMarsRepository(requireContext()))
+        LoginViewModelFactory(ServiceLocator.getMarsRepository(requireContext()),this,null)
     }
 
 

@@ -51,6 +51,8 @@
     <dimen name="purchase_progression_bar_width">7dp</dimen>
     <dimen name="purchase_progression_text_size_emphasized">15sp</dimen>
     <dimen name="purchase_progression_text_size_minimized">12sp</dimen>
+
+
     <dimen name="list_item_spacing">16dp</dimen>
     <dimen name="list_item_spacing_half">8dp</dimen>
 

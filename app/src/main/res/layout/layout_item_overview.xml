@@ -80,7 +80,7 @@
                 android:layout_marginStart="@dimen/margin_medium"
                 android:layout_marginTop="@dimen/margin_medium"
 
-                android:text="Available since 20/06/2017"
+                tools:text="Available since 20/06/2017"
 
                 android:textAppearance="@style/MyStyle.TextAppearance.Caption"
 

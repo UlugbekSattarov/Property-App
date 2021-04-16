@@ -139,7 +139,7 @@
             android:layout_marginEnd="@dimen/margin_small"
             android:layout_marginStart="@dimen/margin_small"
 
-            android:src="@drawable/an_search_close"
+            app:srcCompat="@drawable/an_search_close"
             app:tint="?colorSecondary"
             android:background="?selectableItemBackgroundBorderless"
             />

@@ -9,9 +9,12 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.marsrealestate.R
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.LayoutItemOverviewBinding
 import com.example.marsrealestate.util.SharedElementTransition
+import java.text.SimpleDateFormat
+import java.util.*
 
 interface OnLastItemDisplayedListener { fun onLastItemDisplayed() }
 
@@ -37,6 +40,14 @@ class OverviewAdapter(private val onClickListener: OnClickListener,
             val transitionName = SharedElementTransition.getTransitionName(marsProperty)
             ViewCompat.setTransitionName(sharedElement, transitionName)
             binding.property = marsProperty
+
+            val cal = Calendar.getInstance().apply {
+                time = Date()
+
+                add(Calendar.HOUR,-Random().nextInt(24*95))
+            }
+
+            binding.caption.text = binding.root.resources.getString(R.string.available_since, cal.time)
             // This is important, because it forces the data binding to execute immediately,
             // which allows the RecyclerView to make the correct view size measurements
             binding.executePendingBindings()

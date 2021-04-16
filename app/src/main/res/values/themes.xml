@@ -17,6 +17,7 @@
         <item name="colorOnSnackbarBackground">@color/white</item>
 
         <item name="colorError">@color/orangeDark</item>
+        <item name="colorSuccess">@color/materialGreen700</item>
 
         <item name="android:windowBackground">@drawable/ot_background_splash</item>
 
@@ -40,8 +41,11 @@
         <item name="colorControlHighlightAlt">@color/redSemiTransparent</item>
         <item name="colorControlInactive">@color/grayLight</item>
         <item name="colorControlInactiveAlt">@color/grayLighter</item>
-        <item name="android:listDivider">?colorSecondary</item>
 
+
+
+
+        <item name="android:listDivider">@color/grayLighter</item>
 
         <item name="colorChipBackground">@color/grayLighterer</item>
         <item name="colorChipText">@color/grayDark</item>

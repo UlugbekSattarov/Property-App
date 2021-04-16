@@ -86,8 +86,8 @@ fun ImageView.startAnim(startAnim: Boolean?) {
 }
 
 @BindingAdapter("fadeInIf")
-fun View.animateFade(animateFade: Boolean?) {
-    when (animateFade) {
+fun View.fadeInIf(condition: Boolean?) {
+    when (condition) {
         true -> {
             isEnabled = true
             visibility = View.VISIBLE
@@ -105,6 +105,11 @@ fun View.animateFade(animateFade: Boolean?) {
                 }.start()
         }
     }
+}
+
+@BindingAdapter("fadeOutIf")
+fun View.fadeOutIf(condition: Boolean?) {
+    fadeInIf(condition?.not())
 }
 
 @BindingAdapter("setChecked")

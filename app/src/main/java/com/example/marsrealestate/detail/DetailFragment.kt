@@ -63,7 +63,7 @@ class DetailFragment : Fragment() {
     }
 
     private val loginViewModel : LoginViewModel by activityViewModels {
-        LoginViewModelFactory(ServiceLocator.getMarsRepository(requireContext()))
+        LoginViewModelFactory(ServiceLocator.getMarsRepository(requireContext()),this,null)
     }
 
     private lateinit var viewDataBinding : FragmentDetailBinding
@@ -141,7 +141,7 @@ class DetailFragment : Fragment() {
         viewModel.navigateToPayment.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let { property ->
 
-                val action = if (loginViewModel.isLoggedIn().not())
+                val action = if (loginViewModel.isLoggedIn.value != true)
                     DetailFragmentDirections.actionDestDetailToDestLogin().apply {
                         redirection = R.id.dest_choose_payment
                         redirectionArgs = property.id

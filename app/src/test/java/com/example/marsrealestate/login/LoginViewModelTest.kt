@@ -2,6 +2,7 @@ package com.example.marsrealestate.login
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import androidx.lifecycle.SavedStateHandle
 import com.example.marsrealestate.testshared.MainCoroutineRule
 import com.example.marsrealestate.testshared.data.FakeTestRepository
 import com.example.marsrealestate.testshared.getOrAwaitValue
@@ -36,10 +37,9 @@ class LoginViewModelTest {
     @ExperimentalCoroutinesApi
     @Test
     fun testLogin() = mainCoroutineRule.runBlockingTest {
-        viewModel = LoginViewModel(FakeTestRepository())
+        viewModel = LoginViewModel(SavedStateHandle(), FakeTestRepository())
 
         assertTrue(Result.notYetDone(viewModel.operationLogging.value))
-        assertNull(viewModel.isLoggedIn.value)
         assertNull(viewModel.loggedInEvent.value)
 
         viewModel.login()
