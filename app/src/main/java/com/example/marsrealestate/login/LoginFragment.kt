@@ -70,11 +70,14 @@ class LoginFragment : Fragment() {
         viewModel.loggedInEvent.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let {
 
+                //Transition is handled by the nav controller (defined in nav_graph_main.xml)
+                exitTransition = null
+
                 if (navArgs.redirection == R.id.dest_choose_payment ) {
-                    val opt = NavOptions.Builder().setPopUpTo(R.id.dest_login,true).build()
+
                     navArgs.redirectionArgs?.let { args ->
                         val direction = LoginFragmentDirections.actionDestLoginToDestChoosePayment(args)
-                        findNavController().navigate(direction,opt)
+                        findNavController().navigate(direction)
                     }
                 }
             }
