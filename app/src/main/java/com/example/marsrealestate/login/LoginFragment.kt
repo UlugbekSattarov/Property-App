@@ -1,10 +1,12 @@
 package com.example.marsrealestate.login
 
+import android.content.Context
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -59,6 +61,17 @@ class LoginFragment : Fragment() {
         requireActivity().setupToolbarIfDrawerLayoutPresent(this,viewDataBinding.toolbar)
         setupNavigation()
         setupLoginLayoutVisibility()
+
+        viewModel.operationLogging.observe(viewLifecycleOwner,androidx.lifecycle.Observer {
+            if (it.isLoading()) {
+
+                (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+                    requireView().windowToken,
+                    InputMethodManager.HIDE_NOT_ALWAYS
+                )
+
+            }
+        })
 
 
         return viewDataBinding.root

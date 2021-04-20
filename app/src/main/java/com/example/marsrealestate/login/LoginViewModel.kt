@@ -1,25 +1,26 @@
 package com.example.marsrealestate.login
 
 import android.os.Bundle
-import android.util.Log
-import androidx.annotation.IdRes
-import androidx.annotation.IntegerRes
-import androidx.annotation.NavigationRes
 import androidx.lifecycle.*
 import androidx.savedstate.SavedStateRegistryOwner
 import com.example.marsrealestate.R
-import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.data.MarsRepository
-import com.example.marsrealestate.util.*
+import com.example.marsrealestate.util.Event
 import com.example.marsrealestate.util.FormValidation.NO_ERROR
-import kotlinx.coroutines.delay
+import com.example.marsrealestate.util.Result
+import com.example.marsrealestate.util.isError
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import java.util.regex.Pattern
 
 
-class LoginViewModel(private val savedStateHandle: SavedStateHandle,private val repository: MarsRepository) : ViewModel() {
+class LoginViewModel(private val savedStateHandle: SavedStateHandle,
+                     private val repository: MarsRepository) : ViewModel() {
 
+    companion object {
+        private const val KEY_PASSWORD = "password"
+        private const val KEY_USERNAME = "username"
+        private const val KEY_LOGGED_IN = "login"
+    }
 
     val email : MutableLiveData<String> = MutableLiveData()
     val password : MutableLiveData<String> = MutableLiveData()
@@ -27,8 +28,7 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,private val 
     private val _isLoggedIn = MutableLiveData<Boolean>(false)
     val isLoggedIn: LiveData<Boolean> = _isLoggedIn
 
-    private val _userLogged = MutableLiveData<String?>()
-    val userLogged: LiveData<String?> = _userLogged
+    val userLogged: LiveData<String?> = isLoggedIn.map { if (it) "User" else null }
 
     private val _operationLogging : MutableLiveData<Result<Nothing>> = MutableLiveData()
     val operationLogging : LiveData<Result<Nothing>> = _operationLogging
@@ -39,9 +39,7 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,private val 
 
 
     init {
-        savedStateHandle.get<Boolean>("login")?.let {
-            _isLoggedIn.value = it
-        }
+        restoreState()
     }
 
 
@@ -85,9 +83,10 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,private val 
             if (result.isSuccess()) {
                 _operationLogging.postValue(Result.Success())
                 _isLoggedIn.postValue(true)
-                _userLogged.postValue("user")
                 _loggedInEvent.postValue(Event(true))
-                savedStateHandle["login"] = true
+
+                saveState(true,email.value, password.value)
+
             }
             else {
                 _operationLogging.postValue(Result.Error())
@@ -99,8 +98,22 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,private val 
 
     fun logout() {
         _isLoggedIn.value = false
-        _userLogged.value = null
+        saveState(false)
     }
+
+
+    private fun saveState(isLoggedIn : Boolean, username : String? = null, password : String? = null) {
+        username?.let { savedStateHandle[KEY_USERNAME] = it }
+        password?.let { savedStateHandle[KEY_PASSWORD] = it }
+        savedStateHandle[KEY_LOGGED_IN] = isLoggedIn
+    }
+
+    private fun restoreState() {
+        savedStateHandle.get<Boolean>(KEY_LOGGED_IN)?.let { _isLoggedIn.value = it }
+        savedStateHandle.get<String>(KEY_USERNAME)?.let { email.value = it }
+        savedStateHandle.get<String>(KEY_PASSWORD)?.let { password.value = it }
+    }
+
 
 }
 

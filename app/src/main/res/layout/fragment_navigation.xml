@@ -88,8 +88,8 @@
 
                     tools:startIcon="@drawable/ic_login"
                     tools:title="@string/login"
-                    app:title="@{ loginViewModel.userLogged != null ? @string/welcome_xxx(loginViewModel.userLogged) : @string/login}"
-                    app:startIcon="@{loginViewModel.isLoggedIn() ? @drawable/mars_image_1_square : @drawable/ic_login}"
+                    app:title="@{ loginViewModel.userLogged != null ? loginViewModel.userLogged : @string/login}"
+                    app:startIcon="@{loginViewModel.isLoggedIn() ? @drawable/astronaut : @drawable/ic_login}"
                     app:textColor="@color/control_activable"
 
                     android:onClick="@{ () -> fragment.changeDestination(@id/dest_login)}"
