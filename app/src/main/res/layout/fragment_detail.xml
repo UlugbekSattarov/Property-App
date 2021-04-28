@@ -472,7 +472,7 @@
 
                     app:chipStrokeColor="?android:listDivider"
                     app:chipStrokeWidth="1.5dp"
-                    app:chipBackgroundColor="?colorBackground"
+                    app:chipBackgroundColor="?colorSurface"
                     app:chipIcon="@drawable/ic_share_24"
                     app:chipIconSize="18dp"
                     app:chipStartPadding="10dp"

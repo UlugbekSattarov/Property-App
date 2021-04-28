@@ -185,6 +185,7 @@
     <string name="zero_people_have_already_seen_this_property">You are the &lt;b>first one&lt;/b> to see this property</string>
     <string name="defaultSorting" >Default</string>
     <string name="navigate_up">Navigate up</string>
+    <string name="biometric_auth_unavailable">Your device is not compatible with biometric authentication</string>
 
     <plurals name="x_people_have_already_seen_this_property">
         <item quantity="one">&lt;b>One person&lt;/b> has already seen this property</item>

@@ -7,6 +7,8 @@
         <import type="com.example.marsrealestate.util.Result"/>
         <import type="com.example.marsrealestate.util.Utils" />
         <import type="android.text.Html" />
+        <import type="com.example.marsrealestate.login.BiometricHelper" />
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -70,8 +72,8 @@
                 app:layout_constraintTop_toBottomOf="@id/image_mars"
 
                 android:rotation="42"
-                android:translationX="-150dp"
-                android:translationY="-80dp"
+                android:translationX="-110dp"
+                android:translationY="-40dp"
                 android:src="@drawable/ot_sattelite"
                 />
 
@@ -126,6 +128,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/title"
 
+                        tools:visibility="gone"
                         >
 
 
@@ -144,7 +147,6 @@
                             app:startIconDrawable="@drawable/ic_email"
 
 
-
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -158,7 +160,12 @@
                                 style="?textInputEditTextStyle"
 
                                 android:inputType="textEmailAddress"
-                                android:text="@={viewModel.email}" />
+                                android:text="@={viewModel.email}"
+
+                                android:autofillHints="emailAddress"
+                                android:importantForAutofill="yes"
+
+                                />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -191,7 +198,10 @@
 
                                 style="?textInputEditTextStyle"
 
-                                android:text="@={viewModel.password}" />
+                                android:text="@={viewModel.password}"
+                                android:autofillHints="password"
+                                android:importantForAutofill="yes"
+                                />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -259,30 +269,52 @@
 
                             />
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/login_biometric_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
 
                             app:layout_constraintTop_toBottomOf="@id/login_biometric_label"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginTop="@dimen/margin_large"
+
+
+                            app:srcCompat="@drawable/ic_fingerprint_24"
+                            app:maxImageSize="32dp"
+                            app:fabCustomSize="50dp"
+
+                            app:tint="@color/fab_icon_alt"
+                            app:backgroundTint="@color/fab_background_alt"
+
+                            app:shapeAppearance="@null"
+                            app:shapeAppearanceOverlay="@null"
+
+                            android:enabled="@{BiometricHelper.canUseBiometric(context)}"
+                            tools:enabled="false"
+
+                            />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            app:layout_constraintTop_toBottomOf="@id/login_biometric_button"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginTop="@dimen/margin_medium"
 
-                            app:cardCornerRadius="25dp"
+                            android:text="@string/biometric_auth_unavailable"
+                            android:textAlignment="center"
+                            android:textAppearance="?textAppearanceSubtitle1"
+                            android:textStyle="italic"
+                            android:alpha="0.6"
 
+                            android:visibility="@{BiometricHelper.canUseBiometric(context) ? View.GONE : View.VISIBLE}"
 
-
-                            >
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_margin="@dimen/margin_small"
-
-                                android:src="@drawable/ic_fingerprint_24"
-
-                                />
-                        </androidx.cardview.widget.CardView>
-
+                            />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -295,7 +327,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/title"
-                        tools:visibility="invisible"
+
+                        tools:visibility="visible"
 
                         >
 
@@ -347,7 +380,7 @@
                             android:layout_marginTop="@dimen/margin_medium"
 
                             android:text="Browse properties"
-                            app:chipBackgroundColor="?colorBackground"
+                            app:chipBackgroundColor="?colorSurface"
                             app:chipIconSize="18dp"
                             app:chipStartPadding="10dp"
                             app:chipIconVisible="true"
@@ -356,9 +389,9 @@
                             app:rippleColor="?colorControlHighlightAlt"
                             android:textAppearance="?textAppearanceSubtitle2"
                             app:chipIconTint="?colorSecondary"
-
                             app:chipIcon="@drawable/mars_notification"
 
+                            android:onClick="@{ () -> viewModel.navigateToOverview()}"
 
 
                             />
@@ -368,21 +401,19 @@
                             android:layout_width="0dp"
                             android:layout_height="60dp"
                             android:layout_marginTop="@dimen/margin_large"
-                            android:backgroundTint="?colorBackground"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/layout_logout_chip_browse"
+                            app:layout_constraintWidth_max="310dp"
+                            app:layout_constraintWidth_min="230dp"
 
+                            app:rippleColor="?colorControlHighlightAlt"
+                            app:strokeColor="?colorSecondary"
+                            android:backgroundTint="?colorSurface"
+                            app:strokeWidth="2dp"
                             android:onClick="@{ () -> viewModel.logout()}"
                             android:text="logout"
                             android:textColor="?colorSecondary"
-                            app:layout_constraintEnd_toEndOf="parent"
-
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/layout_logout_chip_browse"
-
-                            app:layout_constraintWidth_max="310dp"
-                            app:layout_constraintWidth_min="230dp"
-                            app:rippleColor="?colorControlHighlightAlt"
-                            app:strokeColor="?colorSecondary"
-                            app:strokeWidth="2dp"
 
 
                             />

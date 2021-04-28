@@ -36,6 +36,9 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
     private val _loggedInEvent : MutableLiveData<Event<Boolean>> = MutableLiveData()
     val loggedInEvent : LiveData<Event<Boolean>> = _loggedInEvent
 
+    private val _navigateToOverviewEvent : MutableLiveData<Event<Boolean>> = MutableLiveData()
+    val navigateToOverviewEvent : LiveData<Event<Boolean>> = _navigateToOverviewEvent
+
 
 
     init {
@@ -101,6 +104,10 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
         saveState(false)
     }
 
+    fun navigateToOverview() {
+        _navigateToOverviewEvent.value = Event(true)
+    }
+
 
     private fun saveState(isLoggedIn : Boolean, username : String? = null, password : String? = null) {
         username?.let { savedStateHandle[KEY_USERNAME] = it }
@@ -113,6 +120,8 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
         savedStateHandle.get<String>(KEY_USERNAME)?.let { email.value = it }
         savedStateHandle.get<String>(KEY_PASSWORD)?.let { password.value = it }
     }
+
+
 
 
 }
