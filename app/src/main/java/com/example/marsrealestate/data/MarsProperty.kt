@@ -23,7 +23,11 @@ data class MarsProperty (
     val isRental
         get() = type == "rent"
 
+    companion object {
 
+        @JvmField
+        val DEFAULT = MarsProperty("0000", "", "rent", 0.0,surfaceArea = 0f,latitude = 0f,longitude = 0f)
+    }
 
 
 }

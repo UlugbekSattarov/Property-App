@@ -44,7 +44,9 @@
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="MarsProperty"
-            app:argType="com.example.marsrealestate.data.MarsProperty" />
+            android:defaultValue="@null"
+            app:argType="com.example.marsrealestate.data.MarsProperty"
+            app:nullable="true" />
         <action
             android:id="@+id/action_dest_detail_to_dest_login"
             app:destination="@id/dest_login"
@@ -61,6 +63,15 @@
                 android:name="propertyToBuyId"
                 app:argType="string" />
         </action>
+        <deepLink
+            android:id="@+id/deepLink"
+            app:action="ACTION_SEND"
+            app:uri="com.example.marsrealestate/detail/{propertyId}" />
+        <argument
+            android:name="propertyId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
     <fragment
@@ -77,21 +88,26 @@
         android:id="@+id/dest_settings"
         android:name="com.example.marsrealestate.settings.SettingsFragment"
         android:label="@string/settings"
-        tools:layout="@layout/fragment_settings"
-        />
+        tools:layout="@layout/fragment_settings">
+        <deepLink
+            android:id="@+id/deepLink3"
+            app:action="ACTION_SEND"
+            app:mimeType="text/plain"
+            app:uri="com.example.marsrealestate/settings" />
+    </fragment>
     <fragment
         android:id="@+id/dest_login"
         android:name="com.example.marsrealestate.login.LoginFragment"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <argument
             android:name="redirection"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:defaultValue="-1"
+            app:argType="integer" />
         <argument
             android:name="redirectionArgs"
+            android:defaultValue="@null"
             app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
         <action
             android:id="@+id/action_dest_login_to_dest_choose_payment"
             app:destination="@id/nav_graph_payment"

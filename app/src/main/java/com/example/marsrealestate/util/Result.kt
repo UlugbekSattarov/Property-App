@@ -20,6 +20,13 @@ sealed class Result<out R>(val messageId : Int? = null) {
         }
     }
 
+    fun tryGetData() : R? {
+        return if (this is Success)
+            this.data
+        else
+            null
+    }
+
     //Convenient for use in xml
     @JvmName("isIsError")
     fun isError() = this is Error

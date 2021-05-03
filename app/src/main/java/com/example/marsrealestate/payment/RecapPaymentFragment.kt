@@ -55,7 +55,7 @@ class RecapPaymentFragment : Fragment() {
 
         viewModel.transactionCompleted.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it.getContentIfNotHandled()?.let { property ->
-                NotificationHelper.notifyPropertyBought(requireContext(),findNavController(),property)
+                NotificationHelper.notifyPropertyBought(requireContext(),property)
             }
         })
 

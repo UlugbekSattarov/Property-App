@@ -7,7 +7,8 @@
         <import type="com.example.marsrealestate.detail.MarsCoordsToStringConverter"/>
         <import type="android.text.Html"/>
         <import type="android.view.View"/>
-
+        <import type="com.example.marsrealestate.detail.DetailFragment"/>
+        <import type="com.example.marsrealestate.data.MarsProperty" />
 
         <variable
             name="viewModel"
@@ -107,9 +108,9 @@
             tools:scaleX="1"
             tools:scaleY="1"
 
-            android:onClick="@{() -> viewModel.addRemovePropertyToFavorites()}"
+            android:onClick="@{() -> viewModel.addRemovePropertyToFavorites(viewModel.property)}"
             app:srcCompat="@drawable/an_heart"
-            app:setChecked="@{viewModel.isPropertyFavorite }"
+            app:setChecked="@{viewModel.isPropertyFavorite() }"
 
             tools:src="@drawable/ic_favorite_border"
 
@@ -156,7 +157,6 @@
             app:marginBottomPlusInsets="@{@dimen/margin_small}"
 
             app:icon="@drawable/ic_cart"
-            android:text="@{viewModel.property.rental ? @string/rent : @string/buy}"
             android:onClick="@{ () -> viewModel.navigateToPayment()}"
 
 
@@ -165,12 +165,39 @@
 
             />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+
+            android:padding="@dimen/margin_large"
+            android:visibility="@{viewModel.property == MarsProperty.DEFAULT ? View.VISIBLE : View.GONE}"
+
+            >
+            
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="100dp"
+
+                android:textAppearance="?textAppearanceHeadline4"
+                android:textColor="?android:textColorTertiary"
+                android:text="Property not found"
+                android:textAlignment="center"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+
+            android:visibility="@{viewModel.property == MarsProperty.DEFAULT ? View.GONE : View.VISIBLE}"
 
             android:scrollbars="none"
             android:background="?colorBackground"
@@ -181,6 +208,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="30dp"
+
                 >
 
 
@@ -311,6 +339,7 @@
                     app:layout_constraintTop_toBottomOf="@id/description"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
+
 
 
                     android:layout_marginTop="@dimen/margin_very_large"
@@ -481,6 +510,7 @@
                     app:rippleColor="?colorControlHighlightAlt"
                     android:textAppearance="?textAppearanceSubtitle2"
 
+                    android:onClick="@{() -> viewModel.shareProperty()}"
                     />
 
 

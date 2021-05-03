@@ -108,7 +108,7 @@ class FavoritesFragment : Fragment() {
     private fun setupNavigation() {
         viewModel.navigateToProperty.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let navigation@{ property ->
-                val action = FavoritesFragmentDirections.actionFavoritesToDetail(property)
+                val action = FavoritesFragmentDirections.actionFavoritesToDetail().apply { marsProperty = property }
 
                 exitTransition = Hold()
 

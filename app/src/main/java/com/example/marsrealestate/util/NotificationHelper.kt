@@ -16,6 +16,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
+import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.fragment.findNavController
 import com.example.marsrealestate.R
 import com.example.marsrealestate.data.MarsProperty
@@ -45,9 +46,9 @@ object NotificationHelper {
         }
     }
 
-    fun notifyPropertyBought(context: Context, navController: NavController,property: MarsProperty) {
+    fun notifyPropertyBought(context: Context,property: MarsProperty) {
 
-        val deeplink = navController.createDeepLink()
+        val deeplink = NavDeepLinkBuilder(context)
             .setArguments(bundleOf("MarsProperty" to property))
             .setGraph(R.navigation.nav_graph_main)
             .setDestination(R.id.dest_detail)

@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         viewBinding.navigationView.setupWithNavController(navController)
 
         hideOrRevealPurchaseProgressBar(navController)
-
     }
 
     override fun onBackPressed() {
