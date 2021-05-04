@@ -1,7 +1,7 @@
 package com.example.marsrealestate.payment.options
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 sealed class PaymentOption : Parcelable{
     abstract fun getLabelHidden() : String

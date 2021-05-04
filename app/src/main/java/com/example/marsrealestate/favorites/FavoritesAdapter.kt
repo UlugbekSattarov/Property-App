@@ -14,7 +14,6 @@ import com.example.marsrealestate.data.FavoriteProperty
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.LayoutItemFavoritesBinding
 import com.example.marsrealestate.util.SharedElementTransition
-import kotlinx.android.synthetic.main.layout_item_favorites.view.*
 
 class FavoritesAdapter(private val onClickListener: OnClickListener) :
         ListAdapter<FavoriteProperty,

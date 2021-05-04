@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 //Parcelize is used to pass a MarsProperty as an argument for a fragment
 @Parcelize

@@ -63,14 +63,10 @@ class DetailFragment : Fragment() {
     ): View {
         viewDataBinding = FragmentDetailBinding.inflate(inflater)
         viewDataBinding.viewModel = viewModel
-        viewDataBinding.lifecycleOwner = this
+        viewDataBinding.lifecycleOwner = viewLifecycleOwner
 
         handleSharedElementTransition()
         lifecycleScope.launchWhenResumed { animOnResume() }
-
-//        requireActivity().window.setFlags(
-//            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-//            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
 
         setupViewPagerListener()
 
@@ -81,11 +77,9 @@ class DetailFragment : Fragment() {
         //Databinding does not work for this view
 //        viewDataBinding.extendedFab.text = getString(if (args.marsProperty?.isRental == true) R.string.rent else R.string.buy)
 
-        viewModel.property.observe(viewLifecycleOwner,
-            Observer { p ->
+        viewModel.property.observe(viewLifecycleOwner, { p ->
                 viewDataBinding.extendedFab.setText(if (p.isRental) R.string.rent else R.string.buy)
 //                viewDataBinding.executePendingBindings()
-
             }
         )
 

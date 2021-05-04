@@ -19,7 +19,6 @@ import androidx.databinding.adapters.TextViewBindingAdapter
 import com.example.marsrealestate.R
 import com.example.marsrealestate.databinding.LayoutSearchviewBinding
 import com.google.android.material.card.MaterialCardView
-import kotlinx.android.synthetic.main.layout_searchview.view.*
 
 
 class SearchView @JvmOverloads constructor(
