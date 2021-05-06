@@ -23,7 +23,10 @@ class MarsRepositoryImpl(private val remoteDataSource: MarsApiService,
     override suspend fun getProperties(query: MarsApiQuery,sortedBy : MarsApiPropertySorting ): List<MarsProperty> =
         remoteDataSource.getProperties(query,sortedBy)
 
-    override suspend fun getProperty(id: String): MarsProperty? = remoteDataSource.getProperty(id)
+    override suspend fun getProperty(id: String): MarsProperty?  {
+        delay(1000)
+        return remoteDataSource.getProperty(id)
+    }
 
     override fun observeProperty(id: String): LiveData<MarsProperty?> = localDataSource.observeProperty(id)
 
@@ -46,7 +49,8 @@ class MarsRepositoryImpl(private val remoteDataSource: MarsApiService,
 
     override fun observeIsFavorite(propertyId: String): LiveData<Boolean>  =
         localDataSource.observeIsFavorite(propertyId)
-
-
-
 }
+
+
+
+

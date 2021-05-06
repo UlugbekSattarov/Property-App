@@ -67,7 +67,7 @@ fun AutoCompleteTextView.setMarsApiSorting(oldValue: MarsApiPropertySorting?, ne
         val toDisplay = when (newValue) {
             MarsApiPropertySorting.PriceAscending -> R.string.priceAscending
             MarsApiPropertySorting.PriceDescending -> R.string.priceDescending
-            else -> R.string.defaultSorting
+            MarsApiPropertySorting.Default -> R.string.defaultSorting
         }
         this.setText(context.getString(toDisplay),false)
     }

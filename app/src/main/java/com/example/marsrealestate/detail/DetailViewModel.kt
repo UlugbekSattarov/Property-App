@@ -2,7 +2,6 @@ package com.example.marsrealestate.detail
 
 import androidx.lifecycle.*
 import com.example.marsrealestate.R
-import com.example.marsrealestate.data.FavoriteProperty
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.data.MarsRepository
 import com.example.marsrealestate.util.Event
@@ -14,13 +13,20 @@ class DetailViewModel private constructor(private val repository : MarsRepositor
 
     constructor(property : MarsProperty,repository: MarsRepository) : this(repository) {
         _property.value = property
+        _statePropertyFetched.value = Result.Success()
     }
 
     constructor(propertyId : String?,repository: MarsRepository) : this(repository) {
         if (propertyId != null) {
+            _statePropertyFetched.value = Result.Loading()
             viewModelScope.launch {
-                repository.getProperty(propertyId)?.let {
-                    _property.postValue(it)
+                val prop = repository.getProperty(propertyId)
+                if (prop != null) {
+                    _property.value = prop!!
+                    _statePropertyFetched.value = Result.Success()
+                }
+                else {
+                    _statePropertyFetched.value = Result.Error()
                 }
             }
         }
@@ -29,8 +35,11 @@ class DetailViewModel private constructor(private val repository : MarsRepositor
 
     enum class Operation { ADD, REMOVE }
 
-    private val _property = MutableLiveData<MarsProperty>(MarsProperty.DEFAULT)
+    private val _property = MutableLiveData(MarsProperty.DEFAULT)
     val property : LiveData<MarsProperty> = _property
+
+    private val _statePropertyFetched = MutableLiveData<Result<Nothing>>(Result.Error())
+    val statePropertyFetched : LiveData<Result<Nothing>> = _statePropertyFetched
 
     private val _propertyViewCount = MutableLiveData<Int>((0..3).random())
     val propertyViewCount : LiveData<Int> = _propertyViewCount
@@ -54,7 +63,7 @@ class DetailViewModel private constructor(private val repository : MarsRepositor
 
 
     fun addRemovePropertyToFavorites(prop : MarsProperty) {
-        if (property.value == null || property.value == MarsProperty.DEFAULT)
+        if (prop == MarsProperty.DEFAULT)
             return
 
         viewModelScope.launch {

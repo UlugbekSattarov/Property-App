@@ -1,15 +1,13 @@
 package com.example.marsrealestate.detail
 
-import android.content.res.ColorStateList
-import android.graphics.Color
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -19,8 +17,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.get
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
 import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.data.MarsProperty
@@ -28,7 +26,6 @@ import com.example.marsrealestate.databinding.FragmentDetailBinding
 import com.example.marsrealestate.login.LoginViewModel
 import com.example.marsrealestate.login.LoginViewModelFactory
 import com.example.marsrealestate.util.SharedElementTransition
-import com.example.marsrealestate.util.doOnEnd
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import com.google.android.material.transition.MaterialContainerTransform
 import kotlin.math.abs
@@ -65,66 +62,71 @@ class DetailFragment : Fragment() {
         viewDataBinding.viewModel = viewModel
         viewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        handleSharedElementTransition()
-        lifecycleScope.launchWhenResumed { animOnResume() }
 
-        setupViewPagerListener()
-
-        //Functional
         requireActivity().setupToolbarIfDrawerLayoutPresent(this,viewDataBinding.toolbar)
         setupNavigation()
+        setupViewPagerListener()
+        setupSharePropertyListener()
 
-        //Databinding does not work for this view
-//        viewDataBinding.extendedFab.text = getString(if (args.marsProperty?.isRental == true) R.string.rent else R.string.buy)
 
-        viewModel.property.observe(viewLifecycleOwner, { p ->
-                viewDataBinding.extendedFab.setText(if (p.isRental) R.string.rent else R.string.buy)
-//                viewDataBinding.executePendingBindings()
-            }
-        )
+        loadToolbarImage()
+        setupSharedElementTransition()
+        lifecycleScope.launchWhenResumed { animateFab(); animateToolbarScrim() }
 
         return viewDataBinding.root
     }
 
 
+    /**
+     * Load the image of the toolbar : if a property is given by the [args], set the image directly. If not,
+     * wait for the [viewModel] to emit a property and then set the image
+     */
+    private fun loadToolbarImage() {
 
-    private fun handleSharedElementTransition() {
-        //if no property was given in args, then no shared element transition is possible
+        val drawableId = args.marsProperty?.imgSrcUrl?.toIntOrNull()
+        val toolbar = viewDataBinding.imageToolbar
+
+        if (drawableId != null) {
+            toolbar.setImageDrawable(ResourcesCompat.getDrawable(resources, drawableId, toolbar.context.theme))
+        }
+        else {
+            viewModel.property.observe(viewLifecycleOwner, {
+                toolbar.setImageDrawable(ResourcesCompat.getDrawable(resources, it.imgSrcUrl.toIntOrNull() ?: R.drawable.mars_landscape_1, toolbar.context.theme))
+            })
+        }
+    }
+
+
+    @Deprecated("Postponing the enter transition to wait for the image to be loaded is " +
+            "not optimal for the user",
+        replaceWith = ReplaceWith("loadToolbarImage(int)"))
+    private fun loadSharedImageBeforeEnterTransition(sourceUrl : String,destination : ImageView) {
+        /* postponeEnterTransition()
+
+         val id = sourceUrl.toIntOrNull()
+         if (id != null) {
+             loadToolbarImage()
+             startPostponedEnterTransition()
+         }
+         else {
+             val imgUri = sourceUrl.toUri().buildUpon().scheme("https").build()
+             Glide.with(destination)
+                 .load(imgUri)
+                 .dontTransform()
+                 .doOnEnd { startPostponedEnterTransition() }
+                 .into(destination)
+         }*/
+    }
+
+    private fun setupSharedElementTransition() {
         val property = args.marsProperty ?: return
 
         val transitionName = SharedElementTransition.getTransitionName(property)
-        setupSharedElementTransition(transitionName)
-        loadSharedImageBeforeEnterTransition(property.imgSrcUrl,viewDataBinding.imageToolbar)
-    }
 
 
-
-
-
-    private fun loadSharedImageBeforeEnterTransition(sourceUrl : String,destination : ImageView) {
-        postponeEnterTransition()
-
-        val id = sourceUrl.toIntOrNull()
-        if (id != null) {
-            destination.setImageDrawable(ResourcesCompat.getDrawable(resources, id, destination.context.theme))
-            startPostponedEnterTransition()
-        }
-        else {
-            val imgUri = sourceUrl.toUri().buildUpon().scheme("https").build()
-            Glide.with(destination)
-                .load(imgUri)
-                .dontTransform()
-                .doOnEnd { startPostponedEnterTransition() }
-                .into(destination)
-        }
-    }
-
-    private fun setupSharedElementTransition(transitionName: String) {
         ViewCompat.setTransitionName(viewDataBinding.root,transitionName)
         sharedElementEnterTransition = MaterialContainerTransform().apply {
-            //            scrimColor = Color.TRANSPARENT
-//            duration = 5000
-            fadeMode = MaterialContainerTransform.FADE_MODE_OUT
+            isElevationShadowEnabled = false // Must be set to false to prevent HUGE performance drops
         }
 //        sharedElementReturnTransition = sharedElementEnterTransition
     }
@@ -148,27 +150,26 @@ class DetailFragment : Fragment() {
     }
 
 
-    private fun animOnResume() {
-        val fab = viewDataBinding.fab
-        val toolbarScrim = viewDataBinding.toolbarScrim
-
-        fab.animate().scaleX(1f).scaleY(1f)
+    private fun animateFab() =
+        viewDataBinding.fab.animate().scaleX(1f).scaleY(1f)
             .setInterpolator(FastOutSlowInInterpolator())
             .setDuration(200)
-            .setStartDelay(500)
+            .setStartDelay(900)
             .start()
-        toolbarScrim.animate().alpha(1f)
-            .setStartDelay(300)
-            .setDuration(900)
+
+
+    private fun animateToolbarScrim() =
+        viewDataBinding.toolbarScrim.animate().alpha(1f)
+            .setStartDelay(200)
+            .setDuration(600)
             .start()
-    }
+
 
 
     /**
      * Initialize the viewpager when a property is available from the viewmodel
      */
-    private fun setupViewPagerListener() {
-
+    private fun setupViewPagerListener() =
         viewModel.property.observe(viewLifecycleOwner, Observer { property ->
             viewDataBinding.viewpager.apply {
                 adapter = DetailViewPagerAdapter(property)
@@ -185,39 +186,56 @@ class DetailFragment : Fragment() {
                 })
             }
         })
-    }
+
 
     /**
      * Fade in and out the caption below the viewpager when a new page is shown
      */
-    private fun onViewpagerPageSelected(position : Int){
-        viewDataBinding.viewpagerCaption.animate().alpha(0f).withEndAction {
-            val orientation = when (position) {
-                0 -> "South"
-                1 -> "East"
-                2 -> "North"
-                else -> "West"
+    private fun onViewpagerPageSelected(position : Int) {
+        val orientation = when (position) {
+            0 -> "South"
+            1 -> "East"
+            2 -> "North"
+            else -> "West"
+        }
+        val captionText = "View from $orientation"
+
+        viewDataBinding.viewpagerCaption.apply {
+
+
+            //If the text is null, we do not want to animate the transition
+            val duration = if (text.isNullOrEmpty()) 0L else 300L
+
+            //Fade out old text and fade in new text
+            animate().alpha(0f).setDuration(duration).withEndAction {
+                text = captionText
+                animate().alpha(1f).setDuration(duration).start()
+            }.start()
+
+        }
+    }
+
+
+
+    private fun setupSharePropertyListener() =
+        viewModel.shareProperty.observe(viewLifecycleOwner, {
+            it.getContentIfNotHandled()?.let { prop ->
+                val uri = Uri.parse("https://com.example.marsrealestate/detail/${prop.id}")
+                if (findNavController().graph[R.id.dest_detail].hasDeepLink(uri)) {
+                    val sendIntent: Intent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, "I just bought a property, check it out! $uri")
+                        // (Optional) Here we're setting the title of the content
+                        putExtra(Intent.EXTRA_TITLE, "Mars property ${prop.id}")
+//                        data = Uri.parse("android.resource://com.example.marsrealestate/drawable/astronaut.jpg")
+//                        flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        type = "text/plain"
+                    }
+                    startActivity(Intent.createChooser(sendIntent,"Share property"))
+                }
             }
-            viewDataBinding.viewpagerCaption.text = "View from $orientation"
-            viewDataBinding.viewpagerCaption.animate().alpha(1f).start()
-        }.start()
-    }
-
-
-
-    fun setupSharePropertyListener() {
-
-        viewModel.shareProperty.observe(viewLifecycleOwner, Observer {
-//                it.getContentIfNotHandled()?.let { prop ->
-//                    val deeplink = findNavController().createDeepLink()
-//                        .setArguments(bundleOf("MarsProperty" to property))
-//                        .setGraph(R.navigation.nav_graph_main)
-//                        .setDestination(R.id.dest_detail)
-//                        .createPendingIntent()
-//                        .
-//                }
         })
-    }
+
 
 }
 

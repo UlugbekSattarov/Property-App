@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.marsrealestate.R
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
@@ -329,4 +330,13 @@ fun View.setLayoutSize(oldWidth : Float?, oldHeight: Float?,newWidth : Float?, n
 //        androidx.transition.TransitionManager.beginDelayedTransition(v as ViewGroup)
     }
 
+}
+
+
+@BindingAdapter("extendedFabText")
+fun ExtendedFloatingActionButton.setExtendedFabText(oldText : String?, newText : String? ) {
+    if (newText != null && newText != oldText) {
+        text = newText.toString()
+        extend()
+    }
 }

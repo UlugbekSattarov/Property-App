@@ -26,7 +26,7 @@ data class MarsProperty (
     companion object {
 
         @JvmField
-        val DEFAULT = MarsProperty("0000", "", "rent", 0.0,surfaceArea = 0f,latitude = 0f,longitude = 0f)
+        val DEFAULT = MarsProperty("", "", "rent", 0.0,surfaceArea = 0f,latitude = 0f,longitude = 0f)
     }
 
 
