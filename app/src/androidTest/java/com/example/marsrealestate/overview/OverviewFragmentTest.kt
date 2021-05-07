@@ -3,10 +3,7 @@ package com.example.marsrealestate.overview
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.testing.TestNavHostController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
@@ -19,16 +16,16 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
+import com.example.marsrealestate.data.MarsProperty
+import com.example.marsrealestate.payment.RecapPaymentFragment
 import com.example.marsrealestate.testshared.MainCoroutineRule
 import com.example.marsrealestate.testshared.data.FakeTestRepository
-import com.example.marsrealestate.data.MarsProperty
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.mock
 
 @MediumTest
 @RunWith(AndroidJUnit4::class)
@@ -62,18 +59,17 @@ class OverviewFragmentTest {
 
     @Test
     fun check_filter() {
-        val navController = mock(NavController::class.java)
+        val navController = TestNavHostController(ApplicationProvider.getApplicationContext())
 
-        val scenario = launchFragmentInContainer<OverviewFragment> (null,R.style.AppTheme)
-
-        val action = object : FragmentScenario.FragmentAction<OverviewFragment> {
-            override fun perform(fragment: OverviewFragment) {
-                Navigation.setViewNavController(fragment.requireView(), navController)
+        val scenario = launchFragmentInContainer (null,R.style.AppTheme) {
+            OverviewFragment().also { frag ->
+                frag.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
+                    if (viewLifecycleOwner != null) {
+                        Navigation.setViewNavController(frag.requireView(), navController)
+                    }
+                }
             }
         }
-
-        scenario.onFragment (action)
-
 
         //Check that "buy" properties are removed after the click on chip_rent
         onView(withId(R.id.chip_rent)).perform(scrollTo(),click())
