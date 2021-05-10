@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.marsrealestate.MainActivity
 import com.example.marsrealestate.R
@@ -27,7 +28,7 @@ class NavigationFragment : Fragment() {
 
 
     private val viewModel : NavigationViewModel by viewModels {
-        NavigationViewModelFactory(R.id.dest_overview,(requireActivity() as MainActivity).marsRepository)
+        NavigationViewModelFactory(ServiceLocator.getMarsRepository(requireContext()))
     }
 
     private val loginViewModel: LoginViewModel by activityViewModels {
@@ -40,13 +41,18 @@ class NavigationFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         viewDataBinding = FragmentNavigationBinding.inflate(inflater)
         viewDataBinding.viewModel = viewModel
         viewDataBinding.loginViewModel = loginViewModel
         viewDataBinding.fragment = this
         viewDataBinding.lifecycleOwner = viewLifecycleOwner
 
+
+        requireActivity().findNavController(R.id.nav_host_fragment)
+            .addOnDestinationChangedListener { _, destination, _ ->
+                viewModel.setCurrentDestination(destination.id)
+            }
 
 
 

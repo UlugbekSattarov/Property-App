@@ -12,9 +12,17 @@ class BiometricHelper {
 
     companion object {
 
+        private var canUseBiometric : Boolean? = null
+
         @JvmStatic
-        fun canUseBiometric(context: Context) : Boolean =
-            BiometricManager.from(context).canAuthenticate(Authenticators.BIOMETRIC_WEAK) == BiometricManager.BIOMETRIC_SUCCESS
+        fun canUseBiometric(context: Context) : Boolean {
+            return canUseBiometric ?:
+            (BiometricManager
+                .from(context)
+                .canAuthenticate(Authenticators.BIOMETRIC_WEAK) == BiometricManager.BIOMETRIC_SUCCESS).also {
+                canUseBiometric = it
+            }
+        }
 
 
         fun showBiometricPrompt(

@@ -128,7 +128,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/title"
 
-                        tools:visibility="gone"
+                        tools:visibility="visible"
                         >
 
 
@@ -254,20 +254,7 @@
                             />
 
 
-                        <TextView
-                            android:id="@+id/login_biometric_label"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/login_divider"
-                            android:layout_marginTop="@dimen/margin_large"
-                            android:textAppearance="?textAppearanceSubtitle1"
-                            android:text="Login with a fingerprint sensor"
-                            app:layout_constraintWidth_max="250dp"
-                            android:textAlignment="center"
 
-                            />
 
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -275,7 +262,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
 
-                            app:layout_constraintTop_toBottomOf="@id/login_biometric_label"
+                            app:layout_constraintTop_toBottomOf="@id/login_divider"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginTop="@dimen/margin_large"
@@ -296,15 +283,33 @@
 
                             />
 
+                        <TextView
+                            android:id="@+id/login_biometric_label"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/login_biometric_button"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginTop="@dimen/margin_medium"
+                            app:layout_constraintWidth_max="250dp"
+
+                            android:textAppearance="?textAppearanceSubtitle1"
+                            android:text="Login with a fingerprint sensor"
+                            android:textAlignment="center"
+
+                            android:visibility="@{BiometricHelper.canUseBiometric(context) ? View.VISIBLE : View.GONE}"
+                            />
+
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
 
                             app:layout_constraintTop_toBottomOf="@id/login_biometric_button"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginTop="@dimen/margin_medium"
+                            app:layout_constraintWidth_max="250dp"
 
                             android:text="@string/biometric_auth_unavailable"
                             android:textAlignment="center"
@@ -313,6 +318,7 @@
                             android:alpha="0.6"
 
                             android:visibility="@{BiometricHelper.canUseBiometric(context) ? View.GONE : View.VISIBLE}"
+                            tools:visibility="gone"
 
                             />
 
@@ -328,7 +334,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/title"
 
-                        tools:visibility="visible"
+                        tools:visibility="gone"
 
                         >
 
@@ -377,7 +383,7 @@
                             app:layout_constraintTop_toBottomOf="@id/logged_in_label"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            android:layout_marginTop="@dimen/margin_medium"
+                            android:layout_marginTop="@dimen/margin_large"
 
                             android:text="Browse properties"
                             app:chipBackgroundColor="?colorSurface"

@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -26,14 +25,11 @@ import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.databinding.FragmentLoginBinding
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class LoginFragment : Fragment() {
 
     private val navArgs by navArgs<LoginFragmentArgs>()
@@ -171,18 +167,18 @@ class LoginFragment : Fragment() {
                 override fun onAuthenticationError(errorCode: Int,
                                                    errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
-                    Snackbar.make(viewDataBinding.root,"Authentication error: $errString",Snackbar.LENGTH_SHORT)
+//                    Snackbar.make(viewDataBinding.root,"Authentication error: $errString",Snackbar.LENGTH_SHORT)
                     Log.d("${LoginFragment::class.simpleName}","Biometric onAuthenticationError $errString")
                 }
 
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                     super.onAuthenticationSucceeded(result)
-                    fillLoginAndAnthenticate()
+                    fillLoginAndAuthenticate()
                 }
 
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
-                    Snackbar.make(viewDataBinding.root,"Authentication failed",Snackbar.LENGTH_SHORT)
+//                    Snackbar.make(viewDataBinding.root,"Authentication failed",Snackbar.LENGTH_SHORT)
                     Log.d("${LoginFragment::class.simpleName}","Biometric onAuthenticationFailed")
 
                 }
@@ -196,9 +192,9 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun fillLoginAndAnthenticate() {
-        viewModel.email.value = "a@a.a"
-        viewModel.password.value = "aaaa"
+    private fun fillLoginAndAuthenticate() {
+        viewModel.email.value = "user@marsrealestate.com"
+        viewModel.password.value = "password"
         viewModel.login()
 
     }

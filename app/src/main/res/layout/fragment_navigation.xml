@@ -72,7 +72,6 @@
                     android:textAppearance="?textAppearanceHeadline5"
                     android:textColor="?colorSecondary"
 
-                    android:scaleType="centerCrop"
                     />
 
 
@@ -83,6 +82,7 @@
 
 
                     android:layout_marginEnd="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium"
 
 
 
@@ -131,6 +131,14 @@
                     app:isActive="@{ viewModel.currentDestinationId == @id/dest_favorites}"
                     app:endText="@{viewModel.favoritesCount.toString()}"
 
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginBottom="@dimen/margin_medium"
+
+                    android:background="?android:listDivider"
                     />
 
                 <com.example.marsrealestate.custom.NavigationItemView

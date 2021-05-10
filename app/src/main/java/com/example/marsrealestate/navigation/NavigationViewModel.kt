@@ -17,9 +17,9 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 
-class NavigationViewModel(@IdRes currentDestinationId : Int, repo : MarsRepository) : ViewModel() {
+class NavigationViewModel( repo : MarsRepository) : ViewModel() {
 
-    private val _currentDestinationId : MutableLiveData<Int> = MutableLiveData(currentDestinationId)
+    private val _currentDestinationId : MutableLiveData<Int> = MutableLiveData()
     val currentDestinationId : LiveData<Int> = _currentDestinationId
 
     val favoritesCount : LiveData<Int> = repo.observeFavorites().map { it.count() }
@@ -27,7 +27,7 @@ class NavigationViewModel(@IdRes currentDestinationId : Int, repo : MarsReposito
 
 
 
-    fun setCurrentDestination(destinationId : Int) {
+    fun setCurrentDestination(@IdRes destinationId : Int) {
         _currentDestinationId.value = destinationId
     }
 
@@ -37,10 +37,10 @@ class NavigationViewModel(@IdRes currentDestinationId : Int, repo : MarsReposito
 
 
 
-class NavigationViewModelFactory(@IdRes private val currentDestinationId : Int,private val repo : MarsRepository) : ViewModelProvider.NewInstanceFactory() {
+class NavigationViewModelFactory(private val repo : MarsRepository) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return NavigationViewModel(currentDestinationId,repo ) as T
+        return NavigationViewModel(repo) as T
     }
 }
