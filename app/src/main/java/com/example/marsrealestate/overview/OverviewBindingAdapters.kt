@@ -2,19 +2,16 @@ package com.example.marsrealestate.overview
 
 import androidx.transition.TransitionInflater
 import androidx.transition.TransitionManager
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.RadioGroup
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
-import androidx.databinding.adapters.AdapterViewBindingAdapter
 import com.example.marsrealestate.R
-import com.example.marsrealestate.data.network.MarsApiFilter
-import com.example.marsrealestate.data.network.MarsApiPropertySorting
+import com.example.marsrealestate.data.query.MarsApiFilter
+import com.example.marsrealestate.data.query.MarsApiSorting
 import com.google.android.material.chip.ChipGroup
 
 
@@ -62,12 +59,12 @@ fun ChipGroup.setMarsApiFilterChangedListener(attrChange: InverseBindingListener
 
 
 @BindingAdapter("marsApiSorting")
-fun AutoCompleteTextView.setMarsApiSorting(oldValue: MarsApiPropertySorting?, newValue: MarsApiPropertySorting?) {
+fun AutoCompleteTextView.setMarsApiSorting(oldValue: MarsApiSorting?, newValue: MarsApiSorting?) {
     if (newValue != null && newValue != oldValue) {
         val toDisplay = when (newValue) {
-            MarsApiPropertySorting.PriceAscending -> R.string.priceAscending
-            MarsApiPropertySorting.PriceDescending -> R.string.priceDescending
-            MarsApiPropertySorting.Default -> R.string.defaultSorting
+            MarsApiSorting.PriceAscending -> R.string.priceAscending
+            MarsApiSorting.PriceDescending -> R.string.priceDescending
+            MarsApiSorting.Default -> R.string.defaultSorting
         }
         this.setText(context.getString(toDisplay),false)
     }
@@ -80,11 +77,11 @@ fun AutoCompleteTextView.setMarsApiSorting(oldValue: MarsApiPropertySorting?, ne
 
 
 @InverseBindingAdapter(attribute = "marsApiSorting")
-fun AutoCompleteTextView.getMarsApiSorting(): MarsApiPropertySorting {
+fun AutoCompleteTextView.getMarsApiSorting(): MarsApiSorting {
     return when (text.toString()) {
-        context.getString(R.string.priceAscending) -> MarsApiPropertySorting.PriceAscending
-        context.getString(R.string.priceDescending) -> MarsApiPropertySorting.PriceDescending
-        else -> MarsApiPropertySorting.Default
+        context.getString(R.string.priceAscending) -> MarsApiSorting.PriceAscending
+        context.getString(R.string.priceDescending) -> MarsApiSorting.PriceDescending
+        else -> MarsApiSorting.Default
     }
 }
 

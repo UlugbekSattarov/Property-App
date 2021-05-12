@@ -1,4 +1,4 @@
-package com.example.marsrealestate.data.database
+package com.example.marsrealestate.data.network
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -13,11 +13,11 @@ import com.example.marsrealestate.util.MarsDatabaseConverter
 /** Version 2 added [MarsProperty.surfaceArea], [MarsProperty.latitude] and [MarsProperty.longitude]
  * as attributes for [MarsProperty]
  */
-@Database(entities = [MarsProperty::class,Favorite::class], version = 2, exportSchema = false)
+@Database(entities = [MarsProperty::class], version = 2, exportSchema = false)
 @TypeConverters(MarsDatabaseConverter::class)
-abstract class MarsDatabase : RoomDatabase() {
+abstract class MarsRemoteDatabase : RoomDatabase() {
 
-    abstract fun marsPropertyDao(): MarsPropertyDAO
+    abstract fun marsPropertyDao(): MarsRemotePropertyDAO
 
 
     companion object {

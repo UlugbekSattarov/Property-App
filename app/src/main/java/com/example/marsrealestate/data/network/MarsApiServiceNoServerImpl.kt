@@ -1,12 +1,15 @@
 package com.example.marsrealestate.data.network
 
+import android.util.Log
 import com.example.marsrealestate.R
 import com.example.marsrealestate.data.MarsProperty
-import kotlinx.coroutines.delay
+import com.example.marsrealestate.data.query.MarsApiQuery
+import com.example.marsrealestate.data.query.MarsApiSorting
+import kotlinx.coroutines.*
 import kotlin.random.Random
 
 
-class MarsApiServiceNoServerImpl : MarsApiService {
+class MarsApiServiceNoServerImpl(private val dao : MarsRemotePropertyDAO) : MarsApiService {
 
     private val images = arrayOf(
         R.drawable.mars_landscape_1,
@@ -31,7 +34,17 @@ class MarsApiServiceNoServerImpl : MarsApiService {
     }
 
 
-    override suspend fun getProperties(query : MarsApiQuery, sortedBy : MarsApiPropertySorting ): List<MarsProperty> {
+    init {
+        runBlocking {
+            if (dao.getPropertiesCount() == 0) {
+                dao.insert(properties.toList())
+                Log.d(MarsApiServiceNoServerImpl::class.qualifiedName,"Added ${properties.count()} properties to database" )
+            }
+        }
+    }
+
+
+    suspend fun getPropertiesInMemory(query : MarsApiQuery, sortedBy : MarsApiSorting): List<MarsProperty> {
         delay(1500)
 
 
@@ -39,8 +52,8 @@ class MarsApiServiceNoServerImpl : MarsApiService {
             .filter { p -> query.filter?.matches(p) ?: true }
             .run {
                 when (sortedBy) {
-                    MarsApiPropertySorting.PriceAscending -> sortedBy { p -> p.price}
-                    MarsApiPropertySorting.PriceDescending -> sortedByDescending { p -> p.price}
+                    MarsApiSorting.PriceAscending -> sortedBy { p -> p.price}
+                    MarsApiSorting.PriceDescending -> sortedByDescending { p -> p.price}
                     else -> this
                 }
             }
@@ -50,7 +63,24 @@ class MarsApiServiceNoServerImpl : MarsApiService {
     }
 
 
-    override suspend fun getProperty(id: String): MarsProperty? = properties.firstOrNull { it.id == id }
+    suspend fun getPropertyInMemory(id: String): MarsProperty? = properties.firstOrNull { it.id == id }
+
+
+
+    override suspend fun getProperties(
+        query: MarsApiQuery,
+        sortedBy: MarsApiSorting
+    ): List<MarsProperty> {
+        return dao.getProperties(query,sortedBy)
+    }
+
+    override suspend fun getProperty(id: String): MarsProperty? = dao.getProperty(id)
+
+    override suspend fun addProperty(marsProperty: MarsProperty) =
+        dao.insert(marsProperty)
+
+    override suspend fun removeProperty(propertyId: String) =
+        dao.removeProperty(propertyId)
 }
 
 

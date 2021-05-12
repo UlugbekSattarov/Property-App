@@ -7,12 +7,8 @@ import com.example.marsrealestate.data.MarsRepository
 import com.example.marsrealestate.data.MarsRepositoryImpl
 import com.example.marsrealestate.data.database.MarsDatabase
 import com.example.marsrealestate.data.network.MarsApiService
-import com.example.marsrealestate.data.network.MarsApiServiceData
 import com.example.marsrealestate.data.network.MarsApiServiceNoServerImpl
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import com.example.marsrealestate.data.network.MarsRemoteDatabase
 
 object ServiceLocator {
 
@@ -33,7 +29,7 @@ object ServiceLocator {
 
     private fun createMarsRepository(context: Context) : MarsRepository {
         val localDataSource = createLocalDataSource(context)
-        val remoteDataSource = createRemoteDataSource()
+        val remoteDataSource = createRemoteDataSource(context)
         val repo = MarsRepositoryImpl(remoteDataSource,localDataSource.marsPropertyDao())
         marsRepository = repo
         return repo
@@ -48,7 +44,7 @@ object ServiceLocator {
             .build()
     }
 
-    private fun createRemoteDataSource() : MarsApiService{
+    private fun createRemoteDataSource(context: Context) : MarsApiService{
 //        val moshi = Moshi.Builder()
 //            .add(KotlinJsonAdapterFactory())
 //            .build()
@@ -60,7 +56,14 @@ object ServiceLocator {
 //
 //        return retrofit.create(MarsApiService::class.java)
 
-        return MarsApiServiceNoServerImpl()
+        val db = Room.databaseBuilder(context,
+            MarsRemoteDatabase::class.java,
+            "mars_database_remote.db")
+            .addMigrations(MarsRemoteDatabase.MIGRATION_1_2)
+            .build()
+
+
+        return MarsApiServiceNoServerImpl(db.marsPropertyDao())
     }
 
 }

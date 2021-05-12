@@ -1,20 +1,16 @@
 package com.example.marsrealestate.overview
 
 import android.util.Log
-import androidx.databinding.InverseMethod
 import androidx.lifecycle.*
-import com.example.marsrealestate.R
 import com.example.marsrealestate.data.MarsRepository
 import com.example.marsrealestate.data.MarsProperty
-import com.example.marsrealestate.data.network.MarsApiFilter
-import com.example.marsrealestate.data.network.MarsApiPropertySorting
-import com.example.marsrealestate.data.network.MarsApiQuery
+import com.example.marsrealestate.data.query.MarsApiFilter
+import com.example.marsrealestate.data.query.MarsApiQuery
+import com.example.marsrealestate.data.query.MarsApiSorting
 import com.example.marsrealestate.util.Event
 import com.example.marsrealestate.util.Result
 import kotlinx.coroutines.*
 import java.lang.Exception
-import java.lang.NumberFormatException
-import java.util.Collections.addAll
 import kotlin.random.Random
 
 
@@ -23,7 +19,7 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
     private val _status = MutableLiveData<Result<Nothing>>()
     val status: LiveData<Result<Nothing>> = _status
 
-    private val _endOfData = MutableLiveData<Boolean>(false)
+    private val _endOfData = MutableLiveData(false)
     val endOfData = _endOfData
 
     private val _navigateToProperty = MutableLiveData<Event<MarsProperty>>()
@@ -37,7 +33,7 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
 
     val filter = MutableLiveData<MarsApiFilter.MarsPropertyType>(MarsApiFilter.MarsPropertyType.ALL)
     val queryString = MutableLiveData<String>("")
-    val sortedBy = MutableLiveData<MarsApiPropertySorting>(MarsApiPropertySorting.Default)
+    val sortedBy = MutableLiveData<MarsApiSorting>(MarsApiSorting.Default)
 
 
     private val _properties = MediatorLiveData<MutableList<MarsProperty>>().apply {
@@ -82,7 +78,7 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
             try {
                 val pageToLoad = if (reset) 1 else pageLoadedCount + 1
 
-                val newProps = requestNewPropertiesFromRepo(pageToLoad,itemsPerPage,sortedBy.value ?: MarsApiPropertySorting.Default)
+                val newProps = requestNewPropertiesFromRepo(pageToLoad,itemsPerPage,sortedBy.value ?: MarsApiSorting.Default)
 
                 if (reset) {
                     //Replacing the previous list in case of reset
@@ -114,7 +110,7 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
         }
     }
 
-    private suspend fun requestNewPropertiesFromRepo(pageToLoad: Int, itemsPerPage: Int, sorting: MarsApiPropertySorting = MarsApiPropertySorting.Default) : List<MarsProperty> {
+    private suspend fun requestNewPropertiesFromRepo(pageToLoad: Int, itemsPerPage: Int, sorting: MarsApiSorting = MarsApiSorting.Default) : List<MarsProperty> {
         val query = MarsApiQuery(
             pageToLoad, itemsPerPage,
             MarsApiFilter(

@@ -1,18 +1,17 @@
 package com.example.marsrealestate.data
 
 import androidx.lifecycle.LiveData
-import com.example.marsrealestate.data.network.MarsApiFilter
-import com.example.marsrealestate.data.network.MarsApiPropertySorting
-import com.example.marsrealestate.data.network.MarsApiQuery
+import com.example.marsrealestate.data.query.MarsApiQuery
+import com.example.marsrealestate.data.query.MarsApiSorting
 import java.util.*
 
 interface MarsRepository {
 
     suspend fun login(username : String, password : String) : com.example.marsrealestate.util.Result<Boolean>
 
-    suspend fun getProperties(query: MarsApiQuery,sortedBy : MarsApiPropertySorting = MarsApiPropertySorting.Default) : List<MarsProperty>
+    suspend fun getProperties(query: MarsApiQuery, sortedBy : MarsApiSorting = MarsApiSorting.Default) : List<MarsProperty>
     suspend fun getProperty(id: String) : MarsProperty?
-    fun observeProperty(id: String) : LiveData<MarsProperty?>
+    suspend fun addProperty(property: MarsProperty)
 
     fun observeFavorites() : LiveData<List<FavoriteProperty>>
     suspend fun getFavorites() : List<FavoriteProperty>

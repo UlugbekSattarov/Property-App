@@ -170,8 +170,6 @@
 
     <string name="secret_code_only_digits">Secret code must contain only digits</string>
     <string name="secret_code_length">Secret code must be 3 digits long</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="property_recovered_empty">No property to recover</string>
     <string name="next">next</string>
     <string name="recap">Recap</string>

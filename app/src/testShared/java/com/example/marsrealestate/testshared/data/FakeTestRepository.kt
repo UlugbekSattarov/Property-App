@@ -7,9 +7,8 @@ import com.example.marsrealestate.data.Favorite
 import com.example.marsrealestate.data.FavoriteProperty
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.data.MarsRepository
-import com.example.marsrealestate.data.network.MarsApiFilter
-import com.example.marsrealestate.data.network.MarsApiPropertySorting
-import com.example.marsrealestate.data.network.MarsApiQuery
+import com.example.marsrealestate.data.query.MarsApiQuery
+import com.example.marsrealestate.data.query.MarsApiSorting
 import com.example.marsrealestate.util.Result
 import java.lang.Exception
 import java.util.*
@@ -75,15 +74,15 @@ class FakeTestRepository : MarsRepository {
 
 
     override suspend fun getProperties(query: MarsApiQuery,
-                                       sortedBy: MarsApiPropertySorting): List<MarsProperty> {
+                                       sortedBy: MarsApiSorting): List<MarsProperty> {
         if (willThrowExceptionForTesting)
             throw Exception("Exception throwed for testing")
         return properties
             .filter { p -> query.filter?.matches(p) ?: true }
             .run {
                 when (sortedBy) {
-                    MarsApiPropertySorting.PriceAscending -> sortedBy { p -> p.price}
-                    MarsApiPropertySorting.PriceDescending -> sortedByDescending { p -> p.price}
+                    MarsApiSorting.PriceAscending -> sortedBy { p -> p.price}
+                    MarsApiSorting.PriceDescending -> sortedByDescending { p -> p.price}
                     else -> this
                 }
             }
@@ -100,11 +99,15 @@ class FakeTestRepository : MarsRepository {
         return properties.find { it.id == id }
     }
 
-    override fun observeProperty(id: String): LiveData<MarsProperty?> {
-        if (willThrowExceptionForTesting)
-            throw Exception("Exception throwed for testing")
-        return MutableLiveData(properties.find { it.id == id })
+    override suspend fun addProperty(property: MarsProperty) {
+        properties.add(property)
     }
+
+//    override fun observeProperty(id: String): LiveData<MarsProperty?> {
+//        if (willThrowExceptionForTesting)
+//            throw Exception("Exception throwed for testing")
+//        return MutableLiveData(properties.find { it.id == id })
+//    }
 
     override fun observeFavorites(): LiveData<List<FavoriteProperty>> {
         if (willThrowExceptionForTesting)
