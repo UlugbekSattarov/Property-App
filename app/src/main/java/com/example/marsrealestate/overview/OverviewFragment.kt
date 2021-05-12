@@ -1,6 +1,7 @@
 package com.example.marsrealestate.overview
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
@@ -117,6 +118,7 @@ class OverviewFragment : Fragment() {
             viewModel.displayPropertyDetails(property)
         }, object : OnLastItemDisplayedListener {
             override fun onLastItemDisplayed() {
+                Log.d(this@OverviewFragment::class.java.name,"onLastItemDisplayed")
                 viewModel.loadNextPage()
             }
         })

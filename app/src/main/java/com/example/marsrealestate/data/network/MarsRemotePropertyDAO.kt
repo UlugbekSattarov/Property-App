@@ -29,6 +29,9 @@ interface MarsRemotePropertyDAO {
 
     suspend fun getProperties(query: MarsApiQuery, sorting : MarsApiSorting) : List<MarsProperty> {
 
+        //PageNumber starts at 1 and not 0, so we have to subtract 1
+        val offset = (query.pageNumber - 1) * query.itemsPerPage
+
         val idFilterStr = if (query.filter?.queryString.isNullOrBlank())
             "%"
             else "%${query.filter!!.queryString}%"
@@ -49,7 +52,8 @@ interface MarsRemotePropertyDAO {
         val dbQuery = "SELECT * FROM MarsProperties " +
                 "WHERE id LIKE '$idFilterStr' " +
                 "AND type LIKE '$typeFilterStr' " +
-                "ORDER BY $sortingStr "
+                "ORDER BY $sortingStr " +
+                "LIMIT ${query.itemsPerPage} OFFSET $offset"
 
         return getProperties(SimpleSQLiteQuery(dbQuery))
     }
