@@ -208,21 +208,20 @@
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/button_login"
                             android:layout_width="0dp"
-                            android:layout_height="60dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_medium"
+                            app:layout_constraintTop_toBottomOf="@id/password"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintWidth_min="230dp"
+                            app:layout_constraintWidth_max="310dp"
+                            android:paddingTop="15dp"
+                            android:paddingBottom="15dp"
 
                             android:text="@string/confirm"
                             android:onClick="@{ () -> viewModel.login()}"
                             app:fadeOutIf="@{ viewModel.operationLogging.isLoading || viewModel.isLoggedIn()}"
 
-
-
-                            app:layout_constraintTop_toBottomOf="@id/password"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-
-                            app:layout_constraintWidth_min="230dp"
-                            app:layout_constraintWidth_max="310dp"
 
 
                             />
@@ -267,16 +266,10 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginTop="@dimen/margin_large"
 
+                            style="@style/MyStyle.Widgets.FloatingActionButton.Alternative"
 
                             app:srcCompat="@drawable/ic_fingerprint_24"
                             app:maxImageSize="32dp"
-                            app:fabCustomSize="50dp"
-
-                            app:tint="@color/fab_icon_alt"
-                            app:backgroundTint="@color/fab_background_alt"
-
-                            app:shapeAppearance="@null"
-                            app:shapeAppearanceOverlay="@null"
 
                             android:enabled="@{BiometricHelper.canUseBiometric(context)}"
                             tools:enabled="false"
@@ -405,22 +398,20 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:layout_width="0dp"
-                            android:layout_height="60dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_large"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/layout_logout_chip_browse"
                             app:layout_constraintWidth_max="310dp"
                             app:layout_constraintWidth_min="230dp"
+                            android:paddingTop="15dp"
+                            android:paddingBottom="15dp"
 
-                            app:rippleColor="?colorControlHighlightAlt"
-                            app:strokeColor="?colorSecondary"
-                            android:backgroundTint="?colorSurface"
-                            app:strokeWidth="2dp"
+                            style="@style/MyStyle.Widgets.Button.Outlined"
+
                             android:onClick="@{ () -> viewModel.logout()}"
                             android:text="logout"
-                            android:textColor="?colorSecondary"
-
 
                             />
 

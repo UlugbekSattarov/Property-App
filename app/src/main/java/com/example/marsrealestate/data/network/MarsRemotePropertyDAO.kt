@@ -23,6 +23,18 @@ interface MarsRemotePropertyDAO {
     @Query("SELECT COUNT(*) from MarsProperties ")
     suspend fun getPropertiesCount() : Int
 
+    @Query("SELECT id from MarsProperties ORDER BY id DESC LIMIT 1")
+    suspend fun getLastPropertyId() : String
+
+    /**
+     * Add a new property and auto increment the id
+     */
+    @Transaction
+    suspend fun addNewProperty(marsProperty: MarsProperty) {
+        val newId = getLastPropertyId().toInt() + 1
+        insert(marsProperty.copy(id = newId.toString()))
+    }
+
 
     @RawQuery
     suspend fun getProperties(query : SupportSQLiteQuery) : List<MarsProperty>

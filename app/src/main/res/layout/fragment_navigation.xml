@@ -132,6 +132,23 @@
                     app:endText="@{viewModel.favoritesCount.toString()}"
 
                     />
+                <com.example.marsrealestate.custom.NavigationItemView
+                    android:id="@+id/sell"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+
+
+                    android:layout_marginEnd="@dimen/margin_medium"
+
+
+                    app:title="Sell your property"
+                    app:startIcon="@drawable/ic_cart"
+                    app:textColor="@color/control_activable"
+
+                    android:onClick="@{ () -> fragment.changeDestination(@id/dest_sell)}"
+                    app:isActive="@{ viewModel.currentDestinationId == @id/dest_sell}"
+
+                    />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"

@@ -12,7 +12,7 @@
         <item name="titleTextColor">?colorOnPrimary</item>
         <item name="android:background">?colorPrimary</item>
         <item name="popupTheme">@style/AppTheme.PopupTheme</item>
-<!--        <item name="android:layout_height">200dp</item>-->
+        <!--        <item name="android:layout_height">200dp</item>-->
     </style>
 
 
@@ -38,11 +38,11 @@
     <style name="MyStyle.Widgets.SnackBar" parent="Widget.MaterialComponents.Snackbar">
         <item name="backgroundTint">?colorSnackbarBackground</item>
         <item name="actionTextColorAlpha">1</item>
-<!--        <item name="android:textAppearance">@style/MyStyle.TextAppearance.SnackbarTextViewStyle</item>-->
+        <!--        <item name="android:textAppearance">@style/MyStyle.TextAppearance.SnackbarTextViewStyle</item>-->
 
 
-<!--        <item name="android:textColor">?colorSecondary</item>-->
-<!--        <item name="textColor">?colorSecondary</item>-->
+        <!--        <item name="android:textColor">?colorSecondary</item>-->
+        <!--        <item name="textColor">?colorSecondary</item>-->
 
         <!-- Text color has to be set with code in Snackbar.make()....
              Currently done in com.example.marsrealestate.util.ExtensionsSnackbar.withColoredText()
@@ -58,6 +58,13 @@
     <style name="MyStyle.Widgets.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="shapeAppearanceOverlay">@style/MyStyle.ShapeAppearance.FloatingActionButton</item>
         <item name="rippleColor">?colorOnSecondary</item>
+    </style>
+
+    <style name="MyStyle.Widgets.FloatingActionButton.Alternative" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="rippleColor">?colorControlHighlightAlt</item>
+        <item name="tint">@color/fab_icon_alt</item>
+        <item name="backgroundTint">@color/fab_background_alt</item>
+        <item name="fabCustomSize">50dp</item>
     </style>
 
     <style name="MyStyle.Widgets.ExtendedFloatingActionButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
@@ -79,6 +86,22 @@
         <item name="hintTextColor">@color/control_activable</item>
     </style>
 
+    <style name="MyStyle.Widgets.TextInputLayout.Alternative" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxStrokeColor">@color/control_activable</item>
+        <item name="startIconTint">@color/control_activable</item>
+        <item name="endIconTint">@color/control_activable</item>
+        <item name="hintTextColor">@color/control_activable</item>
+        <item name="boxBackgroundColor">#aeeaeaea</item>
+    </style>
+
+    <style name="MyStyle.Widgets.TextInputLayout.Alternative.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@color/control_activable</item>
+        <item name="startIconTint">@color/control_activable</item>
+        <item name="endIconTint">@color/control_activable</item>
+        <item name="hintTextColor">@color/control_activable</item>
+        <item name="boxBackgroundColor">#aeeaeaea</item>
+    </style>
+
 
     <style name="MyStyle.Widgets.TextInput" parent="">
         <item name="android:textAppearance">?textAppearanceHeadline7</item>
@@ -90,17 +113,29 @@
         <item name="android:backgroundTint">?colorSecondary</item>
         <item name="android:textColor">?colorOnSecondary</item>
         <item name="rippleColor">?colorControlHighlight</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
+    <style name="MyStyle.Widgets.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:backgroundTint">?colorSurface</item>
+        <item name="android:textColor">?colorSecondary</item>
+        <item name="rippleColor">?colorControlHighlightAlt</item>
+        <item name="strokeColor">?colorSecondary</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:elevation">4dp</item>
     </style>
 
     <style name="MyStyle.Widgets.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
-<!--        <item name="android:stateListAnimator">@null</item>-->
+        <!--        <item name="android:stateListAnimator">@null</item>-->
         <item name="elevation">2dp</item>
         <item name="android:elevation">2dp</item>
-<!--        <item name="strokeColor">?colorSecondary</item>-->
-<!--        <item name="strokeWidth">1dp</item>-->
+        <!--        <item name="strokeColor">?colorSecondary</item>-->
+        <!--        <item name="strokeWidth">1dp</item>-->
 
-<!--        <item name="android:backgroundTint">?colorPrimary</item>-->
-<!--        <item name="android:textColor">?colorOnPrimary</item>-->
+        <!--        <item name="android:backgroundTint">?colorPrimary</item>-->
+        <!--        <item name="android:textColor">?colorOnPrimary</item>-->
         <item name="android:backgroundTint">?colorPrimary</item>
         <item name="android:textColor">?colorOnPrimary</item>
         <item name="rippleColor">?colorControlHighlightAlt</item>
@@ -115,13 +150,13 @@
     </style>
 
 
-<!--    Currently unused because NavigationView is not customizable enough-->
+    <!--    Currently unused because NavigationView is not customizable enough-->
     <style name="MyStyle.Widgets.NavigationViewStyle" parent="Widget.Design.NavigationView">
 
         <!--Background material shape is done with binding adapter because
         there is no other way with basic styling-->
         <item name="theme">@style/AppTheme.NavigationViewTheme</item>
-<!--        <item name="android:background">?colorBackground</item>-->
+        <!--        <item name="android:background">?colorBackground</item>-->
         <item name="itemTextColor">@color/control_activable</item>
         <item name="itemIconTint">@color/control_activable</item>
         <item name="itemTextAppearance">?textAppearanceNavigationViewItem</item>
@@ -179,7 +214,7 @@
 
     <style name="MyStyle.TextAppearance.Button" parent="TextAppearance.MaterialComponents.Button">
         <item name="fontFamily">@font/raleway_bold</item>
-<!--        <item name="android:textStyle">bold</item>-->
+        <!--        <item name="android:textStyle">bold</item>-->
     </style>
 
 

@@ -33,8 +33,8 @@
             app:layout_constraintTop_toTopOf="parent"
 
             android:scaleType="centerCrop"
-            android:src="@drawable/mars_image_1"
-            tools:src="@tools:sample/backgrounds/scenic"
+            android:src="@drawable/mars_landscape_1"
+            tools:src="@drawable/mars_landscape_1"
             />
 
 

@@ -10,6 +10,7 @@
     <color name="gray">#424242</color>
     <color name="gray2">#525252</color>
     <color name="grayLight">#6f706d</color>
+    <color name="grayLightSemiTransparent">#dd6f706d</color>
     <color name="grayLighter">#cecece</color>
     <color name="grayLighterer">#dedede</color>
     <color name="grayLighterPlus">#eeeeee</color>

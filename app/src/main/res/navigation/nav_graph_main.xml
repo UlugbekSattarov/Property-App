@@ -170,6 +170,10 @@
                 app:argType="com.example.marsrealestate.payment.options.PaymentOption" />
         </fragment>
     </navigation>
+    <fragment
+        android:id="@+id/dest_sell"
+        android:name="com.example.marsrealestate.sell.SellFragment"
+        tools:layout="@layout/fragment_sell"/>
 
 
 </navigation>

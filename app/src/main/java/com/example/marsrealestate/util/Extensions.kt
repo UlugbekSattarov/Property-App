@@ -69,6 +69,7 @@ fun Activity.setupToolbarIfDrawerLayoutPresent(fragment : Fragment, toolbar: Too
             R.id.dest_overview,
             R.id.dest_favorites,
             R.id.dest_login,
+            R.id.dest_sell,
             R.id.dest_settings)
 
 

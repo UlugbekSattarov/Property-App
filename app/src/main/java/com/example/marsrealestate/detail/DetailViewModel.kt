@@ -22,7 +22,7 @@ class DetailViewModel private constructor(private val repository : MarsRepositor
             viewModelScope.launch {
                 val prop = repository.getProperty(propertyId)
                 if (prop != null) {
-                    _property.value = prop!!
+                    _property.value = prop
                     _statePropertyFetched.value = Result.Success()
                 }
                 else {

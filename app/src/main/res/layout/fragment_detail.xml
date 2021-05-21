@@ -177,6 +177,7 @@
             android:padding="@dimen/margin_large"
             android:visibility="@{ ! viewModel.statePropertyFetched.isSuccess ? View.VISIBLE : View.GONE}"
 
+            tools:visibility="gone"
             >
             
             <TextView
@@ -222,7 +223,7 @@
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
 
             android:visibility="@{viewModel.statePropertyFetched.isSuccess ? View.VISIBLE : View.GONE}"
-            tools:visibility="gone"
+            tools:visibility="visible"
 
             android:scrollbars="none"
             android:background="?colorBackground"
