@@ -97,7 +97,7 @@ class OverviewFragment : Fragment() {
     private fun setupAppBarLayoutVisualState() {
         viewDataBinding.appBarLayout.setExpanded(appBarLayoutIsShown)
         viewDataBinding.appBarLayout.addOnOffsetChangedListener(
-            AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
                 appBarLayoutIsShown = verticalOffset == 0
             })
     }

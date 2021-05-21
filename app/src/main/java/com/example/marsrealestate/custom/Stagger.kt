@@ -11,6 +11,9 @@ import androidx.transition.Fade
 import androidx.transition.SidePropagation
 import androidx.transition.TransitionValues
 
+@Deprecated(message = "This is too complex and not customizable enough to use for a recyclerview",
+    replaceWith = ReplaceWith("A layoutAnimation for the recyclerview")
+)
 class Stagger : Fade(IN) {
 
     init {
