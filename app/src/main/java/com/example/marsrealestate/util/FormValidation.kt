@@ -10,17 +10,25 @@ import com.google.android.material.textfield.TextInputLayout
 object FormValidation {
     const val NO_ERROR = -1
 
-    fun isError(stringId : Int) = stringId != NO_ERROR
+    fun isSuccess(stringId : Int) = stringId == NO_ERROR
+
+    fun isError(stringId : Int) = ! isSuccess(stringId)
+
 }
 
-fun LiveData<Int>.noError() = value == NO_ERROR
 
-fun LiveData<Int>.isError() = value != NO_ERROR
+fun Int.isValidationError() = FormValidation.isError(this)
+fun Int.isValidationSuccess() = FormValidation.isError(this)
+
+fun LiveData<Int>.isValidationSuccess() = FormValidation.isSuccess(value!!)
+fun LiveData<Int>.isValidationError() = FormValidation.isError(value!!)
+
+
 
 
 @BindingAdapter("errorMessage" )
 fun TextInputLayout.errorMessage(@StringRes errorStringId: Int?) {
-    isErrorEnabled = errorStringId != NO_ERROR && errorStringId != null
+    isErrorEnabled =  errorStringId != null && errorStringId.isValidationError()
     if (isErrorEnabled)
         this.error = resources.getString(errorStringId!!)
 }

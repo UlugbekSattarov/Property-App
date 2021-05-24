@@ -7,7 +7,6 @@ import com.example.marsrealestate.payment.options.VisaCard.Companion.VISA_CARD_N
 import com.example.marsrealestate.payment.options.VisaCard.Companion.VISA_SECRET_CODE_LENGTH
 import com.example.marsrealestate.util.*
 import com.example.marsrealestate.util.FormValidation.NO_ERROR
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.NumberFormatException
 import java.util.*
@@ -73,10 +72,10 @@ class PaymentVisaViewModel : ViewModel() {
 
         val card = getVisaCard()
 
-        if (cardNumberErrorStringId.isError()
-            || expirationMonthErrorStringID.isError()
-            || expirationYearErrorStringID.isError()
-            || secretCodeErrorStringID.isError()
+        if (cardNumberErrorStringId.isValidationError()
+            || expirationMonthErrorStringID.isValidationError()
+            || expirationYearErrorStringID.isValidationError()
+            || secretCodeErrorStringID.isValidationError()
             || card == null
         )
             return

@@ -21,14 +21,18 @@ data class MarsProperty (
     val longitude : Float)  : Parcelable {
 
     val isRental
-        get() = type == "rent"
+        get() = type == TYPE_RENT
 
     companion object {
 
+        const val TYPE_RENT = "rent"
+        const val TYPE_BUY = "buy"
+
         @JvmField
-        val DEFAULT = MarsProperty("", "", "rent", 0.0,surfaceArea = 0f,latitude = 0f,longitude = 0f)
+        val DEFAULT = MarsProperty("", "", TYPE_BUY, 0.0,surfaceArea = 0f,latitude = 0f,longitude = 0f)
+
     }
-
-
 }
+
+fun String.isValidPropertyType() = this == MarsProperty.TYPE_BUY || this == MarsProperty.TYPE_RENT
 

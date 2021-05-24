@@ -8,7 +8,7 @@ import com.example.marsrealestate.data.MarsRepository
 import com.example.marsrealestate.util.Event
 import com.example.marsrealestate.util.FormValidation.NO_ERROR
 import com.example.marsrealestate.util.Result
-import com.example.marsrealestate.util.isError
+import com.example.marsrealestate.util.isValidationError
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
@@ -74,7 +74,7 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
         email.postValue(email.value ?: "")
         password.postValue(password.value ?: "")
 
-        if (emailErrorStringId.isError() || passwordErrorStringID.isError()) {
+        if (emailErrorStringId.isValidationError() || passwordErrorStringID.isValidationError()) {
             _operationLogging.value = Result.Error()
             return
         }

@@ -184,6 +184,8 @@
     <string name="defaultSorting" >Default</string>
     <string name="navigate_up">Navigate up</string>
     <string name="biometric_auth_unavailable">Your device is not compatible with biometric authentication</string>
+    <string name="price_too_high">Price is too high</string>
+    <string name="need_positive_value">Please provide a positive value</string>
 
     <plurals name="x_people_have_already_seen_this_property">
         <item quantity="one">&lt;b>One person&lt;/b> has already seen this property</item>

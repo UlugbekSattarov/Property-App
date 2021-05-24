@@ -20,7 +20,15 @@ class MarsApiServiceNoServerImpl(private val dao : MarsRemotePropertyDAO) : Mars
         R.drawable.mars_landscape_6
     )
 
-    private val types = arrayOf("buy","rent","rent","buy","rent","buy","buy","rent")
+    private val types = arrayOf(
+        MarsProperty.TYPE_BUY,
+        MarsProperty.TYPE_RENT,
+        MarsProperty.TYPE_RENT,
+        MarsProperty.TYPE_BUY,
+        MarsProperty.TYPE_RENT,
+        MarsProperty.TYPE_BUY,
+        MarsProperty.TYPE_BUY,
+        MarsProperty.TYPE_RENT)
 
     val properties by lazy {
         List(30) { MarsProperty("${it +140_000}",

@@ -7,26 +7,20 @@ import android.util.TypedValue
 import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.navigateUp
-import androidx.navigation.ui.setupWithNavController
 import androidx.transition.Transition
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.example.marsrealestate.MainActivity
 import com.example.marsrealestate.R
-import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import java.lang.Exception
 
@@ -139,6 +133,30 @@ fun Snackbar.withColoredText() : Snackbar {
     setTextColor(color.data)
     return this
 }
+
+/**
+ * Fetch this [LiveData] its value or throw an exception if it is null
+ */
+fun <T> LiveData<T>.getValueNotNull() : T = this.value ?: throw Exception("Value was null")
+
+
+/**
+ * Fetch this [LiveData] its value or throw an exception if it is null.
+ * @param Validator should return a [@StringRes] without throwing exceptions. If the data is valid,
+ * it should then return [FormValidation.NO_ERROR]
+ */
+inline fun <T> LiveData<T>.getValueNotNull(validator :  (data : T) -> Int) : T {
+    val value = this.getValueNotNull()
+
+    val validation = validator(value)
+
+    if (validation.isValidationError())
+        throw Exception("Validator throwed error : $validation")
+
+    return value
+}
+
+
 
 fun Transition.doOnEnd(block : () -> Unit) : Transition {
     addListener(object : Transition.TransitionListener {

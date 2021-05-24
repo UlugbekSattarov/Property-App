@@ -7,13 +7,20 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.inputmethod.EditorInfo
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.updateLayoutParams
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
+import com.example.marsrealestate.data.MarsProperty
+import com.example.marsrealestate.data.query.MarsApiSorting
 import com.example.marsrealestate.databinding.FragmentSellBinding
 import com.example.marsrealestate.util.resolveColor
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
@@ -87,4 +94,43 @@ class SellFragment : Fragment() {
         }
     }
 
+}
+
+
+@BindingAdapter("propertyType")
+fun AutoCompleteTextView.setPropertyType(oldValue: String?, newValue: String?) {
+    if (newValue != null && newValue != oldValue) {
+        val toDisplay = when (newValue) {
+            MarsProperty.TYPE_BUY -> R.string.buy
+            MarsProperty.TYPE_RENT -> R.string.rent
+            else -> R.string.error
+        }
+        this.setText(context.getString(toDisplay),false)
+    }
+
+    //We have to reset the adapter each time because only the selected value is kept otherwise,not the whole list (bug)
+//    val sortingOptions = listOf(context.getString(R.string.defaultSorting),context.getString(R.string.priceAscending),context.getString(
+//        R.string.priceDescending))
+//    val adapterSorting = ArrayAdapter(context, R.layout.view_sorting_option_item, sortingOptions)
+//    setAdapter(adapterSorting)
+}
+
+
+@InverseBindingAdapter(attribute = "propertyType")
+fun AutoCompleteTextView.getPropertyType(): String {
+    return when (text.toString()) {
+        context.getString(R.string.rent) -> MarsProperty.TYPE_RENT
+        context.getString(R.string.buy) -> MarsProperty.TYPE_BUY
+        else -> ""
+    }
+}
+
+@BindingAdapter("app:propertyTypeAttrChanged")
+fun AutoCompleteTextView.setPropertyTypeListeners(
+    attrChange: InverseBindingListener
+) {
+    onItemClickListener =
+        AdapterView.OnItemClickListener { _, _, _, _ ->
+            attrChange.onChange()
+        }
 }

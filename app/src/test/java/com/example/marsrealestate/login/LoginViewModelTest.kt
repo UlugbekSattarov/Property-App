@@ -1,22 +1,17 @@
 package com.example.marsrealestate.login
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
 import com.example.marsrealestate.testshared.MainCoroutineRule
 import com.example.marsrealestate.testshared.data.FakeTestRepository
 import com.example.marsrealestate.testshared.getOrAwaitValue
 import com.example.marsrealestate.util.FormValidation
 import com.example.marsrealestate.util.Result
-import com.example.marsrealestate.util.isError
-import com.example.marsrealestate.util.noError
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.Mock
 
 class LoginViewModelTest {
     // Executes each task synchronously using Architecture Components.

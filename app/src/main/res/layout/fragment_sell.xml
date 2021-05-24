@@ -4,6 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="com.example.marsrealestate.sell.SellConverter" />
         <variable
             name="viewModel"
             type="com.example.marsrealestate.sell.SellViewModel" />
@@ -106,6 +108,9 @@
 
                         android:inputType="none"
                         android:textAppearance="?textAppearanceHeadline7"
+
+                        app:propertyType="@={viewModel.type}"
+
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -162,6 +167,7 @@
                         android:inputType="number"
                         android:textAppearance="?textAppearanceHeadline7"
                         android:imeOptions="actionDone"
+                        android:text="@={SellConverter.intToString(viewModel.price)}"
 
 
 
@@ -283,6 +289,9 @@
                         android:textAppearance="?textAppearanceHeadline7"
                         android:nextFocusDown="@id/location_longitude_input_value"
                         android:singleLine="true"
+
+                        app:textFloat="@={viewModel.latitude}"
+
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -314,9 +323,13 @@
                         android:id="@+id/location_longitude_input_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
                         android:inputType="numberDecimal"
                         android:textAppearance="?textAppearanceHeadline7"
                         android:imeOptions="actionDone"
+
+                        app:textFloat="@={viewModel.longitude}"
+
 
                         />
 
@@ -370,9 +383,13 @@
                         android:id="@+id/area_input_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
                         android:inputType="numberDecimal"
                         android:textAppearance="?textAppearanceHeadline7"
                         android:imeOptions="actionDone"
+
+                        app:textFloat="@={viewModel.area}"
+
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -393,6 +410,8 @@
 
                     android:text="Put on sale"
 
+                    android:onClick="@{ () -> viewModel.putPropertyToSale()}"
+
                     />
                 <View
                     android:id="@+id/bottom_space"
@@ -401,7 +420,7 @@
                     app:layout_constraintTop_toBottomOf="@id/button_put_on_sale"
                     app:layout_constraintStart_toStartOf="parent"
 
-                    marginBottomPlusInsets="@{0f}"
+
                     />
 
 

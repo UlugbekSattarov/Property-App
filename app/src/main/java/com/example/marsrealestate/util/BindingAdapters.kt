@@ -7,6 +7,8 @@ import android.graphics.drawable.AnimatedVectorDrawable
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewPropertyAnimator
+import android.widget.AdapterView
+import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -16,18 +18,23 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import androidx.core.view.updateLayoutParams
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.marsrealestate.R
+import com.example.marsrealestate.data.query.MarsApiSorting
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 
 
 @BindingAdapter("itemSpacing", "columnNumber","endSpace",requireAll = false)
@@ -339,4 +346,29 @@ fun ExtendedFloatingActionButton.setExtendedFabText(oldText : String?, newText :
         text = newText.toString()
         extend()
     }
+}
+
+
+@BindingAdapter("textFloat")
+fun TextInputEditText.setTextFloat(oldFloat : Float?, newFloat : Float?) {
+    if (newFloat != null && newFloat != oldFloat) {
+        if (text.toString().isEmpty() && newFloat == 0f)
+            return
+        if (text.toString().toFloatOrNull() != newFloat)
+            setText(newFloat.toString())
+    }
+}
+
+
+@InverseBindingAdapter(attribute = "textFloat")
+fun TextInputEditText.getTextFloat(): Float = text.toString().toFloatOrNull() ?: 0f
+
+@BindingAdapter("app:textFloatAttrChanged")
+fun TextInputEditText.setTextFloatListeners(
+    attrChange: InverseBindingListener
+) {
+    this.addTextChangedListener { _ ->
+        attrChange.onChange()
+    }
+
 }
