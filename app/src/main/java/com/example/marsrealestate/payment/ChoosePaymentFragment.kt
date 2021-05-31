@@ -77,6 +77,4 @@ class ChoosePaymentFragment : Fragment() {
             }
         })
     }
-
-
 }

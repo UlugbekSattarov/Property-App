@@ -8,8 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
@@ -20,7 +18,6 @@ import com.example.marsrealestate.util.SharedElementTransition
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialFadeThrough
 
 class OverviewFragment : Fragment() {
@@ -32,9 +29,6 @@ class OverviewFragment : Fragment() {
     private lateinit var  viewDataBinding : FragmentOverviewBinding
 
     private var enableListAppearingAnimation = true
-
-    //Useful for shared element transition
-    private var selectedProperty : View? = null
 
     private var appBarLayoutIsShown = true
 
@@ -48,7 +42,7 @@ class OverviewFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
 
         exitTransition = null
 
@@ -81,19 +75,26 @@ class OverviewFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_refresh) {
-            viewModel.loadNextPage(true)
+            viewModel.makeNewSearch()
         }
         else if (item.itemId == R.id.menu_test) {
-            bli()
+            testNotification()
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun bli() {
+    private fun testNotification() {
         val property = MarsProperty("140158", "${R.drawable.mars_landscape_2}", "", 0.toDouble(),22f,58f,-50f)
         NotificationHelper.notifyPropertyBought(requireContext(),property)
     }
 
+    /**
+     * Useful to keep the visual state of the [AppBarLayout]
+     * when navigating from the detail view to this [Fragment].
+     *
+     * For example if it was hidden, then it remains hidden when the user moves from the
+     * detail view to this [Fragment].
+     */
     private fun setupAppBarLayoutVisualState() {
         viewDataBinding.appBarLayout.setExpanded(appBarLayoutIsShown)
         viewDataBinding.appBarLayout.addOnOffsetChangedListener(
@@ -104,7 +105,7 @@ class OverviewFragment : Fragment() {
 
     @Suppress("UNCHECKED_CAST")
     private fun setupRecyclerView() {
-        viewModel.properties.observe(viewLifecycleOwner, Observer {
+        viewModel.properties.observe(viewLifecycleOwner, {
             if ( it.isNotEmpty()) {
                 playListAnimationOnlyOnce()
             }
@@ -113,15 +114,17 @@ class OverviewFragment : Fragment() {
                 ?.submitList(it.toList())
         })
 
-        viewDataBinding.photosGrid.adapter = OverviewAdapter(OverviewAdapter.OnClickListener { property, viewClicked ->
-            this.selectedProperty = viewClicked
-            viewModel.displayPropertyDetails(property)
-        }, object : OnLastItemDisplayedListener {
-            override fun onLastItemDisplayed() {
-                Log.d(this@OverviewFragment::class.java.name,"onLastItemDisplayed")
-                viewModel.loadNextPage()
+
+        viewDataBinding.photosGrid.adapter = OverviewAdapter(
+            //When an item on the list is clicked
+            OverviewAdapter.OnClickListener { property ->
+                viewModel.displayPropertyDetails(property)
             }
-        })
+        ) {
+            //When the last item of the list has been displayed
+            Log.d(this@OverviewFragment::class.java.name, "onLastItemDisplayed")
+            viewModel.loadNextPage()
+        }
     }
 
     private fun playListAnimationOnlyOnce() {
@@ -134,7 +137,7 @@ class OverviewFragment : Fragment() {
     }
 
     private fun setupNoMoreProperties() {
-        viewModel.endOfData.observe(viewLifecycleOwner, Observer {
+        viewModel.endOfData.observe(viewLifecycleOwner,  {
             if (it) {
                 Snackbar.make(viewDataBinding.root,R.string.no_more_properties, Snackbar.LENGTH_LONG).show()
             }
@@ -142,17 +145,11 @@ class OverviewFragment : Fragment() {
     }
 
     private fun setupNavigation() {
-        viewModel.navigateToProperty.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToProperty.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let navigation@{ property ->
                 val action = OverviewFragmentDirections.actionOverviewToDetail().apply { marsProperty = property }
 
-                exitTransition = Hold()
-
-                val extras = SharedElementTransition.createSharedElementExtra(selectedProperty,property)
-                if (extras != null)
-                    findNavController().navigate(action, extras)
-                else
-                    findNavController().navigate(action)
+                SharedElementTransition.navigate(this,property,action)
             }
         })
     }

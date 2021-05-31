@@ -1,8 +1,10 @@
 package com.example.marsrealestate.payment.options
 
+import androidx.annotation.StringRes
 import androidx.databinding.InverseMethod
 import androidx.lifecycle.*
 import com.example.marsrealestate.R
+import com.example.marsrealestate.data.isValidPropertyType
 import com.example.marsrealestate.payment.options.VisaCard.Companion.VISA_CARD_NUMBER_LENGTH
 import com.example.marsrealestate.payment.options.VisaCard.Companion.VISA_SECRET_CODE_LENGTH
 import com.example.marsrealestate.util.*
@@ -19,40 +21,10 @@ class PaymentVisaViewModel : ViewModel() {
     val expirationYear : MutableLiveData<Int> = MutableLiveData()
     val secretCode : MutableLiveData<String> = MutableLiveData()
 
-
-    val cardNumberErrorStringId = cardNumber.map {
-        if(!it.all { c -> c.isDigit() })
-            R.string.card_number_only_digits
-        else if (it.length != VISA_CARD_NUMBER_LENGTH)
-            R.string.card_number_length
-        else
-            NO_ERROR
-    }
-
-
-    val expirationMonthErrorStringID = expirationMonth.map {month ->
-        if (month !in 1..12)
-            R.string.enter_valid_month
-        else
-            NO_ERROR
-    }
-
-    val expirationYearErrorStringID = expirationYear.map {year ->
-        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-        if (year < currentYear || year > currentYear + 15)
-            R.string.enter_valid_year
-        else
-            NO_ERROR
-    }
-
-    val secretCodeErrorStringID = secretCode.map {
-        if(!it.all { c -> c.isDigit() })
-            R.string.secret_code_only_digits
-        else if (it.length != VISA_SECRET_CODE_LENGTH)
-            R.string.secret_code_length
-        else
-            NO_ERROR
-    }
+    val cardNumberErrorStringId = cardNumber.map { cardNumberValidator(it) }
+    val expirationMonthErrorStringID = expirationMonth.map {month -> expirationMonthValidator(month)}
+    val expirationYearErrorStringID = expirationYear.map {year -> expirationYearValidator(year) }
+    val secretCodeErrorStringID = secretCode.map { code -> secretCodeValidator(code) }
 
 
     private val _operationValidateCard : MutableLiveData<Result<VisaCard>> = MutableLiveData()
@@ -63,40 +35,74 @@ class PaymentVisaViewModel : ViewModel() {
     val onCardValidated : LiveData<Event<VisaCard>> = _onCardValidated
 
 
+    @StringRes
+    private fun cardNumberValidator(cardNumber : String) : Int =
+        if (!cardNumber.all { c -> c.isDigit() })
+            R.string.card_number_only_digits
+        else if (cardNumber.length != VISA_CARD_NUMBER_LENGTH)
+            R.string.card_number_length
+        else
+            NO_ERROR
+
+    @StringRes
+    private fun expirationMonthValidator(month : Int) : Int =
+        if (month !in 1..12)
+            R.string.enter_valid_month
+        else
+            NO_ERROR
+
+    @StringRes
+    private fun expirationYearValidator(year : Int) : Int =
+        Calendar.getInstance().get(Calendar.YEAR).let { currentYear ->
+            if (year < currentYear || year > currentYear + 15)
+                R.string.enter_valid_year
+            else
+                NO_ERROR
+        }
+
+    @StringRes
+    private fun secretCodeValidator(secretCode : String) : Int =
+        if(!secretCode.all { c -> c.isDigit() })
+            R.string.secret_code_only_digits
+        else if (secretCode.length != VISA_SECRET_CODE_LENGTH)
+            R.string.secret_code_length
+        else
+            NO_ERROR
+
+
+
+
+
     fun validateCard() {
-        //Will cause the errors to be updated on the UI, if any
+        //Will cause the errors to be updated on the UI, useful for empty inputs
+        notifyEmptyFields()
+
+        _operationValidateCard.value = Result.Loading()
+
+        try {
+            val card =  VisaCard("",
+                "",
+                cardNumber = cardNumber.getValueNotNull(::cardNumberValidator),
+                expirationMonth = expirationMonth.getValueNotNull(::expirationMonthValidator),
+                expirationYear = expirationYear.getValueNotNull(::expirationYearValidator),
+                secretCode = secretCode.getValueNotNull(::secretCodeValidator))
+
+            viewModelScope.launch {
+                _operationValidateCard.postValue(Result.Success(card))
+                _onCardValidated.postValue(Event(card))
+            }
+        }
+        catch (e: Exception) {
+            _operationValidateCard.postValue(Result.Error(e))
+        }
+    }
+
+
+    private fun notifyEmptyFields() {
         cardNumber.postValue(cardNumber.value ?: "")
         expirationYear.postValue(expirationYear.value ?: 0)
         expirationMonth.postValue(expirationMonth.value ?: 0)
         secretCode.postValue(secretCode.value ?: "")
-
-        val card = getVisaCard()
-
-        if (cardNumberErrorStringId.isValidationError()
-            || expirationMonthErrorStringID.isValidationError()
-            || expirationYearErrorStringID.isValidationError()
-            || secretCodeErrorStringID.isValidationError()
-            || card == null
-        )
-            return
-
-            _operationValidateCard.value = Result.Loading()
-            viewModelScope.launch {
-//                delay(1000)
-                _operationValidateCard.postValue(Result.Success(card))
-                _onCardValidated.postValue(Event(card))
-            }
-
-    }
-
-
-    private fun getVisaCard() : VisaCard? {
-        val cardNumber = cardNumber.value ?: return null
-        val expirationMonth = expirationMonth.value ?: return null
-        val expirationYear = expirationYear.value ?: return null
-        val secretCode = secretCode.value ?: return null
-
-        return VisaCard("","",cardNumber,expirationMonth,expirationYear,secretCode)
     }
 }
 
@@ -110,7 +116,7 @@ class PaymentVisaViewModelFactory() : ViewModelProvider.NewInstanceFactory() {
     }
 }
 
-
+//TODO move elsewhere
 object Converter {
     @InverseMethod("expirationYearToString")
     @JvmStatic

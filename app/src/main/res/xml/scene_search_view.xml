@@ -3,18 +3,17 @@
 
     >
     <!-- A transition describes an animation via start and end state -->
-   <Transition
+    <Transition
         android:id="@+id/transition_searchview_to_expanded"
-        app:constraintSetStart="@id/constraint_set_searchview_collapsed"
-        app:constraintSetEnd="@id/constraint_set_searchview_expanded"
-        app:motionInterpolator="@android:interpolator/fast_out_slow_in"
+        app:constraintSetStart="@id/constraint_set_searchview_searchinput_invisible"
+        app:constraintSetEnd="@id/constraint_set_searchview_searchinput_visible"
 
         app:duration="@integer/anim_search_close_total_duration">
 
 
-       <!-- <OnClick app:targetId="@id/searchview_icon_search_container"
-            app:clickAction="toggle"
-            />-->
+        <!-- <OnClick app:targetId="@id/searchview_icon_search_container"
+             app:clickAction="toggle"
+             />-->
         <KeyFrameSet>
 
             <KeyAttribute
@@ -38,7 +37,7 @@
 
             <KeyAttribute
                 app:framePosition="0"
-                app:motionTarget="@id/searchview_erase_text_input_container"
+                app:motionTarget="@id/searchview_fab_clear_text"
                 android:alpha="0"
                 android:scaleX="0"
                 android:scaleY="0"
@@ -46,7 +45,7 @@
 
             <KeyAttribute
                 app:framePosition="50"
-                app:motionTarget="@id/searchview_erase_text_input_container"
+                app:motionTarget="@id/searchview_fab_clear_text"
                 android:alpha="0"
                 android:scaleX="1"
                 android:scaleY="1"
@@ -54,21 +53,21 @@
 
             <KeyAttribute
                 app:framePosition="100"
-                app:motionTarget="@id/searchview_erase_text_input_container"
+                app:motionTarget="@id/searchview_fab_clear_text"
                 android:alpha="1"
                 android:scaleX="1"
                 android:scaleY="1"
                 />
 
             <KeyPosition
-                app:framePosition="40"
+                app:framePosition="100"
                 app:motionTarget="@id/searchview_background_above_title"
                 app:keyPositionType="deltaRelative"
                 app:percentX="1"
                 />
 
             <KeyPosition
-                app:framePosition="40"
+                app:framePosition="100"
                 app:motionTarget="@id/searchview_underline"
                 app:keyPositionType="deltaRelative"
                 app:percentX="1"
@@ -80,16 +79,16 @@
 
     <Transition
         android:id="@+id/transition_searchview_to_collapsed"
-        app:constraintSetStart="@id/constraint_set_searchview_expanded"
-        app:constraintSetEnd="@id/constraint_set_searchview_collapsed"
+        app:constraintSetStart="@id/constraint_set_searchview_searchinput_visible"
+        app:constraintSetEnd="@id/constraint_set_searchview_searchinput_invisible"
         app:motionInterpolator="@android:interpolator/fast_out_slow_in"
 
-        app:duration="@integer/anim_search_close_total_duration">
+        app:duration="2500">
 
 
-       <!-- <OnClick app:targetId="@id/searchview_icon_search_container"
-            app:clickAction="toggle"
-            />-->
+        <!-- <OnClick app:targetId="@id/searchview_icon_search_container"
+             app:clickAction="toggle"
+             />-->
         <KeyFrameSet>
 
             <KeyAttribute
@@ -113,7 +112,7 @@
 
             <KeyAttribute
                 app:framePosition="0"
-                app:motionTarget="@id/searchview_erase_text_input_container"
+                app:motionTarget="@id/searchview_fab_clear_text"
                 android:alpha="1"
                 android:scaleX="1"
                 android:scaleY="1"
@@ -121,7 +120,7 @@
 
             <KeyAttribute
                 app:framePosition="30"
-                app:motionTarget="@id/searchview_erase_text_input_container"
+                app:motionTarget="@id/searchview_fab_clear_text"
                 android:alpha="0"
                 android:scaleX="1"
                 android:scaleY="1"
@@ -130,7 +129,7 @@
 
             <KeyAttribute
                 app:framePosition="100"
-                app:motionTarget="@id/searchview_erase_text_input_container"
+                app:motionTarget="@id/searchview_fab_clear_text"
                 android:alpha="0"
                 android:scaleX="0"
                 android:scaleY="0"
@@ -162,7 +161,7 @@
 
 
 
-    <ConstraintSet android:id="@+id/constraint_set_searchview_collapsed">
+    <ConstraintSet android:id="@+id/constraint_set_searchview_searchinput_invisible">
         <Constraint
             android:id="@id/searchview_background_above_title"
             android:layout_width="0dp"
@@ -189,7 +188,7 @@
 
 
 
-    <ConstraintSet android:id="@+id/constraint_set_searchview_expanded">
+    <ConstraintSet android:id="@+id/constraint_set_searchview_searchinput_visible">
         <Constraint
             android:id="@id/searchview_background_above_title"
             android:layout_width="0dp"

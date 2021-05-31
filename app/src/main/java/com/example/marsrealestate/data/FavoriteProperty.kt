@@ -7,7 +7,7 @@ import java.util.*
 @Entity
 data class Favorite(val propertyId : String,
                     val dateFavorited : Date,
-                    @PrimaryKey  val favoriteId : String = UUID.randomUUID().toString())
+                    @PrimaryKey(autoGenerate = true) val favoriteId : Int = 0)
 
 
 data class FavoriteProperty(

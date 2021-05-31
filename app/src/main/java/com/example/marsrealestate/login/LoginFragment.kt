@@ -13,7 +13,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -24,6 +23,7 @@ import androidx.transition.TransitionSet
 import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.databinding.FragmentLoginBinding
+import com.example.marsrealestate.util.hideSoftInput
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.delay
@@ -70,7 +70,7 @@ class LoginFragment : Fragment() {
 
     private fun setupNavigation() {
 
-        viewModel.loggedInEvent.observe(viewLifecycleOwner, Observer {
+        viewModel.loggedInEvent.observe(viewLifecycleOwner,  {
             it.getContentIfNotHandled()?.let {
 
                 //Transition is handled by the nav controller (defined in nav_graph_main.xml)
@@ -84,7 +84,7 @@ class LoginFragment : Fragment() {
             }
         })
 
-        viewModel.navigateToOverviewEvent.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToOverviewEvent.observe(viewLifecycleOwner,  {
             it.getContentIfNotHandled()?.let {
                 findNavController().apply {
                     popBackStack(R.id.nav_graph_main,false)
@@ -95,7 +95,7 @@ class LoginFragment : Fragment() {
     }
 
     /**
-     * Setup a listener on [viewModel.isLoggedIn] to switch the layout between layoutLogin and layoutLogout.
+     * Setup a listener on viewModel.isLoggedIn to switch the layout between layoutLogin and layoutLogout.
      * Takes care of the transition in between which is Fade out + Height -> Fade In -> CheckMark animation is played
      */
 
@@ -105,7 +105,7 @@ class LoginFragment : Fragment() {
 
         //The transition that will be applied when layouts are switched, the check mark transition is done
         //a few lines after
-        val fadeOut = TransitionSet().apply {
+        val transition = TransitionSet().apply {
             addTransition(ChangeBounds()) //For the height transition
             addTransition(Fade(Fade.MODE_IN).apply { startDelay = delayFadeIn; duration = 500 })
             addTransition(Fade(Fade.MODE_OUT))
@@ -113,10 +113,10 @@ class LoginFragment : Fragment() {
         }
 
         //Setup the listener
-        viewModel.isLoggedIn.observe(viewLifecycleOwner, Observer { loggedIn ->
+        viewModel.isLoggedIn.observe(viewLifecycleOwner,  { loggedIn ->
 
             //Actually starting the transition
-            TransitionManager.beginDelayedTransition(viewDataBinding.loginCardview, fadeOut)
+            TransitionManager.beginDelayedTransition(viewDataBinding.loginCardview, transition)
              viewDataBinding.layoutLogin.visibility = if (loggedIn) View.GONE else  View.VISIBLE
              viewDataBinding.layoutLogout.visibility = if (loggedIn) View.VISIBLE else  View.GONE
 
@@ -126,13 +126,9 @@ class LoginFragment : Fragment() {
     }
 
     private fun setupCloseKeyboardOnLoading() {
-        viewModel.operationLogging.observe(viewLifecycleOwner,androidx.lifecycle.Observer {
+        viewModel.operationLogging.observe(viewLifecycleOwner, {
             if (it.isLoading()) {
-                (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-                    requireView().windowToken,
-                    InputMethodManager.HIDE_NOT_ALWAYS
-                )
-
+                hideSoftInput()
             }
         })
     }

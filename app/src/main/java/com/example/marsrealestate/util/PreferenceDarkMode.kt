@@ -11,11 +11,11 @@ object PreferenceDarkMode {
 
         val resources = context.resources
 
-        val manager = PreferenceManager.getDefaultSharedPreferences(context)
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val key = resources.getString(R.string.preference_key_dark_theme)
         val default = resources.getString(R.string.preference_dark_mode_follow_system)
 
-        val mode = when (manager.getString(key, default)) {
+        val mode = when (prefs.getString(key, default)) {
             resources.getString(R.string.preference_dark_mode_always_light) -> AppCompatDelegate.MODE_NIGHT_NO
             resources.getString(R.string.preference_dark_mode_always_dark) -> AppCompatDelegate.MODE_NIGHT_YES
             resources.getString(R.string.preference_dark_mode_follow_system) -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM

@@ -69,7 +69,7 @@ class FavoritesAdapter(private val onClickListener: OnClickListener) :
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
         val favorite = getItem(position)
         holder.itemView.setOnClickListener {
-            onClickListener.onClick(favorite,it)
+            onClickListener.onClick(favorite)
         }
         holder.bind(favorite)
 
@@ -77,7 +77,7 @@ class FavoritesAdapter(private val onClickListener: OnClickListener) :
     }
 
 
-    class OnClickListener(val clickListener: (favorite : FavoriteProperty, viewclicked : View) -> Unit) {
-        fun onClick(favorite : FavoriteProperty, viewclicked : View) = clickListener(favorite, viewclicked)
+    class OnClickListener(private val clickListener: (favorite : FavoriteProperty) -> Unit) {
+        fun onClick(favorite : FavoriteProperty) = clickListener(favorite)
     }
 }

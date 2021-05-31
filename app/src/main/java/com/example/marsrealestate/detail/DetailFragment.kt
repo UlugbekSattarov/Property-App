@@ -8,12 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -27,7 +25,6 @@ import com.example.marsrealestate.login.LoginViewModel
 import com.example.marsrealestate.login.LoginViewModelFactory
 import com.example.marsrealestate.util.SharedElementTransition
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
-import com.google.android.material.transition.MaterialContainerTransform
 import kotlin.math.abs
 
 class DetailFragment : Fragment() {
@@ -38,10 +35,11 @@ class DetailFragment : Fragment() {
     private val viewModel : DetailViewModel by viewModels {
         //Choose whether we should retrieve the factory with a MarsProperty or propertyID depending on the arguments
         val prop = args.marsProperty
+        val id = args.propertyId
         if (prop != null )
             DetailViewModelFactory(prop ,ServiceLocator.getMarsRepository(requireContext()))
         else
-            DetailViewModelFactory(args.propertyId ,ServiceLocator.getMarsRepository(requireContext()))
+            DetailViewModelFactory(id!! ,ServiceLocator.getMarsRepository(requireContext()))
 
     }
 
@@ -70,7 +68,8 @@ class DetailFragment : Fragment() {
 
 
         loadToolbarImage()
-        setupSharedElementTransition()
+//        setupSharedElementTransition()
+        SharedElementTransition.setupReceiverFragment(this,args.marsProperty,viewDataBinding.root)
         lifecycleScope.launchWhenResumed { animateFab(); animateToolbarScrim() }
 
         return viewDataBinding.root
@@ -118,22 +117,9 @@ class DetailFragment : Fragment() {
          }*/
     }
 
-    private fun setupSharedElementTransition() {
-        val property = args.marsProperty ?: return
-
-        val transitionName = SharedElementTransition.getTransitionName(property)
-
-
-        ViewCompat.setTransitionName(viewDataBinding.root,transitionName)
-        sharedElementEnterTransition = MaterialContainerTransform().apply {
-            isElevationShadowEnabled = false // Must be set to false to prevent HUGE performance drops
-        }
-//        sharedElementReturnTransition = sharedElementEnterTransition
-    }
-
 
     private fun setupNavigation() {
-        viewModel.navigateToPayment.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToPayment.observe(viewLifecycleOwner,  {
             it.getContentIfNotHandled()?.let { property ->
 
                 val action = if (loginViewModel.isLoggedIn.value != true)
@@ -170,7 +156,7 @@ class DetailFragment : Fragment() {
      * Initialize the viewpager when a property is available from the viewmodel
      */
     private fun setupViewPagerListener() =
-        viewModel.property.observe(viewLifecycleOwner, Observer { property ->
+        viewModel.property.observe(viewLifecycleOwner,  { property ->
             viewDataBinding.viewpager.apply {
                 adapter = DetailViewPagerAdapter(property)
                 setPageTransformer(DetailViewPagerPageTransformer())
@@ -250,7 +236,7 @@ object MarsCoordsToStringConverter {
     private fun formatLongitudeToString(value: Float): String  = String.format("%.1f° E",value)
 
     @JvmStatic
-    fun formatCoordsToString(prop: MarsProperty): String  = "${formatLatitudeToString(prop.latitude)}\n${formatLongitudeToString(prop.longitude)}"
+    fun formatCoordsToString(prop: MarsProperty?): String  = "${formatLatitudeToString(prop?.latitude ?: 0f)}\n${formatLongitudeToString(prop?.longitude ?: 0f)}"
 
 }
 

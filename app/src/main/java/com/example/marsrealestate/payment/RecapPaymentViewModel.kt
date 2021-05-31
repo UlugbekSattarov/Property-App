@@ -5,13 +5,10 @@ import androidx.lifecycle.*
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.data.MarsRepository
 import com.example.marsrealestate.payment.options.PaymentOption
-import com.example.marsrealestate.payment.options.PaymentVisaViewModel
-import com.example.marsrealestate.payment.options.VisaCard
 import com.example.marsrealestate.util.Event
 import com.example.marsrealestate.util.Result
-import kotlinx.coroutines.delay
+import com.example.marsrealestate.util.getValueNotNull
 import kotlinx.coroutines.launch
-import java.lang.StringBuilder
 
 class RecapPaymentViewModel(
     private val propertyId : String,
@@ -20,12 +17,15 @@ class RecapPaymentViewModel(
 ) : ViewModel() {
 
 
-    private val _propertyToBuy : MutableLiveData<MarsProperty?> = MutableLiveData()
-    val propertyToBuy : LiveData<MarsProperty?> = _propertyToBuy
+    private val _propertyToBuy : MutableLiveData<MarsProperty> = MutableLiveData()
+    val propertyToBuy : LiveData<MarsProperty> = _propertyToBuy
 
-    val isPropertyValid = propertyToBuy.map { prop -> prop != null }
+    private val _statePropertyValid : MutableLiveData<Result<Nothing>> = MutableLiveData()
+    val statePropertyValid : LiveData<Result<Nothing>> = _statePropertyValid
+
 
     val paymentOption : LiveData<PaymentOption> = MutableLiveData(paymentOption)
+
 
     private val _transactionState : MutableLiveData<Result<Nothing>> = MutableLiveData()
     val transactionState : LiveData<Result<Nothing>> = _transactionState
@@ -33,30 +33,46 @@ class RecapPaymentViewModel(
     private val _transactionCompleted = MutableLiveData<Event<MarsProperty>>()
     val transactionCompleted: LiveData<Event<MarsProperty>> = _transactionCompleted
 
+
     private val _navigateToHome = MutableLiveData<Event<Boolean>>()
     val navigateToHome: LiveData<Event<Boolean>> = _navigateToHome
 
+
+
     init {
-        viewModelScope.launch {
-            _propertyToBuy.postValue(repository.getProperty(propertyId))
+        fetchProperty()
+    }
+
+
+    fun fetchProperty() {
+        _statePropertyValid.value = Result.Loading()
+
+        try {
+            viewModelScope.launch {
+                _propertyToBuy.postValue(repository.getProperty(propertyId))
+                _statePropertyValid.postValue(Result.Success())
+            }
+        } catch (e: Exception) {
+            _statePropertyValid.value = Result.Error()
         }
     }
 
     fun confirmTransaction() {
         _transactionState.value = Result.Loading()
 
-        val property = propertyToBuy.value
+        try {
+            val property = propertyToBuy.getValueNotNull()
+//            val paymentOption = paymentOption.getValueNotNull()
 
-        if (property == null || paymentOption.value == null) {
-            _transactionState.postValue(Result.Error())
-            return
+            viewModelScope.launch {
+                Log.d(RecapPaymentViewModel::class.toString(),"Property bought : ${property.id}")
+                _transactionState.postValue(Result.Success())
+                _transactionCompleted.postValue(Event(property))
+                _navigateToHome.postValue(Event(true))
+            }
         }
-
-        viewModelScope.launch {
-            Log.i(RecapPaymentViewModel::class.toString(),"Property bought : $property")
-            _transactionCompleted.postValue(Event(property))
-            _transactionState.postValue(Result.Success())
-            _navigateToHome.postValue(Event(true))
+        catch (e: Exception) {
+            _transactionState.value = Result.Error(e)
         }
     }
 

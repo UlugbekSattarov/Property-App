@@ -5,8 +5,8 @@ import android.content.Context
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorInt
-import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -22,7 +22,6 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.marsrealestate.R
 import com.google.android.material.snackbar.Snackbar
-import java.lang.Exception
 
 @Deprecated("Use setupToolbarIfDrawerLayoutPresent instead")
 fun Activity.setupToolbarIfDrawerLayoutPresentOld(fragment : Fragment, toolbar: Toolbar ) {
@@ -70,11 +69,12 @@ fun Activity.setupToolbarIfDrawerLayoutPresent(fragment : Fragment, toolbar: Too
         val navController = fragment.findNavController()
         val id = navController.currentDestination?.id ?: return
 
-        if (toplevelDestinations.contains(id)) {
-            toolbar.setNavigationIcon(R.drawable.ic_drawer_menu)
-        }
+        val icon = if (id in toplevelDestinations)
+            R.drawable.ic_drawer_menu
         else
-            toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+            R.drawable.ic_arrow_back
+
+        toolbar.setNavigationIcon(icon)
 
         toolbar.setNavigationOnClickListener {
             val drawer = findViewById<DrawerLayout>(R.id.drawerlayout)
@@ -127,25 +127,24 @@ fun Context.resolveColor(attr : Int) :  Int{
     return typedValue.data
 }
 
+@Suppress("unused")
 fun Snackbar.withColoredText() : Snackbar {
-    val color = TypedValue()
-    context.theme.resolveAttribute(R.attr.colorOnPrimary,color,true)
-    setTextColor(color.data)
+    setTextColor(context.resolveColor(R.attr.colorOnPrimary))
     return this
 }
 
 /**
  * Fetch this [LiveData] its value or throw an exception if it is null
  */
-fun <T> LiveData<T>.getValueNotNull() : T = this.value ?: throw Exception("Value was null")
+inline fun <reified T> LiveData<T>.getValueNotNull() : T = this.value ?: throw Exception("Value of type ${T::class.simpleName} was null")
 
 
 /**
  * Fetch this [LiveData] its value or throw an exception if it is null.
- * @param Validator should return a [@StringRes] without throwing exceptions. If the data is valid,
+ * @param validator should return a [@StringRes] without throwing exceptions. If the data is valid,
  * it should then return [FormValidation.NO_ERROR]
  */
-inline fun <T> LiveData<T>.getValueNotNull(validator :  (data : T) -> Int) : T {
+inline fun <reified T> LiveData<T>.getValueNotNull(validator :  (data : T) -> Int) : T {
     val value = this.getValueNotNull()
 
     val validation = validator(value)
@@ -156,7 +155,21 @@ inline fun <T> LiveData<T>.getValueNotNull(validator :  (data : T) -> Int) : T {
     return value
 }
 
+fun View.hideSoftInput() {
+    clearFocus()
+    (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+        .hideSoftInputFromWindow(windowToken, InputMethodManager.RESULT_UNCHANGED_HIDDEN)
+}
 
+fun Fragment.hideSoftInput() {
+    requireView().hideSoftInput()
+}
+
+fun View.showSoftInput() {
+    requestFocus()
+    (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+        .showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+}
 
 fun Transition.doOnEnd(block : () -> Unit) : Transition {
     addListener(object : Transition.TransitionListener {

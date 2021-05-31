@@ -10,11 +10,10 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.VectorDrawable
 import android.os.Build
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.annotation.ColorInt
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.databinding.BindingAdapter
@@ -45,16 +44,21 @@ class NavigationItemView @JvmOverloads constructor(
             viewBinding.endText.text = value
         }
 
-    var startIcon : Drawable?
+    var startIcon : Drawable? = null
         get() = viewBinding.startIcon.drawable
-        set(value) { setImageDrawable(value)}
+        set(value) {
+            if (field != value) {
+                setImageDrawable(viewBinding.startIcon,value)
+                stateChanged()
+            }
+        }
 
 
     var isActive:  Boolean = false
         set(value) {
             if (field != value) {
                 field = value
-                controlStateChanged()
+                stateChanged()
             }
         }
 
@@ -72,28 +76,30 @@ class NavigationItemView @JvmOverloads constructor(
 
     private val _textColor : Int
         @ColorInt
-        get() {
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        get() =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val state = if (isActive) android.R.attr.state_checked else 0
                 _defaultTextColorList.getColorForState(intArrayOf(state), defaultTextColor)
 
-            } else {
-                if (isActive)
-                    defaultColorActive
-                else
-                    defaultColorInactive
             }
+            else if (isActive)
+                defaultColorActive
+            else
+                defaultColorInactive
 
-        }
+    private val _iconColor = _textColor
+
 
     private val _backgroundTint : Int
         @ColorInt
-        get() {
-            return if (isActive) defaultBackgroundHighlightColor else Color.TRANSPARENT
-        }
+        get() = if (isActive) defaultBackgroundHighlightColor else Color.TRANSPARENT
+
 
     private val _fontSize : Int
         get() = if (isActive) Typeface.BOLD else Typeface.NORMAL
+
+
+
 
     init {
 
@@ -101,15 +107,9 @@ class NavigationItemView @JvmOverloads constructor(
         loadFromAttributes(attributes)
         attributes.recycle()
 
-        (viewBinding.root as MaterialCardView).apply {
-            shapeAppearanceModel = ShapeAppearanceModel.builder(
-                context,
-                R.style.MyStyle_ShapeAppearance_NavigationItemView,
-                R.style.MyStyle_ShapeAppearance_NavigationItemView)
-                .build()
-        }
+        setShape()
 
-        controlStateChanged()
+        stateChanged()
     }
 
 
@@ -120,22 +120,31 @@ class NavigationItemView @JvmOverloads constructor(
         attrs.getColorStateList(R.styleable.NavigationItemView_textColor)?.let { _defaultTextColorList = it }
     }
 
-
-
-
-    private fun setImageDrawable(drawable : Drawable?) {
-        val draw = if (drawable is BitmapDrawable) {
-            val f = RoundedBitmapDrawableFactory.create(resources,drawable.bitmap)
-            f.cornerRadius = f.bitmap?.height?.times(2.5f) ?: 0f
-            f.setAntiAlias(true)
-            f
-        }
-        else {
-            drawable
+    private fun setShape() =
+        (viewBinding.root as MaterialCardView).apply {
+            shapeAppearanceModel = ShapeAppearanceModel.builder(
+                context,
+                R.style.MyStyle_ShapeAppearance_NavigationItemView,
+                R.style.MyStyle_ShapeAppearance_NavigationItemView)
+                .build()
         }
 
-        viewBinding.startIcon.setImageDrawable(draw)
-        controlStateChanged()
+
+
+
+    private fun setImageDrawable(imageView : ImageView, drawable : Drawable?) {
+        val toDraw =
+            if (drawable is BitmapDrawable) {
+                RoundedBitmapDrawableFactory.create(resources,drawable.bitmap).apply {
+                    cornerRadius = bitmap?.height?.times(2.5f) ?: 0f
+                    setAntiAlias(true)
+                }
+            }
+            else
+                drawable
+
+
+        imageView.setImageDrawable(toDraw)
     }
 
     override fun setOnClickListener( l: OnClickListener?) {
@@ -143,7 +152,7 @@ class NavigationItemView @JvmOverloads constructor(
     }
 
 
-    private fun controlStateChanged() {
+    private fun stateChanged() {
 
         viewBinding.title.setTextColor(_textColor)
         viewBinding.endText.setTextColor(_textColor)
@@ -158,7 +167,7 @@ class NavigationItemView @JvmOverloads constructor(
 
 
         if (viewBinding.startIcon.drawable is VectorDrawable)
-            viewBinding.startIcon.drawable.setTint(_textColor)
+            viewBinding.startIcon.drawable.setTint(_iconColor)
     }
 
 }

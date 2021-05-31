@@ -58,7 +58,7 @@
                         app:hintText="@string/search_by_id"
                         app:inputText="@{viewModel.queryString}"
 
-                        app:onViewCollapseExpand="@{(collapsed) -> collapsed ? viewModel.clearQueryStringAndUpdate() : null }"
+                        app:onSearchInputVisibility="@{(visible) -> (! visible) ? viewModel.clearQueryString() : null }"
                         app:onSearch="@{ (str) -> viewModel.updateQueryString(str) }"
                         app:titleText="@string/mars_properties"
 
@@ -95,7 +95,7 @@
                             app:chipSpacing="10dp"
 
                             app:singleLine="true"
-                            app:marsApiFilter="@={viewModel.filter}"
+                            app:marsApiFilter="@={viewModel.type}"
                             app:selectionRequired="true"
                             app:singleSelection="true"
 

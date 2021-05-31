@@ -12,17 +12,17 @@ import java.util.*
 class MarsRepositoryImpl(private val remoteDataSource: MarsApiService,
                          private val localDataSource : MarsPropertyDAO) : MarsRepository {
 
-    override suspend fun login(username: String, password: String): Result<Boolean> {
+    override suspend fun login(username: String, password: String): String {
         delay(1000)
-        return Result.Success(true)
+        return username
     }
 
 
 
 
-    override suspend fun getProperties(query: MarsApiQuery, sortedBy : MarsApiSorting): List<MarsProperty> {
+    override suspend fun getProperties(query: MarsApiQuery): List<MarsProperty> {
         delay(1000)
-        return remoteDataSource.getProperties(query, sortedBy)
+        return remoteDataSource.getProperties(query)
     }
 
     override suspend fun getProperty(id: String): MarsProperty?  {

@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.example.marsrealestate.MainActivity
 import com.example.marsrealestate.R
+import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.databinding.FragmentPaymentVisaBinding
 import com.example.marsrealestate.payment.CartViewModel
 import com.example.marsrealestate.payment.CartViewModelFactory
@@ -27,7 +28,7 @@ class PaymentVisaFragment : Fragment() {
     }
 
     private val cartViewModel: CartViewModel by navGraphViewModels(R.id.nav_graph_payment) {
-        CartViewModelFactory((activity as MainActivity).marsRepository)
+        CartViewModelFactory(ServiceLocator.getMarsRepository(requireContext()))
     }
 
     private lateinit var viewDataBinding: FragmentPaymentVisaBinding

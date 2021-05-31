@@ -13,7 +13,7 @@ import com.example.marsrealestate.util.MarsDatabaseConverter
 /** Version 2 added [MarsProperty.surfaceArea], [MarsProperty.latitude] and [MarsProperty.longitude]
  * as attributes for [MarsProperty]
  */
-@Database(entities = [MarsProperty::class,Favorite::class], version = 2, exportSchema = false)
+@Database(entities = [MarsProperty::class,Favorite::class], version = 3, exportSchema = false)
 @TypeConverters(MarsDatabaseConverter::class)
 abstract class MarsDatabase : RoomDatabase() {
 
@@ -37,6 +37,7 @@ abstract class MarsDatabase : RoomDatabase() {
                 }
             }
         }
+
 
     }
 }

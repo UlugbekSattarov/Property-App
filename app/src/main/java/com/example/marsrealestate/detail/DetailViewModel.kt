@@ -1,41 +1,30 @@
 package com.example.marsrealestate.detail
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.marsrealestate.R
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.data.MarsRepository
 import com.example.marsrealestate.util.Event
 import com.example.marsrealestate.util.Result
+import com.example.marsrealestate.util.getValueNotNull
 import kotlinx.coroutines.launch
 
 class DetailViewModel private constructor(private val repository : MarsRepository) : ViewModel() {
-
 
     constructor(property : MarsProperty,repository: MarsRepository) : this(repository) {
         _property.value = property
         _statePropertyFetched.value = Result.Success()
     }
 
-    constructor(propertyId : String?,repository: MarsRepository) : this(repository) {
-        if (propertyId != null) {
-            _statePropertyFetched.value = Result.Loading()
-            viewModelScope.launch {
-                val prop = repository.getProperty(propertyId)
-                if (prop != null) {
-                    _property.value = prop
-                    _statePropertyFetched.value = Result.Success()
-                }
-                else {
-                    _statePropertyFetched.value = Result.Error()
-                }
-            }
-        }
+    constructor(propertyId : String,repository: MarsRepository) : this(repository) {
+        fetchProperty(propertyId)
     }
 
 
     enum class Operation { ADD, REMOVE }
 
-    private val _property = MutableLiveData(MarsProperty.DEFAULT)
+    private val _property = MutableLiveData<MarsProperty>()
     val property : LiveData<MarsProperty> = _property
 
     private val _statePropertyFetched = MutableLiveData<Result<Nothing>>(Result.Error())
@@ -49,8 +38,7 @@ class DetailViewModel private constructor(private val repository : MarsRepositor
 
     val isPropertyFavorite : LiveData<Boolean> = property
         .switchMap{ prop->
-            if (prop == MarsProperty.DEFAULT) MutableLiveData(false)
-            else repository.observeIsFavorite(prop.id)
+            repository.observeIsFavorite(prop.id)
         }
 
     private val _navigateToPayment = MutableLiveData<Event<MarsProperty?>>()
@@ -61,48 +49,70 @@ class DetailViewModel private constructor(private val repository : MarsRepositor
 
 
 
+    private fun fetchProperty(propertyId : String) {
+        _statePropertyFetched.value = Result.Loading()
 
-    fun addRemovePropertyToFavorites(prop : MarsProperty) {
-        if (prop == MarsProperty.DEFAULT)
-            return
-
-        viewModelScope.launch {
-            if (repository.isFavorite(prop.id))
-                doOperationOnProperty(prop,Operation.REMOVE)
-            else
-                doOperationOnProperty(prop,Operation.ADD)
-        }
-    }
-
-
-    private suspend fun doOperationOnProperty(prop:MarsProperty, op : Operation){
         try {
-            val msgId = if (op == Operation.ADD) {
-                repository.saveToFavorite(prop)
-                R.string.property_added_favorites
+            viewModelScope.launch {
+                repository.getProperty(propertyId).let { prop ->
+                    if (prop != null) {
+                        _property.value = prop
+                        _statePropertyFetched.value = Result.Success()
+                    }
+                    else {
+                        _statePropertyFetched.value = Result.Error()
+                    }
+                }
             }
-            else {
-                repository.removeFromFavorite(prop.id)
-                R.string.property_removed_favorites
-            }
-
-            _propertyAddedRemovedToFavorites.value =  Result.Success(prop,msgId)
-        }
-        catch (e : Exception) {
-            val msgId = if (op == Operation.ADD) R.string.property_not_added_favorites_error
-            else R.string.property_not_removed_favorites_error
-            _propertyAddedRemovedToFavorites.value =  Result.Error(e,msgId)
+        } catch (e: Exception) {
+            _statePropertyFetched.value = Result.Error()
         }
     }
+
+
+
+    fun addRemovePropertyToFavorites() {
+        try {
+            val prop = property.getValueNotNull()
+
+            viewModelScope.launch {
+                val msg = if (repository.isFavorite(prop.id)) {
+                    repository.removeFromFavorite(prop.id)
+                    R.string.property_removed_favorites
+                }
+                else {
+                    repository.saveToFavorite(prop)
+                    R.string.property_added_favorites
+                }
+
+                _propertyAddedRemovedToFavorites.value =  Result.Success(prop,msg)
+
+            }
+        } catch (e: Exception) {
+            Log.d(DetailViewModel::class.qualifiedName,"addRemovePropertyToFavorites() : $e")
+            _propertyAddedRemovedToFavorites.value =  Result.Error(e)
+        }
+    }
+
+
 
     fun navigateToPayment() {
-        if (property.value != null && property.value != MarsProperty.DEFAULT)
-            _navigateToPayment.value = Event(property.value)
+        try {
+            _navigateToPayment.value = Event(property.getValueNotNull())
+
+        } catch (e: Exception) {
+            Log.d(DetailViewModel::class.qualifiedName,"navigateToPayment() : $e")
+        }
     }
 
+
     fun shareProperty() {
-        if (property.value != null && property.value != MarsProperty.DEFAULT)
-            _shareProperty.value = Event(property.value)
+        try {
+            _shareProperty.value = Event(property.getValueNotNull())
+
+        } catch (e: Exception) {
+            Log.d(DetailViewModel::class.qualifiedName,"shareProperty() : $e")
+        }
     }
 
 }
@@ -117,7 +127,7 @@ class DetailViewModelFactory private constructor(private val repository: MarsRep
         this.property = property
     }
 
-    constructor(propertyId : String?,repository: MarsRepository) : this(repository) {
+    constructor(propertyId : String,repository: MarsRepository) : this(repository) {
         this.propertyId = propertyId
     }
 
@@ -129,6 +139,9 @@ class DetailViewModelFactory private constructor(private val repository: MarsRep
         return if (p != null)
             DetailViewModel(p,repository) as T
         else
-            DetailViewModel(propertyId,repository) as T
+            DetailViewModel(propertyId!!,repository) as T
+
+        //It is safe to use !! because if property is null, then the other constructor of the factory
+        //has been used which means propertyId is not null
     }
 }

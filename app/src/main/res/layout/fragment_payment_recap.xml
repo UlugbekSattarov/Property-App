@@ -51,7 +51,7 @@
             android:text="@string/error"
             android:textAppearance="?textAppearanceHeadline5"
             android:textColor="?colorError"
-            app:fadeInIf="@{ (! viewModel.isPropertyValid()) || viewModel.transactionState.isError }"
+            app:fadeInIf="@{  viewModel.statePropertyValid.isError || viewModel.transactionState.isError }"
 
             tools:alpha="1"
             tools:text="Error"
@@ -71,7 +71,7 @@
 
             android:onClick="@{ () -> viewModel.confirmTransaction()}"
             android:text="@string/confirm"
-            app:fadeInIf="@{ (viewModel.isPropertyValid()) &amp;&amp; (! viewModel.transactionState.isLoading) }"
+            app:fadeInIf="@{ viewModel.statePropertyValid.isSuccess &amp;&amp; (! viewModel.transactionState.isLoading) }"
 
             />
 
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
 
             android:visibility="invisible"
-            app:fadeInIf="@{viewModel.transactionState.isLoading }"
+            app:fadeInIf="@{viewModel.statePropertyValid.isLoading || viewModel.transactionState.isLoading }"
 
             app:layout_anchor="@id/button_confirm"
             app:layout_anchorGravity="center"

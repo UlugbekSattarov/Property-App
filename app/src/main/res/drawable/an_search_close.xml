@@ -8,6 +8,7 @@
 
     <item
         android:id="@+id/base"
+        android:state_checked="false"
         android:drawable="@drawable/ic_search_anim"/>
 
     <transition

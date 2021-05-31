@@ -13,7 +13,7 @@ import com.example.marsrealestate.data.network.MarsRemoteDatabase
 object ServiceLocator {
 
     /**
-     * Should not be set outside of test scope
+     * Should not be set or used outside of test scope
      */
     @Volatile
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
@@ -41,6 +41,7 @@ object ServiceLocator {
             MarsDatabase::class.java,
             "mars_database.db")
             .addMigrations(MarsDatabase.MIGRATION_1_2)
+            .fallbackToDestructiveMigration()
             .build()
     }
 

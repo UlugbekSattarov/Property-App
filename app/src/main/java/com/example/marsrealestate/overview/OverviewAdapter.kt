@@ -1,10 +1,7 @@
 package com.example.marsrealestate.overview
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -13,10 +10,9 @@ import com.example.marsrealestate.R
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.LayoutItemOverviewBinding
 import com.example.marsrealestate.util.SharedElementTransition
-import java.text.SimpleDateFormat
 import java.util.*
 
-interface OnLastItemDisplayedListener { fun onLastItemDisplayed() }
+fun interface OnLastItemDisplayedListener { fun onLastItemDisplayed() }
 
 class OverviewAdapter(private val onClickListener: OnClickListener,
                       private val onLastItemDisplayed : OnLastItemDisplayedListener? = null) :
@@ -83,7 +79,7 @@ class OverviewAdapter(private val onClickListener: OnClickListener,
     override fun onBindViewHolder(holder: MarsPropertyViewHolder, position: Int) {
         val marsProperty = getItem(position)
         holder.itemView.setOnClickListener {
-            onClickListener.onClick(marsProperty,it)
+            onClickListener.onClick(marsProperty)
         }
         holder.bind(marsProperty)
     }
@@ -93,7 +89,7 @@ class OverviewAdapter(private val onClickListener: OnClickListener,
      * associated with the current item to the [onClick] function.
      * @param clickListener lambda that will be called with the current [MarsProperty]
      */
-    class OnClickListener(val clickListener: (marsProperty : MarsProperty, viewclicked : View) -> Unit) {
-        fun onClick(marsProperty:MarsProperty, viewclicked : View) = clickListener(marsProperty,viewclicked)
+    class OnClickListener(val clickListener: (marsProperty : MarsProperty) -> Unit) {
+        fun onClick(marsProperty:MarsProperty) = clickListener(marsProperty)
     }
 }

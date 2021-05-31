@@ -39,7 +39,7 @@ interface MarsRemotePropertyDAO {
     @RawQuery
     suspend fun getProperties(query : SupportSQLiteQuery) : List<MarsProperty>
 
-    suspend fun getProperties(query: MarsApiQuery, sorting : MarsApiSorting) : List<MarsProperty> {
+    suspend fun getProperties(query: MarsApiQuery) : List<MarsProperty> {
 
         //PageNumber starts at 1 and not 0, so we have to subtract 1
         val offset = (query.pageNumber - 1) * query.itemsPerPage
@@ -55,7 +55,7 @@ interface MarsRemotePropertyDAO {
             else -> query.filter.type
         }
 
-        val sortingStr = when (sorting) {
+        val sortingStr = when (query.sortedBy) {
             MarsApiSorting.Default -> "id ASC"
             MarsApiSorting.PriceAscending -> "price ASC"
             MarsApiSorting.PriceDescending  -> "price DESC"

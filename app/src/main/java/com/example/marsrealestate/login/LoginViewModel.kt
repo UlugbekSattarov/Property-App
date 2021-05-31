@@ -1,6 +1,7 @@
 package com.example.marsrealestate.login
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import androidx.lifecycle.*
 import androidx.savedstate.SavedStateRegistryOwner
 import com.example.marsrealestate.R
@@ -8,7 +9,7 @@ import com.example.marsrealestate.data.MarsRepository
 import com.example.marsrealestate.util.Event
 import com.example.marsrealestate.util.FormValidation.NO_ERROR
 import com.example.marsrealestate.util.Result
-import com.example.marsrealestate.util.isValidationError
+import com.example.marsrealestate.util.getValueNotNull
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
@@ -25,6 +26,10 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
     val email : MutableLiveData<String> = MutableLiveData()
     val password : MutableLiveData<String> = MutableLiveData()
 
+    val emailErrorStringId = email.map { emailValidator(it) }
+    val passwordErrorStringID = password.map { passwordValidator(it) }
+
+
     private val _isLoggedIn = MutableLiveData<Boolean>(false)
     val isLoggedIn: LiveData<Boolean> = _isLoggedIn
 
@@ -35,6 +40,7 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
 
     private val _loggedInEvent : MutableLiveData<Event<Boolean>> = MutableLiveData()
     val loggedInEvent : LiveData<Event<Boolean>> = _loggedInEvent
+
 
     private val _navigateToOverviewEvent : MutableLiveData<Event<Boolean>> = MutableLiveData()
     val navigateToOverviewEvent : LiveData<Event<Boolean>> = _navigateToOverviewEvent
@@ -47,54 +53,56 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
 
 
 
-    val emailErrorStringId = email.map {
+
+    @StringRes
+    private fun emailValidator(email : String) : Int {
         val pattern = Pattern.compile("^[a-zA-Z0-9_.+-]+@\\w+\\.\\w+\$")
 
-        if (pattern.matcher(it).matches())
-            NO_ERROR
-        else
+        return if (! pattern.matcher(email).matches())
             R.string.incorrect_email
+        else
+            NO_ERROR
     }
 
 
-    val passwordErrorStringID = password.map {
-        if (it.isNullOrEmpty())
-            R.string.password_empty
-        else if (it.length < 4)
-            R.string.password_too_short
-        else NO_ERROR
-    }
-
+    @StringRes
+    private fun passwordValidator(password : String) : Int =
+        when {
+            password.isBlank() -> R.string.password_empty
+            password.length < 4 -> R.string.password_too_short
+            else -> NO_ERROR
+        }
 
 
 
 
     fun login() {
-        //Will cause the errors to be updated on the UI, if any
-        email.postValue(email.value ?: "")
-        password.postValue(password.value ?: "")
-
-        if (emailErrorStringId.isValidationError() || passwordErrorStringID.isValidationError()) {
-            _operationLogging.value = Result.Error()
-            return
-        }
+        notifyEmptyFields()
 
         _operationLogging.value = Result.Loading()
-        viewModelScope.launch {
-            val result = repository.login(email.value ?: "", password.value ?: "")
 
-            if (result.isSuccess()) {
+        try {
+            viewModelScope.launch {
+
+                val email = email.getValueNotNull(::emailValidator)
+                val password = password.getValueNotNull(::passwordValidator)
+                repository.login(email,password)
+
                 _operationLogging.postValue(Result.Success())
                 _isLoggedIn.postValue(true)
                 _loggedInEvent.postValue(Event(true))
 
-                saveState(true,email.value, password.value)
-
+                saveState(true,email,password)
             }
-            else {
-                _operationLogging.postValue(Result.Error())
-            }
+        } catch (e: Exception) {
+            _operationLogging.postValue(Result.Error())
         }
+    }
+
+    private fun notifyEmptyFields() {
+        //Will cause the errors to be updated on the UI, if any
+        email.postValue(email.value ?: "")
+        password.postValue(password.value ?: "")
     }
 
 
@@ -121,9 +129,6 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
         savedStateHandle.get<String>(KEY_PASSWORD)?.let { password.value = it }
     }
 
-
-
-
 }
 
 
@@ -134,10 +139,6 @@ class LoginViewModelFactory(private val repository: MarsRepository,
 )
     : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
 
-//    @Suppress("UNCHECKED_CAST")
-//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//        return LoginViewModel(repository) as T
-//    }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(

@@ -3,50 +3,43 @@ package com.example.marsrealestate.custom
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.FrameLayout
-import android.widget.ImageView
 import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.*
 import androidx.databinding.adapters.TextViewBindingAdapter
 import com.example.marsrealestate.R
 import com.example.marsrealestate.databinding.LayoutSearchviewBinding
-import com.google.android.material.card.MaterialCardView
+import com.example.marsrealestate.util.hideSoftInput
+import com.example.marsrealestate.util.resolveColor
+import com.example.marsrealestate.util.showSoftInput
 
 
 class SearchView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.defaultSearchViewStyle
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    interface OnSearchListener {
+    fun interface OnSearchListener {
         fun onSearch(str : String)
     }
 
-    interface OnViewCollapseExpand {
-        fun onViewState(collapsed : Boolean)
+    fun interface OnSearchInputVisibilityListener {
+        fun onSearchInputVisibility(visible : Boolean)
     }
 
 
     private val viewBinding: LayoutSearchviewBinding by lazy { LayoutSearchviewBinding.inflate(LayoutInflater.from(context),this,true) }
 
-    private var isViewExpanded = false
+    private var isSearchInputVisible = false
 
 
     var onSearchListener : OnSearchListener? = null
-    var onViewCollapseListener : OnViewCollapseExpand? = null
+    var onSearchInputVisibilityListener : OnSearchInputVisibilityListener? = null
     var onTextChangeListener : TextViewBindingAdapter.AfterTextChanged? = null
-
-    /** Must only be used with [SearchView.setInputTextChangedListenerBinding]
-     * This is a limitation of databinding requiring prublic properties
-     * **/
-    var onTextChangeListener_BINDING_ONLY : TextViewBindingAdapter.AfterTextChanged? = null
 
 
 
@@ -66,6 +59,12 @@ class SearchView @JvmOverloads constructor(
         get() = viewBinding.searchviewTextInput.text.toString()
         set(value) =  viewBinding.searchviewTextInput.setText(value)
 
+    var transitionDuration : Int
+        get() = viewBinding.searchviewMlayout.getTransition(R.id.transition_searchview_to_expanded).duration
+        set(value) {
+            viewBinding.searchviewMlayout.setTransitionDuration(value)
+        }
+
 
 
     init {
@@ -73,21 +72,54 @@ class SearchView @JvmOverloads constructor(
         loadFromAttributes(attributes)
         attributes.recycle()
         setInteralListeners()
+
+        viewBinding.searchView = this
+    }
+
+
+    private fun stateChanged() {
+
+
+        val stateSet = arrayOf(android.R.attr.state_checked * if (isSearchInputVisible) 1 else -1)
+        viewBinding.searchviewIconSearch.setImageState(stateSet.toIntArray(), true)
+
         viewBinding.searchviewMlayout.setTransitionDuration(400)
+
+        if (isSearchInputVisible)
+            viewBinding.searchviewMlayout.transitionToEnd()
+        else
+            viewBinding.searchviewMlayout.transitionToStart()
+
+//        val from : Int
+//        val to : Int
+//        if (isSearchInputVisible) {
+//            from = R.id.constraint_set_searchview_searchinput_visible
+//            to = R.id.constraint_set_searchview_searchinput_invisible
+//        }
+//        else {
+//            from = R.id.constraint_set_searchview_searchinput_invisible
+//            to = R.id.constraint_set_searchview_searchinput_visible
+//            viewBinding.searchviewTextInput.isEnabled = true
+//        }
+//
+//        viewBinding.searchviewMlayout.setTransition(from,to)
+//        viewBinding.searchviewMlayout.transitionToEnd()
     }
 
 
     private fun loadFromAttributes(attrs : TypedArray) {
 
-        val bckgrdclr = attrs.getColor(R.styleable.SearchView_backgroundColor,ResourcesCompat.getColor(resources,android.R.color.white,null))
+        val backgroundColor = attrs.getColor(R.styleable.SearchView_backgroundColor,context.resolveColor(R.attr.backgroundColor))
 
         title = attrs.getString(R.styleable.SearchView_titleText) ?: ""
         hint = attrs.getString(R.styleable.SearchView_hintText) ?: ""
-        viewBinding.searchviewMlayout.setTransitionDuration(attrs.getInteger(R.styleable.SearchView_animationDuration,1000))
+        val transitionDuration = attrs.getInteger(R.styleable.SearchView_animationDuration,-1)
+        if (transitionDuration > 0) viewBinding.searchviewMlayout.setTransitionDuration(transitionDuration)
 
-        viewBinding.searchviewMlayout.setBackgroundColor(bckgrdclr)
-        viewBinding.searchviewBackgroundAboveTitle.setBackgroundColor(bckgrdclr)
-        viewBinding.searchviewEraseTextInputContainer.setBackgroundColor(bckgrdclr)
+
+        viewBinding.searchviewMlayout.setBackgroundColor(backgroundColor)
+        viewBinding.searchviewBackgroundAboveTitle.setBackgroundColor(backgroundColor)
+//        viewBinding.searchviewEraseTextInputContainer.setBackgroundColor(backgroundColor)
 
     }
 
@@ -95,77 +127,61 @@ class SearchView @JvmOverloads constructor(
         setOnClickListenerInternal()
         setOnTextChangedListenerInternal()
         setOnSearchListenerInternal()
-        setOnViewCollapsedExpandedListenerInternal()
+        setOnSearchInputVisibilityListenerInternal()
     }
 
     private fun setOnClickListenerInternal() {
         viewBinding.searchviewIconSearchContainer.setOnClickListener {
-            val stateSet = arrayOf(android.R.attr.state_checked * if (!isViewExpanded) 1 else -1)
-            viewBinding.searchviewIconSearch.setImageState(stateSet.toIntArray(), true)
-
-            if (isViewExpanded) {
-                //Transition to collapsed state
-                viewBinding.searchviewMlayout.setTransition(
-                    R.id.constraint_set_searchview_expanded,
-                    R.id.constraint_set_searchview_collapsed
-                )
-
-            }
-            else {
-                //Transition to expanded state
-                viewBinding.searchviewMlayout.setTransition(
-                    R.id.constraint_set_searchview_collapsed,
-                    R.id.constraint_set_searchview_expanded
-                )
-                viewBinding.searchviewTextInput.isEnabled = true
-            }
-
-            viewBinding.searchviewMlayout.transitionToEnd()
-            isViewExpanded = !isViewExpanded
+            isSearchInputVisible = !isSearchInputVisible
+            stateChanged()
         }
 
-        viewBinding.searchviewEraseTextInputContainer.setOnClickListener {
-            inputText = ""
-        }
     }
 
-    private fun setOnSearchListenerInternal () {
+    fun clearInputText() {
+        inputText = ""
+    }
+
+
+    private fun setOnSearchListenerInternal () =
         viewBinding.searchviewTextInput.setOnEditorActionListener { textView, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 onSearchListener?.onSearch(textView.text.toString())
-                hideKeyboard()
-                  true
-            } else
+                hideSoftInput()
+                true
+            }
+            else
                 false
         }
-    }
 
 
-    private fun showKeyboard() {
-        viewBinding.searchviewTextInput.requestFocus()
-        (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
-            .showSoftInput(viewBinding.searchviewTextInput,InputMethodManager.SHOW_IMPLICIT)
-    }
 
-    private fun hideKeyboard() {
-        this.clearFocus()
-        (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(windowToken,0)
+//    private fun showKeyboard() {
+//        viewBinding.searchviewTextInput.requestFocus()
+//        (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+//            .showSoftInput(viewBinding.searchviewTextInput,InputMethodManager.SHOW_IMPLICIT)
+//    }
 
-    }
+//    private fun hideKeyboard() {
+//        this.clearFocus()
+//        (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(windowToken,0)
+//        viewBinding.searchviewTextInput.windowToken
+//    }
 
-    private fun setOnTextChangedListenerInternal() {
+
+
+    private fun setOnTextChangedListenerInternal() =
         viewBinding.searchviewTextInput.addTextChangedListener {
             onTextChangeListener?.afterTextChanged(it)
-            onTextChangeListener_BINDING_ONLY?.afterTextChanged(it)
         }
-    }
+
 
 
 
     /**
-     * Callback when this [SearchView] finished expanding ([true]) or collapsing ([false])
+     * Callback when this [SearchView] finished revealing or hiding the search input
      */
-    private fun setOnViewCollapsedExpandedListenerInternal() {
+    private fun setOnSearchInputVisibilityListenerInternal() =
         viewBinding.searchviewMlayout.setTransitionListener(object :
             MotionLayout.TransitionListener {
             override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {}
@@ -174,22 +190,19 @@ class SearchView @JvmOverloads constructor(
 
             override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {}
 
-            override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-                if (p1 == R.id.constraint_set_searchview_expanded) {
-                    onViewCollapseListener?.onViewState(false)
-
-                    showKeyboard()
+            override fun onTransitionCompleted(p0: MotionLayout?, constraintSet: Int) {
+                if (constraintSet == R.id.constraint_set_searchview_searchinput_visible) {
+                    onSearchInputVisibilityListener?.onSearchInputVisibility(true)
+                    viewBinding.searchviewTextInput.isEnabled = true
+                    viewBinding.searchviewTextInput.showSoftInput()
                 }
-                else if (p1 == R.id.constraint_set_searchview_collapsed) {
-                    onViewCollapseListener?.onViewState(true)
+                else if (constraintSet == R.id.constraint_set_searchview_searchinput_invisible) {
+                    onSearchInputVisibilityListener?.onSearchInputVisibility(false)
                     viewBinding.searchviewTextInput.isEnabled = false
-                    hideKeyboard()
-
+                    hideSoftInput()
                 }
             }
         })
-    }
-
 
 
 
@@ -210,7 +223,7 @@ fun SearchView.getInputTextBinding(): String = inputText
 @BindingAdapter("app:inputTextAttrChanged","onTextChange",requireAll = false)
 fun SearchView.setInputTextChangedListenerBinding( attrChange: InverseBindingListener,
                                                    listener : TextViewBindingAdapter.AfterTextChanged?) {
-    onTextChangeListener_BINDING_ONLY = TextViewBindingAdapter.AfterTextChanged{
+    onTextChangeListener = TextViewBindingAdapter.AfterTextChanged{
         attrChange.onChange()
         listener?.afterTextChanged(it)
     }
@@ -221,7 +234,8 @@ fun SearchView.setOnSearchListenerBinding( listener : SearchView.OnSearchListene
     listener?.let { onSearchListener = it }
 
 
-@BindingAdapter("onViewCollapseExpand")
-fun SearchView.setOnViewCollapseExpandBinding( listener : SearchView.OnViewCollapseExpand?) =
-    listener?.let { onViewCollapseListener = it }
+@BindingAdapter("onSearchInputVisibility")
+fun SearchView.setOnSearchInputVisibilityListenerBinding( listener : SearchView.OnSearchInputVisibilityListener?) =
+    listener?.let { onSearchInputVisibilityListener = it }
+
 

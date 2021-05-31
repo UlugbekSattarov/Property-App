@@ -9,9 +9,9 @@ import com.example.marsrealestate.data.query.MarsApiQuery
 import com.example.marsrealestate.data.query.MarsApiSorting
 import com.example.marsrealestate.util.Event
 import com.example.marsrealestate.util.Result
+import com.example.marsrealestate.util.getValueNotNull
 import kotlinx.coroutines.*
 import java.lang.Exception
-import kotlin.random.Random
 
 
 class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
@@ -19,45 +19,41 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
     private val _status = MutableLiveData<Result<Nothing>>()
     val status: LiveData<Result<Nothing>> = _status
 
-    private val _endOfData = MutableLiveData(false)
-    val endOfData = _endOfData
 
-    private val _navigateToProperty = MutableLiveData<Event<MarsProperty>>()
-    val navigateToProperty: LiveData<Event<MarsProperty>> = _navigateToProperty
-
-    //Ugly but necessary because otherwise the loadNextPage function is triggered too often, notably three times
-    // on startup because there are 3 default properties
-    private var ignoreFirstFilterChange = true
-    private var ignoreFirstQueryStringChange = true
-    private var ignoreFirstSortedByFilterChange = true
-
-    val filter = MutableLiveData<MarsApiFilter.MarsPropertyType>(MarsApiFilter.MarsPropertyType.ALL)
-    val queryString = MutableLiveData<String>("")
-    val sortedBy = MutableLiveData<MarsApiSorting>(MarsApiSorting.Default)
+    val type = MutableLiveData(MarsApiFilter.MarsPropertyType.ALL)
+    val queryString = MutableLiveData("")
+    val sortedBy = MutableLiveData(MarsApiSorting.Default)
 
 
     private val _properties = MediatorLiveData<MutableList<MarsProperty>>().apply {
         value = mutableListOf()
 
-        addSource(filter) { if (ignoreFirstFilterChange) ignoreFirstFilterChange = false else loadNextPage(true) }
-        addSource(queryString) { if (ignoreFirstQueryStringChange) ignoreFirstQueryStringChange = false else loadNextPage(true) }
-        addSource(sortedBy) { if (ignoreFirstSortedByFilterChange) ignoreFirstSortedByFilterChange = false else loadNextPage(true) }
+        //Ugly but necessary because otherwise the loadNextPage function is triggered too often, notably three times
+        // on startup because there are 3 default properties
+        var ignoreFirstFilterChange = true
+        var ignoreFirstQueryStringChange = true
+        var ignoreFirstSortedByFilterChange = true
+
+        addSource(type) { if (ignoreFirstFilterChange) ignoreFirstFilterChange = false else makeNewSearch() }
+        addSource(queryString) { if (ignoreFirstQueryStringChange) ignoreFirstQueryStringChange = false else makeNewSearch() }
+        addSource(sortedBy) { if (ignoreFirstSortedByFilterChange) ignoreFirstSortedByFilterChange = false else makeNewSearch() }
     }
 
     val properties : LiveData<List<MarsProperty>> = _properties.map { it }
 
 
+    private val _endOfData = MutableLiveData(false)
+    val endOfData = _endOfData.distinctUntilChanged()
 
-//    private val _properties = MutableLiveData<MutableList<MarsProperty>>()
-//    val properties : LiveData<List<MarsProperty>> = _properties.map { it }
-
+    private val _navigateToProperty = MutableLiveData<Event<MarsProperty>>()
+    val navigateToProperty: LiveData<Event<MarsProperty>> = _navigateToProperty
 
     val itemsPerPage = 7
-    private var pageLoadedCount = 0
+    private var pageCount = 0
 
 
     init {
-        loadNextPage(true)
+        makeNewSearch()
     }
 
 
@@ -67,58 +63,56 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
         }
     }
 
-    fun clearQueryStringAndUpdate() = updateQueryString(null)
+    fun clearQueryString() = updateQueryString("")
 
 
-    fun loadNextPage(reset : Boolean = false) {
+    fun makeNewSearch() {
+        pageCount = 0
+        loadNextPage()
+    }
+
+
+    fun loadNextPage() {
         _status.postValue(Result.Loading())
-        Log.d("############","########${Random.nextInt(10)}")
-        viewModelScope.launch {
+        Log.d("############","loadNextPage()")
 
-            try {
-                val pageToLoad = if (reset) 1 else pageLoadedCount + 1
+        try {
+            viewModelScope.launch {
+                val nextPageToLoad = pageCount + 1
 
-                val newProps = requestNewPropertiesFromRepo(pageToLoad,itemsPerPage,sortedBy.value ?: MarsApiSorting.Default)
+                val newProps = repository.getProperties(MarsApiQuery(
+                    pageNumber = nextPageToLoad,
+                    itemsPerPage = itemsPerPage,
+                    filter = MarsApiFilter(type.getValueNotNull(),queryString.getValueNotNull()),
+                    sortedBy = sortedBy.getValueNotNull()
+                ))
 
-                if (reset) {
-                    //Replacing the previous list in case of reset
-                    _properties.postValue(newProps.toMutableList())
-                }
-                else if (newProps.isNotEmpty()) {
-                    //Adding new elements if no reset
-                    val currentProps = _properties.value ?: mutableListOf()
-                    currentProps.addAll(newProps)
-                    _properties.postValue(currentProps)
-                }
+                //Replacing the previous list in case of new search
+                if (nextPageToLoad == 1)
+                    _properties.getValueNotNull().clear()
 
-
-                if (_endOfData.value != newProps.isEmpty())
-                    _endOfData.postValue(newProps.isEmpty())
+                _properties.getValueNotNull().addAll(newProps)
+                _properties.postValue(_properties.value)
 
                 //If we got new properties, we successfully loaded the page, so the page number increases
                 if (newProps.isNotEmpty())
-                    pageLoadedCount = pageToLoad
+                    pageCount = nextPageToLoad
+
+                //To notify the UI that there is no more properties matching the filters
+                _endOfData.postValue(newProps.isEmpty())
 
                 _status.postValue(Result.Success())
             }
-
-            catch (e : Exception) {
-//                _properties.postValue(mutableListOf())
-                _status.postValue(Result.Error())
-                Log.e(this@OverviewViewModel::class.simpleName,Log.getStackTraceString(e))
-            }
         }
+
+        catch (e : Exception) {
+//                _properties.postValue(mutableListOf())
+            _status.postValue(Result.Error())
+            Log.e(this@OverviewViewModel::class.simpleName,Log.getStackTraceString(e))
+        }
+
     }
 
-    private suspend fun requestNewPropertiesFromRepo(pageToLoad: Int, itemsPerPage: Int, sorting: MarsApiSorting = MarsApiSorting.Default) : List<MarsProperty> {
-        val query = MarsApiQuery(
-            pageToLoad, itemsPerPage,
-            MarsApiFilter(
-                filter.value ?: MarsApiFilter.MarsPropertyType.ALL,
-                queryString.value ?: ""))
-
-        return repository.getProperties(query,sorting )
-    }
 
     fun displayPropertyDetails(marsProperty: MarsProperty) {
         _navigateToProperty.value = Event(marsProperty)
@@ -137,23 +131,3 @@ class OverviewViewModelFactory(private val repository: MarsRepository) : ViewMod
         return OverviewViewModel(repository) as T
     }
 }
-
-
-//
-//object SortingConverter {
-//    @InverseMethod("expirationYearToString")
-//    @JvmStatic
-//    fun stringToSorting(value: String): Int {
-//        return try {
-//            val a = if (value == MarsApiPropertySorting.PriceAscending) R.string.priceAscending else R.string.priceDescending
-//            return context.getString(a)
-//        } catch (e: NumberFormatException) {
-//            -1
-//        }
-//    }
-//
-//    @JvmStatic
-//    fun sortingToString(value: MarsApiPropertySorting): String =
-//        if (value > 0) value.toString() else ""
-//
-//}

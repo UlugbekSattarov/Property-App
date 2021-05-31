@@ -20,9 +20,13 @@ class CartViewModel(private val repository: MarsRepository) : ViewModel() {
     fun addPropertyToBuy(propertyToBuyId : String) {
         if (this.propertyToBuyId.value == propertyToBuyId) return
 
-        viewModelScope.launch {
-            _propertyToBuyId.postValue(propertyToBuyId)
-            _property.postValue(repository.getProperty(propertyToBuyId))
+        try {
+            viewModelScope.launch {
+                _propertyToBuyId.postValue(propertyToBuyId)
+                _property.postValue(repository.getProperty(propertyToBuyId))
+            }
+        } catch (e: Exception) {
+            _propertyToBuyId.value = ""
         }
     }
 

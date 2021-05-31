@@ -108,7 +108,7 @@
             tools:scaleX="1"
             tools:scaleY="1"
 
-            android:onClick="@{() -> viewModel.addRemovePropertyToFavorites(viewModel.property)}"
+            android:onClick="@{() -> viewModel.addRemovePropertyToFavorites()}"
             app:srcCompat="@drawable/an_heart"
             app:setChecked="@{viewModel.isPropertyFavorite() }"
             android:visibility="@{viewModel.statePropertyFetched.isSuccess ? View.VISIBLE : View.GONE}"

@@ -1,30 +1,27 @@
 package com.example.marsrealestate.sell
 
-import android.graphics.Color
 import android.os.Build
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import androidx.annotation.RequiresApi
-import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.data.MarsProperty
-import com.example.marsrealestate.data.query.MarsApiSorting
 import com.example.marsrealestate.databinding.FragmentSellBinding
 import com.example.marsrealestate.util.resolveColor
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
-import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -39,10 +36,10 @@ class SellFragment : Fragment() {
     private lateinit var viewDataBinding : FragmentSellBinding
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
 //        enterTransition = MaterialFadeThrough()
-    }
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,26 +58,36 @@ class SellFragment : Fragment() {
 
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
+        setupScrollAfterAreaInput()
 
-        viewDataBinding.areaInputValue.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE)
-                scrollToPutOnSaleButton(600)
-            false
-        }
 
         return viewDataBinding.root
     }
 
-    private fun scrollToPutOnSaleButton(delay : Long) {
+    /**
+     * Scroll to the [Button] putOnSale after the surface are has been given by the user.
+     * This is useful to make sure the button is seen.
+     */
+    private fun setupScrollAfterAreaInput() =
+        viewDataBinding.areaInputValue.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE)
+                scrollTo(viewDataBinding.buttonPutOnSale,600)
+            false
+        }
+
+
+    @Suppress("SameParameterValue")
+    private fun scrollTo(destination : View,delay : Long) {
         lifecycleScope.launch {
             delay(delay)
             viewDataBinding
                 .fragmentSellScrollview
-                .smoothScrollTo(0, viewDataBinding.buttonPutOnSale.y.toInt(), 1000)
+                .smoothScrollTo(0, destination.y.toInt(), 1000)
         }
     }
 
 
+    //TODO extract this elsewhere
     private fun makeNavigationBarColored() {
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
 
@@ -90,7 +97,7 @@ class SellFragment : Fragment() {
             requireActivity().window.navigationBarColor = requireContext().resolveColor(R.attr.backgroundColor)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-                    requireActivity().window.navigationBarDividerColor = requireContext().resolveColor(android.R.attr.listDivider)
+                requireActivity().window.navigationBarDividerColor = requireContext().resolveColor(android.R.attr.listDivider)
         }
     }
 
@@ -107,12 +114,6 @@ fun AutoCompleteTextView.setPropertyType(oldValue: String?, newValue: String?) {
         }
         this.setText(context.getString(toDisplay),false)
     }
-
-    //We have to reset the adapter each time because only the selected value is kept otherwise,not the whole list (bug)
-//    val sortingOptions = listOf(context.getString(R.string.defaultSorting),context.getString(R.string.priceAscending),context.getString(
-//        R.string.priceDescending))
-//    val adapterSorting = ArrayAdapter(context, R.layout.view_sorting_option_item, sortingOptions)
-//    setAdapter(adapterSorting)
 }
 
 

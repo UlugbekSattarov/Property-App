@@ -7,9 +7,9 @@ import java.util.*
 
 interface MarsRepository {
 
-    suspend fun login(username : String, password : String) : com.example.marsrealestate.util.Result<Boolean>
+    suspend fun login(username : String, password : String) : String
 
-    suspend fun getProperties(query: MarsApiQuery, sortedBy : MarsApiSorting = MarsApiSorting.Default) : List<MarsProperty>
+    suspend fun getProperties(query: MarsApiQuery) : List<MarsProperty>
     suspend fun getProperty(id: String) : MarsProperty?
     suspend fun addProperty(property: MarsProperty)
 

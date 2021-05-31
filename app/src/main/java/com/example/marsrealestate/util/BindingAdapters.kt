@@ -1,17 +1,11 @@
-
-@file:JvmName("Utils")
-
 package com.example.marsrealestate.util
 
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewPropertyAnimator
-import android.widget.AdapterView
-import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
@@ -28,12 +22,10 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.marsrealestate.R
-import com.example.marsrealestate.data.query.MarsApiSorting
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 
 
@@ -215,13 +207,6 @@ fun View.setMarginsPlusInsets(marginLeft : Float?,
 }
 
 
-@BindingAdapter("showSnackbarOn")
-fun CoordinatorLayout.showSnackbarOn( setShape : Boolean) {
-
-    Snackbar.make(this,"",Snackbar.LENGTH_SHORT).apply {
-
-    }
-}
 
 
 /**
@@ -326,7 +311,7 @@ fun TextView.popupOnMessage(msgId : Int?) {
 
 @BindingAdapter("layoutWidth","layoutHeight",requireAll = false)
 fun View.setLayoutSize(oldWidth : Float?, oldHeight: Float?,newWidth : Float?, newHeight : Float? ) {
-    val v = this
+
     updateLayoutParams<ViewGroup.LayoutParams> {
         if (newWidth != null && newWidth != oldWidth && newWidth != 0f)
             width = newWidth.toInt()

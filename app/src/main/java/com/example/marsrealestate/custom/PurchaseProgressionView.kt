@@ -4,30 +4,30 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.annotation.IntRange
 import androidx.cardview.widget.CardView
 import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.example.marsrealestate.R
 import com.example.marsrealestate.databinding.LayoutPurchaseProgressionBinding
+import com.example.marsrealestate.util.resolveColor
 
 
 class PurchaseProgressionView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
+    companion object {
+        const val MAX_STEP = 2
+    }
 
     private var viewBinding: LayoutPurchaseProgressionBinding =
         LayoutPurchaseProgressionBinding.inflate(LayoutInflater.from(context),this,true)
-
-    val MAX_STEP = 2
 
     private val circles = arrayOf(
         viewBinding.purchaseProgressionCircle1,
@@ -50,55 +50,42 @@ class PurchaseProgressionView @JvmOverloads constructor(
         viewBinding.purchaseProgressionCircle3Caption
     )
 
-    private val colorActive = kotlin.run {
-        val typedValue = TypedValue()
-        context.theme.resolveAttribute(android.R.attr.colorControlNormal, typedValue, true)
-        typedValue.data
-    }
-
-    private val colorInActive = kotlin.run {
-        val typedValue = TypedValue()
-        context.theme.resolveAttribute(R.attr.colorControlInactiveAlt, typedValue, true)
-        typedValue.data
-    }
-
-
+    private val colorActive = context.resolveColor(android.R.attr.colorControlNormal)
+    private val colorInActive = context.resolveColor(R.attr.colorControlInactiveAlt)
 
     private val circleDiameter = resources.getDimension(R.dimen.purchase_progression_circle_diameter)
     private val circleScaleInactive = 0.7f
     private val progressBarWidth = resources.getDimension(R.dimen.purchase_progression_bar_width)
 
 
-    var currentStep : Int = 0
+    var currentStep : Int = 1
         set(value) {
             if (value < 0 || value > MAX_STEP)
                 throw Exception("Invalid state specified : $value , must be between 0 and $MAX_STEP inclusive")
             if (field != value ) {
-                stateChanged(value)
                 field = value
+                stateChanged()
             }
         }
 
 
     init {
-        initComponent()
-        stateChanged(currentStep)
-        viewBinding.root.setOnClickListener {
-            stateChanged(2)
-        }
+        initSizes()
+        stateChanged()
     }
+
 
     /**
      * Used to set the size of a few UI elements dynamically
      */
-    private fun initComponent() {
+    private fun initSizes() {
 
         circles.forEach {
             it.updateLayoutParams<ViewGroup.LayoutParams> {
                 width = circleDiameter.toInt()
                 height = circleDiameter.toInt()
             }
-            it.radius = circleDiameter /2f
+            it.radius = circleDiameter / 2f
         }
 
         progressBars.forEach { it.updateLayoutParams<ViewGroup.LayoutParams> { height = progressBarWidth.toInt() } }
@@ -111,21 +98,20 @@ class PurchaseProgressionView @JvmOverloads constructor(
      * Sets the current step and animates the transitions in between.
      * Valid steps are Int between 0 and [MAX_STEP]
      */
-    private fun stateChanged(newStep : Int) {
+    private fun stateChanged() {
+
+        growCircle(circles[currentStep])
+        circles.filterIndexed { index, _ -> index != currentStep }.forEach { shrinkCircle(it) }
+
+        emphasizeText(captions[currentStep])
+        captions.filterIndexed { index, _ -> index != currentStep }.forEach { minimizeText(it) }
+
+        circles.filterIndexed { index, _ -> index <= currentStep }.forEach { paintActive(it) }
+        circles.filterIndexed { index, _ -> index > currentStep }.forEach { paintInactive(it) }
 
 
-        growCircle(circles[newStep])
-        circles.filterIndexed { index, _ -> index != newStep }.forEach { shrinkCircle(it) }
-
-        emphasizeText(captions[newStep])
-        captions.filterIndexed { index, _ -> index != newStep }.forEach { minimizeText(it) }
-
-        circles.filterIndexed { index, _ -> index <= newStep }.forEach { switchColors(it,true) }
-        circles.filterIndexed { index, _ -> index > newStep }.forEach { switchColors(it,false) }
-
-
-        progressBars.filterIndexed { index, _ -> index < newStep }.forEach { growProgressBar(it) }
-        progressBars.filterIndexed { index, _ -> index >= newStep }.forEach { shrinkProgressBar(it) }
+        progressBars.filterIndexed { index, _ -> index < currentStep }.forEach { growProgressBar(it) }
+        progressBars.filterIndexed { index, _ -> index >= currentStep }.forEach { shrinkProgressBar(it) }
 
     }
 
@@ -168,6 +154,9 @@ class PurchaseProgressionView @JvmOverloads constructor(
     }
 
 
+    private fun paintActive(circle: CardView) = switchColors(circle,true)
+    private fun paintInactive(circle: CardView) = switchColors(circle,false)
+
     private fun switchColors(circle : CardView,active : Boolean) {
         val colorFrom = circle.cardBackgroundColor.defaultColor
         val colorTo = if (active)  colorActive else colorInActive
@@ -176,6 +165,8 @@ class PurchaseProgressionView @JvmOverloads constructor(
         }.start()
 
     }
+
+
 }
 
 

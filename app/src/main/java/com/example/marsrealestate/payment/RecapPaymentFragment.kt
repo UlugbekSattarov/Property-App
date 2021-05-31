@@ -4,23 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.VisibleForTesting
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.navGraphViewModels
-import com.example.marsrealestate.MainActivity
 import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
-import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.FragmentPaymentRecapBinding
 import com.example.marsrealestate.util.NotificationHelper
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
-import java.util.*
 
 class RecapPaymentFragment : Fragment() {
 
@@ -53,14 +46,14 @@ class RecapPaymentFragment : Fragment() {
 
     private fun setupNavigation() {
 
-        viewModel.transactionCompleted.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.transactionCompleted.observe(viewLifecycleOwner,  {
             it.getContentIfNotHandled()?.let { property ->
                 NotificationHelper.notifyPropertyBought(requireContext(),property)
             }
         })
 
 
-        viewModel.navigateToHome.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.navigateToHome.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let {
                 val opt = NavOptions.Builder()
 //                    .setExitAnim(android.R.anim.fade_out)

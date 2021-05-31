@@ -18,11 +18,8 @@ class FavoritesViewModel(private val repository : MarsRepository) : ViewModel() 
 
     val favorites: LiveData<List<FavoriteProperty>> = repository.observeFavorites()
 
-    //Useful for thread safety
-    private var busy = false
-
-    private val _navigateToProperty = MutableLiveData<Event<MarsProperty>>()
-    val navigateToProperty: LiveData<Event<MarsProperty>> = _navigateToProperty
+    private val _navigateToProperty = MutableLiveData<Event<FavoriteProperty>>()
+    val navigateToProperty: LiveData<Event<FavoriteProperty>> = _navigateToProperty
 
     private var lastRemovedProperty : FavoriteProperty? = null
 
@@ -34,68 +31,37 @@ class FavoritesViewModel(private val repository : MarsRepository) : ViewModel() 
 
 
 
-    fun displayPropertyDetails(marsProperty: MarsProperty) {
-        _navigateToProperty.value = Event(marsProperty)
+    fun displayPropertyDetails(favorite: FavoriteProperty) {
+        _navigateToProperty.value = Event(favorite)
     }
 
-
-
-    fun removePropertyFromFavorites(favorite: Any){
-        if (favorite is FavoriteProperty)
-            removePropertyFromFavorites(favorite)
-        else
-            Log.i(this::class.java.name,"Object is not of type FavoriteProperty")
-
-    }
 
     fun removePropertyFromFavorites(favorite: FavoriteProperty){
-        if (busy)
-            return
-        busy = true
-
-        viewModelScope.launch {
-            try {
+        try {
+            viewModelScope.launch {
                 repository.removeFromFavorite(favorite.property.id)
                 lastRemovedProperty = favorite
                 _propertyRemoved.postValue(Result.Success(data = favorite))
-
             }
-            catch (e: Exception) {
-                _propertyRemoved.postValue(Result.Error(exception = e))
-            }
-            finally {
-                busy = false
-            }
-
+        }
+        catch (e: Exception) {
+            _propertyRemoved.postValue(Result.Error(exception = e))
         }
     }
 
 
     fun recoverLastDeletedProperty() {
-        if (busy)
-            return
-        busy = true
+        try {
+            val toRecover = lastRemovedProperty ?: throw Exception()
 
-        val toRecover = lastRemovedProperty
-
-        if (toRecover == null ) {
-            _propertyRecovered.value = Result.Error(errorMsgId = R.string.property_recovered_empty)
-            return
-        }
-
-        viewModelScope.launch {
-            try {
+            viewModelScope.launch {
                 repository.saveToFavorite(toRecover.property,toRecover.favorite.dateFavorited)
                 lastRemovedProperty = null
                 _propertyRecovered.postValue(Result.Success(data = toRecover))
             }
-            catch (e: Exception) {
-                _propertyRecovered.postValue(Result.Error(exception = e))
-            }
-            finally {
-                busy = false
-            }
-
+        }
+        catch (e: Exception) {
+            _propertyRecovered.postValue(Result.Error(exception = e))
         }
     }
 }

@@ -13,7 +13,6 @@ import com.example.marsrealestate.databinding.FragmentSettingsBinding
 import com.example.marsrealestate.util.PreferenceDarkMode
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import com.google.android.material.transition.MaterialFadeThrough
-import com.google.android.material.transition.MaterialSharedAxis
 
 class SettingsFragment : Fragment(){
 
@@ -28,11 +27,12 @@ class SettingsFragment : Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View {
 
         val binding = FragmentSettingsBinding.inflate(inflater)
+
         requireActivity().setupToolbarIfDrawerLayoutPresent(this,binding.toolbar)
+
         return binding.root
     }
 

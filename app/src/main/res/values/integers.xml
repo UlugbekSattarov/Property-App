@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <integer name="anim_search_close_total_duration">600</integer>
+    <integer name="anim_search_close_total_duration">400</integer>
     <integer name="anim_search_close_half_duration">300</integer>
     <integer name="anim_search_close_fade_offset">240</integer>
     <integer name="anim_search_close_fade_duration">120</integer>

@@ -6,6 +6,7 @@
 
     <data>
         <import type="android.view.View"/>
+        <import type="com.example.marsrealestate.util.SharedElementTransition"/>
         <variable
             name="property"
             type="com.example.marsrealestate.data.MarsProperty"/>
@@ -13,6 +14,7 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        android:tag="@{SharedElementTransition.getTransitionName(property)}"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         app:cardElevation="5dp"

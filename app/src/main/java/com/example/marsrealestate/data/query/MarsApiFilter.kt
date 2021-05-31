@@ -5,7 +5,11 @@ import com.example.marsrealestate.data.MarsProperty
 class MarsApiFilter(val type: MarsPropertyType = MarsPropertyType.ALL,
                          val queryString: String = "") {
 
-    enum class MarsPropertyType(val value: String) { ALL("all"), RENT("rent"), BUY("buy") }
+    enum class MarsPropertyType(val value: String) {
+        ALL("all"),
+        RENT(MarsProperty.TYPE_RENT),
+        BUY(MarsProperty.TYPE_BUY)
+    }
 
     fun matches(property: MarsProperty) : Boolean{
         val isCorrectType =

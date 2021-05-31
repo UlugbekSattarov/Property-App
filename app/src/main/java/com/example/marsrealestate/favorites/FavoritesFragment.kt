@@ -10,30 +10,27 @@ import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.example.marsrealestate.MainActivity
 import com.example.marsrealestate.R
+import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.databinding.FragmentFavoritesBinding
 import com.example.marsrealestate.util.SharedElementTransition
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialFadeThrough
 
 
 class FavoritesFragment : Fragment() {
 
     val viewModel : FavoritesViewModel by viewModels {
-        FavoritesViewModelFactory((activity as MainActivity).marsRepository)
+        FavoritesViewModelFactory(ServiceLocator.getMarsRepository(requireContext()))
     }
 
     private lateinit var viewDataBinding : FragmentFavoritesBinding
 
     private var enableListAppearingAnimation = true
 
-    //Useful for shared element transition
-    private var selectedProperty : View? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +42,7 @@ class FavoritesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         exitTransition = null
 
         // Inflate the layout for this fragment
@@ -69,9 +66,8 @@ class FavoritesFragment : Fragment() {
 
     private fun setupRecyclerView() {
 
-        viewDataBinding.favoritesList.adapter = FavoritesAdapter(FavoritesAdapter.OnClickListener { favorite, viewClicked ->
-            this.selectedProperty = viewClicked
-            viewModel.displayPropertyDetails(favorite.property)
+        viewDataBinding.favoritesList.adapter = FavoritesAdapter(FavoritesAdapter.OnClickListener { favorite ->
+            viewModel.displayPropertyDetails(favorite)
         })
 
 
@@ -99,25 +95,18 @@ class FavoritesFragment : Fragment() {
                 Snackbar.make(viewDataBinding.root,"Property removed",Snackbar.LENGTH_LONG).apply {
                     setAction(android.R.string.cancel) {
                         viewModel.recoverLastDeletedProperty()
-                    }.show()
-                }
+                    }
+                }.show()
             }
         })
     }
 
     private fun setupNavigation() {
         viewModel.navigateToProperty.observe(viewLifecycleOwner, Observer {
-            it.getContentIfNotHandled()?.let navigation@{ property ->
-                val action = FavoritesFragmentDirections.actionFavoritesToDetail().apply { marsProperty = property }
+            it.getContentIfNotHandled()?.let navigation@{ fav ->
+                val action = FavoritesFragmentDirections.actionFavoritesToDetail().apply { marsProperty = fav.property }
 
-                exitTransition = Hold()
-
-                val extras = SharedElementTransition.createSharedElementExtra(selectedProperty,property)
-                if (extras != null)
-                    findNavController().navigate(action, extras)
-                else
-                    findNavController().navigate(action)
-
+                SharedElementTransition.navigate(this,fav.property,action)
             }
         })
     }
