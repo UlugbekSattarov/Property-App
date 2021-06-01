@@ -20,7 +20,7 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
     companion object {
         private const val KEY_PASSWORD = "password"
         private const val KEY_USERNAME = "username"
-        private const val KEY_LOGGED_IN = "login"
+        private const val KEY_LOGGED_IN = "logged_in"
     }
 
     val email : MutableLiveData<String> = MutableLiveData()
@@ -30,7 +30,7 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
     val passwordErrorStringID = password.map { passwordValidator(it) }
 
 
-    private val _isLoggedIn = MutableLiveData<Boolean>(false)
+    private val _isLoggedIn = MutableLiveData(false)
     val isLoggedIn: LiveData<Boolean> = _isLoggedIn
 
     val userLogged: LiveData<String?> = isLoggedIn.map { if (it) "User" else null }
@@ -81,21 +81,21 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
 
         _operationLogging.value = Result.Loading()
 
-        try {
-            viewModelScope.launch {
-
+        viewModelScope.launch {
+            try {
                 val email = email.getValueNotNull(::emailValidator)
                 val password = password.getValueNotNull(::passwordValidator)
-                repository.login(email,password)
+                repository.login(email, password)
 
                 _operationLogging.postValue(Result.Success())
                 _isLoggedIn.postValue(true)
                 _loggedInEvent.postValue(Event(true))
 
-                saveState(true,email,password)
+                saveState(true, email, password)
+
+            } catch (e: Exception) {
+                _operationLogging.postValue(Result.Error())
             }
-        } catch (e: Exception) {
-            _operationLogging.postValue(Result.Error())
         }
     }
 

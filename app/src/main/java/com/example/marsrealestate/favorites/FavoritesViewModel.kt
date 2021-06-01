@@ -1,17 +1,11 @@
 package com.example.marsrealestate.favorites
 
-import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.*
-import androidx.savedstate.SavedStateRegistryOwner
-import com.example.marsrealestate.R
 import com.example.marsrealestate.data.FavoriteProperty
 import com.example.marsrealestate.data.MarsRepository
-import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.util.Event
 import com.example.marsrealestate.util.Result
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 
 class FavoritesViewModel(private val repository : MarsRepository) : ViewModel() {
@@ -36,32 +30,31 @@ class FavoritesViewModel(private val repository : MarsRepository) : ViewModel() 
     }
 
 
-    fun removePropertyFromFavorites(favorite: FavoriteProperty){
-        try {
-            viewModelScope.launch {
+    fun removePropertyFromFavorites(favorite: FavoriteProperty) {
+        viewModelScope.launch {
+            try {
                 repository.removeFromFavorite(favorite.property.id)
                 lastRemovedProperty = favorite
                 _propertyRemoved.postValue(Result.Success(data = favorite))
             }
-        }
-        catch (e: Exception) {
-            _propertyRemoved.postValue(Result.Error(exception = e))
+            catch(e: Exception) {
+                _propertyRemoved.postValue(Result.Error(exception = e))
+            }
         }
     }
 
 
     fun recoverLastDeletedProperty() {
-        try {
-            val toRecover = lastRemovedProperty ?: throw Exception()
+        val toRecover = lastRemovedProperty ?: return
 
-            viewModelScope.launch {
-                repository.saveToFavorite(toRecover.property,toRecover.favorite.dateFavorited)
+        viewModelScope.launch {
+            try {
+                repository.saveToFavorite(toRecover.property, toRecover.favorite.dateFavorited)
                 lastRemovedProperty = null
                 _propertyRecovered.postValue(Result.Success(data = toRecover))
+            } catch (e: Exception) {
+                _propertyRecovered.postValue(Result.Error(exception = e))
             }
-        }
-        catch (e: Exception) {
-            _propertyRecovered.postValue(Result.Error(exception = e))
         }
     }
 }

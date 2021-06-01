@@ -4,7 +4,6 @@ import androidx.annotation.StringRes
 import androidx.databinding.InverseMethod
 import androidx.lifecycle.*
 import com.example.marsrealestate.R
-import com.example.marsrealestate.data.isValidPropertyType
 import com.example.marsrealestate.payment.options.VisaCard.Companion.VISA_CARD_NUMBER_LENGTH
 import com.example.marsrealestate.payment.options.VisaCard.Companion.VISA_SECRET_CODE_LENGTH
 import com.example.marsrealestate.util.*
@@ -79,21 +78,21 @@ class PaymentVisaViewModel : ViewModel() {
 
         _operationValidateCard.value = Result.Loading()
 
-        try {
-            val card =  VisaCard("",
-                "",
-                cardNumber = cardNumber.getValueNotNull(::cardNumberValidator),
-                expirationMonth = expirationMonth.getValueNotNull(::expirationMonthValidator),
-                expirationYear = expirationYear.getValueNotNull(::expirationYearValidator),
-                secretCode = secretCode.getValueNotNull(::secretCodeValidator))
+        viewModelScope.launch {
+            try {
+                val card = VisaCard(
+                    "",
+                    "",
+                    cardNumber = cardNumber.getValueNotNull(::cardNumberValidator),
+                    expirationMonth = expirationMonth.getValueNotNull(::expirationMonthValidator),
+                    expirationYear = expirationYear.getValueNotNull(::expirationYearValidator),
+                    secretCode = secretCode.getValueNotNull(::secretCodeValidator))
 
-            viewModelScope.launch {
                 _operationValidateCard.postValue(Result.Success(card))
                 _onCardValidated.postValue(Event(card))
+            } catch (e: Exception) {
+                _operationValidateCard.postValue(Result.Error(e))
             }
-        }
-        catch (e: Exception) {
-            _operationValidateCard.postValue(Result.Error(e))
         }
     }
 
@@ -108,7 +107,7 @@ class PaymentVisaViewModel : ViewModel() {
 
 
 
-class PaymentVisaViewModelFactory() : ViewModelProvider.NewInstanceFactory() {
+class PaymentVisaViewModelFactory : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

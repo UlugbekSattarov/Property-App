@@ -48,6 +48,7 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
     private val _navigateToProperty = MutableLiveData<Event<MarsProperty>>()
     val navigateToProperty: LiveData<Event<MarsProperty>> = _navigateToProperty
 
+
     val itemsPerPage = 7
     private var pageCount = 0
 
@@ -73,19 +74,24 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
 
 
     fun loadNextPage() {
-        _status.postValue(Result.Loading())
+        _status.value = Result.Loading()
         Log.d("############","loadNextPage()")
 
-        try {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            try {
                 val nextPageToLoad = pageCount + 1
 
-                val newProps = repository.getProperties(MarsApiQuery(
-                    pageNumber = nextPageToLoad,
-                    itemsPerPage = itemsPerPage,
-                    filter = MarsApiFilter(type.getValueNotNull(),queryString.getValueNotNull()),
-                    sortedBy = sortedBy.getValueNotNull()
-                ))
+                val newProps = repository.getProperties(
+                    MarsApiQuery(
+                        pageNumber = nextPageToLoad,
+                        itemsPerPage = itemsPerPage,
+                        filter = MarsApiFilter(
+                            type.getValueNotNull(),
+                            queryString.getValueNotNull()
+                        ),
+                        sortedBy = sortedBy.getValueNotNull()
+                    )
+                )
 
                 //Replacing the previous list in case of new search
                 if (nextPageToLoad == 1)
@@ -103,14 +109,13 @@ class OverviewViewModel(private val repository : MarsRepository) : ViewModel() {
 
                 _status.postValue(Result.Success())
             }
-        }
 
-        catch (e : Exception) {
+            catch(e : Exception) {
 //                _properties.postValue(mutableListOf())
-            _status.postValue(Result.Error())
-            Log.e(this@OverviewViewModel::class.simpleName,Log.getStackTraceString(e))
+                _status.postValue(Result.Error())
+                Log.e(this@OverviewViewModel::class.simpleName, Log.getStackTraceString(e))
+            }
         }
-
     }
 
 

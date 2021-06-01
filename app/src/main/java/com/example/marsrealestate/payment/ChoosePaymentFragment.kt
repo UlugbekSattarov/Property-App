@@ -4,19 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
-import com.example.marsrealestate.MainActivity
 import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.databinding.FragmentPaymentChooseBinding
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
-import com.google.android.material.transition.MaterialSharedAxis
 
 
 class ChoosePaymentFragment : Fragment() {
@@ -45,7 +41,7 @@ class ChoosePaymentFragment : Fragment() {
             CartViewModelFactory(ServiceLocator.getMarsRepository(requireContext()))
         }.value
 
-        args.propertyToBuyId?.let { id ->  cartViewModel.addPropertyToBuy(id) }
+        args.propertyToBuyId?.let { id ->  cartViewModel.setPropertyToBuy(id) }
 
         super.onViewCreated(view, savedInstanceState)
     }
@@ -69,7 +65,7 @@ class ChoosePaymentFragment : Fragment() {
     }
 
     private fun setupNavigation() {
-        viewModel.navigateToVisaPayment.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.navigateToVisaPayment.observe(viewLifecycleOwner,  {
             it.getContentIfNotHandled()?.let {
                 val action =
                     ChoosePaymentFragmentDirections.actionDestChoosePaymentToDestPaymentVisa()

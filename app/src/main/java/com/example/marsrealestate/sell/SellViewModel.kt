@@ -64,26 +64,27 @@ class SellViewModel(private val repository: MarsRepository) : ViewModel() {
 
 
     fun putPropertyToSale() {
-        try {
-            _status.value = Result.Loading()
+        _status.value = Result.Loading()
 
-            val newProperty = MarsProperty(
-                "",
-                type = type.getValueNotNull(::typeValidator),
-                imgSrcUrl = imgSrcUrl.getValueNotNull(),
-                price = price.getValueNotNull(::priceValidator).toDouble(),
-                surfaceArea = area.getValueNotNull(::areaValidator),
-                latitude = latitude.getValueNotNull(::latitudeValidator),
-                longitude = longitude.getValueNotNull(::longitudeValidator))
+        viewModelScope.launch {
+            try {
 
-            viewModelScope.launch {
+                val newProperty = MarsProperty(
+                    "",
+                    type = type.getValueNotNull(::typeValidator),
+                    imgSrcUrl = imgSrcUrl.getValueNotNull(),
+                    price = price.getValueNotNull(::priceValidator).toDouble(),
+                    surfaceArea = area.getValueNotNull(::areaValidator),
+                    latitude = latitude.getValueNotNull(::latitudeValidator),
+                    longitude = longitude.getValueNotNull(::longitudeValidator)
+                )
+
                 repository.addProperty(newProperty)
+                _status.postValue(Result.Success())
+
+            } catch (e: Exception) {
+                _status.postValue(Result.Error(exception = e))
             }
-
-            _status.value = Result.Success()
-
-        } catch (e: Exception) {
-            _status.value = Result.Error(exception = e)
         }
     }
 
@@ -98,7 +99,7 @@ class SellViewModelFactory(private val repository: MarsRepository) : ViewModelPr
     }
 }
 
-
+//TODO move elsewhere
 object SellConverter {
 
 

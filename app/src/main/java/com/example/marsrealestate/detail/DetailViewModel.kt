@@ -22,15 +22,13 @@ class DetailViewModel private constructor(private val repository : MarsRepositor
     }
 
 
-    enum class Operation { ADD, REMOVE }
-
     private val _property = MutableLiveData<MarsProperty>()
     val property : LiveData<MarsProperty> = _property
 
     private val _statePropertyFetched = MutableLiveData<Result<Nothing>>(Result.Error())
     val statePropertyFetched : LiveData<Result<Nothing>> = _statePropertyFetched
 
-    private val _propertyViewCount = MutableLiveData<Int>((0..3).random())
+    private val _propertyViewCount = MutableLiveData((0..3).random())
     val propertyViewCount : LiveData<Int> = _propertyViewCount
 
     private val _propertyAddedRemovedToFavorites = MutableLiveData<Result<MarsProperty>>()
@@ -52,45 +50,41 @@ class DetailViewModel private constructor(private val repository : MarsRepositor
     private fun fetchProperty(propertyId : String) {
         _statePropertyFetched.value = Result.Loading()
 
-        try {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            try {
                 repository.getProperty(propertyId).let { prop ->
                     if (prop != null) {
                         _property.value = prop
                         _statePropertyFetched.value = Result.Success()
-                    }
-                    else {
+                    } else {
                         _statePropertyFetched.value = Result.Error()
                     }
                 }
+            } catch (e: Exception) {
+                _statePropertyFetched.postValue(Result.Error())
             }
-        } catch (e: Exception) {
-            _statePropertyFetched.value = Result.Error()
         }
     }
 
 
 
     fun addRemovePropertyToFavorites() {
-        try {
-            val prop = property.getValueNotNull()
-
-            viewModelScope.launch {
+        viewModelScope.launch {
+            try {
+                val prop = property.getValueNotNull()
                 val msg = if (repository.isFavorite(prop.id)) {
                     repository.removeFromFavorite(prop.id)
                     R.string.property_removed_favorites
-                }
-                else {
+                } else {
                     repository.saveToFavorite(prop)
                     R.string.property_added_favorites
                 }
+                _propertyAddedRemovedToFavorites.value = Result.Success(prop, msg)
 
-                _propertyAddedRemovedToFavorites.value =  Result.Success(prop,msg)
-
+            } catch (e: Exception) {
+                Log.d(DetailViewModel::class.qualifiedName, "addRemovePropertyToFavorites() : $e")
+                _propertyAddedRemovedToFavorites.value = Result.Error(e)
             }
-        } catch (e: Exception) {
-            Log.d(DetailViewModel::class.qualifiedName,"addRemovePropertyToFavorites() : $e")
-            _propertyAddedRemovedToFavorites.value =  Result.Error(e)
         }
     }
 

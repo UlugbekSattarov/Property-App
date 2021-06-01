@@ -44,35 +44,36 @@ class RecapPaymentViewModel(
     }
 
 
-    fun fetchProperty() {
+    private fun fetchProperty() {
         _statePropertyValid.value = Result.Loading()
 
-        try {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            try {
                 _propertyToBuy.postValue(repository.getProperty(propertyId))
                 _statePropertyValid.postValue(Result.Success())
+
+            } catch (e: Exception) {
+                _statePropertyValid.postValue(Result.Error())
             }
-        } catch (e: Exception) {
-            _statePropertyValid.value = Result.Error()
         }
     }
 
     fun confirmTransaction() {
         _transactionState.value = Result.Loading()
 
-        try {
-            val property = propertyToBuy.getValueNotNull()
+        viewModelScope.launch {
+            try {
+                val property = propertyToBuy.getValueNotNull()
 //            val paymentOption = paymentOption.getValueNotNull()
 
-            viewModelScope.launch {
-                Log.d(RecapPaymentViewModel::class.toString(),"Property bought : ${property.id}")
+                Log.d(RecapPaymentViewModel::class.toString(), "Property bought : ${property.id}")
                 _transactionState.postValue(Result.Success())
                 _transactionCompleted.postValue(Event(property))
                 _navigateToHome.postValue(Event(true))
             }
-        }
-        catch (e: Exception) {
-            _transactionState.value = Result.Error(e)
+            catch(e: Exception) {
+                _transactionState.postValue(Result.Error(e))
+            }
         }
     }
 
