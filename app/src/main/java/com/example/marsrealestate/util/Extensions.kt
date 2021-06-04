@@ -2,9 +2,11 @@ package com.example.marsrealestate.util
 
 import android.app.Activity
 import android.content.Context
+import android.os.Build
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.Toolbar
@@ -133,6 +135,20 @@ fun Snackbar.withColoredText() : Snackbar {
     return this
 }
 
+@Suppress("unused")
+private fun Activity.makeNavigationBarColored() {
+    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+        window.navigationBarColor = resolveColor(R.attr.backgroundColor)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+            window.navigationBarDividerColor = resolveColor(android.R.attr.listDivider)
+    }
+}
+
 /**
  * Fetch this [LiveData] its value or throw an exception if it is null
  */
@@ -162,7 +178,8 @@ fun View.hideSoftInput() {
 }
 
 fun Fragment.hideSoftInput() {
-    requireView().hideSoftInput()
+    (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+        .hideSoftInputFromWindow(requireView().windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
 }
 
 fun View.showSoftInput() {

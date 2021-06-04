@@ -6,7 +6,7 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.example.marsrealestate.util.SharedElementTransition" />
+        <import type="com.example.marsrealestate.util.helpers.SharedElementTransitionHelper" />
         <variable
             name="favorite"
             type="com.example.marsrealestate.data.FavoriteProperty"/>
@@ -14,7 +14,7 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:tag="@{SharedElementTransition.getTransitionName(favorite.property)}"
+        android:tag="@{SharedElementTransitionHelper.getTransitionName(favorite.property)}"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         app:cardElevation="18dp">
@@ -82,7 +82,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/mars_property_image"
 
-                app:srcCompat="@drawable/ot_gradient_bottom_top" />
+                app:srcCompat="@drawable/gradient_black" />
 
 
 

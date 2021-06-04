@@ -57,13 +57,23 @@ fun RecyclerView.bindItemSpacing( spacing: Float?, columnNumber : Int?, endSpace
  */
 @BindingAdapter("imageUrl")
 fun ImageView.bindImageUrl(imgUrl: String?) {
-    imgUrl?.let {
-        val id = it.toIntOrNull()
-        if (id != null) {
-            setImageDrawable(ResourcesCompat.getDrawable(resources,id,context.theme))
+    imgUrl?.let { url ->
+        val resourceScheme = "resource://"
+        
+        if (url.startsWith(resourceScheme)) {
+            val drawable = when (url.removePrefix(resourceScheme)) {
+                "landscape_1" -> R.drawable.mars_landscape_1
+                "landscape_2" -> R.drawable.mars_landscape_2
+                "landscape_3" -> R.drawable.mars_landscape_3
+                "landscape_4" -> R.drawable.mars_landscape_4
+                "landscape_5" -> R.drawable.mars_landscape_5
+                "landscape_6" -> R.drawable.mars_landscape_6
+                else -> R.drawable.ic_launcher_foreground
+            }
+            setImageDrawable(ResourcesCompat.getDrawable(resources, drawable, context.theme))
         }
         else {
-            val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
+            val imgUri = url.toUri().buildUpon().scheme("https").build()
             Glide.with(this)
                 .load(imgUri)
 
@@ -224,6 +234,7 @@ fun NavigationView.setShapeAppearanceOverlayNavigationViewUseDefault( setShape :
 
 
         (background as? MaterialShapeDrawable)?.apply {
+//            fillColor = ColorStateList.valueOf(context.resolveColor(R.attr.backgroundColor))
             shapeAppearanceModel = shape
         }
     }

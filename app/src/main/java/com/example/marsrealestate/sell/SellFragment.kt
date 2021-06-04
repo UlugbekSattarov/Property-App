@@ -50,22 +50,27 @@ class SellFragment : Fragment() {
         viewDataBinding.viewModel = viewModel
 
         requireActivity().setupToolbarIfDrawerLayoutPresent(this,viewDataBinding.toolbar)
-
-        val rentalOrPurchase = listOf(resources.getString(R.string.rent),resources.getString(R.string.buy))
-        val adapterMonths = ArrayAdapter(requireContext(),R.layout.view_sorting_option_item,rentalOrPurchase)
-        viewDataBinding.sellOrRentInputValue.setAdapter(adapterMonths)
-
-
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         setupScrollAfterAreaInput()
-
+        setupPropertyTypeAdapter()
 
         return viewDataBinding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+    }
+
+    private fun setupPropertyTypeAdapter() {
+        val types = listOf(resources.getString(R.string.rent),resources.getString(R.string.buy))
+        val adapterType = ArrayAdapter(requireContext(),R.layout.view_sorting_option_item,types)
+        viewDataBinding.sellOrRentInputValue.setAdapter(adapterType)
+    }
+
     /**
-     * Scroll to the [Button] putOnSale after the surface are has been given by the user.
+     * Scroll to the Button putOnSale after the surface are has been given by the user.
      * This is useful to make sure the button is seen.
      */
     private fun setupScrollAfterAreaInput() =
@@ -87,19 +92,7 @@ class SellFragment : Fragment() {
     }
 
 
-    //TODO extract this elsewhere
-    private fun makeNavigationBarColored() {
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            requireActivity().window.decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-            requireActivity().window.navigationBarColor = requireContext().resolveColor(R.attr.backgroundColor)
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-                requireActivity().window.navigationBarDividerColor = requireContext().resolveColor(android.R.attr.listDivider)
-        }
-    }
 
 }
 

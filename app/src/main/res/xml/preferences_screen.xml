@@ -6,16 +6,32 @@
         android:title="Dark mode"
         android:summary="Select when to use dark mode"
 
-        
+
 
         android:icon="@drawable/ic_dark_mode"
 
         android:defaultValue="@string/preference_dark_mode_follow_system"
-        android:key="@string/preference_key_dark_theme"
+        android:key="@string/preference_key_dark_mode"
         android:entries="@array/preferences_dark_names"
         android:entryValues="@array/preferences_dark_values"
 
         />
+
+    <ListPreference
+        android:title="Font size"
+        android:summary="Select a preferred font size"
+
+
+        android:icon="@drawable/ic_font_size_24dp"
+
+
+        android:defaultValue="@string/pref_font_size_normal"
+        android:key="@string/preference_key_font_size"
+        android:entries="@array/preferences_font_size_names"
+        android:entryValues="@array/preferences_font_size_values"
+
+        />
+    
 
 
 

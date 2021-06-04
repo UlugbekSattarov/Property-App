@@ -34,7 +34,6 @@
 
             android:textAppearance="?textAppearanceSubtitle1"
 
-            android:textSize="@dimen/purchase_progression_text_size_emphasized"
 
             />
 
@@ -53,7 +52,6 @@
             android:textAlignment="center"
 
             android:textAppearance="?textAppearanceSubtitle1"
-            android:textSize="@dimen/purchase_progression_text_size_emphasized"
 
 
 
@@ -74,7 +72,6 @@
             android:textAlignment="center"
 
             android:textAppearance="?textAppearanceSubtitle1"
-            android:textSize="@dimen/purchase_progression_text_size_emphasized"
 
 
             />

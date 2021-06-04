@@ -151,9 +151,8 @@
                             android:layout_height="match_parent"
                             android:inputType="none"
 
-                            android:textAppearance="?textAppearanceHeadline6"
+                            android:textAppearance="?textAppearanceSubtitle1"
 
-                            android:textSize="14sp"
                             app:marsApiSorting="@={viewModel.sortedBy}" />
 
                     </com.google.android.material.textfield.TextInputLayout>

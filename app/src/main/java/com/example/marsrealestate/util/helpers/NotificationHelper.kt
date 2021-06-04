@@ -1,4 +1,4 @@
-package com.example.marsrealestate.util
+package com.example.marsrealestate.util.helpers
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -6,7 +6,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.os.Build
 import android.util.TypedValue
 import android.widget.RemoteViews
@@ -15,9 +14,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.os.bundleOf
-import androidx.navigation.NavController
 import androidx.navigation.NavDeepLinkBuilder
-import androidx.navigation.fragment.findNavController
 import com.example.marsrealestate.R
 import com.example.marsrealestate.data.MarsProperty
 
@@ -103,8 +100,9 @@ object NotificationHelper {
         )?.toBitmap() ?: Bitmap.createBitmap(0,0,Bitmap.Config.ALPHA_8)
     }
 
+    @Suppress("unused")
     private fun buildCollapsedNotif(context: Context,colorSecondary : Int,property: MarsProperty,imagePropertyBought : Bitmap) {
-        val collapsed = RemoteViews(context.packageName, R.layout.layout_notification_collapsed).apply {
+        @Suppress("UNUSED_VARIABLE") val collapsed = RemoteViews(context.packageName, R.layout.layout_notification_collapsed).apply {
             setTextColor(R.id.timestamp, colorSecondary)
             setTextColor(R.id.notification_title, colorSecondary)
             setTextViewText(

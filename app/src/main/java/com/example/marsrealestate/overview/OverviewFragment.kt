@@ -13,8 +13,8 @@ import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.FragmentOverviewBinding
-import com.example.marsrealestate.util.NotificationHelper
-import com.example.marsrealestate.util.SharedElementTransition
+import com.example.marsrealestate.util.helpers.NotificationHelper
+import com.example.marsrealestate.util.helpers.SharedElementTransitionHelper
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
@@ -149,7 +149,7 @@ class OverviewFragment : Fragment() {
             it.getContentIfNotHandled()?.let navigation@{ property ->
                 val action = OverviewFragmentDirections.actionOverviewToDetail().apply { marsProperty = property }
 
-                SharedElementTransition.navigate(this,property,action)
+                SharedElementTransitionHelper.navigate(this,property,action)
             }
         })
     }

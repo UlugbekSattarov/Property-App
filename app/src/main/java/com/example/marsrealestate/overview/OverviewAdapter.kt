@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.marsrealestate.R
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.LayoutItemOverviewBinding
-import com.example.marsrealestate.util.SharedElementTransition
+import com.example.marsrealestate.util.helpers.SharedElementTransitionHelper
 import java.util.*
 
 fun interface OnLastItemDisplayedListener { fun onLastItemDisplayed() }
@@ -33,7 +33,7 @@ class OverviewAdapter(private val onClickListener: OnClickListener,
         fun bind(marsProperty: MarsProperty) {
 
             val sharedElement = itemView
-            val transitionName = SharedElementTransition.getTransitionName(marsProperty)
+            val transitionName = SharedElementTransitionHelper.getTransitionName(marsProperty)
             ViewCompat.setTransitionName(sharedElement, transitionName)
             binding.property = marsProperty
 

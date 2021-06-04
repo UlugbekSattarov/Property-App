@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+   <!-- It is useful to have several themes to define font sizes because
+    it allows us to change the app's font size easily and on the fly.
+    -->
+
+    <style name="FontSizeNormalTheme" >
+        <item name="textSizeHeadline1">@dimen/textSizeHeadline1</item>
+        <item name="textSizeHeadline3">@dimen/textSizeHeadline3</item>
+        <item name="textSizeHeadline4">@dimen/textSizeHeadline4</item>
+        <item name="textSizeHeadline5">@dimen/textSizeHeadline5</item>
+        <item name="textSizeHeadline6">@dimen/textSizeHeadline6</item>
+        <item name="textSizeHeadline7">@dimen/textSizeHeadline7</item>
+        <item name="textSizeSubtitle1">@dimen/textSizeSubtitle1</item>
+        <item name="textSizeSubtitle2">@dimen/textSizeSubtitle2</item>
+        <item name="textSizeCaption">@dimen/textSizeCaption</item>
+        <item name="textSizeBody1">@dimen/textSizeBody1</item>
+        <item name="textSizeButton">@dimen/textSizeButton</item>
+    </style>
+
+    <style name="FontSizeBiggerTheme" >
+        <item name="textSizeHeadline1">46sp</item>
+        <item name="textSizeHeadline3">40sp</item>
+        <item name="textSizeHeadline4">34sp</item>
+        <item name="textSizeHeadline5">26sp</item>
+        <item name="textSizeHeadline6">22sp</item>
+        <item name="textSizeHeadline7">20sp</item>
+        <item name="textSizeSubtitle1">18sp</item>
+        <item name="textSizeSubtitle2">14sp</item>
+        <item name="textSizeCaption">14sp</item>
+        <item name="textSizeBody1">18sp</item>
+        <item name="textSizeButton">16sp</item>
+    </style>
+
+    <style name="FontSizeSmallerTheme" >
+        <item name="textSizeHeadline1">42sp</item>
+        <item name="textSizeHeadline3">36sp</item>
+        <item name="textSizeHeadline4">30sp</item>
+        <item name="textSizeHeadline5">22sp</item>
+        <item name="textSizeHeadline6">18sp</item>
+        <item name="textSizeHeadline7">16sp</item>
+        <item name="textSizeSubtitle1">14sp</item>
+        <item name="textSizeSubtitle2">10sp</item>
+        <item name="textSizeCaption">10sp</item>
+        <item name="textSizeBody1">14sp</item>
+        <item name="textSizeButton">12sp</item>
+    </style>
+
+</resources>

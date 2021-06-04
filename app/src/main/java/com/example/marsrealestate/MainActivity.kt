@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import com.example.marsrealestate.databinding.ActivityMainBinding
+import com.example.marsrealestate.util.helpers.PreferencesHelper
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,6 +18,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        PreferencesHelper.setFontSize(this)
+
+
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 

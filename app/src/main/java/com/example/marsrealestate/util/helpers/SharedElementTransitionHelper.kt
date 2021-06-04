@@ -1,4 +1,4 @@
-package com.example.marsrealestate.util
+package com.example.marsrealestate.util.helpers
 
 import android.view.View
 import androidx.core.view.ViewCompat
@@ -7,7 +7,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.example.marsrealestate.data.MarsProperty
-import com.example.marsrealestate.util.SharedElementTransition.getTransitionName
+import com.example.marsrealestate.util.helpers.SharedElementTransitionHelper.getTransitionName
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialContainerTransform
 
@@ -17,7 +17,7 @@ import com.google.android.material.transition.MaterialContainerTransform
  * For the tag content, use [getTransitionName]
  *
  */
-object SharedElementTransition {
+object SharedElementTransitionHelper {
 
     /**
      * Create a unique transition name for the given property

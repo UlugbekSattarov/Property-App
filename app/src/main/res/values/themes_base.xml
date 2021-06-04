@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppThemeCommon" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppThemeBase" parent="Theme.MaterialComponents.Light.NoActionBar">
 
-        <item name="textAppearanceToolbarTitle">@style/MyStyle.TextAppearance.ToolbarTitleDefault</item>
-        <item name="textAppearanceNavigationViewItem">@style/MyStyle.TextAppearance.NavigationViewItem</item>
+
+        <!-- All these textSizeXXX attributes are set at runtime in MainActivity.onCreate() and
+        do absolutely not need to be set here again.
+        There are set here in order to make the preview in android studio work -->
+        <item name="textSizeHeadline1">@dimen/textSizeHeadline1</item>
+        <item name="textSizeHeadline3">@dimen/textSizeHeadline3</item>
+        <item name="textSizeHeadline4">@dimen/textSizeHeadline4</item>
+        <item name="textSizeHeadline5">@dimen/textSizeHeadline5</item>
+        <item name="textSizeHeadline6">@dimen/textSizeHeadline6</item>
+        <item name="textSizeHeadline7">@dimen/textSizeHeadline7</item>
+        <item name="textSizeSubtitle1">@dimen/textSizeSubtitle1</item>
+        <item name="textSizeSubtitle2">@dimen/textSizeSubtitle2</item>
+        <item name="textSizeCaption">@dimen/textSizeCaption</item>
+        <item name="textSizeBody1">@dimen/textSizeBody1</item>
+        <item name="textSizeButton">@dimen/textSizeButton</item>
+
+
+
 
         <item name="textAppearanceHeadline2">@style/MyStyle.TextAppearance.Headline2</item>
         <item name="textAppearanceHeadline3">@style/MyStyle.TextAppearance.Headline3</item>
@@ -12,34 +28,38 @@
         <item name="textAppearanceHeadline6">@style/MyStyle.TextAppearance.Headline6</item>
         <item name="textAppearanceHeadline7">@style/MyStyle.TextAppearance.Headline7</item>
         <item name="textAppearanceSubtitle1">@style/MyStyle.TextAppearance.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/MyStyle.TextAppearance.Subtitle2</item>
         <item name="textAppearanceCaption">@style/MyStyle.TextAppearance.Caption</item>
         <item name="textAppearanceBody1">@style/MyStyle.TextAppearance.Body1</item>
         <item name="textAppearanceButton">@style/MyStyle.TextAppearance.Button</item>
-
+        <item name="textAppearanceToolbarTitle">@style/MyStyle.TextAppearance.ToolbarTitleDefault</item>
+        <item name="textAppearanceNavigationViewItem">@style/MyStyle.TextAppearance.NavigationViewItem</item>
 
 
         <item name="toolbarStyle">@style/MyStyle.Widgets.Toolbar.Default</item>
         <item name="chipStyle">@style/MyStyle.Widgets.Chip</item>
+
         <item name="snackbarStyle">@style/MyStyle.Widgets.SnackBar</item>
         <item name="snackbarTextViewStyle">@style/MyStyle.TextAppearance.SnackbarTextViewStyle</item>
         <item name="snackbarButtonStyle">@style/MyStyle.Widgets.Button.SnackbarButton</item>
+
         <item name="materialButtonStyle">@style/MyStyle.Widgets.Button</item>
         <item name="materialTextButtonStyle">@style/MyStyle.Widgets.Button.Text</item>
+
         <item name="floatingActionButtonStyle">@style/MyStyle.Widgets.FloatingActionButton</item>
         <item name="extendedFloatingActionButtonStyle">@style/MyStyle.Widgets.ExtendedFloatingActionButton</item>
+
         <item name="textInputLayoutBasicStyle">@style/MyStyle.Widgets.TextInputLayout.Basic</item>
         <item name="textInputLayoutDropdownStyle">@style/MyStyle.Widgets.TextInputLayout.Dropdown</item>
+
         <item name="navigationViewStyle">@style/MyStyle.Widgets.NavigationViewStyle</item>
-        <item name="textInputEditTextStyle">@style/MyStyle.Widgets.TextInput</item>
 
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
 
-
     <style name="AppTheme.NavigationViewTheme" parent="AppTheme">
-
         <item name="colorControlHighlight">?colorControlHighlightAlt</item>
     </style>
 

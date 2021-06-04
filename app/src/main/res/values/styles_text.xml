@@ -1,0 +1,96 @@
+<resources>
+
+    <style name="MyStyle.TextAppearance"/>
+
+
+    <style name="MyStyle.TextAppearance.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="android:textSize">?textSizeHeadline2</item>
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textSize">?textSizeHeadline3</item>
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textSize">?textSizeHeadline4</item>
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textSize">?textSizeHeadline5</item>
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">?textSizeHeadline6</item>
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Headline7" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">?textSizeHeadline7</item>
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">?textSizeSubtitle1</item>
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">?textSizeSubtitle2</item>
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">?textSizeCaption</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MyStyle.TextAppearance.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">?textSizeBody1</item>
+        <item name="fontFamily">@font/lato</item>
+    </style>
+
+
+    <style name="MyStyle.TextAppearance.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textSize">?textSizeButton</item>
+        <item name="fontFamily">@font/raleway_bold</item>
+        <!--        <item name="android:textStyle">bold</item>-->
+    </style>
+
+
+
+    <style name="MyStyle.TextAppearance.ToolbarTitleDefault" parent="MyStyle.TextAppearance.Headline6">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?colorSecondary</item>
+    </style>
+
+
+
+    <style name="MyStyle.TextAppearance.NavigationViewItem" parent="MyStyle.TextAppearance.Headline7">
+    </style>
+
+
+    <style name="MyStyle.TextAppearance.SnackbarTextViewStyle" parent="MyStyle.TextAppearance.Headline6">
+        <item name="android:textColor">?colorOnSnackbarBackground</item>
+    </style>
+
+
+    <style name="MyStyle.TextAppearance.TitleOnPicture" parent="MyStyle.TextAppearance.Headline4">
+        <item name="android:textColor">?colorOnPicture</item>
+    </style>
+
+
+    <style name="MyStyle.TextAppearance.CollapsingToolbar.TitleExpanded" parent="MyStyle.TextAppearance.Headline3">
+        <item name="android:textColor">?colorOnPicture</item>
+    </style>
+
+
+    <style name="MyStyle.TextAppearance.CollapsingToolbar.TitleCollapsed" parent="MyStyle.TextAppearance.Headline6">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?colorOnPicture</item>
+    </style>
+
+</resources>

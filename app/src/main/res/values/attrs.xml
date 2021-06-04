@@ -21,13 +21,27 @@
     <attr name="textAppearanceNavigationViewItem" format="reference"/>
 
 
-    <attr name="textInputEditTextStyle" format="reference" />
     <attr name="textInputLayoutBasicStyle" format="reference" />
     <attr name="textInputLayoutDropdownStyle" format="reference" />
 
     <attr name="materialTextButtonStyle" format="reference" />
 
     <attr name="defaultSearchViewStyle" format="reference" />
+
+
+
+    <attr name="textSizeHeadline1" format="dimension" />
+    <attr name="textSizeHeadline2" format="dimension" />
+    <attr name="textSizeHeadline3" format="dimension" />
+    <attr name="textSizeHeadline4" format="dimension" />
+    <attr name="textSizeHeadline5" format="dimension" />
+    <attr name="textSizeHeadline6" format="dimension" />
+    <attr name="textSizeHeadline7" format="dimension" />
+    <attr name="textSizeSubtitle1" format="dimension" />
+    <attr name="textSizeSubtitle2" format="dimension" />
+    <attr name="textSizeCaption" format="dimension" />
+    <attr name="textSizeBody1" format="dimension" />
+    <attr name="textSizeButton" format="dimension" />
 
 
 

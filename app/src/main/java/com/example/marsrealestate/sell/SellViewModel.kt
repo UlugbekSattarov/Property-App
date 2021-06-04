@@ -27,6 +27,7 @@ class SellViewModel(private val repository: MarsRepository) : ViewModel() {
     val longitude : MutableLiveData<Float> = MutableLiveData()
     val area : MutableLiveData<Float> = MutableLiveData()
 
+    val isRental = type.map { it == MarsProperty.TYPE_RENT }
 
 
     @StringRes

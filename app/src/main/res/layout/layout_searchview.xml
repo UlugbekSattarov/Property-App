@@ -34,7 +34,9 @@
 
             tools:text="Title text"
 
-            android:textAppearance="?textAppearanceToolbarTitle" />
+            android:textAppearance="?textAppearanceToolbarTitle"
+
+            />
 
         <View
             android:id="@+id/searchview_background_above_title"
@@ -46,6 +48,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/searchview_icon_search_container"
             app:layout_constraintStart_toStartOf="@id/searchview_icon_search_container"
+
+             />
+
+        <View
+            android:id="@+id/bli"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+
+            android:background="@drawable/gradient_primary_color"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/searchview_icon_search_container"
 
              />
 

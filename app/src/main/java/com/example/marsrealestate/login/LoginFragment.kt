@@ -1,13 +1,11 @@
 package com.example.marsrealestate.login
 
-import android.content.Context
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -23,6 +21,7 @@ import androidx.transition.TransitionSet
 import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.databinding.FragmentLoginBinding
+import com.example.marsrealestate.util.helpers.BiometricHelper
 import com.example.marsrealestate.util.hideSoftInput
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import com.google.android.material.transition.MaterialFadeThrough
@@ -44,7 +43,7 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enterTransition = MaterialFadeThrough()
-        exitTransition = MaterialFadeThrough()
+        exitTransition = MaterialFadeThrough().apply { duration = 5000 }
     }
 
     override fun onCreateView(
@@ -127,9 +126,8 @@ class LoginFragment : Fragment() {
 
     private fun setupCloseKeyboardOnLoading() {
         viewModel.operationLogging.observe(viewLifecycleOwner, {
-            if (it.isLoading()) {
+            if (it.isLoading())
                 hideSoftInput()
-            }
         })
     }
 

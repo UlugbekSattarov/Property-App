@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="AppThemeCommon">
+    <style name="AppTheme" parent="AppThemeBase">
 
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/whiteDark</item>

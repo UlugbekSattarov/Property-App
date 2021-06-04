@@ -158,8 +158,8 @@
 
 
                             android:text="Card "
-                            android:textAppearance="?textAppearanceHeadline7"
-                            android:textSize="16sp"
+                            android:textAppearance="?textAppearanceSubtitle1"
+
                             android:textColor="?android:textColorTertiary"
 
                             android:layout_marginTop="@dimen/margin_very_large"
@@ -193,9 +193,9 @@
 
 
                             android:text="Property"
-                            android:textAppearance="?textAppearanceHeadline7"
+                            android:textAppearance="?textAppearanceSubtitle1"
                             android:textColor="?android:textColorTertiary"
-                            android:textSize="16sp"
+
                             app:layout_constraintWidth_percent=".35"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/card_number"
@@ -230,8 +230,8 @@
 
 
                             android:text="Type"
-                            android:textAppearance="?textAppearanceHeadline7"
-                            android:textSize="16sp"
+                            android:textAppearance="?textAppearanceSubtitle1"
+
                             android:textColor="?android:textColorTertiary"
 
                             app:layout_constraintStart_toStartOf="@id/card_number"
@@ -262,8 +262,7 @@
 
 
                             android:text="Price"
-                            android:textAppearance="?textAppearanceHeadline7"
-                            android:textSize="16sp"
+                            android:textAppearance="?textAppearanceSubtitle1"
                             android:textColor="?android:textColorTertiary"
 
                             app:layout_constraintStart_toStartOf="@id/property_id"

@@ -19,11 +19,24 @@
     <dimen name="image_toolbar_expanded_height">200dp</dimen>
 
 
+
+    <!-- Basic font sizes-->
+    <dimen name="textSizeHeadline1">44sp</dimen>
+    <dimen name="textSizeHeadline3">38sp</dimen>
+    <dimen name="textSizeHeadline4">32sp</dimen>
+    <dimen name="textSizeHeadline5">24sp</dimen>
+    <dimen name="textSizeHeadline6">20sp</dimen>
+    <dimen name="textSizeHeadline7">18sp</dimen>
+    <dimen name="textSizeSubtitle1">16sp</dimen>
+    <dimen name="textSizeSubtitle2">12sp</dimen>
+    <dimen name="textSizeCaption">12sp</dimen>
+    <dimen name="textSizeBody1">16sp</dimen>
+    <dimen name="textSizeButton">14sp</dimen>
+
+
     <!-- For PurchaseProgressionView-->
     <dimen name="purchase_progression_circle_diameter">25dp</dimen>
     <dimen name="purchase_progression_bar_width">7dp</dimen>
-    <dimen name="purchase_progression_text_size_emphasized">15sp</dimen>
-    <dimen name="purchase_progression_text_size_minimized">12sp</dimen>
 
 
     <!-- For SearchView-->

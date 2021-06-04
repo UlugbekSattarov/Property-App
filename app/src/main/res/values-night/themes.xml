@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="AppThemeCommon">
+    <style name="AppTheme" parent="AppThemeBase">
 
         <item name="colorPrimary">@color/grayDarker</item>
         <item name="colorPrimaryVariant">@color/gray</item>

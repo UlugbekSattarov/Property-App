@@ -31,7 +31,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_small"
+
 
                 app:layout_scrollFlags="noScroll"
 
@@ -155,7 +155,7 @@
                     style="@style/MyStyle.Widgets.TextInputLayout.Alternative"
 
                     android:hint="Choose price"
-                    app:suffixText="$ per month"
+                    app:suffixText="@{viewModel.isRental() ? `$ per month` : `$`}"
 
 
                     >
@@ -164,6 +164,7 @@
                         android:id="@+id/price_input_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
                         android:inputType="number"
                         android:textAppearance="?textAppearanceHeadline7"
                         android:imeOptions="actionDone"

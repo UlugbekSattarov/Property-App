@@ -2,7 +2,6 @@
 
     <!--    Themes are in themes.xml-->
 
-
     <style name="MyStyle"/>
     <style name="MyStyle.Widgets"/>
 
@@ -12,7 +11,6 @@
         <item name="titleTextColor">?colorOnPrimary</item>
         <item name="android:background">?colorPrimary</item>
         <item name="popupTheme">@style/AppTheme.PopupTheme</item>
-        <!--        <item name="android:layout_height">200dp</item>-->
     </style>
 
 
@@ -26,6 +24,7 @@
         <item name="chipBackgroundColor">?colorChipBackground</item>
         <item name="android:textColor">?colorChipText</item>
         <item name="shapeAppearanceOverlay">@style/MyStyle.ShapeAppearance.Chip</item>
+        <item name="android:textAppearance">?textAppearanceSubtitle2</item>
     </style>
 
     <style name="MyStyle.Widgets.Chip.Filter" parent="Widget.MaterialComponents.Chip.Filter">
@@ -33,25 +32,16 @@
         <item name="android:textColor">?colorChipText</item>
         <item name="shapeAppearanceOverlay">@style/MyStyle.ShapeAppearance.Chip</item>
         <item name="checkedIcon">@drawable/ic_check</item>
+        <item name="android:textAppearance">?textAppearanceSubtitle2</item>
     </style>
+
 
     <style name="MyStyle.Widgets.SnackBar" parent="Widget.MaterialComponents.Snackbar">
         <item name="backgroundTint">?colorSnackbarBackground</item>
         <item name="actionTextColorAlpha">1</item>
-        <!--        <item name="android:textAppearance">@style/MyStyle.TextAppearance.SnackbarTextViewStyle</item>-->
-
-
-        <!--        <item name="android:textColor">?colorSecondary</item>-->
-        <!--        <item name="textColor">?colorSecondary</item>-->
-
-        <!-- Text color has to be set with code in Snackbar.make()....
-             Currently done in com.example.marsrealestate.util.ExtensionsSnackbar.withColoredText()
-        -->
+        <!--The textAppearance of the Snackbar is defined by the attribute snackbarTextViewStyle,
+        it can't be defined here. This attribute is set in themes_base.xml -->
     </style>
-
-    <style name="MyStyle.Widgets.SnackBarButton" parent="Widget.MaterialComponents.Button.TextButton">
-    </style>
-
 
 
 
@@ -70,6 +60,7 @@
     <style name="MyStyle.Widgets.ExtendedFloatingActionButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="shapeAppearanceOverlay">@style/MyStyle.ShapeAppearance.ExtendedFloatingActionButton</item>
         <item name="rippleColor">?colorOnSecondary</item>
+        <item name="android:textAppearance">?textAppearanceButton</item>
     </style>
 
     <style name="MyStyle.Widgets.TextInputLayout.Basic" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -103,10 +94,6 @@
     </style>
 
 
-    <style name="MyStyle.Widgets.TextInput" parent="">
-        <item name="android:textAppearance">?textAppearanceHeadline7</item>
-        <item name="android:textStyle">normal</item>
-    </style>
 
 
     <style name="MyStyle.Widgets.Button" parent="Widget.MaterialComponents.Button">
@@ -115,6 +102,7 @@
         <item name="rippleColor">?colorControlHighlight</item>
         <item name="android:stateListAnimator">@null</item>
         <item name="android:elevation">4dp</item>
+        <item name="android:textAppearance">?textAppearanceButton</item>
     </style>
 
     <style name="MyStyle.Widgets.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
@@ -125,29 +113,29 @@
         <item name="strokeWidth">2dp</item>
         <item name="android:stateListAnimator">@null</item>
         <item name="android:elevation">4dp</item>
+        <item name="android:textAppearance">?textAppearanceButton</item>
     </style>
 
     <style name="MyStyle.Widgets.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
         <!--        <item name="android:stateListAnimator">@null</item>-->
         <item name="elevation">2dp</item>
         <item name="android:elevation">2dp</item>
-        <!--        <item name="strokeColor">?colorSecondary</item>-->
-        <!--        <item name="strokeWidth">1dp</item>-->
 
-        <!--        <item name="android:backgroundTint">?colorPrimary</item>-->
-        <!--        <item name="android:textColor">?colorOnPrimary</item>-->
         <item name="android:backgroundTint">?colorPrimary</item>
         <item name="android:textColor">?colorOnPrimary</item>
         <item name="rippleColor">?colorControlHighlightAlt</item>
+        <item name="android:textAppearance">?textAppearanceButton</item>
 
     </style>
 
     <style name="MyStyle.Widgets.Button.SnackbarButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:elevation">0dp</item>
         <item name="android:textColor">?colorSecondaryVariant</item>
         <item name="rippleColor">?colorControlHighlightAlt</item>
 
     </style>
+
 
 
     <!--    Currently unused because NavigationView is not customizable enough-->
@@ -165,90 +153,5 @@
     </style>
 
 
-    <style name="MyStyle.TextAppearance"/>
-
-    <style name="MyStyle.TextAppearance.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
-        <item name="android:textSize">44sp</item>
-        <item name="fontFamily">@font/raleway_medium</item>
-    </style>
-
-    <style name="MyStyle.TextAppearance.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
-        <item name="android:textSize">38sp</item>
-        <item name="fontFamily">@font/raleway_medium</item>
-    </style>
-
-    <style name="MyStyle.TextAppearance.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
-        <item name="android:textSize">32sp</item>
-        <item name="fontFamily">@font/raleway_medium</item>
-    </style>
-
-    <style name="MyStyle.TextAppearance.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
-        <item name="fontFamily">@font/raleway_medium</item>
-    </style>
-
-    <style name="MyStyle.TextAppearance.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:textSize">20sp</item>
-        <item name="fontFamily">@font/raleway_medium</item>
-    </style>
-
-    <style name="MyStyle.TextAppearance.Headline7" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="fontFamily">@font/raleway_medium</item>
-        <item name="android:textSize">18sp</item>
-    </style>
-
-    <style name="MyStyle.TextAppearance.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="fontFamily">@font/raleway_medium</item>
-        <item name="android:textSize">15sp</item>
-    </style>
-
-    <style name="MyStyle.TextAppearance.Caption" parent="TextAppearance.MaterialComponents.Caption">
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="MyStyle.TextAppearance.Body1" parent="TextAppearance.MaterialComponents.Body1">
-        <item name="fontFamily">@font/lato</item>
-    </style>
-
-
-
-
-    <style name="MyStyle.TextAppearance.Button" parent="TextAppearance.MaterialComponents.Button">
-        <item name="fontFamily">@font/raleway_bold</item>
-        <!--        <item name="android:textStyle">bold</item>-->
-    </style>
-
-
-
-    <style name="MyStyle.TextAppearance.ToolbarTitleDefault" >
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?colorSecondary</item>
-        <item name="fontFamily">@font/raleway_medium</item>
-    </style>
-
-    <style name="MyStyle.TextAppearance.NavigationViewItem" >
-        <item name="android:textSize">18sp</item>
-        <item name="fontFamily">@font/raleway_medium</item>
-    </style>
-
-    <style name="MyStyle.TextAppearance.SnackbarTextViewStyle" >
-        <item name="android:textColor">?colorOnSnackbarBackground</item>
-        <item name="android:textSize">20sp</item>
-        <item name="fontFamily">@font/raleway_medium</item>
-    </style>
-
-    <style name="MyStyle.TextAppearance.TitleOnPicture" parent="MyStyle.TextAppearance.Headline4">
-        <item name="android:textColor">?colorOnPicture</item>
-    </style>
-
-
-    <style name="MyStyle.TextAppearance.CollapsingToolbar.TitleExpanded" parent="MyStyle.TextAppearance.TitleOnPicture">
-        <item name="android:textSize">38sp</item>
-    </style>
-
-    <style name="MyStyle.TextAppearance.CollapsingToolbar.TitleCollapsed" parent="MyStyle.TextAppearance.TitleOnPicture">
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
 
 </resources>

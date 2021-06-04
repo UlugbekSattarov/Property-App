@@ -10,12 +10,10 @@ import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
-import com.example.marsrealestate.MainActivity
 import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.databinding.FragmentFavoritesBinding
-import com.example.marsrealestate.util.SharedElementTransition
+import com.example.marsrealestate.util.helpers.SharedElementTransitionHelper
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialFadeThrough
@@ -106,7 +104,7 @@ class FavoritesFragment : Fragment() {
             it.getContentIfNotHandled()?.let navigation@{ fav ->
                 val action = FavoritesFragmentDirections.actionFavoritesToDetail().apply { marsProperty = fav.property }
 
-                SharedElementTransition.navigate(this,fav.property,action)
+                SharedElementTransitionHelper.navigate(this,fav.property,action)
             }
         })
     }

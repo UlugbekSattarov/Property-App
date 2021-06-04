@@ -12,7 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.databinding.FragmentPaymentRecapBinding
-import com.example.marsrealestate.util.NotificationHelper
+import com.example.marsrealestate.util.helpers.NotificationHelper
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 
 class RecapPaymentFragment : Fragment() {

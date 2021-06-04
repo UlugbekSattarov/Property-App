@@ -1,15 +1,15 @@
 package com.example.marsrealestate
 
 import android.app.Application
-import com.example.marsrealestate.util.NotificationHelper
-import com.example.marsrealestate.util.PreferenceDarkMode
+import com.example.marsrealestate.util.helpers.NotificationHelper
+import com.example.marsrealestate.util.helpers.PreferencesHelper
 
 class MainApplication : Application() {
 
 
     override fun onCreate() {
         super.onCreate()
-        PreferenceDarkMode.setDarkModeFromPreferences(this)
+        PreferencesHelper.setDarkMode(this)
         NotificationHelper.createNotificationChannel(this)
     }
 

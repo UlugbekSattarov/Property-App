@@ -6,7 +6,6 @@
         android:id="@+id/transition_searchview_input_toVisible"
         app:constraintSetStart="@id/constraint_set_searchview_searchinput_invisible"
         app:constraintSetEnd="@id/constraint_set_searchview_searchinput_visible"
-        app:motionInterpolator="@android:interpolator/fast_out_slow_in"
 
         app:duration="@integer/anim_search_close_total_duration">
 

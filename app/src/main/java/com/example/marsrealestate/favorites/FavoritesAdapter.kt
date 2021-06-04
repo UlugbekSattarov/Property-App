@@ -1,11 +1,7 @@
 package com.example.marsrealestate.favorites
 
-import android.graphics.Outline
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.view.ViewOutlineProvider
-import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -13,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.marsrealestate.data.FavoriteProperty
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.LayoutItemFavoritesBinding
-import com.example.marsrealestate.util.SharedElementTransition
+import com.example.marsrealestate.util.helpers.SharedElementTransitionHelper
 
 class FavoritesAdapter(private val onClickListener: OnClickListener) :
         ListAdapter<FavoriteProperty,
@@ -25,7 +21,7 @@ class FavoritesAdapter(private val onClickListener: OnClickListener) :
 
         fun bind(favorite: FavoriteProperty) {
             val sharedElement = itemView
-            val transitionName = SharedElementTransition.getTransitionName(favorite.property)
+            val transitionName = SharedElementTransitionHelper.getTransitionName(favorite.property)
             ViewCompat.setTransitionName(sharedElement, transitionName)
 
             binding.favorite = favorite

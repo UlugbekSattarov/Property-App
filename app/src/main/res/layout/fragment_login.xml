@@ -6,7 +6,7 @@
     <data>
         <import type="com.example.marsrealestate.util.Result"/>
         <import type="android.text.Html" />
-        <import type="com.example.marsrealestate.login.BiometricHelper" />
+        <import type="com.example.marsrealestate.util.helpers.BiometricHelper" />
         <import type="android.view.View" />
 
         <variable
@@ -156,7 +156,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
 
-                                style="?textInputEditTextStyle"
+                                android:textAppearance="?textAppearanceHeadline7"
+
 
                                 android:inputType="textEmailAddress"
                                 android:text="@={viewModel.email}"
@@ -195,7 +196,7 @@
                                 android:layout_height="wrap_content"
                                 android:inputType="textPassword"
 
-                                style="?textInputEditTextStyle"
+                                android:textAppearance="?textAppearanceHeadline7"
 
                                 android:text="@={viewModel.password}"
                                 android:autofillHints="password"

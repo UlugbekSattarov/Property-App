@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -17,13 +18,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.get
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.FragmentDetailBinding
 import com.example.marsrealestate.login.LoginViewModel
 import com.example.marsrealestate.login.LoginViewModelFactory
-import com.example.marsrealestate.util.SharedElementTransition
+import com.example.marsrealestate.util.doOnEnd
+import com.example.marsrealestate.util.helpers.SharedElementTransitionHelper
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import kotlin.math.abs
 
@@ -69,7 +72,7 @@ class DetailFragment : Fragment() {
 
         loadToolbarImage()
 //        setupSharedElementTransition()
-        SharedElementTransition.setupReceiverFragment(this,args.marsProperty,viewDataBinding.root)
+        SharedElementTransitionHelper.setupReceiverFragment(this,args.marsProperty,viewDataBinding.root)
         lifecycleScope.launchWhenResumed { animateFab(); animateToolbarScrim() }
 
         return viewDataBinding.root
@@ -100,7 +103,7 @@ class DetailFragment : Fragment() {
             "not optimal for the user",
         replaceWith = ReplaceWith("loadToolbarImage(int)"))
     private fun loadSharedImageBeforeEnterTransition(sourceUrl : String,destination : ImageView) {
-        /* postponeEnterTransition()
+         postponeEnterTransition()
 
          val id = sourceUrl.toIntOrNull()
          if (id != null) {
@@ -114,7 +117,7 @@ class DetailFragment : Fragment() {
                  .dontTransform()
                  .doOnEnd { startPostponedEnterTransition() }
                  .into(destination)
-         }*/
+         }
     }
 
 

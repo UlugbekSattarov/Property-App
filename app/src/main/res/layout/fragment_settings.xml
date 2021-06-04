@@ -17,15 +17,17 @@
 
         />
 
-    <!--<com.example.marsrealestate.custom.SearchView
-        android:id="@+id/toolbar_searchview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="10dp"
 
-        app:hintText="@string/search_by_id"
-        app:titleText="@string/mars_properties"
-        />-->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/settings_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="0dp"
+        android:elevation="0dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="?colorBackground"
+
+        >
 
     <fragment
         android:layout_width="match_parent"
@@ -33,6 +35,8 @@
         android:name="com.example.marsrealestate.settings.SettingsFragment$PreferenceFragment"
 
         />
+
+    </com.google.android.material.card.MaterialCardView>
 
 
 
