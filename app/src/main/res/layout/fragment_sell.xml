@@ -64,7 +64,7 @@
                 android:paddingEnd="@dimen/margin_large"
                 android:clipToPadding="false"
 
-                tools:scrollY="250dp"
+                tools:scrollY="450dp"
 
 
                 >
@@ -268,17 +268,15 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintWidth_max="150dp"
                     android:layout_marginTop="@dimen/margin_very_large"
-                    app:layout_constraintEnd_toStartOf="@id/location_longitude_input"
+                    app:layout_constraintEnd_toStartOf="@id/location_latitude_orientation_input"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/location_label"
-                    app:layout_constraintHorizontal_chainStyle="packed"
 
-                    android:layout_marginEnd="@dimen/margin_very_large"
+                    android:layout_marginEnd="@dimen/margin_small"
 
                     style="@style/MyStyle.Widgets.TextInputLayout.Alternative"
                     android:hint="Latitude"
 
-                    app:suffixText="°"
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -288,32 +286,61 @@
 
                         android:inputType="numberDecimal"
                         android:textAppearance="?textAppearanceHeadline7"
-                        android:nextFocusDown="@id/location_longitude_input_value"
                         android:singleLine="true"
-
-                        app:textFloat="@={viewModel.latitude}"
+                        android:imeOptions="actionDone"
 
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+
+                <RadioGroup
+                    android:id="@+id/location_latitude_orientation_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintTop_toTopOf="@id/location_latitude_input"
+                    app:layout_constraintBottom_toBottomOf="@id/location_latitude_input"
+                    app:layout_constraintStart_toEndOf="@id/location_latitude_input"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:orientation="horizontal"
+
+                    >
+
+
+                    <RadioButton
+                        android:id="@+id/latitude_north"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="°N"
+                        android:textAppearance="?textAppearanceHeadline7"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        />
+                    <RadioButton
+                        android:id="@+id/latitude_south"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="°S"
+                        android:textAppearance="?textAppearanceHeadline7"
+                        />
+                </RadioGroup>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/location_longitude_input"
                     android:layout_width="0dp"
                     app:layout_constraintWidth_max="150dp"
-
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_very_large"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/location_latitude_input"
-                    app:layout_constraintTop_toBottomOf="@id/location_label"
 
-                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintTop_toBottomOf="@id/location_latitude_input"
+                    app:layout_constraintStart_toStartOf="@id/location_latitude_input"
+                    app:layout_constraintEnd_toEndOf="@id/location_latitude_input"
+
 
                     style="@style/MyStyle.Widgets.TextInputLayout.Alternative"
                     android:hint="Longitude"
 
-                    app:suffixText="°"
+
                     >
 
                    <!-- Here we put imeOptions="actionDone" because with "actionNext" there is a visual glitch on some phones
@@ -333,15 +360,27 @@
 
 
                         />
-
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <TextView
+                    android:id="@+id/pute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintStart_toEndOf="@id/location_longitude_input"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/location_longitude_input"
+                    app:layout_constraintBottom_toBottomOf="@id/location_longitude_input"
+                    android:textAppearance="?textAppearanceHeadline7"
+                    android:text="°E"
+
+                    />
 
                 <View
                     android:id="@+id/divider_four"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    app:layout_constraintTop_toBottomOf="@id/location_latitude_input"
+                    app:layout_constraintTop_toBottomOf="@id/location_longitude_input"
                     android:layout_marginTop="@dimen/margin_extra_large"
                     android:background="?android:listDivider"
 

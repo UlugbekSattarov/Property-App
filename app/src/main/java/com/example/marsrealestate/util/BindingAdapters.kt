@@ -59,7 +59,9 @@ fun RecyclerView.bindItemSpacing( spacing: Float?, columnNumber : Int?, endSpace
 fun ImageView.bindImageUrl(imgUrl: String?) {
     imgUrl?.let { url ->
         val resourceScheme = "resource://"
-        
+        val httpScheme = "http://"
+        val httpsScheme = "https://"
+
         if (url.startsWith(resourceScheme)) {
             val drawable = when (url.removePrefix(resourceScheme)) {
                 "landscape_1" -> R.drawable.mars_landscape_1
@@ -72,15 +74,16 @@ fun ImageView.bindImageUrl(imgUrl: String?) {
             }
             setImageDrawable(ResourcesCompat.getDrawable(resources, drawable, context.theme))
         }
-        else {
+        else if (url.startsWith(httpScheme) || url.startsWith(httpsScheme)){
             val imgUri = url.toUri().buildUpon().scheme("https").build()
             Glide.with(this)
                 .load(imgUri)
-
-
 //            .placeholder(R.drawable.ic_launcher_foreground)
 //            .error(R.drawable.ic_broken_image_black_24dp))
                 .into(this)
+        }
+        else {
+            setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_launcher_foreground, context.theme))
         }
     }
 

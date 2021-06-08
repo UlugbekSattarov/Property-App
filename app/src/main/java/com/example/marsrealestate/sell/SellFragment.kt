@@ -1,6 +1,5 @@
 package com.example.marsrealestate.sell
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
@@ -20,10 +20,10 @@ import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.FragmentSellBinding
-import com.example.marsrealestate.util.resolveColor
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.math.abs
 
 class SellFragment : Fragment() {
 
@@ -54,6 +54,9 @@ class SellFragment : Fragment() {
 
         setupScrollAfterAreaInput()
         setupPropertyTypeAdapter()
+        bindLatitudeWithViewModel()
+        //TODO temporary, must use real uri
+        viewModel.imgSrcUrl.value = "resource://landscape_3"
 
         return viewDataBinding.root
     }
@@ -91,6 +94,38 @@ class SellFragment : Fragment() {
         }
     }
 
+    private fun getLatitude() : Float {
+        val latitude = viewDataBinding.locationLatitudeInputValue.text.toString().toFloatOrNull() ?: 0f
+        val orientation = if (viewDataBinding.latitudeNorth.isChecked) 1 else -1
+
+        return latitude * orientation
+    }
+
+    private fun bindLatitudeWithViewModel() {
+
+        viewDataBinding.locationLatitudeInputValue.addTextChangedListener {
+            viewModel.latitude.value = getLatitude()
+        }
+
+        viewDataBinding.locationLatitudeOrientationInput.setOnCheckedChangeListener { _, _ ->
+            viewModel.latitude.value = getLatitude()
+        }
+
+        viewModel.latitude.observe(viewLifecycleOwner) { latitude ->
+            val oldLatitude = getLatitude()
+
+            if (oldLatitude == latitude)
+                return@observe
+
+            viewDataBinding.locationLatitudeInputValue.setText(latitude.toString())
+
+            if (latitude > 0)
+                viewDataBinding.latitudeNorth.isChecked = true
+            else if (latitude < 0)
+                viewDataBinding.latitudeSouth.isChecked = true
+        }
+
+    }
 
 
 
@@ -98,9 +133,9 @@ class SellFragment : Fragment() {
 
 
 @BindingAdapter("propertyType")
-fun AutoCompleteTextView.setPropertyType(oldValue: String?, newValue: String?) {
-    if (newValue != null && newValue != oldValue) {
-        val toDisplay = when (newValue) {
+fun AutoCompleteTextView.setPropertyType(oldType: String?, newType: String?) {
+    if (newType != null && newType != oldType) {
+        val toDisplay = when (newType) {
             MarsProperty.TYPE_BUY -> R.string.buy
             MarsProperty.TYPE_RENT -> R.string.rent
             else -> R.string.error
