@@ -1,5 +1,7 @@
 package com.example.marsrealestate.sell
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,8 @@ import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
@@ -23,11 +27,12 @@ import com.example.marsrealestate.databinding.FragmentSellBinding
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.math.abs
 
 class SellFragment : Fragment() {
 
-
+    companion object {
+        const val MIME_TYPE_IMAGE_ALL = "image/*"
+    }
 
     private val viewModel : SellViewModel by viewModels {
         SellViewModelFactory(ServiceLocator.getMarsRepository(requireContext()))
@@ -35,11 +40,19 @@ class SellFragment : Fragment() {
 
     private lateinit var viewDataBinding : FragmentSellBinding
 
+    private lateinit var openDocumentLauncher : ActivityResultLauncher<Array<String>>
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 //        enterTransition = MaterialFadeThrough()
-//    }
+
+        registerOnExternalImageReceived()
+
+    }
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +61,7 @@ class SellFragment : Fragment() {
         viewDataBinding =  FragmentSellBinding.inflate(inflater)
         viewDataBinding.lifecycleOwner = viewLifecycleOwner
         viewDataBinding.viewModel = viewModel
+        viewDataBinding.fragment = this
 
         requireActivity().setupToolbarIfDrawerLayoutPresent(this,viewDataBinding.toolbar)
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
@@ -55,8 +69,6 @@ class SellFragment : Fragment() {
         setupScrollAfterAreaInput()
         setupPropertyTypeAdapter()
         bindLatitudeWithViewModel()
-        //TODO temporary, must use real uri
-        viewModel.imgSrcUrl.value = "resource://landscape_3"
 
         return viewDataBinding.root
     }
@@ -71,6 +83,26 @@ class SellFragment : Fragment() {
         val adapterType = ArrayAdapter(requireContext(),R.layout.view_sorting_option_item,types)
         viewDataBinding.sellOrRentInputValue.setAdapter(adapterType)
     }
+
+
+
+    fun registerOnExternalImageReceived() {
+        openDocumentLauncher = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
+            uri?.let {
+                viewModel.imgSrcUrl.value = uri.toString()
+                //This is very important to access the same file after an app restart, if it is not done
+                //the app will crash
+                requireActivity().contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+        }
+    }
+
+
+    fun askForExternalImage() =
+        openDocumentLauncher.launch(arrayOf(MIME_TYPE_IMAGE_ALL))
+
+
+
 
     /**
      * Scroll to the Button putOnSale after the surface are has been given by the user.
@@ -93,6 +125,7 @@ class SellFragment : Fragment() {
                 .smoothScrollTo(0, destination.y.toInt(), 1000)
         }
     }
+
 
     private fun getLatitude() : Float {
         val latitude = viewDataBinding.locationLatitudeInputValue.text.toString().toFloatOrNull() ?: 0f
@@ -126,8 +159,6 @@ class SellFragment : Fragment() {
         }
 
     }
-
-
 
 }
 

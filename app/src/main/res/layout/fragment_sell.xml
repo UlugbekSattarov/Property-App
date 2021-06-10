@@ -9,6 +9,9 @@
         <variable
             name="viewModel"
             type="com.example.marsrealestate.sell.SellViewModel" />
+        <variable
+            name="fragment"
+            type="com.example.marsrealestate.sell.SellFragment" />
 
     </data>
 
@@ -216,13 +219,13 @@
                     style="@style/MyStyle.Widgets.FloatingActionButton.Alternative"
 
                     app:srcCompat="@drawable/ic_add_a_photo_24"
+                    android:onClick="@{ () -> fragment.askForExternalImage() }"
 
                     />
 
-                <include
 
-                    android:id="@+id/photo_value"
-                    layout="@layout/view_mini_cardview"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/photo_input"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintWidth_min="200dp"
@@ -233,8 +236,34 @@
                     app:layout_constraintTop_toBottomOf="@id/photo_button"
 
                     android:layout_marginTop="@dimen/margin_large"
+                    app:cardElevation="2dp"
+                    app:cardCornerRadius="20dp"
+                    >
 
-                    />
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:scaleType="centerCrop"
+                        app:imageUrl="@{viewModel.imgSrcUrl}"
+
+                        app:srcCompat="@drawable/ic_landscape_black_24dp"
+                        android:scaleX="0.7"
+                        android:scaleY="0.7"
+                        />
+
+                    <ImageView
+                        android:id="@+id/photo_input_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:scaleType="centerCrop"
+                        app:imageUrl="@{viewModel.imgSrcUrl}"
+
+
+                        />
+
+                </com.google.android.material.card.MaterialCardView>
 
                 <View
                     android:id="@+id/divider_three"
@@ -242,7 +271,7 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="50dp"
                     android:background="?android:listDivider"
-                    app:layout_constraintTop_toBottomOf="@id/photo_value"
+                    app:layout_constraintTop_toBottomOf="@id/photo_input"
                     />
 
                 <TextView
@@ -315,6 +344,7 @@
                         android:text="°N"
                         android:textAppearance="?textAppearanceHeadline7"
                         android:layout_marginEnd="@dimen/margin_small"
+                        android:checked="true"
                         />
                     <RadioButton
                         android:id="@+id/latitude_south"
@@ -435,6 +465,23 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/button_put_on_sale"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginBottom="@dimen/margin_small"
+
+                    android:textAppearance="?textAppearanceHeadline7"
+                    android:textColor="?colorError"
+                    android:text="An error occured"
+                    android:textAlignment="center"
+
+                    app:fadeInIf="@{viewModel.status.isError}"
+
+                    />
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_put_on_sale"
                     android:layout_width="0dp"
@@ -451,6 +498,22 @@
                     android:text="Put on sale"
 
                     android:onClick="@{ () -> viewModel.putPropertyToSale()}"
+                    app:fadeOutIf="@{viewModel.status.isLoading}"
+
+                    />
+
+                <ProgressBar
+                    android:id="@+id/progress"
+                    style="@style/Widget.AppCompat.ProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/button_put_on_sale"
+                    app:layout_constraintEnd_toEndOf="@id/button_put_on_sale"
+                    app:layout_constraintStart_toStartOf="@id/button_put_on_sale"
+                    app:layout_constraintTop_toTopOf="@id/button_put_on_sale"
+
+                    app:fadeInIf="@{viewModel.status.isLoading }"
+
 
                     />
                 <View

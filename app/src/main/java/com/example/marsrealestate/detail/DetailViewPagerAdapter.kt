@@ -15,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.marsrealestate.R
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.ViewMiniCardviewBinding
+import com.example.marsrealestate.util.setImageUrl
 import kotlin.math.abs
 import kotlin.math.max
 /**
@@ -26,9 +27,7 @@ class DetailViewPagerAdapter(private val property : MarsProperty) : RecyclerView
     class DetailViewPagerViewHolder(private val v : ViewMiniCardviewBinding) : RecyclerView.ViewHolder(v.root) {
 
         fun bind(marsProperty: MarsProperty) {
-            marsProperty.imgSrcUrl.toIntOrNull()?.let { id ->
-                v.miniImg.setImageDrawable(ResourcesCompat.getDrawable(v.root.resources, id, v.root.context.theme))
-            }
+            v.miniImg.setImageUrl(marsProperty.imgSrcUrl)
         }
     }
 

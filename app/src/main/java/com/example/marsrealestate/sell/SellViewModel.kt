@@ -16,16 +16,16 @@ import java.lang.Exception
 
 class SellViewModel(private val repository: MarsRepository) : ViewModel() {
 
-    private val _status = MutableLiveData<Result<Nothing>>()
+    private val _status = MutableLiveData<Result<Nothing>>(Result.Success())
     val status: LiveData<Result<Nothing>> = _status
 
 
-    val type : MutableLiveData<String> = MutableLiveData()
+    val type : MutableLiveData<String> = MutableLiveData(MarsProperty.TYPE_RENT)
     val imgSrcUrl : MutableLiveData<String> = MutableLiveData()
-    val price : MutableLiveData<Int> = MutableLiveData()
-    val latitude : MutableLiveData<Float> = MutableLiveData()
-    val longitude : MutableLiveData<Float> = MutableLiveData()
-    val area : MutableLiveData<Float> = MutableLiveData()
+    val price : MutableLiveData<Int> = MutableLiveData(0)
+    val latitude : MutableLiveData<Float> = MutableLiveData(0f)
+    val longitude : MutableLiveData<Float> = MutableLiveData(0f)
+    val area : MutableLiveData<Float> = MutableLiveData(0f)
 
     val isRental = type.map { it == MarsProperty.TYPE_RENT }
 
@@ -38,7 +38,7 @@ class SellViewModel(private val repository: MarsRepository) : ViewModel() {
 
     @StringRes
     private fun priceValidator(price : Int) : Int {
-        if (price < 0) return R.string.need_positive_value
+        if (price <= 0) return R.string.need_positive_value
         if (price > 100_000_000) return R.string.price_too_high
         return FormValidation.NO_ERROR
     }
@@ -81,6 +81,7 @@ class SellViewModel(private val repository: MarsRepository) : ViewModel() {
                 )
 
                 repository.addProperty(newProperty)
+                repository.saveToFavorite(newProperty)
                 _status.postValue(Result.Success())
 
             } catch (e: Exception) {

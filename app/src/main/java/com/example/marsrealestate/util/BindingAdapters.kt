@@ -56,11 +56,13 @@ fun RecyclerView.bindItemSpacing( spacing: Float?, columnNumber : Int?, endSpace
  * Uses the Glide library to load an image by URL into an [ImageView]
  */
 @BindingAdapter("imageUrl")
-fun ImageView.bindImageUrl(imgUrl: String?) {
+fun ImageView.setImageUrl(imgUrl: String?) {
     imgUrl?.let { url ->
         val resourceScheme = "resource://"
         val httpScheme = "http://"
         val httpsScheme = "https://"
+        val contentScheme = "content://"
+        val defaultDrawable = R.drawable.ic_launcher_foreground
 
         if (url.startsWith(resourceScheme)) {
             val drawable = when (url.removePrefix(resourceScheme)) {
@@ -70,10 +72,11 @@ fun ImageView.bindImageUrl(imgUrl: String?) {
                 "landscape_4" -> R.drawable.mars_landscape_4
                 "landscape_5" -> R.drawable.mars_landscape_5
                 "landscape_6" -> R.drawable.mars_landscape_6
-                else -> R.drawable.ic_launcher_foreground
+                else -> defaultDrawable
             }
             setImageDrawable(ResourcesCompat.getDrawable(resources, drawable, context.theme))
         }
+
         else if (url.startsWith(httpScheme) || url.startsWith(httpsScheme)){
             val imgUri = url.toUri().buildUpon().scheme("https").build()
             Glide.with(this)
@@ -82,8 +85,17 @@ fun ImageView.bindImageUrl(imgUrl: String?) {
 //            .error(R.drawable.ic_broken_image_black_24dp))
                 .into(this)
         }
+
+        else if (url.startsWith(contentScheme)) {
+            try {
+                setImageURI(url.toUri())
+            } catch (e: Exception) {
+                setImageDrawable(ResourcesCompat.getDrawable(resources, defaultDrawable, context.theme))
+            }
+        }
+
         else {
-            setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_launcher_foreground, context.theme))
+            setImageDrawable(ResourcesCompat.getDrawable(resources, defaultDrawable, context.theme))
         }
     }
 

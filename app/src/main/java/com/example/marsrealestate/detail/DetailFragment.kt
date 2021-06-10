@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -25,6 +24,7 @@ import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.FragmentDetailBinding
 import com.example.marsrealestate.login.LoginViewModel
 import com.example.marsrealestate.login.LoginViewModelFactory
+import com.example.marsrealestate.util.setImageUrl
 import com.example.marsrealestate.util.doOnEnd
 import com.example.marsrealestate.util.helpers.SharedElementTransitionHelper
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
@@ -84,16 +84,14 @@ class DetailFragment : Fragment() {
      * wait for the [viewModel] to emit a property and then set the image
      */
     private fun loadToolbarImage() {
-
-        val drawableId = args.marsProperty?.imgSrcUrl?.toIntOrNull()
         val toolbar = viewDataBinding.imageToolbar
+        val imageUrl = args.marsProperty?.imgSrcUrl
 
-        if (drawableId != null) {
-            toolbar.setImageDrawable(ResourcesCompat.getDrawable(resources, drawableId, toolbar.context.theme))
-        }
+        if (imageUrl != null)
+            toolbar.setImageUrl(imageUrl)
         else {
-            viewModel.property.observe(viewLifecycleOwner, {
-                toolbar.setImageDrawable(ResourcesCompat.getDrawable(resources, it.imgSrcUrl.toIntOrNull() ?: R.drawable.mars_landscape_1, toolbar.context.theme))
+            viewModel.property.observe(viewLifecycleOwner, { prop ->
+                toolbar.setImageUrl(prop?.imgSrcUrl)
             })
         }
     }
@@ -103,21 +101,21 @@ class DetailFragment : Fragment() {
             "not optimal for the user",
         replaceWith = ReplaceWith("loadToolbarImage(int)"))
     private fun loadSharedImageBeforeEnterTransition(sourceUrl : String,destination : ImageView) {
-         postponeEnterTransition()
+        postponeEnterTransition()
 
-         val id = sourceUrl.toIntOrNull()
-         if (id != null) {
-             loadToolbarImage()
-             startPostponedEnterTransition()
-         }
-         else {
-             val imgUri = sourceUrl.toUri().buildUpon().scheme("https").build()
-             Glide.with(destination)
-                 .load(imgUri)
-                 .dontTransform()
-                 .doOnEnd { startPostponedEnterTransition() }
-                 .into(destination)
-         }
+        val id = sourceUrl.toIntOrNull()
+        if (id != null) {
+            loadToolbarImage()
+            startPostponedEnterTransition()
+        }
+        else {
+            val imgUri = sourceUrl.toUri().buildUpon().scheme("https").build()
+            Glide.with(destination)
+                .load(imgUri)
+                .dontTransform()
+                .doOnEnd { startPostponedEnterTransition() }
+                .into(destination)
+        }
     }
 
 
