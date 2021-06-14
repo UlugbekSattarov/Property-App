@@ -12,6 +12,8 @@
         android:layout_height="match_parent"
         tools:openDrawer="start"
 
+        app:marginLeftPlusInsets="@{0f}"
+        app:marginRightPlusInsets="@{0f}"
 
         app:forceDispatchInsetsToChildren="@{true}"
 
@@ -62,23 +64,33 @@
             android:id="@+id/navigation_view"
             android:layout_width="280dp"
             android:layout_height="match_parent"
-            app:marginBottomPlusInsets="@{0f}"
+            android:layout_gravity="start"
+            android:paddingEnd="@dimen/margin_small"
+            android:paddingStart="0dp"
+
             app:marginLeftPlusInsets="@{0f}"
             app:marginRightPlusInsets="@{0f}"
             app:marginTopPlusInsets="@{0f}"
-            android:layout_gravity="start"
+            app:marginBottomPlusInsets="@{0f}"
+
 
 
             style="?navigationViewStyle"
-            app:shapeAppearanceOverlayNavigationViewUseDefault="@{ true }"
+
+            app:shapeAppearanceOverlay="@style/MyStyle.ShapeAppearance.NavigationView"
+            app:shapeAppearance="@style/MyStyle.ShapeAppearance.NavigationView"
+
+            android:background="?colorBackground"
+
 
             >
 
             <androidx.fragment.app.FragmentContainerView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/bla"
                 android:name="com.example.marsrealestate.navigation.NavigationFragment"
+                tools:layout="@layout/fragment_navigation"
 
                 />
 

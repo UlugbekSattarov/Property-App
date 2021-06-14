@@ -178,6 +178,7 @@
             android:visibility="@{ ! viewModel.statePropertyFetched.isSuccess ? View.VISIBLE : View.GONE}"
 
             tools:visibility="gone"
+
             >
             
             <TextView
@@ -227,6 +228,7 @@
 
             android:scrollbars="none"
             android:background="?colorBackground"
+
             >
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -234,7 +236,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="30dp"
-
                 >
 
 
@@ -522,7 +523,7 @@
                     app:layout_constraintTop_toBottomOf="@id/share_text"
                     app:layout_constraintStart_toStartOf="@id/share_text"
                     app:layout_constraintEnd_toEndOf="@id/share_text"
-
+                    android:layout_marginTop="@dimen/margin_small"
 
                     app:chipStrokeColor="?android:listDivider"
                     app:chipStrokeWidth="1.5dp"

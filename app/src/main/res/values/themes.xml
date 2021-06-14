@@ -23,7 +23,7 @@
 
         <!--        This is for the MaterialCardView background-->
         <item name="colorSurface">?colorBackground</item>
-        <item name="colorOnSurface">@color/grayDark</item>
+        <item name="colorOnSurface">@color/gray</item>
 
         <item name="colorOnPicture">@color/white</item>
 
@@ -50,7 +50,7 @@
         <item name="colorChipBackground">@color/grayLighterer</item>
         <item name="colorChipText">@color/grayDark</item>
 
-
+        <item name="fabBackgroundColorAlt">?colorBackground</item>
     </style>
 
 

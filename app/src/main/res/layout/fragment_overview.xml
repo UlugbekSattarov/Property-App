@@ -18,8 +18,7 @@
         android:layout_height="match_parent"
         tools:context="com.example.marsrealestate.MainActivity"
 
-        app:marginLeftPlusInsets="@{0f}"
-        app:marginRightPlusInsets="@{0f}"
+
         >
 
         <com.google.android.material.appbar.AppBarLayout
@@ -81,7 +80,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/sort_by"
                         android:scrollbars="none"
-                        android:layout_marginEnd="@dimen/margin_very_small"
+                        android:layout_marginEnd="@dimen/margin_small"
                         >
                         <com.google.android.material.chip.ChipGroup
                             android:id="@+id/chip_group"
@@ -143,7 +142,7 @@
                         android:layout_marginEnd="@dimen/margin_very_small"
                         android:hint="Sort by"
 
-                        app:boxStrokeWidth="0dp">
+                        >
 
                         <AutoCompleteTextView
                             android:id="@+id/sorting_option"

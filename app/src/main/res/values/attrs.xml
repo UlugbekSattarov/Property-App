@@ -3,7 +3,7 @@
     <attr name="colorBackground" format="color"/>
     <attr name="colorSuccess" format="color"/>
     <attr name="colorOnPicture" format="color"/>
-    <attr name="textColorHeadline" format="color"/>
+
 
 
     <attr name="colorSnackbarBackground" format="color"/>
@@ -28,6 +28,7 @@
 
     <attr name="defaultSearchViewStyle" format="reference" />
 
+    <attr name="fabBackgroundColorAlt" format="reference" />
 
 
     <attr name="textSizeHeadline1" format="dimension" />

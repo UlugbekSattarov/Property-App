@@ -15,10 +15,10 @@ import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.FragmentOverviewBinding
 import com.example.marsrealestate.util.helpers.NotificationHelper
 import com.example.marsrealestate.util.helpers.SharedElementTransitionHelper
+import com.example.marsrealestate.util.setupMaterialFadeThrough
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.transition.MaterialFadeThrough
 
 class OverviewFragment : Fragment() {
 
@@ -36,9 +36,6 @@ class OverviewFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        enterTransition = MaterialFadeThrough()
-//        exitTransition = MaterialFadeThrough()
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +49,7 @@ class OverviewFragment : Fragment() {
 
 
         (requireActivity() as? AppCompatActivity)?.setSupportActionBar(viewDataBinding.toolbar)
+        setupMaterialFadeThrough(viewDataBinding.root)
         requireActivity().setupToolbarIfDrawerLayoutPresent(this, viewDataBinding.toolbar)
 
         setupRecyclerView()

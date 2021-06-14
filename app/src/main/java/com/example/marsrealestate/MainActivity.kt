@@ -1,8 +1,8 @@
 package com.example.marsrealestate
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -20,11 +20,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         PreferencesHelper.setFontSize(this)
-
-
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-
         navController = Navigation.findNavController(viewBinding.root.findViewById(R.id.nav_host_fragment))
         viewBinding.navigationView.setupWithNavController(navController)
 

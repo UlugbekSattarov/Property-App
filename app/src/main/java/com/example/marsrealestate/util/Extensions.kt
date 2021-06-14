@@ -24,6 +24,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.marsrealestate.R
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.MaterialFadeThrough
 
 @Deprecated("Use setupToolbarIfDrawerLayoutPresent instead")
 fun Activity.setupToolbarIfDrawerLayoutPresentOld(fragment : Fragment, toolbar: Toolbar ) {
@@ -187,6 +188,12 @@ fun View.showSoftInput() {
     (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
         .showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 }
+
+fun Fragment.setupMaterialFadeThrough(root : View) {
+    enterTransition = MaterialFadeThrough().addTarget(root)
+    exitTransition = MaterialFadeThrough().addTarget(root)
+}
+
 
 fun Transition.doOnEnd(block : () -> Unit) : Transition {
     addListener(object : Transition.TransitionListener {

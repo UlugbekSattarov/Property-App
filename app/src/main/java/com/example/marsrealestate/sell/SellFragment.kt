@@ -24,6 +24,7 @@ import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.FragmentSellBinding
+import com.example.marsrealestate.util.setupMaterialFadeThrough
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -45,7 +46,7 @@ class SellFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        enterTransition = MaterialFadeThrough()
+
 
         registerOnExternalImageReceived()
 
@@ -63,6 +64,7 @@ class SellFragment : Fragment() {
         viewDataBinding.viewModel = viewModel
         viewDataBinding.fragment = this
 
+        setupMaterialFadeThrough(viewDataBinding.root)
         requireActivity().setupToolbarIfDrawerLayoutPresent(this,viewDataBinding.toolbar)
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 

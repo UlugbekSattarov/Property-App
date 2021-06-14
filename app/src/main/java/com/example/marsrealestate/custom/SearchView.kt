@@ -13,7 +13,7 @@ import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import androidx.databinding.adapters.TextViewBindingAdapter
 import com.example.marsrealestate.R
-import com.example.marsrealestate.databinding.LayoutSearchviewBinding
+import com.example.marsrealestate.databinding.LayoutSearchViewBinding
 import com.example.marsrealestate.util.hideSoftInput
 import com.example.marsrealestate.util.resolveColor
 import com.example.marsrealestate.util.showSoftInput
@@ -32,7 +32,7 @@ class SearchView @JvmOverloads constructor(
     }
 
 
-    private val viewBinding: LayoutSearchviewBinding by lazy { LayoutSearchviewBinding.inflate(LayoutInflater.from(context),this,true) }
+    private val viewBinding: LayoutSearchViewBinding by lazy { LayoutSearchViewBinding.inflate(LayoutInflater.from(context),this,true) }
 
 
     private var isSearchInputVisible = false

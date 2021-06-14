@@ -50,8 +50,10 @@
         <item name="android:listDivider">@color/grayLighter</item>
 
 
-        <item name="colorChipBackground">@color/grayLight</item>
+        <item name="colorChipBackground">@color/gray2</item>
         <item name="colorChipText">@color/white</item>
+
+        <item name="fabBackgroundColorAlt">@color/gray</item>
     </style>
 
 

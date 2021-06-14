@@ -1,6 +1,8 @@
 package com.example.marsrealestate.util
 
 import android.graphics.drawable.AnimatedVectorDrawable
+import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewPropertyAnimator
@@ -16,6 +18,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -195,15 +198,21 @@ fun View.requestApplyInsetsWhenAttached() {
     "marginBottomPlusInsets",
     "forceDispatchInsetsToChildren",
     requireAll = false)
-fun View.setMarginsPlusInsets(marginLeft : Float?,
-                              marginTop : Float?,
-                              marginRight : Float?,
-                              marginBottom : Float?,
-                              forceDispatchInsetsToChildren : Boolean?) {
+fun View.setMarginsPlusInsets(marginLeft : Float? = null,
+                              marginTop : Float? = null,
+                              marginRight : Float? = null,
+                              marginBottom : Float? = null,
+                              forceDispatchInsetsToChildren : Boolean? = null) {
 
     setOnApplyWindowInsetsListener { view, insets ->
         val newParams = view.layoutParams as? ViewGroup.MarginLayoutParams
+
         newParams?.let { np ->
+
+
+
+
+
 
             if (marginLeft != null)
                 np.leftMargin = marginLeft.toInt() + insets.systemWindowInsetLeft
@@ -216,6 +225,9 @@ fun View.setMarginsPlusInsets(marginLeft : Float?,
 
             if (marginBottom != null)
                 np.bottomMargin = marginBottom.toInt() + insets.systemWindowInsetBottom
+
+            if (view is NavigationView)
+                np.leftMargin = 500
 
             view.layoutParams = np
         }
@@ -231,29 +243,6 @@ fun View.setMarginsPlusInsets(marginLeft : Float?,
 //    requestApplyInsetsWhenAttached()
 }
 
-
-
-
-/**
- * Set the background bli of a [NavigationView] with the value [R.style.MyStyle_ShapeAppearance_NavigationView]
- * We cannot pass a style to a binding adapter, so this is the only way to do it with DataBinding
- */
-@BindingAdapter("shapeAppearanceOverlayNavigationViewUseDefault")
-fun NavigationView.setShapeAppearanceOverlayNavigationViewUseDefault( setShape : Boolean) {
-    if (setShape) {
-        val shape = ShapeAppearanceModel.builder(
-            context,
-            0,
-            R.style.MyStyle_ShapeAppearance_NavigationView
-        ).build()
-
-
-        (background as? MaterialShapeDrawable)?.apply {
-//            fillColor = ColorStateList.valueOf(context.resolveColor(R.attr.backgroundColor))
-            shapeAppearanceModel = shape
-        }
-    }
-}
 
 
 

@@ -55,14 +55,7 @@ class RecapPaymentFragment : Fragment() {
 
         viewModel.navigateToHome.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let {
-                val opt = NavOptions.Builder()
-//                    .setExitAnim(android.R.anim.fade_out)
-//                    .setPopExitAnim(android.R.anim.fade_out)
-//                    .setEnterAnim(android.R.anim.fade_in)
-//                    .setPopEnterAnim(android.R.anim.fade_in)
-//                    .setPopUpTo(R.id.dest_blank,
-//                        false)
-                    .build()
+                val opt = NavOptions.Builder().build()
 
                 findNavController().apply {
                     popBackStack(R.id.nav_graph_main, false)

@@ -64,25 +64,25 @@
     </style>
 
     <style name="MyStyle.Widgets.TextInputLayout.Basic" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/control_activable</item>
-        <item name="startIconTint">@color/control_activable</item>
-        <item name="endIconTint">@color/control_activable</item>
-        <item name="hintTextColor">@color/control_activable</item>
+        <item name="boxStrokeColor">@color/control_textinput_activable</item>
+        <item name="startIconTint">@color/control_textinput_activable</item>
+        <item name="endIconTint">@color/control_textinput_activable</item>
+        <item name="hintTextColor">@color/control_textinput_activable</item>
     </style>
 
     <style name="MyStyle.Widgets.TextInputLayout.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-        <item name="boxStrokeColor">@color/control_activable</item>
-        <item name="startIconTint">@color/control_activable</item>
-        <item name="endIconTint">@color/control_activable</item>
-        <item name="hintTextColor">@color/control_activable</item>
+        <item name="boxStrokeColor">@color/control_textinput_activable</item>
+        <item name="startIconTint">@color/control_textinput_activable</item>
+        <item name="endIconTint">@color/control_textinput_activable</item>
+        <item name="hintTextColor">@color/control_textinput_activable</item>
     </style>
 
     <style name="MyStyle.Widgets.TextInputLayout.Alternative" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
-        <item name="boxStrokeColor">@color/control_activable</item>
-        <item name="startIconTint">@color/control_activable</item>
-        <item name="endIconTint">@color/control_activable</item>
-        <item name="hintTextColor">@color/control_activable</item>
-        <item name="boxBackgroundColor">#aeeaeaea</item>
+        <item name="boxStrokeColor">@color/control_textinput_activable</item>
+        <item name="startIconTint">@color/control_textinput_activable</item>
+        <item name="endIconTint">@color/control_textinput_activable</item>
+        <item name="hintTextColor">@color/control_textinput_activable</item>
+<!--        <item name="boxBackgroundColor">?colorPrimaryVariant</item>-->
     </style>
 
     <style name="MyStyle.Widgets.TextInputLayout.Alternative.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
@@ -90,7 +90,6 @@
         <item name="startIconTint">@color/control_activable</item>
         <item name="endIconTint">@color/control_activable</item>
         <item name="hintTextColor">@color/control_activable</item>
-        <item name="boxBackgroundColor">#aeeaeaea</item>
     </style>
 
 

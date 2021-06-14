@@ -90,7 +90,7 @@ fun AutoCompleteTextView.setMarsApiSortingListeners(
     attrChange: InverseBindingListener
 ) {
     onItemClickListener =
-        AdapterView.OnItemClickListener { p0, p1, p2, p3 ->
+        AdapterView.OnItemClickListener { _, _, _, _ ->
 //            setText(p0.adapter.getItem(p2).toString())
 
             attrChange.onChange()

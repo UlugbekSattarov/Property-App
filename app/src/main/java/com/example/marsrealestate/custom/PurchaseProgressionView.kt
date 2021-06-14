@@ -14,7 +14,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.example.marsrealestate.R
-import com.example.marsrealestate.databinding.LayoutPurchaseProgressionBinding
+import com.example.marsrealestate.databinding.LayoutPurchaseProgressionViewBinding
 import com.example.marsrealestate.util.resolveColor
 
 
@@ -26,8 +26,8 @@ class PurchaseProgressionView @JvmOverloads constructor(
         const val MAX_STEP = 2
     }
 
-    private var viewBinding: LayoutPurchaseProgressionBinding =
-        LayoutPurchaseProgressionBinding.inflate(LayoutInflater.from(context),this,true)
+    private var viewBinding: LayoutPurchaseProgressionViewBinding =
+        LayoutPurchaseProgressionViewBinding.inflate(LayoutInflater.from(context),this,true)
 
     private val circles = arrayOf(
         viewBinding.purchaseProgressionCircle1,

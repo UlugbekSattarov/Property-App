@@ -17,8 +17,9 @@ import androidx.annotation.ColorInt
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.databinding.BindingAdapter
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.example.marsrealestate.R
-import com.example.marsrealestate.databinding.LayoutNavigationMenuBinding
+import com.example.marsrealestate.databinding.LayoutNavigationItemViewBinding
 import com.example.marsrealestate.util.resolveColor
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.shape.ShapeAppearanceModel
@@ -29,8 +30,8 @@ class NavigationItemView @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
 
-    private var viewBinding: LayoutNavigationMenuBinding =
-        LayoutNavigationMenuBinding.inflate(LayoutInflater.from(context),this,true)
+    private var viewBinding: LayoutNavigationItemViewBinding =
+        LayoutNavigationItemViewBinding.inflate(LayoutInflater.from(context),this,true)
 
     var title : String
         get() = viewBinding.title.text.toString()
@@ -87,7 +88,9 @@ class NavigationItemView @JvmOverloads constructor(
             else
                 defaultColorInactive
 
-    private val _iconColor = _textColor
+    private val _iconColor : Int
+        @ColorInt
+        get() = _textColor
 
 
     private val _backgroundTint : Int
@@ -166,8 +169,9 @@ class NavigationItemView @JvmOverloads constructor(
         (viewBinding.root as MaterialCardView).setCardBackgroundColor(_backgroundTint)
 
 
-        if (viewBinding.startIcon.drawable is VectorDrawable)
+        if (startIcon is VectorDrawable || startIcon is VectorDrawableCompat)
             viewBinding.startIcon.drawable.setTint(_iconColor)
+
     }
 
 }
