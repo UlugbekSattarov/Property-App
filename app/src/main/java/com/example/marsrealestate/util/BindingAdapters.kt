@@ -1,5 +1,6 @@
 package com.example.marsrealestate.util
 
+import android.graphics.BitmapFactory
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.util.Log
 import android.view.Gravity
@@ -9,6 +10,7 @@ import android.view.ViewPropertyAnimator
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.net.toFile
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -91,7 +93,8 @@ fun ImageView.setImageUrl(imgUrl: String?) {
 
         else if (url.startsWith(contentScheme)) {
             try {
-                setImageURI(url.toUri())
+                Glide.with(this).load(url.toUri()).override(1280,720).into(this)
+//                setImageURI(url.toUri())
             } catch (e: Exception) {
                 setImageDrawable(ResourcesCompat.getDrawable(resources, defaultDrawable, context.theme))
             }

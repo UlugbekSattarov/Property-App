@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="AppThemeBase" parent="Theme.MaterialComponents.Light.NoActionBar">
 
 
@@ -53,6 +53,7 @@
         <item name="textInputLayoutDropdownStyle">@style/MyStyle.Widgets.TextInputLayout.Dropdown</item>
 
         <item name="navigationViewStyle">@style/MyStyle.Widgets.NavigationViewStyle</item>
+        <item name="bottomSheetDialogTheme">@style/AppTheme.BottomSheetTheme</item>
 
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowTranslucentStatus">true</item>
@@ -62,6 +63,19 @@
     <style name="AppTheme.NavigationViewTheme" parent="AppTheme">
         <item name="colorControlHighlight">?colorControlHighlightAlt</item>
     </style>
+
+
+<!--    Basic theme for the bottom sheet, a colored one is available in themes.xml which applies a color -->
+<!--    on the navigation bar (this can only be done on api 8.1+) -->
+    <style name="AppTheme.BottomSheetTheme" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowTranslucentNavigation" >false</item>
+        <item name="bottomSheetStyle">@style/MyStyle.Widgets.BottomSheetStyle</item>
+    </style>
+
+
+
+
 
 
     <style name="AppTheme.ImageToolbarTheme" parent="AppTheme">

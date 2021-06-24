@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:padding="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_medium"
+
+            android:textAppearance="?textAppearanceHeadline6"
+            android:textColor="?android:textColorTertiary"
+            android:text="Choose how to import the image"
+            />
+
+        <TextView
+            android:id="@+id/action_take_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/margin_large"
+            android:paddingEnd="@dimen/margin_large"
+            android:paddingTop="@dimen/margin_medium"
+            android:paddingBottom="@dimen/margin_medium"
+
+
+            android:text="Take a new photo"
+            tools:text="Take a new photo"
+            android:textAppearance="?textAppearanceHeadline7"
+
+            app:drawableStartCompat="@drawable/ic_add_a_photo_24"
+            android:drawablePadding="@dimen/margin_medium"
+            app:drawableTint="?colorControlNormal"
+
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+
+            />
+        <TextView
+            android:id="@+id/action_open_document"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/margin_large"
+            android:paddingEnd="@dimen/margin_large"
+            android:paddingTop="@dimen/margin_medium"
+            android:paddingBottom="@dimen/margin_medium"
+
+
+            android:text="Select a file"
+            tools:text="Select a file"
+            android:textAppearance="?textAppearanceHeadline7"
+
+            app:drawableStartCompat="@drawable/ic_folder_24"
+            android:drawablePadding="@dimen/margin_medium"
+            app:drawableTint="?colorControlNormal"
+
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_medium"
+            />
+
+
+
+    </LinearLayout>
+
+
+</layout>

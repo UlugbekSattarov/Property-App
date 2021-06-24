@@ -20,7 +20,7 @@ class SellViewModel(private val repository: MarsRepository) : ViewModel() {
     val status: LiveData<Result<Nothing>> = _status
 
 
-    val type : MutableLiveData<String> = MutableLiveData(MarsProperty.TYPE_RENT)
+    val type : MutableLiveData<String> = MutableLiveData(MarsProperty.TYPE_BUY)
     val imgSrcUrl : MutableLiveData<String> = MutableLiveData()
     val price : MutableLiveData<Int> = MutableLiveData(0)
     val latitude : MutableLiveData<Float> = MutableLiveData(0f)
@@ -80,8 +80,8 @@ class SellViewModel(private val repository: MarsRepository) : ViewModel() {
                     longitude = longitude.getValueNotNull(::longitudeValidator)
                 )
 
-                repository.addProperty(newProperty)
-                repository.saveToFavorite(newProperty)
+                repository.addProperty(newProperty).also { repository.saveToFavorite(it) }
+
                 _status.postValue(Result.Success())
 
             } catch (e: Exception) {

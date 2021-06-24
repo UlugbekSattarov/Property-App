@@ -11,7 +11,7 @@ interface MarsRepository {
 
     suspend fun getProperties(query: MarsApiQuery) : List<MarsProperty>
     suspend fun getProperty(id: String) : MarsProperty?
-    suspend fun addProperty(property: MarsProperty)
+    suspend fun addProperty(property: MarsProperty) : MarsProperty
 
     fun observeFavorites() : LiveData<List<FavoriteProperty>>
     suspend fun getFavorites() : List<FavoriteProperty>

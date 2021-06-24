@@ -23,7 +23,7 @@ import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.databinding.FragmentLoginBinding
 import com.example.marsrealestate.util.helpers.BiometricHelper
 import com.example.marsrealestate.util.hideSoftInput
-import com.example.marsrealestate.util.setupMaterialFadeThrough
+import com.example.marsrealestate.util.setupFadeThroughTransition
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -51,7 +51,7 @@ class LoginFragment : Fragment() {
         viewDataBinding.viewModel = viewModel
         viewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        setupMaterialFadeThrough(viewDataBinding.root)
+        setupFadeThroughTransition(viewDataBinding.root)
         requireActivity().setupToolbarIfDrawerLayoutPresent(this,viewDataBinding.toolbar)
         setupNavigation()
         setupSwitchLoginLayoutListener()

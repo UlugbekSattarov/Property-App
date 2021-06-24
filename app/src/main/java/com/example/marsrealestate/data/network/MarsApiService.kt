@@ -20,7 +20,7 @@ interface MarsApiService {
 
     suspend fun getProperty(id: String): MarsProperty?
 
-    suspend fun addProperty(marsProperty: MarsProperty)
+    suspend fun addProperty(marsProperty: MarsProperty) : MarsProperty
 
     suspend fun removeProperty(propertyId: String)
 

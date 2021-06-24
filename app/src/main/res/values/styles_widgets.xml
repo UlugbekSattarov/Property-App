@@ -153,4 +153,12 @@
 
 
 
+
+    <style name="MyStyle.Widgets.BottomSheetStyle" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="android:background">?colorSurface</item>
+        <item name="shapeAppearanceOverlay">@style/MyStyle.ShapeAppearance.BottomSheet</item>
+    </style>
+
+
+
 </resources>

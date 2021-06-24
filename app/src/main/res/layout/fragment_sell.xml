@@ -89,7 +89,7 @@
 
                     />
 
-                <com.google.android.material.textfield.TextInputLayout
+                <!--<com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/sell_or_rent_input"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -118,12 +118,50 @@
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
+-->
+                <RadioGroup
+                    android:id="@+id/sell_or_rent_input_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintTop_toBottomOf="@id/sell_or_rent_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/margin_very_large"
+
+
+                    android:orientation="horizontal"
+                    app:propertyType="@={ viewModel.type }"
+                    >
+
+                    <RadioButton
+                        android:id="@+id/sell_or_rent_input_sell"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_small"
+
+                        android:text="Sell"
+                        android:textAppearance="?textAppearanceHeadline7"
+                        android:textColor="?android:textColorPrimary"
+
+                        />
+                    <RadioButton
+                        android:id="@+id/sell_or_rent_input_rent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rent"
+                        android:textAppearance="?textAppearanceHeadline7"
+
+                        android:textColor="?android:textColorPrimary"
+                        />
+
+                </RadioGroup>
 
                 <View
                     android:id="@+id/divider_one"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    app:layout_constraintTop_toBottomOf="@id/sell_or_rent_input"
+                    app:layout_constraintTop_toBottomOf="@id/sell_or_rent_input_group"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginTop="@dimen/margin_extra_large"
 

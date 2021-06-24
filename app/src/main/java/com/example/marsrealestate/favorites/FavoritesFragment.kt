@@ -14,7 +14,7 @@ import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.databinding.FragmentFavoritesBinding
 import com.example.marsrealestate.util.helpers.SharedElementTransitionHelper
-import com.example.marsrealestate.util.setupMaterialFadeThrough
+import com.example.marsrealestate.util.setupFadeThroughTransition
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 import com.google.android.material.snackbar.Snackbar
 
@@ -40,7 +40,7 @@ class FavoritesFragment : Fragment() {
         viewDataBinding.viewModel = viewModel
         viewDataBinding.lifecycleOwner = viewLifecycleOwner
 
-        setupMaterialFadeThrough(viewDataBinding.root)
+        setupFadeThroughTransition(viewDataBinding.root)
         requireActivity().setupToolbarIfDrawerLayoutPresent(this,viewDataBinding.toolbar)
         setupRecyclerView()
         setupNavigation()

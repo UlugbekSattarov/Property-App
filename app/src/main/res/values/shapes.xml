@@ -46,6 +46,13 @@
         <item name="cornerSizeBottomRight">40dp</item>
     </style>
 
+    <style name="MyStyle.ShapeAppearance.BottomSheet" parent="MyStyle">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerSizeTopLeft">40dp</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerSizeTopRight">40dp</item>
+    </style>
+
 
 
 </resources>

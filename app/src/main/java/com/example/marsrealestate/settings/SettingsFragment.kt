@@ -13,7 +13,7 @@ import androidx.preference.PreferenceManager
 import com.example.marsrealestate.R
 import com.example.marsrealestate.databinding.FragmentSettingsBinding
 import com.example.marsrealestate.util.helpers.PreferencesHelper
-import com.example.marsrealestate.util.setupMaterialFadeThrough
+import com.example.marsrealestate.util.setupFadeThroughTransition
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
 
 class SettingsFragment : Fragment(){
@@ -25,7 +25,7 @@ class SettingsFragment : Fragment(){
     ): View {
         val viewDataBinding = FragmentSettingsBinding.inflate(inflater)
 
-        setupMaterialFadeThrough(viewDataBinding.root)
+        setupFadeThroughTransition(viewDataBinding.root)
         requireActivity().setupToolbarIfDrawerLayoutPresent(this,viewDataBinding.toolbar)
 
         return viewDataBinding.root

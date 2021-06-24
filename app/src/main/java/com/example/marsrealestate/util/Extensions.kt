@@ -9,6 +9,7 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorInt
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -137,17 +138,22 @@ fun Snackbar.withColoredText() : Snackbar {
 }
 
 @Suppress("unused")
-private fun Activity.makeNavigationBarColored() {
+fun Activity.makeNavigationBarColored() {
     window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-        window.navigationBarColor = resolveColor(R.attr.backgroundColor)
+//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+        window.navigationBarColor = resolveColor(R.attr.colorSurface)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-            window.navigationBarDividerColor = resolveColor(android.R.attr.listDivider)
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+//            window.navigationBarDividerColor = resolveColor(android.R.attr.listDivider)
     }
+}
+
+@Suppress("unused")
+fun Activity.makeNavigationBarTranslucent() {
+    window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+
 }
 
 /**
@@ -189,9 +195,11 @@ fun View.showSoftInput() {
         .showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 }
 
-fun Fragment.setupMaterialFadeThrough(root : View) {
+fun Fragment.setupFadeThroughTransition(root : View) {
     enterTransition = MaterialFadeThrough().addTarget(root)
     exitTransition = MaterialFadeThrough().addTarget(root)
+    returnTransition = null
+    reenterTransition = null
 }
 
 

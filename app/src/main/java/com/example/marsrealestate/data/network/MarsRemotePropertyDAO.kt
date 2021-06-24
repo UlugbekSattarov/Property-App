@@ -30,9 +30,12 @@ interface MarsRemotePropertyDAO {
      * Add a new property and auto increment the id
      */
     @Transaction
-    suspend fun addNewProperty(marsProperty: MarsProperty) {
+    suspend fun addNewProperty(marsProperty: MarsProperty) : MarsProperty {
         val newId = getLastPropertyId().toInt() + 1
-        insert(marsProperty.copy(id = newId.toString()))
+        marsProperty.copy(id = newId.toString()).also {
+            insert(it)
+            return it
+        }
     }
 
 
