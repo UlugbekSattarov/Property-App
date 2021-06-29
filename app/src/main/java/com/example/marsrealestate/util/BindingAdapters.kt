@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.view.ViewPropertyAnimator
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.IdRes
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toFile
 import androidx.core.net.toUri
@@ -375,3 +377,23 @@ fun TextInputEditText.setTextFloatListeners(
     }
 
 }
+
+
+@BindingAdapter("onTransitionEnd","endConstraintSetId",requireAll = false)
+fun MotionLayout.setOnTransitionEnd(onTransitionEnd : (() -> Unit)?, @IdRes endConstraintSetId : Int?) =
+    onTransitionEnd?.let {
+        addTransitionListener(object : MotionLayout.TransitionListener {
+            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {}
+
+            override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {}
+
+            override fun onTransitionCompleted(p0: MotionLayout?, constraintSet: Int) {
+                if (constraintSet == endConstraintSetId) {
+                    removeTransitionListener(this)
+                    onTransitionEnd.invoke()
+                }
+            }
+
+            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {}
+        })
+    }

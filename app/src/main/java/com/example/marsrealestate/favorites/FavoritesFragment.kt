@@ -9,10 +9,11 @@ import android.view.animation.AnimationUtils
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.transition.TransitionManager
 import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.databinding.FragmentFavoritesBinding
+import com.example.marsrealestate.util.helpers.PreferencesHelper
 import com.example.marsrealestate.util.helpers.SharedElementTransitionHelper
 import com.example.marsrealestate.util.setupFadeThroughTransition
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
@@ -39,6 +40,7 @@ class FavoritesFragment : Fragment() {
         viewDataBinding = FragmentFavoritesBinding.inflate(inflater)
         viewDataBinding.viewModel = viewModel
         viewDataBinding.lifecycleOwner = viewLifecycleOwner
+        viewDataBinding.fragment = this
 
         setupFadeThroughTransition(viewDataBinding.root)
         requireActivity().setupToolbarIfDrawerLayoutPresent(this,viewDataBinding.toolbar)
@@ -62,7 +64,7 @@ class FavoritesFragment : Fragment() {
 
 
         //For the animation on the first appearance of the items
-        viewModel.favorites.observe(viewLifecycleOwner, Observer {
+        viewModel.favorites.observe(viewLifecycleOwner,  {
             if (it.isNotEmpty()) {
                 playListAnimationOnlyOnce()
             }
@@ -80,7 +82,7 @@ class FavoritesFragment : Fragment() {
 
 
     private fun setupOnPropertyRemoved() {
-        viewModel.propertyRemoved.observe(viewLifecycleOwner, Observer {
+        viewModel.propertyRemoved.observe(viewLifecycleOwner,  {
             if (it.isSuccess()) {
                 Snackbar.make(viewDataBinding.root,"Property removed",Snackbar.LENGTH_LONG).apply {
                     setAction(android.R.string.cancel) {
@@ -92,13 +94,24 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun setupNavigation() {
-        viewModel.navigateToProperty.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToProperty.observe(viewLifecycleOwner,  {
             it.getContentIfNotHandled()?.let navigation@{ fav ->
                 val action = FavoritesFragmentDirections.actionFavoritesToDetail().apply { marsProperty = fav.property }
 
                 SharedElementTransitionHelper.navigate(this,fav.property,action)
             }
         })
+    }
+
+
+
+
+    fun shouldShowFavoritesSwipeHint() = PreferencesHelper.Tuto.getShowFavoritesSwipe(requireContext())
+
+    fun hideSwipeFavoritesHint() {
+        PreferencesHelper.Tuto.setShowFavoritesSwipe(requireContext(),false)
+        TransitionManager.beginDelayedTransition(viewDataBinding.root as ViewGroup)
+        viewDataBinding.motionlayoutHintSwipe.visibility = View.GONE
     }
 
 }

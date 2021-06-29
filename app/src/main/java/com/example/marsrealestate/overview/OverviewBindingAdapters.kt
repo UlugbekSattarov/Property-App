@@ -40,7 +40,7 @@ fun ChipGroup.getMarsApiFilter(): MarsApiFilter.MarsPropertyType {
 }
 
 
-@BindingAdapter("app:marsApiFilterAttrChanged","app:onMarsFilterChanged",requireAll = false)
+@BindingAdapter("marsApiFilterAttrChanged","onMarsFilterChanged",requireAll = false)
 fun ChipGroup.setMarsApiFilterChangedListener(attrChange: InverseBindingListener,
                                               listener : ChipGroup.OnCheckedChangeListener?) {
     val transition = TransitionInflater.from(context).inflateTransition(R.transition.chip_resize)

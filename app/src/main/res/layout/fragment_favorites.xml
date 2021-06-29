@@ -5,10 +5,15 @@
 
     <data>
         <import type="com.example.marsrealestate.data.FavoriteProperty" />
+        <import type="com.example.marsrealestate.util.helpers.PreferencesHelper" />
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
             type="com.example.marsrealestate.favorites.FavoritesViewModel" />
+        <variable
+            name="fragment"
+            type="com.example.marsrealestate.favorites.FavoritesFragment" />
 
     </data>
 
@@ -38,12 +43,107 @@
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
 
             >
+            <androidx.constraintlayout.motion.widget.MotionLayout
+                android:id="@+id/motionlayout_hint_swipe"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layoutDescription="@xml/scene_swipe_hint"
+                app:applyMotionScene="true"
+
+                android:padding="@dimen/margin_medium"
+
+                android:clipToPadding="false"
+                android:clipChildren="false"
+
+                android:visibility="@{ fragment.shouldShowFavoritesSwipeHint() ? View.VISIBLE : View.GONE}"
+                app:onTransitionEnd="@{ () -> fragment.hideSwipeFavoritesHint()}"
+                app:endConstraintSetId="@{ @id/set_swipe_end }"
+                >
+
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/swipe_to_delete_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    app:cardElevation="8dp"
+                     >
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <ImageView
+                            android:id="@+id/image_hint"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/swipe_hint_text"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginStart="@dimen/margin_medium"
+
+                            app:srcCompat="@drawable/ic_lightbulb_24dp"
+                            app:tint="?colorSecondary"
+
+                            />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/swipe_hint_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@id/image_hint"
+                        app:layout_constraintEnd_toStartOf="@id/swipe_hint_text_other"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+
+                        app:layout_constraintWidth_default="wrap"
+
+                        android:paddingEnd="@dimen/margin_medium"
+                        android:paddingStart="@dimen/margin_medium"
+                        android:paddingTop="@dimen/margin_large"
+                        android:paddingBottom="@dimen/margin_large"
+
+
+                        android:text="You can swipe favorites to the right to delete them"
+                        android:textAppearance="?textAppearanceSubtitle1"
+
+                        />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/swipe_hint_text_other"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@id/swipe_hint_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginEnd="@dimen/margin_medium"
+                        android:minWidth="60dp"
+
+                        style="?materialTextButtonStyle"
+                        android:text="Ok"
+
+                        android:onClick="@{ () -> fragment.hideSwipeFavoritesHint()}"
+
+                        />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.constraintlayout.motion.widget.MotionLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/favorites_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/motionlayout_hint_swipe"
 
                 app:dataList="@{viewModel.favorites}"
                 app:onSwipeListener="@{ (swiped) -> viewModel.removePropertyFromFavorites((FavoriteProperty) swiped)}"

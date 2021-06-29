@@ -50,7 +50,33 @@ object PreferencesHelper {
     }
 
 
+    object Tuto {
 
+
+        @JvmStatic
+        fun getShowFavoritesSwipe(context: Context): Boolean {
+            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+            val key = context.resources.getString(R.string.preference_key_tuto_show_favorites_swipe)
+            val default = context.resources.getBoolean(R.bool.preference_tuto_show_favorites_swipe_default)
+
+            return prefs.getBoolean(key, default)
+        }
+
+        @JvmStatic
+        fun setShowFavoritesSwipe(context: Context,value : Boolean) {
+            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+            val key = context.resources.getString(R.string.preference_key_tuto_show_favorites_swipe)
+
+            prefs.edit().putBoolean(key, value).apply()
+        }
+
+        fun resetShowFavoritesSwipe(context: Context) {
+            val default = context.resources.getBoolean(R.bool.preference_tuto_show_favorites_swipe_default)
+            setShowFavoritesSwipe(context,default)
+        }
+
+
+    }
 
 }
 

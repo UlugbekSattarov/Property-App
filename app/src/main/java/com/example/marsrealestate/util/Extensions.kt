@@ -9,7 +9,6 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorInt
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -167,16 +166,14 @@ inline fun <reified T> LiveData<T>.getValueNotNull() : T = this.value ?: throw E
  * @param validator should return a [@StringRes] without throwing exceptions. If the data is valid,
  * it should then return [FormValidation.NO_ERROR]
  */
-inline fun <reified T> LiveData<T>.getValueNotNull(validator :  (data : T) -> Int) : T {
-    val value = this.getValueNotNull()
+inline fun <reified T> LiveData<T>.getValueNotNull(validator :  (data : T) -> Int) : T =
+    this.getValueNotNull().also { value ->
+        validator(value).let {
+            if (it.isValidationError())
+                throw Exception("Validator throwed error : $it")
+        }
+    }
 
-    val validation = validator(value)
-
-    if (validation.isValidationError())
-        throw Exception("Validator throwed error : $validation")
-
-    return value
-}
 
 fun View.hideSoftInput() {
     clearFocus()

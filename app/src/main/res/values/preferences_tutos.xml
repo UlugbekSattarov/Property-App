@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="preference_key_tuto_show_favorites_swipe" translatable="false">preference_key_tuto_show_favorites_swipe</string>
+    <bool name="preference_tuto_show_favorites_swipe_default" >true</bool>
+
+
+</resources>
