@@ -46,6 +46,8 @@
     <style name="MyStyle.TextAppearance.Caption" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textSize">?textSizeCaption</item>
         <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/raleway_bold</item>
+
     </style>
 
     <style name="MyStyle.TextAppearance.Body1" parent="TextAppearance.MaterialComponents.Body1">

@@ -34,7 +34,7 @@ class SettingsFragment : Fragment(){
     }
 
 
-    fun resetTutoriels() {
+    fun resetTutorials() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Reset tutorials?")
             .setMessage("Tutorials will appear again")

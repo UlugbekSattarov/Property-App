@@ -39,7 +39,7 @@
             android:focusable="true"
             android:background="?selectableItemBackground"
 
-            android:onClick="@{ () -> fragment.resetTutoriels() }"
+            android:onClick="@{ () -> fragment.resetTutorials() }"
             >
 
             <ImageView
@@ -62,7 +62,7 @@
                 android:paddingStart="@dimen/margin_small"
                 android:paddingEnd="@dimen/margin_small"
 
-                android:text="Reset tutoriels"
+                android:text="Reset tutorials"
                 android:textAppearance="?textAppearanceSubtitle1"
 
 

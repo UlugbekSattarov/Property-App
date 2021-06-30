@@ -43,37 +43,6 @@
                 />
 
             <ImageView
-                android:id="@+id/corner"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/mars_property_image"
-
-                android:rotation="90"
-
-                android:src="@drawable/ic_rounded_corner"
-
-                />
-
-            <ImageView
-                android:id="@+id/corner_swipe_dismiss"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/mars_property_image"
-                android:layout_marginEnd="2dp"
-                android:translationY="2dp"
-
-                app:tint="?colorOnSecondary"
-                android:src="@drawable/ic_swipe_to_dismiss"
-
-
-                />
-
-
-
-
-            <ImageView
                 android:id="@+id/mars_property_scrim"
                 android:layout_width="0dp"
                 android:layout_height="70dp"
@@ -120,10 +89,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
 
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_large"
+                android:layout_marginEnd="@dimen/margin_large"
+                android:layout_marginBottom="@dimen/margin_large"
 
                 android:textAppearance="?textAppearanceSubtitle1"
                 android:text="@string/lorem_short"
@@ -149,7 +118,7 @@
 
                 android:text="@{@string/added_on(favorite.favorite.dateFavorited)}"
 
-                tools:text="Favorited on 16/11/2017"
+                tools:text="Favorited on 16/11/2021"
 
                 />
 
