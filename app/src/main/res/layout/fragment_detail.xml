@@ -236,6 +236,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="30dp"
+
+                tools:scrollY="400dp"
                 >
 
 
@@ -525,16 +527,9 @@
                     app:layout_constraintEnd_toEndOf="@id/share_text"
                     android:layout_marginTop="@dimen/margin_small"
 
-                    app:chipStrokeColor="?android:listDivider"
-                    app:chipStrokeWidth="1.5dp"
-                    app:chipBackgroundColor="?colorSurface"
+                    style="@style/MyStyle.Widgets.Chip.Alt"
                     app:chipIcon="@drawable/ic_share_24"
-                    app:chipIconSize="18dp"
-                    app:chipStartPadding="10dp"
-                    app:chipIconVisible="true"
-                    android:text="Share "
-                    app:rippleColor="?colorControlHighlightAlt"
-                    android:textAppearance="?textAppearanceSubtitle2"
+                    android:text="Share"
 
                     android:onClick="@{() -> viewModel.shareProperty()}"
                     />

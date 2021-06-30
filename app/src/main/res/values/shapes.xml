@@ -37,6 +37,11 @@
         <item name="cornerSizeTopLeft">0dp</item>
     </style>
 
+    <style name="MyStyle.ShapeAppearance.Chip.Alt" parent="MyStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
 
 
     <style name="MyStyle.ShapeAppearance.NavigationView" parent="MyStyle">

@@ -93,4 +93,12 @@
         <item name="android:textColor">?colorOnPicture</item>
     </style>
 
+
+    <style name="MyStyle.TextAppearance.AlertDialogTitle" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">?colorOnSurface</item>
+
+        <item name="android:textSize">?textSizeHeadline5</item>
+        <item name="fontFamily">@font/raleway_medium</item>
+    </style>
+
 </resources>

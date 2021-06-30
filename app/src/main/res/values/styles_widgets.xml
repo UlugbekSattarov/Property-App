@@ -9,7 +9,7 @@
     <style name="MyStyle.Widgets.Toolbar.Default" parent="Widget.MaterialComponents.Toolbar">
         <item name="titleTextAppearance">?textAppearanceToolbarTitle</item>
         <item name="titleTextColor">?colorOnPrimary</item>
-        <item name="android:background">?colorPrimary</item>
+        <item name="android:background">?colorBackground</item>
         <item name="popupTheme">@style/AppTheme.PopupTheme</item>
     </style>
 
@@ -33,6 +33,22 @@
         <item name="shapeAppearanceOverlay">@style/MyStyle.ShapeAppearance.Chip</item>
         <item name="checkedIcon">@drawable/ic_check</item>
         <item name="android:textAppearance">?textAppearanceSubtitle2</item>
+    </style>
+
+    <style name="MyStyle.Widgets.Chip.Alt" parent="Widget.MaterialComponents.Chip.Action">
+
+        <item name="chipStrokeColor">?android:listDivider</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipBackgroundColor">?colorSurface</item>
+        <item name="chipIconVisible">true</item>
+        <item name="chipStartPadding">10dp</item>
+        <item name="chipIconTint">?colorSecondary</item>
+        <item name="chipIconSize">18dp</item>
+        <item name="rippleColor">?colorControlHighlightAlt</item>
+        <item name="android:textColor">?colorChipText</item>
+        <item name="android:textAppearance">?textAppearanceSubtitle2</item>
+        <item name="shapeAppearanceOverlay">@style/MyStyle.ShapeAppearance.Chip.Alt</item>
+
     </style>
 
 
@@ -82,7 +98,7 @@
         <item name="startIconTint">@color/control_textinput_activable</item>
         <item name="endIconTint">@color/control_textinput_activable</item>
         <item name="hintTextColor">@color/control_textinput_activable</item>
-<!--        <item name="boxBackgroundColor">?colorPrimaryVariant</item>-->
+        <!--        <item name="boxBackgroundColor">?colorPrimaryVariant</item>-->
     </style>
 
     <style name="MyStyle.Widgets.TextInputLayout.Alternative.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">

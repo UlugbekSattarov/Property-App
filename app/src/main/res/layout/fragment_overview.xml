@@ -26,7 +26,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:translationZ="20dp">
+            android:translationZ="20dp"
+            android:background="?colorBackground"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -60,6 +62,7 @@
                         app:onSearchInputVisibility="@{(visible) -> (! visible) ? viewModel.clearQueryString() : null }"
                         app:onSearch="@{ (str) -> viewModel.updateQueryString(str) }"
                         app:titleText="@string/mars_properties"
+                        app:backgroundColor="?colorBackground"
 
                         />
 

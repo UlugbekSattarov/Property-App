@@ -43,6 +43,10 @@
         <item name="snackbarTextViewStyle">@style/MyStyle.TextAppearance.SnackbarTextViewStyle</item>
         <item name="snackbarButtonStyle">@style/MyStyle.Widgets.Button.SnackbarButton</item>
 
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+        <item name="dialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+        <item name="alertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+
         <item name="materialButtonStyle">@style/MyStyle.Widgets.Button</item>
         <item name="materialTextButtonStyle">@style/MyStyle.Widgets.Button.Text</item>
 
@@ -57,6 +61,24 @@
 
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowTranslucentStatus">true</item>
+
+    </style>
+
+
+    <!--This theme works for both material dialogs and other basic dialogs
+    However, some functionalities cannot work for both dialogs, so if we want more
+    customization, we will certainly have to create another theme for basic dialogs-->
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="materialAlertDialogTitleTextStyle">@style/MyStyle.TextAppearance.AlertDialogTitle</item>
+<!--        <item name="materialAlertDialogBodyTextStyle">@style/MyStyle.TextAppearance.Subtitle1</item>-->
+
+        <item name="android:background">?colorSurface</item>
+
+        <item name="buttonBarPositiveButtonStyle">@style/MyStyle.Widgets.Button.Text</item>
+        <item name="buttonBarNeutralButtonStyle">@style/MyStyle.Widgets.Button.Text</item>
+        <item name="buttonBarNegativeButtonStyle">@style/MyStyle.Widgets.Button.Text</item>
+        <item name="buttonBarButtonStyle">@style/MyStyle.Widgets.Button.Text</item>
+
     </style>
 
 
@@ -65,8 +87,8 @@
     </style>
 
 
-<!--    Basic theme for the bottom sheet, a colored one is available in themes.xml which applies a color -->
-<!--    on the navigation bar (this can only be done on api 8.1+) -->
+    <!--    Basic theme for the bottom sheet, a colored one is available in themes.xml which applies a color -->
+    <!--    on the navigation bar (this can only be done on api 8.1+) -->
     <style name="AppTheme.BottomSheetTheme" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowTranslucentNavigation" >false</item>

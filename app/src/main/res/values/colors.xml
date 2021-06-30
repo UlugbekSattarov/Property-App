@@ -29,7 +29,7 @@
     <color name="grayDarkOverlayRed">#1c1919</color>
     <color name="grayDarkOverlayRed2">#312b2b</color>
     <color name="grayDarker">#282828</color>
-    <color name="almostBlack">#222222</color>
+    <color name="almostBlack">#191919</color>
 
     <color name="semiTransparentDark">#33000000</color>
 </resources>

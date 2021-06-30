@@ -15,6 +15,7 @@ import com.example.marsrealestate.databinding.FragmentSettingsBinding
 import com.example.marsrealestate.util.helpers.PreferencesHelper
 import com.example.marsrealestate.util.setupFadeThroughTransition
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class SettingsFragment : Fragment(){
 
@@ -24,6 +25,7 @@ class SettingsFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View {
         val viewDataBinding = FragmentSettingsBinding.inflate(inflater)
+        viewDataBinding.fragment = this
 
         setupFadeThroughTransition(viewDataBinding.root)
         requireActivity().setupToolbarIfDrawerLayoutPresent(this,viewDataBinding.toolbar)
@@ -31,6 +33,18 @@ class SettingsFragment : Fragment(){
         return viewDataBinding.root
     }
 
+
+    fun resetTutoriels() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Reset tutorials?")
+            .setMessage("Tutorials will appear again")
+            .setPositiveButton(android.R.string.yes) { _, _ ->
+                PreferencesHelper.Tuto.resetShowFavoritesSwipe(requireContext())
+            }
+            .setNegativeButton(android.R.string.no) { _, _ -> }
+            .show()
+
+    }
 
 
     class PreferenceFragment : PreferenceFragmentCompat(),

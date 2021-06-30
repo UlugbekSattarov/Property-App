@@ -81,7 +81,7 @@ class SearchView @JvmOverloads constructor(
 
     private fun loadFromAttributes(attrs : TypedArray) {
 
-        val backgroundColor = attrs.getColor(R.styleable.SearchView_backgroundColor,context.resolveColor(R.attr.backgroundColor))
+        val backgroundColor = attrs.getColor(R.styleable.SearchView_backgroundColor,context.resolveColor(R.attr.colorBackground))
 
         title = attrs.getString(R.styleable.SearchView_titleText) ?: ""
         hint = attrs.getString(R.styleable.SearchView_hintText) ?: ""

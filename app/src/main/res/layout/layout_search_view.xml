@@ -20,7 +20,7 @@
         
 
         app:layoutDescription="@xml/scene_search_view"
-        android:background="?colorPrimary"
+        android:background="?colorBackground"
 
         >
 
@@ -56,7 +56,7 @@
             android:layout_width="20dp"
             android:layout_height="match_parent"
 
-            android:background="@drawable/gradient_primary_color"
+            android:background="@drawable/gradient_background"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/searchview_icon_search_container"
@@ -103,6 +103,7 @@
             app:tint="?android:textColorTertiary"
             app:rippleColor="?colorControlHighlight"
             app:elevation="0dp"
+            app:backgroundTint="?colorBackground"
 
             android:onClick="@{() -> searchView.clearInputText()}"
             />
@@ -128,7 +129,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="?colorPrimary"
+            android:background="?colorBackground"
 
             >
 

@@ -27,7 +27,7 @@
 
 <!--        When app:cardElevation is set, this color will be applied above to simulate elevation-->
         <item name="elevationOverlayColor">@color/almostWhite</item>
-        <item name="elevationOverlayEnabled">true</item>
+        <item name="elevationOverlayEnabled">false</item>
 
 
         <item name="colorOnPicture">@color/white</item>

@@ -378,20 +378,11 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginTop="@dimen/margin_large"
 
-                            android:text="Browse properties"
-                            app:chipBackgroundColor="?colorSurface"
-                            app:chipIconSize="18dp"
-                            app:chipStartPadding="10dp"
-                            app:chipIconVisible="true"
-                            app:chipStrokeColor="?android:listDivider"
-                            app:chipStrokeWidth="1.5dp"
-                            app:rippleColor="?colorControlHighlightAlt"
-                            android:textAppearance="?textAppearanceSubtitle2"
-                            app:chipIconTint="?colorSecondary"
+                            style="@style/MyStyle.Widgets.Chip.Alt"
                             app:chipIcon="@drawable/mars_notification"
+                            android:text="Browse properties"
 
                             android:onClick="@{ () -> viewModel.navigateToOverview()}"
-
 
                             />
 

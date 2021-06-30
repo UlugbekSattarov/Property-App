@@ -1,43 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/settings_fragment"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        app:title="@string/settings"
-        app:navigationContentDescription="@string/navigate_up"
+    <data>
+        <variable
+            name="fragment"
+            type="com.example.marsrealestate.settings.SettingsFragment" />
+    </data>
 
-        />
-
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/settings_cardview"
+    <LinearLayout
+        android:id="@+id/settings_fragment"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="0dp"
-        android:elevation="0dp"
-        app:cardElevation="0dp"
-        app:cardBackgroundColor="?colorBackground"
+        android:fitsSystemWindows="true">
 
-        >
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            app:title="@string/settings"
+            app:navigationContentDescription="@string/navigate_up"
 
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.example.marsrealestate.settings.SettingsFragment$PreferenceFragment"
-
-        />
-
-    </com.google.android.material.card.MaterialCardView>
+            />
 
 
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="com.example.marsrealestate.settings.SettingsFragment$PreferenceFragment" />
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?selectableItemBackground"
+
+            android:onClick="@{ () -> fragment.resetTutoriels() }"
+            >
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+
+                android:layout_margin="@dimen/margin_medium"
+
+                app:srcCompat="@drawable/ic_lightbulb_24dp"
+                app:tint="?colorSecondary"
+
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_large"
+                android:paddingBottom="@dimen/margin_large"
+                android:paddingStart="@dimen/margin_small"
+                android:paddingEnd="@dimen/margin_small"
+
+                android:text="Reset tutoriels"
+                android:textAppearance="?textAppearanceSubtitle1"
+
+
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>
