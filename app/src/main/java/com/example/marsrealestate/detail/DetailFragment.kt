@@ -6,28 +6,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.get
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
 import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.FragmentDetailBinding
 import com.example.marsrealestate.login.LoginViewModel
 import com.example.marsrealestate.login.LoginViewModelFactory
-import com.example.marsrealestate.util.setImageUrl
-import com.example.marsrealestate.util.doOnEnd
 import com.example.marsrealestate.util.helpers.SharedElementTransitionHelper
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
+import com.google.android.material.transition.MaterialFadeThrough
 import kotlin.math.abs
 
 class DetailFragment : Fragment() {
@@ -70,54 +64,14 @@ class DetailFragment : Fragment() {
         setupSharePropertyListener()
 
 
-        loadToolbarImage()
-//        setupSharedElementTransition()
-        SharedElementTransitionHelper.setupReceiverFragment(this,args.marsProperty,viewDataBinding.root)
-        lifecycleScope.launchWhenResumed { animateFab(); animateToolbarScrim() }
+        if (args.marsProperty != null)
+            SharedElementTransitionHelper.setupReceiverFragment(this,args.marsProperty!!,viewDataBinding.root)
+        else
+            enterTransition = MaterialFadeThrough().addTarget(viewDataBinding.root)
+
 
         return viewDataBinding.root
     }
-
-
-    /**
-     * Load the image of the toolbar : if a property is given by the [args], set the image directly. If not,
-     * wait for the [viewModel] to emit a property and then set the image
-     */
-    private fun loadToolbarImage() {
-        val toolbar = viewDataBinding.imageToolbar
-        val imageUrl = args.marsProperty?.imgSrcUrl
-
-        if (imageUrl != null)
-            toolbar.setImageUrl(imageUrl)
-        else {
-            viewModel.property.observe(viewLifecycleOwner, { prop ->
-                toolbar.setImageUrl(prop?.imgSrcUrl)
-            })
-        }
-    }
-
-
-    @Deprecated("Postponing the enter transition to wait for the image to be loaded is " +
-            "not optimal for the user",
-        replaceWith = ReplaceWith("loadToolbarImage(int)"))
-    private fun loadSharedImageBeforeEnterTransition(sourceUrl : String,destination : ImageView) {
-        postponeEnterTransition()
-
-        val id = sourceUrl.toIntOrNull()
-        if (id != null) {
-            loadToolbarImage()
-            startPostponedEnterTransition()
-        }
-        else {
-            val imgUri = sourceUrl.toUri().buildUpon().scheme("https").build()
-            Glide.with(destination)
-                .load(imgUri)
-                .dontTransform()
-                .doOnEnd { startPostponedEnterTransition() }
-                .into(destination)
-        }
-    }
-
 
     private fun setupNavigation() {
         viewModel.navigateToPayment.observe(viewLifecycleOwner,  {
@@ -136,20 +90,6 @@ class DetailFragment : Fragment() {
         })
     }
 
-
-    private fun animateFab() =
-        viewDataBinding.fab.animate().scaleX(1f).scaleY(1f)
-            .setInterpolator(FastOutSlowInInterpolator())
-            .setDuration(200)
-            .setStartDelay(900)
-            .start()
-
-
-    private fun animateToolbarScrim() =
-        viewDataBinding.toolbarScrim.animate().alpha(1f)
-            .setStartDelay(200)
-            .setDuration(600)
-            .start()
 
 
 

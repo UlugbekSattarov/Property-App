@@ -173,7 +173,16 @@
     <fragment
         android:id="@+id/dest_sell"
         android:name="com.example.marsrealestate.sell.SellFragment"
-        tools:layout="@layout/fragment_sell"/>
+        tools:layout="@layout/fragment_sell">
+        <action
+            android:id="@+id/action_dest_sell_to_dest_detail"
+            app:destination="@id/dest_detail"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/dest_detail" />
+    </fragment>
 
 
 </navigation>

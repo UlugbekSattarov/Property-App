@@ -27,13 +27,18 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.TransitionOptions
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.marsrealestate.R
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.transition.MaterialFade
 
 
 @BindingAdapter("itemSpacing", "columnNumber","endSpace",requireAll = false)
@@ -95,7 +100,9 @@ fun ImageView.setImageUrl(imgUrl: String?) {
 
         else if (url.startsWith(contentScheme)) {
             try {
-                Glide.with(this).load(url.toUri()).override(1280,720).into(this)
+                Glide.with(this).load(url.toUri()).override(1280,720)
+
+                    .into(this)
 //                setImageURI(url.toUri())
             } catch (e: Exception) {
                 setImageDrawable(ResourcesCompat.getDrawable(resources, defaultDrawable, context.theme))
@@ -118,20 +125,30 @@ fun ImageView.startAnim(startAnim: Boolean?) {
     }
 }
 
-@BindingAdapter("fadeInIf")
-fun View.fadeInIf(condition: Boolean?) {
+
+
+
+@BindingAdapter("fadeInIf","fadeInDuration","fadeOutDuration","startDelay",requireAll = false)
+fun View.fadeInIf(condition: Boolean?,
+                  fadeIntDuration : Long? = null,
+                  fadeOutDuration : Long? = null,
+                  startDelay: Long? = null
+                  ) {
     when (condition) {
         true -> {
             isEnabled = true
             visibility = View.VISIBLE
             animate().alpha(1f)
-                .withEndAction {  }
+                .setDuration(fadeIntDuration ?: resources.getInteger(android.R.integer.config_shortAnimTime).toLong())
+                .setStartDelay(startDelay ?: 0)
                 .start()
             ((this as? ImageView)?.drawable as? AnimatedVectorDrawable)?.start()
         }
         false -> {
             isEnabled = false
             animate().alpha(0f)
+                .setDuration(fadeOutDuration ?: resources.getInteger(android.R.integer.config_shortAnimTime).toLong())
+                .setStartDelay(startDelay ?: 0)
                 .withEndAction {
                     ((this as? ImageView)?.drawable as? AnimatedVectorDrawable)?.stop()
                     visibility = View.INVISIBLE
@@ -144,6 +161,41 @@ fun View.fadeInIf(condition: Boolean?) {
 fun View.fadeOutIf(condition: Boolean?) {
     fadeInIf(condition?.not())
 }
+
+@BindingAdapter("materialFadeInIf","materialFadeInDelay",requireAll = false)
+fun View.materialFadeInIf(condition: Boolean?,materialFadeInDelay : Long? = null) {
+    condition?.let {
+        val fade = MaterialFade().apply {
+            startDelay  = materialFadeInDelay ?: 0
+            duration = 300
+        }
+        TransitionManager.beginDelayedTransition(parent as ViewGroup, fade)
+        visibility = if (condition) View.VISIBLE else View.INVISIBLE
+    }
+}
+
+@BindingAdapter("scaleInIf","scaleInDelay",requireAll = false)
+fun View.scaleInIf(condition: Boolean?, scaleInDelay : Long? = null) {
+    when (condition) {
+        true -> {
+            isEnabled = true
+            visibility = View.VISIBLE
+            animate().alpha(1f).scaleX(1f).scaleY(1f)
+                .setDuration(200)
+                .setStartDelay(scaleInDelay ?: 0)
+                .start()
+        }
+        false -> {
+            isEnabled = false
+            animate().alpha(0f).scaleX(0f).scaleY(0f)
+                .setDuration(200)
+                .withEndAction {
+                    visibility = View.INVISIBLE
+                }.start()
+        }
+    }
+}
+
 
 @BindingAdapter("setChecked")
 fun ImageView.setChecked(setChecked: Boolean?) {

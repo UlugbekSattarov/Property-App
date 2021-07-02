@@ -56,10 +56,7 @@ object SharedElementTransitionHelper {
      * @param view An optional parameter telling into which view the transition will morph, if none
      * is provided, the [Fragment]'s root view is used
      */
-    fun setupReceiverFragment(fragment: Fragment,property: MarsProperty?,view: View? = null) {
-
-        if (property == null)
-            return
+    fun setupReceiverFragment(fragment: Fragment,property: MarsProperty,view: View? = null) {
 
         ViewCompat.setTransitionName(view ?: fragment.requireView(),getTransitionName(property))
 

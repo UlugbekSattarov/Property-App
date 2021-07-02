@@ -7,6 +7,7 @@ import com.example.marsrealestate.R
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.data.MarsRepository
 import com.example.marsrealestate.data.isValidPropertyType
+import com.example.marsrealestate.util.Event
 import com.example.marsrealestate.util.FormValidation
 import com.example.marsrealestate.util.Result
 import com.example.marsrealestate.util.getValueNotNull
@@ -28,6 +29,9 @@ class SellViewModel(private val repository: MarsRepository) : ViewModel() {
     val area : MutableLiveData<Float> = MutableLiveData(0f)
 
     val isRental = type.map { it == MarsProperty.TYPE_RENT }
+
+    private val _navigateToProperty = MutableLiveData<Event<MarsProperty>>()
+    val navigateToProperty: LiveData<Event<MarsProperty>> = _navigateToProperty
 
 
     @StringRes
@@ -80,7 +84,11 @@ class SellViewModel(private val repository: MarsRepository) : ViewModel() {
                     longitude = longitude.getValueNotNull(::longitudeValidator)
                 )
 
-                repository.addProperty(newProperty).also { repository.saveToFavorite(it) }
+                repository.addProperty(newProperty).also {
+                    repository.saveToFavorite(it)
+                    _navigateToProperty.value = Event(it)
+                }
+
 
                 _status.postValue(Result.Success())
 

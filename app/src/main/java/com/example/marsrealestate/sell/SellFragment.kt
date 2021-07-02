@@ -20,6 +20,7 @@ import androidx.databinding.InverseBindingListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.data.MarsProperty
@@ -27,6 +28,7 @@ import com.example.marsrealestate.databinding.FragmentSellBinding
 import com.example.marsrealestate.util.helpers.FileHelper
 import com.example.marsrealestate.util.setupFadeThroughTransition
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
+import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -79,15 +81,27 @@ class SellFragment : Fragment() {
 
         setupScrollAfterAreaInput()
         bindLatitudeWithViewModel()
+        setupNavigation()
 
         return viewDataBinding.root
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 
+    private fun setupNavigation() {
+        viewModel.navigateToProperty.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                exitTransition = MaterialFadeThrough()
+                val direction = SellFragmentDirections.actionDestSellToDestDetail().apply { propertyId = it.id}
+                findNavController().navigate(direction)
+            }
+        }
+    }
 
 
     private fun registerOnExternalImageReceived() {

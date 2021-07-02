@@ -59,6 +59,7 @@
 
                     app:layout_collapseMode="parallax"
                     tools:src="@drawable/mars_landscape_1"
+                    app:imageUrl="@{viewModel.property.imgSrcUrl}"
                     />
                 <ImageView
                     android:id="@+id/toolbar_scrim"
@@ -70,6 +71,9 @@
 
                     android:alpha="0"
                     tools:alpha="1"
+                    app:fadeInIf="@{viewModel.statePropertyFetched.isSuccess}"
+                    app:fadeInDuration="@{600L}"
+                    app:startDelay="@{600L}"
                     />
 
                 <androidx.appcompat.widget.Toolbar
@@ -103,15 +107,16 @@
             app:layout_anchorGravity="bottom|end"
             android:layout_marginEnd="@dimen/margin_small"
 
+            android:onClick="@{() -> viewModel.addRemovePropertyToFavorites()}"
+            app:srcCompat="@drawable/an_heart"
+            app:setChecked="@{viewModel.isPropertyFavorite() }"
+
             android:scaleX="0"
             android:scaleY="0"
             tools:scaleX="1"
             tools:scaleY="1"
-
-            android:onClick="@{() -> viewModel.addRemovePropertyToFavorites()}"
-            app:srcCompat="@drawable/an_heart"
-            app:setChecked="@{viewModel.isPropertyFavorite() }"
-            android:visibility="@{viewModel.statePropertyFetched.isSuccess ? View.VISIBLE : View.GONE}"
+            app:scaleInIf="@{viewModel.statePropertyFetched.isSuccess}"
+            app:scaleInDelay="@{1500L}"
 
 
             tools:src="@drawable/ic_favorite_border"
@@ -160,9 +165,11 @@
 
             app:icon="@drawable/ic_cart"
             android:onClick="@{ () -> viewModel.navigateToPayment()}"
-            android:visibility="@{viewModel.statePropertyFetched.isSuccess ? View.VISIBLE : View.GONE}"
             app:extendedFabText="@{! viewModel.statePropertyFetched.isSuccess ? `` : viewModel.property.rental ? @string/rent : @string/buy}"
 
+            android:visibility="invisible"
+            app:fadeInIf="@{viewModel.statePropertyFetched.isSuccess }"
+            tools:visibility="visible"
 
             tools:text="Rent"
 
@@ -172,31 +179,77 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+
 
             android:padding="@dimen/margin_large"
-            android:visibility="@{ ! viewModel.statePropertyFetched.isSuccess ? View.VISIBLE : View.GONE}"
 
-            tools:visibility="gone"
+            app:fadeInIf="@{ ! viewModel.statePropertyFetched.isSuccess}"
+            app:fadeInDuration="@{0L}"
+            app:fadeOutDuration="@{300L}"
+            android:elevation="1dp"
+            android:background="?colorBackground"
+
+            android:visibility="invisible"
 
             >
             
             <TextView
+                android:id="@+id/text_property_not_found"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintWidth_max="300dp"
                 
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="100dp"
+                app:layout_constraintVertical_bias="0.2"
 
                 android:visibility="@{ viewModel.statePropertyFetched.isError ? View.VISIBLE : View.GONE}"
 
 
                 android:textAppearance="?textAppearanceHeadline4"
                 android:textColor="?android:textColorTertiary"
-                android:text="Property not found"
+                android:text="We did not find this property ..."
                 android:textAlignment="center"
+                />
+
+            <TextView
+                android:id="@+id/text_property_not_found_advice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintWidth_max="300dp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_property_not_found"
+                android:layout_marginTop="60dp"
+
+
+                android:visibility="@{ viewModel.statePropertyFetched.isError ? View.VISIBLE : View.GONE}"
+
+
+                android:textAppearance="?textAppearanceSubtitle1"
+                android:textColor="?android:textColorTertiary"
+                android:text="But you can still browse other properties"
+                android:textAlignment="center"
+                />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_property_not_found_advice"
+                android:layout_marginTop="@dimen/margin_small"
+
+                style="@style/MyStyle.Widgets.Chip.Alt"
+                app:chipIcon="@drawable/mars_notification"
+                android:text="Browse"
+
+                android:visibility="@{ viewModel.statePropertyFetched.isError ? View.VISIBLE : View.GONE}"
+
+
                 />
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -205,11 +258,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+
 
                 android:indeterminate="true"
-                android:scaleX="2"
-                android:scaleY="2"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
 
                 android:visibility="@{ viewModel.statePropertyFetched.isLoading ? View.VISIBLE : View.GONE}"
                 app:indicatorColor="?colorSecondary"
@@ -223,7 +277,6 @@
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
 
-            android:visibility="@{viewModel.statePropertyFetched.isSuccess ? View.VISIBLE : View.GONE}"
             tools:visibility="visible"
 
             android:scrollbars="none"
@@ -237,7 +290,6 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="30dp"
 
-                tools:scrollY="400dp"
                 >
 
 
