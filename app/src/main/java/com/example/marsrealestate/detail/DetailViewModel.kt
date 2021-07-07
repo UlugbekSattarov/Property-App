@@ -25,7 +25,7 @@ class DetailViewModel private constructor(private val repository : MarsRepositor
     private val _property = MutableLiveData<MarsProperty>()
     val property : LiveData<MarsProperty> = _property
 
-    private val _statePropertyFetched = MutableLiveData<Result<Nothing>>(Result.Error())
+    private val _statePropertyFetched = MutableLiveData<Result<Nothing>>()
     val statePropertyFetched : LiveData<Result<Nothing>> = _statePropertyFetched
 
     private val _propertyViewCount = MutableLiveData((0..3).random())

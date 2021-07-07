@@ -78,7 +78,6 @@ class NavigationFragment : Fragment() {
 
             navController.popBackStack(R.id.nav_graph_main,false)
             navController.navigate(navDestinationId,null,opt)
-            viewModel.setCurrentDestination(navDestinationId)
         }
 
     }
