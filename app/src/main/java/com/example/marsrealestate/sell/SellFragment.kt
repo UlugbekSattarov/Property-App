@@ -25,8 +25,6 @@ import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.FragmentSellBinding
-import com.example.marsrealestate.detail.DetailFragmentArgs
-import com.example.marsrealestate.detail.DetailFragmentDirections
 import com.example.marsrealestate.util.helpers.FileHelper
 import com.example.marsrealestate.util.setupFadeThroughTransition
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
@@ -96,14 +94,13 @@ class SellFragment : Fragment() {
     }
 
     private fun setupNavigation() {
-        viewModel.navigateToProperty.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let {
+        viewModel.navigateToProperty.observe(viewLifecycleOwner) { event ->
+            event.getContentIfNotHandled()?.let {
                 exitTransition = MaterialFadeThrough()
+                val direction = SellFragmentDirections.actionDestSellToSellCompletedFragment(it.id)
 
-                findNavController().run {
-                    popBackStack(R.id.nav_graph_main, false)
-                    navigate(R.id.dest_detail, DetailFragmentArgs.Builder().apply { propertyId = it.id }.build().toBundle())
-                }
+                findNavController().navigate(direction)
+
             }
         }
     }
