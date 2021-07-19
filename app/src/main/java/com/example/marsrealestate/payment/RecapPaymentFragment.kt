@@ -55,11 +55,10 @@ class RecapPaymentFragment : Fragment() {
 
         viewModel.navigateToHome.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let {
-                val opt = NavOptions.Builder().build()
 
                 findNavController().apply {
                     popBackStack(R.id.nav_graph_main, false)
-                    navigate(R.id.dest_overview, null, opt)
+                    navigate(R.id.dest_overview)
                 }
             }
         })

@@ -8,37 +8,23 @@ import kotlinx.coroutines.*
 import kotlin.random.Random
 
 
-class MarsApiServiceNoServerImpl(private val dao : MarsRemotePropertyDAO) : MarsApiService {
+class MarsApiServiceNoServerImpl(private val dao : MarsRemotePropertyDAO,
+                                 private val imageUrls : List<String>) : MarsApiService {
 
-    private val images = arrayOf(
-        "resource://landscape_1",
-        "resource://landscape_2",
-        "resource://landscape_3",
-        "resource://landscape_4",
-        "resource://landscape_5",
-        "resource://landscape_6",
-
-    )
 
     private val types = arrayOf(
-        MarsProperty.TYPE_BUY,
-        MarsProperty.TYPE_RENT,
-        MarsProperty.TYPE_RENT,
-        MarsProperty.TYPE_BUY,
-        MarsProperty.TYPE_RENT,
-        MarsProperty.TYPE_BUY,
         MarsProperty.TYPE_BUY,
         MarsProperty.TYPE_RENT)
 
     val properties by lazy {
         List(30) { MarsProperty("${it +140_000}",
-            images[it%images.size],
-            types[it%types.size],
+            if (imageUrls.isNotEmpty()) imageUrls[it%imageUrls.size] else "",
+            types.random(),
             (100_000.0 + (0..200_000).random()) / (if (types[it%types.size] == "rent") 10 else 1) ,
             surfaceArea = (Random.nextFloat() * 50) + 0.2f,
             latitude = (Random.nextFloat() * 180) - 90,
             longitude = (Random.nextFloat() * 360)
-            ) }.asSequence()
+        ) }.asSequence()
     }
 
 

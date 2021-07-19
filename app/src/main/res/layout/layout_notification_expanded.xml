@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_height="200dp"
+    >
+
+
+
+
+        <ImageView
+            android:id="@+id/notification_big_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:scaleType="centerCrop"
+
+            tools:src="@drawable/mars_landscape_3"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:src="@drawable/gradient_black"
+            android:rotation="180"
+
+            />
+        <TextView
+            android:id="@+id/notification_big_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Your new property !"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            android:textColor="@android:color/white"
+            android:layout_margin="@dimen/margin_large"
+
+
+            />
+
+
+</FrameLayout>

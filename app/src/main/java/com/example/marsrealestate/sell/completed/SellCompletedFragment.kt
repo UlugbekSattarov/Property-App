@@ -62,6 +62,7 @@ class SellCompletedFragment : Fragment() {
     private fun navigateToDetail(propertyId : String) =
         findNavController().run {
             popBackStack(R.id.nav_graph_main, false)
+            navigate(R.id.dest_overview)
             navigate(R.id.dest_detail, DetailFragmentArgs.Builder().setPropertyId(propertyId).build().toBundle())
         }
 

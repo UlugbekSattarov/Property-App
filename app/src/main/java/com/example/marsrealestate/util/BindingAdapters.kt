@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.ViewPropertyAnimator
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.res.ResourcesCompat
@@ -33,6 +34,7 @@ import com.bumptech.glide.TransitionOptions
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.marsrealestate.R
+import com.example.marsrealestate.util.helpers.NotificationHelper
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.shape.MaterialShapeDrawable
@@ -70,52 +72,33 @@ fun RecyclerView.bindItemSpacing( spacing: Float?, columnNumber : Int?, endSpace
 @BindingAdapter("imageUrl")
 fun ImageView.setImageUrl(imgUrl: String?) {
     imgUrl?.let { url ->
-        val resourceScheme = "resource://"
-        val httpScheme = "http://"
-        val httpsScheme = "https://"
-        val contentScheme = "content://"
-        val defaultDrawable = R.drawable.ic_launcher_foreground
 
-        if (url.startsWith(resourceScheme)) {
-            val drawable = when (url.removePrefix(resourceScheme)) {
-                "landscape_1" -> R.drawable.mars_landscape_1
-                "landscape_2" -> R.drawable.mars_landscape_2
-                "landscape_3" -> R.drawable.mars_landscape_3
-                "landscape_4" -> R.drawable.mars_landscape_4
-                "landscape_5" -> R.drawable.mars_landscape_5
-                "landscape_6" -> R.drawable.mars_landscape_6
-                else -> defaultDrawable
-            }
-            setImageDrawable(ResourcesCompat.getDrawable(resources, drawable, context.theme))
-        }
-
-        else if (url.startsWith(httpScheme) || url.startsWith(httpsScheme)){
-            val imgUri = url.toUri().buildUpon().scheme("https").build()
-            Glide.with(this)
-                .load(imgUri)
-//            .placeholder(R.drawable.ic_launcher_foreground)
-//            .error(R.drawable.ic_broken_image_black_24dp))
-                .into(this)
-        }
-
-        else if (url.startsWith(contentScheme)) {
-            try {
+        try {
                 Glide.with(this).load(url.toUri()).override(1280,720)
-
                     .into(this)
 //                setImageURI(url.toUri())
-            } catch (e: Exception) {
-                setImageDrawable(ResourcesCompat.getDrawable(resources, defaultDrawable, context.theme))
-            }
+
+        } catch (e: Exception) {
+            setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_launcher_foreground, context.theme))
         }
 
-        else {
-            setImageDrawable(ResourcesCompat.getDrawable(resources, defaultDrawable, context.theme))
-        }
+    }
+
+}
+
+@DrawableRes
+fun resourceUrlToDrawable(url : String) : Int =
+    when (url.removePrefix("resource://")) {
+        "landscape_1" -> R.drawable.mars_landscape_1
+        "landscape_2" -> R.drawable.mars_landscape_2
+        "landscape_3" -> R.drawable.mars_landscape_3
+        "landscape_4" -> R.drawable.mars_landscape_4
+        "landscape_5" -> R.drawable.mars_landscape_5
+        "landscape_6" -> R.drawable.mars_landscape_6
+        else -> R.drawable.mars_landscape_1
     }
 
 
-}
 
 @BindingAdapter("startAnim")
 fun ImageView.startAnim(startAnim: Boolean?) {
@@ -133,7 +116,7 @@ fun View.fadeInIf(condition: Boolean?,
                   fadeIntDuration : Long? = null,
                   fadeOutDuration : Long? = null,
                   startDelay: Long? = null
-                  ) {
+) {
     when (condition) {
         true -> {
             isEnabled = true

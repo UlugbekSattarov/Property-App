@@ -6,17 +6,21 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Build
-import android.util.TypedValue
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toBitmap
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.navigation.NavDeepLinkBuilder
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.marsrealestate.R
 import com.example.marsrealestate.data.MarsProperty
+import com.example.marsrealestate.detail.DetailFragmentArgs
+import com.example.marsrealestate.util.resolveColor
 
 
 object NotificationHelper {
@@ -44,80 +48,92 @@ object NotificationHelper {
     }
 
     fun notifyPropertyBought(context: Context,property: MarsProperty) {
-
         val deeplink = NavDeepLinkBuilder(context)
-            .setArguments(bundleOf("MarsProperty" to property))
             .setGraph(R.navigation.nav_graph_main)
             .setDestination(R.id.dest_detail)
+            .setArguments(bundleOf("MarsProperty" to property))
             .createPendingIntent()
 
-        val notif = buildNotificationPropertyBought(context,deeplink,property)
-
-        NotificationManagerCompat.from(context).notify(propertyBoughtNotifId++, notif)
+        buildNotificationPropertyBought(context,deeplink,property) {
+            NotificationManagerCompat.from(context).notify(propertyBoughtNotifId++, it)
+        }
 
     }
 
-    private fun buildNotificationPropertyBought(context: Context, intent: PendingIntent,property: MarsProperty) : Notification {
 
-        val colorSecondary = resolveColorSecondary(context)
-        val imagePropertyBought = getPropertyImage(context,property)
+    private fun buildNotificationPropertyBought(
+        context: Context,
+        intent: PendingIntent,
+        property: MarsProperty,
+        onNotifBuilt : (notif : Notification) -> Unit) : Notification {
+
+        val layout = RemoteViews(context.packageName, R.layout.layout_notification_expanded)
+        val colorSecondary = context.resolveColor(R.attr.colorSecondary)
+
+        //This is the color of the icon or app name for versions of android >= M
+        //otherwise it is the color of the background
+        val tint = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            colorSecondary
+        else
+            context.resolveColor(android.R.attr.colorBackground)
 
 
-
-        val builder = NotificationCompat.Builder(context, "CHANNEL_ID")
+        return NotificationCompat.Builder(context, CHANNEL_ID_PROPERTY_BOUGHT)
+            .apply { color = tint }
             .setSmallIcon(R.drawable.mars_notification)
-            .setColor(colorSecondary)
             .setContentTitle("Property bought !")
             .setContentText(context.resources.getString(R.string.success_bought, property.id))
-            .setLargeIcon(imagePropertyBought)
-//            .setCustomContentView(collapsed)
-//            .setCustomBigContentView(collapsed)
-            .setStyle(NotificationCompat.BigPictureStyle()
-                .bigPicture(imagePropertyBought)
-                .bigLargeIcon(null)
-            )
+
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
             .setContentIntent(intent)
 
 
-        return builder.build()
+            .setCustomBigContentView(layout)
+            .setStyle(NotificationCompat.DecoratedCustomViewStyle())
+
+            .build()
+
+            //The static part of the notification has been built, now we have to load the
+            //image asynchronously and call onNotifBuilt() when the image has been loaded
+
+            .also {
+                val tgt = PropertyBoughtNotificationTarget(
+                    R.id.notification_big_image,
+                    layout) { onNotifBuilt(it) }
+
+                Glide.with(context)
+                    .asBitmap()
+                    .override(1280,720)
+                    .load(property.imgSrcUrl.toUri())
+                    .into(tgt)
+            }
     }
 
 
 
-    private fun resolveColorSecondary(context: Context) : Int {
-        val typedValue = TypedValue()
-        context.theme?.resolveAttribute(R.attr.colorSecondary, typedValue, true)
-        return typedValue.data
-    }
 
-    private fun getPropertyImage(context: Context,property: MarsProperty) : Bitmap {
-        return ResourcesCompat.getDrawable(
-            context.resources,
-            property.imgSrcUrl.toIntOrNull() ?: R.drawable.ic_launcher_foreground,
-            context.theme
-        )?.toBitmap() ?: Bitmap.createBitmap(0,0,Bitmap.Config.ALPHA_8)
-    }
+    class PropertyBoughtNotificationTarget(
+        private val viewId : Int,
+        private val remoteView : RemoteViews,
+        private val onImageLoaded : () -> Unit) : CustomTarget<Bitmap>() {
 
-    @Suppress("unused")
-    private fun buildCollapsedNotif(context: Context,colorSecondary : Int,property: MarsProperty,imagePropertyBought : Bitmap) {
-        @Suppress("UNUSED_VARIABLE") val collapsed = RemoteViews(context.packageName, R.layout.layout_notification_collapsed).apply {
-            setTextColor(R.id.timestamp, colorSecondary)
-            setTextColor(R.id.notification_title, colorSecondary)
-            setTextViewText(
-                R.id.label_bought,
-                context.resources.getString(R.string.success_bought, property.id)
-            )
-            setImageViewBitmap(R.id.leading_icon, imagePropertyBought)
+
+
+        override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+            setBitmap(resource)
+            onImageLoaded()
         }
+
+        override fun onLoadCleared(placeholder: Drawable?) {
+            remoteView.setImageViewBitmap(viewId,null)
+        }
+
+        private fun setBitmap(bitmap : Bitmap?) {
+            remoteView.setImageViewBitmap(viewId,bitmap)
+        }
+
+
     }
-
-
-
-
-
-
-
 
 }

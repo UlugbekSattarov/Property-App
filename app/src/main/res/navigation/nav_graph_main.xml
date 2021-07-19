@@ -19,26 +19,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/dest_blank"
-        android:name="com.example.marsrealestate.BlankFragment"
-        android:label=""
-        tools:layout="@layout/fragment_blank"
-        >
-        <action
-            android:id="@+id/action_dest_blank_to_dest_overview"
-            app:destination="@id/dest_overview" />
-        <action
-            android:id="@+id/action_dest_blank_to_dest_favorites"
-            app:destination="@id/dest_favorites" />
-        <action
-            android:id="@+id/action_dest_blank_to_dest_login"
-            app:destination="@id/dest_login" />
-        <action
-            android:id="@+id/action_dest_blank_to_dest_settings"
-            app:destination="@id/dest_settings" />
-    </fragment>
-
-    <fragment
         android:id="@+id/dest_detail"
         android:name="com.example.marsrealestate.detail.DetailFragment"
         tools:layout="@layout/fragment_detail">

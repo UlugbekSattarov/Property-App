@@ -69,6 +69,7 @@ class DetailFragment : Fragment() {
         else
             enterTransition = MaterialFadeThrough().addTarget(viewDataBinding.root)
 
+        exitTransition = MaterialFadeThrough().addTarget(viewDataBinding.root)
 
         return viewDataBinding.root
     }

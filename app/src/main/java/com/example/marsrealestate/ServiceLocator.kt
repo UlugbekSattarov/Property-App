@@ -9,6 +9,7 @@ import com.example.marsrealestate.data.database.MarsDatabase
 import com.example.marsrealestate.data.network.MarsApiService
 import com.example.marsrealestate.data.network.MarsApiServiceNoServerImpl
 import com.example.marsrealestate.data.network.MarsRemoteDatabase
+import com.example.marsrealestate.util.helpers.ResourceUrlHelper
 
 object ServiceLocator {
 
@@ -64,7 +65,7 @@ object ServiceLocator {
             .build()
 
 
-        return MarsApiServiceNoServerImpl(db.marsPropertyDao())
+        return MarsApiServiceNoServerImpl(db.marsPropertyDao(), ResourceUrlHelper.getAllLandscapesUrl(context))
     }
 
 }

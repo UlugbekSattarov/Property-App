@@ -14,6 +14,7 @@ import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.FragmentOverviewBinding
 import com.example.marsrealestate.util.helpers.NotificationHelper
+import com.example.marsrealestate.util.helpers.ResourceUrlHelper
 import com.example.marsrealestate.util.helpers.SharedElementTransitionHelper
 import com.example.marsrealestate.util.setupFadeThroughTransition
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
@@ -40,9 +41,6 @@ class OverviewFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-
-        exitTransition = null
-
         viewDataBinding = FragmentOverviewBinding.inflate(LayoutInflater.from(requireContext()))
         viewDataBinding.viewModel = viewModel
         viewDataBinding.lifecycleOwner = viewLifecycleOwner
@@ -82,8 +80,14 @@ class OverviewFragment : Fragment() {
     }
 
     private fun testNotification() {
-        val property = MarsProperty("140158", "${R.drawable.mars_landscape_2}", "", 0.toDouble(),22f,58f,-50f)
-        NotificationHelper.notifyPropertyBought(requireContext(),property)
+        val property = MarsProperty("140158",
+            ResourceUrlHelper.getResourceAsUrl(requireContext(),R.drawable.mars_landscape_2),
+            "rent",
+            120_000.toDouble(),
+            22f,
+            58f,
+            -50f)
+        NotificationHelper.notifyPropertyBought(requireActivity(),property)
     }
 
     /**

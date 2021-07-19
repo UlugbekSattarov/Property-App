@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (viewBinding.drawerlayout.isDrawerOpen(GravityCompat.START))
             viewBinding.drawerlayout.close()
-        else if (navController.previousBackStackEntry?.destination?.id == R.id.dest_blank)
-            moveTaskToBack(true)
+//        else if (navController.previousBackStackEntry?.destination?.id == R.id.dest_blank)
+//            moveTaskToBack(true)
         else
             super.onBackPressed()
     }
