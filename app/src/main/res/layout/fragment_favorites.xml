@@ -43,6 +43,67 @@
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
 
             >
+
+            <TextView
+                android:id="@+id/text_no_favorites"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintWidth_max="300dp"
+                android:layout_margin="@dimen/margin_large"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.3"
+
+                android:text="You don't have any favorite yet."
+                android:textAlignment="center"
+                android:textAppearance="?textAppearanceHeadline5"
+                android:textColor="?android:textColorTertiary"
+
+                android:visibility="@{viewModel.favorites.empty ? View.VISIBLE : View.GONE}"
+                />
+
+            <TextView
+                android:id="@+id/text_no_favorites_subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintWidth_max="300dp"
+                android:layout_margin="@dimen/margin_extra_large"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_no_favorites"
+
+                android:text="You can add favorites by browsing properties"
+                android:textAlignment="center"
+                android:textAppearance="?textAppearanceSubtitle1"
+                android:textColor="?android:textColorTertiary"
+
+                android:visibility="@{viewModel.favorites.empty ? View.VISIBLE : View.GONE}"
+                />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/sell_completed_browse_chip"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_no_favorites_subtitle"
+                android:layout_marginTop="@dimen/margin_small"
+
+                style="@style/MyStyle.Widgets.Chip.Alt"
+                android:text="Browse"
+                app:chipIcon="@drawable/mars_notification"
+
+                android:onClick="@{() -> viewModel.navigateToOverview()}"
+                android:visibility="@{viewModel.favorites.empty ? View.VISIBLE : View.GONE}"
+
+
+                />
+
+
+
             <androidx.constraintlayout.motion.widget.MotionLayout
                 android:id="@+id/motionlayout_hint_swipe"
                 android:layout_width="match_parent"
@@ -56,7 +117,8 @@
                 android:clipToPadding="false"
                 android:clipChildren="false"
 
-                android:visibility="@{ fragment.shouldShowFavoritesSwipeHint() ? View.VISIBLE : View.GONE}"
+                android:visibility="gone"
+                tools:visibility="visible"
                 app:onTransitionEnd="@{ () -> fragment.hideSwipeFavoritesHint()}"
                 app:endConstraintSetId="@{ @id/set_swipe_end }"
                 >
@@ -72,7 +134,7 @@
                     app:layout_constraintTop_toTopOf="parent"
 
                     app:cardElevation="8dp"
-                     >
+                    >
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -93,44 +155,44 @@
 
                             />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/swipe_hint_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toEndOf="@id/image_hint"
-                        app:layout_constraintEnd_toStartOf="@id/swipe_hint_text_other"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/swipe_hint_text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toEndOf="@id/image_hint"
+                            app:layout_constraintEnd_toStartOf="@id/swipe_hint_text_other"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
 
-                        app:layout_constraintWidth_default="wrap"
+                            app:layout_constraintWidth_default="wrap"
 
-                        android:paddingEnd="@dimen/margin_medium"
-                        android:paddingStart="@dimen/margin_medium"
-                        android:paddingTop="@dimen/margin_large"
-                        android:paddingBottom="@dimen/margin_large"
+                            android:paddingEnd="@dimen/margin_medium"
+                            android:paddingStart="@dimen/margin_medium"
+                            android:paddingTop="@dimen/margin_large"
+                            android:paddingBottom="@dimen/margin_large"
 
 
-                        android:text="You can swipe favorites to the right to delete them"
-                        android:textAppearance="?textAppearanceSubtitle1"
+                            android:text="You can swipe favorites to the right to delete them"
+                            android:textAppearance="?textAppearanceSubtitle1"
 
-                        />
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/swipe_hint_text_other"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toEndOf="@id/swipe_hint_text"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginEnd="@dimen/margin_medium"
-                        android:minWidth="60dp"
+                            />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/swipe_hint_text_other"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toEndOf="@id/swipe_hint_text"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginEnd="@dimen/margin_medium"
+                            android:minWidth="60dp"
 
-                        style="?materialTextButtonStyle"
-                        android:text="Ok"
+                            style="?materialTextButtonStyle"
+                            android:text="Ok"
 
-                        android:onClick="@{ () -> fragment.hideSwipeFavoritesHint()}"
+                            android:onClick="@{ () -> fragment.hideSwipeFavoritesHint()}"
 
-                        />
+                            />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -138,12 +200,14 @@
 
             </androidx.constraintlayout.motion.widget.MotionLayout>
 
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/favorites_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/motionlayout_hint_swipe"
+                app:layout_constraintBottom_toBottomOf="parent"
 
                 app:dataList="@{viewModel.favorites}"
                 app:onSwipeListener="@{ (swiped) -> viewModel.removePropertyFromFavorites((FavoriteProperty) swiped)}"

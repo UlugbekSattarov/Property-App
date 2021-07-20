@@ -403,7 +403,7 @@ fun TextInputEditText.setTextFloat(oldFloat : Float?, newFloat : Float?) {
 @InverseBindingAdapter(attribute = "textFloat")
 fun TextInputEditText.getTextFloat(): Float = text.toString().toFloatOrNull() ?: 0f
 
-@BindingAdapter("app:textFloatAttrChanged")
+@BindingAdapter("textFloatAttrChanged")
 fun TextInputEditText.setTextFloatListeners(
     attrChange: InverseBindingListener
 ) {

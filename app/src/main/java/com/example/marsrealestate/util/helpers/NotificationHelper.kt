@@ -79,7 +79,7 @@ object NotificationHelper {
 
 
         return NotificationCompat.Builder(context, CHANNEL_ID_PROPERTY_BOUGHT)
-            .apply { color = tint }
+            .setColor(tint)
             .setSmallIcon(R.drawable.mars_notification)
             .setContentTitle("Property bought !")
             .setContentText(context.resources.getString(R.string.success_bought, property.id))

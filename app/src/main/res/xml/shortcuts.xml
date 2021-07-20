@@ -1,0 +1,18 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="shortcut_favorites"
+        android:enabled="true"
+        android:icon="@drawable/ic_favorite"
+        android:shortcutShortLabel="@string/favorites"
+
+        >
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.example.marsrealestate"
+            android:targetClass="com.example.marsrealestate.MainActivity"
+            android:data="https://com.example.marsrealestate/favorites"
+
+            />
+    </shortcut>
+    <!-- Specify more shortcuts here. -->
+</shortcuts>

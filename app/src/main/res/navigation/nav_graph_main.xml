@@ -58,10 +58,14 @@
         android:id="@+id/dest_favorites"
         android:name="com.example.marsrealestate.favorites.FavoritesFragment"
         android:label="@string/favorites"
-        tools:layout="@layout/fragment_favorites" >
+        tools:layout="@layout/fragment_favorites">
         <action
             android:id="@+id/action_favorites_to_detail"
             app:destination="@id/dest_detail" />
+        <deepLink
+            android:id="@+id/deepLink2"
+            app:action="ACTION_VIEW"
+            app:uri="com.example.marsrealestate/favorites" />
     </fragment>
 
     <fragment

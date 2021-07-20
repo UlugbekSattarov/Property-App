@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.transition.TransitionManager
 import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
@@ -44,6 +45,7 @@ class FavoritesFragment : Fragment() {
 
         setupFadeThroughTransition(viewDataBinding.root)
         requireActivity().setupToolbarIfDrawerLayoutPresent(this,viewDataBinding.toolbar)
+        setupHint()
         setupRecyclerView()
         setupNavigation()
         setupOnPropertyRemoved()
@@ -101,12 +103,31 @@ class FavoritesFragment : Fragment() {
                 SharedElementTransitionHelper.navigate(this,fav.property,action)
             }
         })
+
+        viewModel.navigateToOverview.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                navigateToOverview()
+            }
+        }
     }
 
+    private fun navigateToOverview() =
+        findNavController().run {
+            popBackStack(R.id.nav_graph_main, false)
+            navigate(R.id.dest_overview)
+        }
+
+    fun setupHint() =
+        viewModel.favorites.observe(viewLifecycleOwner) {
+
+            viewDataBinding.motionlayoutHintSwipe.visibility =
+                if (it.isNotEmpty() && PreferencesHelper.Tuto.getShowFavoritesSwipe(requireContext()))
+                    View.VISIBLE
+                else
+                    View.GONE
+        }
 
 
-
-    fun shouldShowFavoritesSwipeHint() = PreferencesHelper.Tuto.getShowFavoritesSwipe(requireContext())
 
     fun hideSwipeFavoritesHint() {
         PreferencesHelper.Tuto.setShowFavoritesSwipe(requireContext(),false)

@@ -12,10 +12,16 @@ class FavoritesViewModel(private val repository : MarsRepository) : ViewModel() 
 
     val favorites: LiveData<List<FavoriteProperty>> = repository.observeFavorites()
 
+
     private val _navigateToProperty = MutableLiveData<Event<FavoriteProperty>>()
     val navigateToProperty: LiveData<Event<FavoriteProperty>> = _navigateToProperty
 
+    private val _navigateToOverview = MutableLiveData<Event<Boolean>>()
+    val navigateToOverview: LiveData<Event<Boolean>> = _navigateToOverview
+
+
     private var lastRemovedProperty : FavoriteProperty? = null
+
 
     private val _propertyRecovered = MutableLiveData<Result<FavoriteProperty>>()
     val propertyRecovered: LiveData<Result<FavoriteProperty>> = _propertyRecovered
@@ -27,6 +33,10 @@ class FavoritesViewModel(private val repository : MarsRepository) : ViewModel() 
 
     fun displayPropertyDetails(favorite: FavoriteProperty) {
         _navigateToProperty.value = Event(favorite)
+    }
+
+    fun navigateToOverview() {
+        _navigateToOverview.value = Event(true)
     }
 
 
