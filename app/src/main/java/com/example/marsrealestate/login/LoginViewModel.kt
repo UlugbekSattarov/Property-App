@@ -15,16 +15,18 @@ import java.util.regex.Pattern
 
 
 class LoginViewModel(private val savedStateHandle: SavedStateHandle,
-                     private val repository: MarsRepository) : ViewModel() {
+                     private val repository: MarsRepository,
+                     private val credentialsManager : CredentialsManager) : ViewModel() {
 
     companion object {
+        private const val KEY_LOGIN = "username"
         private const val KEY_PASSWORD = "password"
-        private const val KEY_USERNAME = "username"
         private const val KEY_LOGGED_IN = "logged_in"
     }
 
     val email : MutableLiveData<String> = MutableLiveData()
     val password : MutableLiveData<String> = MutableLiveData()
+    val rememberMe : MutableLiveData<Boolean> = MutableLiveData()
 
     val emailErrorStringId = email.map { emailValidator(it) }
     val passwordErrorStringID = password.map { passwordValidator(it) }
@@ -48,6 +50,7 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
 
 
     init {
+        restoreCredentials()
         restoreState()
     }
 
@@ -85,6 +88,8 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
             try {
                 val email = email.getValueNotNull(::emailValidator)
                 val password = password.getValueNotNull(::passwordValidator)
+                val rememberMe = rememberMe.value ?: false
+
                 repository.login(email, password)
 
                 _operationLogging.postValue(Result.Success())
@@ -92,6 +97,7 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
                 _loggedInEvent.postValue(Event(true))
 
                 saveState(true, email, password)
+                saveOrDeleteCredentials(rememberMe,email,password)
 
             } catch (e: Exception) {
                 _operationLogging.postValue(Result.Error())
@@ -117,16 +123,33 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
     }
 
 
-    private fun saveState(isLoggedIn : Boolean, username : String? = null, password : String? = null) {
-        username?.let { savedStateHandle[KEY_USERNAME] = it }
+    private fun saveState(isLoggedIn : Boolean, login : String? = null, password : String? = null) {
+        login?.let { savedStateHandle[KEY_LOGIN] = it }
         password?.let { savedStateHandle[KEY_PASSWORD] = it }
         savedStateHandle[KEY_LOGGED_IN] = isLoggedIn
     }
 
     private fun restoreState() {
         savedStateHandle.get<Boolean>(KEY_LOGGED_IN)?.let { _isLoggedIn.value = it }
-        savedStateHandle.get<String>(KEY_USERNAME)?.let { email.value = it }
+        savedStateHandle.get<String>(KEY_LOGIN)?.let { email.value = it }
         savedStateHandle.get<String>(KEY_PASSWORD)?.let { password.value = it }
+    }
+
+
+    
+    private fun saveOrDeleteCredentials(save : Boolean,login : String,password : String) {
+        if (save)
+            credentialsManager.saveCredentials(Credentials(login,password))
+        else
+            credentialsManager.deleteCredentials()
+    }
+
+    private fun restoreCredentials() {
+        credentialsManager.getSavedCredentials()?.let {
+            email.value = it.login
+            password.value = it.password
+            rememberMe.value = true
+        }
     }
 
 }
@@ -134,6 +157,7 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
 
 
 class LoginViewModelFactory(private val repository: MarsRepository,
+                            private val credentialsManager : CredentialsManager,
                             owner: SavedStateRegistryOwner,
                             defaultArgs: Bundle?
 )
@@ -141,11 +165,11 @@ class LoginViewModelFactory(private val repository: MarsRepository,
 
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(
+    override fun <T : ViewModel> create(
         key: String,
         modelClass: Class<T>,
         handle: SavedStateHandle
     ): T {
-        return LoginViewModel(handle,repository) as T
+        return LoginViewModel(handle,repository,credentialsManager) as T
     }
 }

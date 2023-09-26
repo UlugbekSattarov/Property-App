@@ -18,7 +18,7 @@ interface MarsApiService {
 
     suspend fun getProperties(query: MarsApiQuery): List<MarsProperty>
 
-    suspend fun getProperty(id: String): MarsProperty?
+    suspend fun getProperty(id: String): MarsProperty
 
     suspend fun addProperty(marsProperty: MarsProperty) : MarsProperty
 

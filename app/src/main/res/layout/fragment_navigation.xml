@@ -21,50 +21,34 @@
 
     </data>
 
-   <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_navigation"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_width="280dp"
-        android:background="?colorBackground"
+        android:fillViewport="true"
+        >
 
 
 
-        tools:context=".navigation.NavigationFragment">
-
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginBottom="@dimen/margin_extra_large"
 
 
-            android:elevation="-1dp"
+            <!--        <ScrollView-->
+            <!--            android:id="@+id/scroll"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_weight="1"-->
 
-            android:src="@drawable/ic_launcher_foreground"
-
-            android:visibility="@{ @bool/showPlanetNavigation ? View.VISIBLE : View.GONE }"
-
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/scroll"
-            android:layout_marginTop="@dimen/margin_extra_large"
-            />
-
-        <ScrollView
-            android:id="@+id/scroll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
+            <!--            >-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:clipToPadding="false"
+
+
+                android:background="?colorBackground"
+
                 android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="vertical"
                 >
                 <TextView
                     android:id="@+id/topImage"
@@ -86,19 +70,19 @@
                     android:layout_height="50dp"
 
 
-                    android:layout_marginEnd="@dimen/margin_medium"
                     android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginEnd="@dimen/margin_medium"
 
 
-
-                    tools:startIcon="@drawable/ic_login"
-                    tools:title="@string/login"
-                    app:title="@{ loginViewModel.userLogged != null ? loginViewModel.userLogged : @string/login}"
-                    app:startIcon="@{loginViewModel.isLoggedIn() ? @drawable/astronaut : @drawable/ic_login}"
-                    app:textColor="@color/control_activable"
 
                     android:onClick="@{ () -> fragment.changeDestination(@id/dest_login)}"
                     app:isActive="@{ viewModel.currentDestinationId == @id/dest_login}"
+                    app:startIcon="@{loginViewModel.isLoggedIn() ? @drawable/astronaut : @drawable/ic_login}"
+                    app:textColor="@color/control_activable"
+                    app:title="@{ loginViewModel.userLogged != null ? loginViewModel.userLogged : @string/login}"
+
+                    tools:startIcon="@drawable/ic_login"
+                    tools:title="@string/login"
 
                     />
 
@@ -109,12 +93,12 @@
 
                     android:layout_marginEnd="@dimen/margin_medium"
 
-                    app:title="@string/browse"
-                    app:startIcon="@drawable/mars_notification"
-                    app:textColor="@color/control_activable"
-
                     android:onClick="@{ () -> fragment.changeDestination(@id/dest_overview)}"
                     app:isActive="@{ viewModel.currentDestinationId == @id/dest_overview}"
+                    app:startIcon="@drawable/mars_notification"
+
+                    app:textColor="@color/control_activable"
+                    app:title="@string/browse"
 
 
                     />
@@ -128,13 +112,13 @@
                     android:layout_marginEnd="@dimen/margin_medium"
 
 
-                    app:title="@string/favorites"
+                    android:onClick="@{ () -> fragment.changeDestination(@id/dest_favorites)}"
+                    app:endText="@{viewModel.favoritesCount.toString()}"
+                    app:isActive="@{ viewModel.currentDestinationId == @id/dest_favorites}"
+
                     app:startIcon="@drawable/ic_favorite"
                     app:textColor="@color/control_activable"
-
-                    android:onClick="@{ () -> fragment.changeDestination(@id/dest_favorites)}"
-                    app:isActive="@{ viewModel.currentDestinationId == @id/dest_favorites}"
-                    app:endText="@{viewModel.favoritesCount.toString()}"
+                    app:title="@string/favorites"
 
                     />
                 <com.example.marsrealestate.custom.NavigationItemView
@@ -146,12 +130,12 @@
                     android:layout_marginEnd="@dimen/margin_medium"
 
 
-                    app:title="Sell your property"
-                    app:startIcon="@drawable/ic_cart_filled"
-                    app:textColor="@color/control_activable"
-
                     android:onClick="@{ () -> fragment.changeDestination(@id/dest_sell)}"
                     app:isActive="@{ viewModel.currentDestinationId == @id/dest_sell}"
+                    app:startIcon="@drawable/ic_cart_filled"
+
+                    app:textColor="@color/control_activable"
+                    app:title="Sell your property"
 
                     />
                 <View
@@ -168,14 +152,33 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
 
-                    android:layout_marginEnd="@dimen/margin_medium"
 
-                    app:title="@string/settings"
-                    app:startIcon="@drawable/ic_manage"
-                    app:textColor="@color/control_activable"
+                    android:layout_marginEnd="@dimen/margin_medium"
 
                     android:onClick="@{ () -> fragment.changeDestination(@id/dest_settings)}"
                     app:isActive="@{ viewModel.currentDestinationId == @id/dest_settings}"
+                    app:startIcon="@drawable/ic_manage"
+
+                    app:textColor="@color/control_activable"
+                    app:title="@string/settings"
+
+
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:layout_marginBottom="@dimen/margin_large"
+
+                    android:elevation="-1dp"
+                    android:src="@drawable/ic_launcher_foreground"
+                    android:visibility="@{ @bool/showPlanetNavigation ? View.VISIBLE : View.GONE }"
 
 
                     />
@@ -183,13 +186,12 @@
             </LinearLayout>
 
 
-        </ScrollView>
+            <!--        </ScrollView>-->
 
 
 
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--    </ScrollView>-->
+    </ScrollView>
 </layout>

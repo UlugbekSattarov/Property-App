@@ -18,7 +18,7 @@ interface MarsRemotePropertyDAO {
     suspend fun insert(marsProperties : List<MarsProperty>)
 
     @Query("SELECT * from MarsProperties WHERE id = :id")
-    suspend fun getProperty(id: String) : MarsProperty?
+    suspend fun getProperty(id: String) : MarsProperty
 
     @Query("SELECT COUNT(*) from MarsProperties ")
     suspend fun getPropertiesCount() : Int

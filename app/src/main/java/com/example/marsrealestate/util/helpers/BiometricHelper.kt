@@ -26,7 +26,7 @@ object BiometricHelper {
         fragment : Fragment,
         callback : BiometricPrompt.AuthenticationCallback) {
 
-        val executor = ContextCompat.getMainExecutor(fragment.context)
+        val executor = ContextCompat.getMainExecutor(fragment.requireContext())
         val biometricPrompt = BiometricPrompt(fragment,  executor,callback)
 
         val promptInfo = BiometricPrompt.PromptInfo.Builder()

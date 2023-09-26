@@ -96,8 +96,10 @@
                 android:text="Browse"
                 app:chipIcon="@drawable/mars_notification"
 
+                android:elevation="1dp"
                 android:onClick="@{() -> viewModel.navigateToOverview()}"
                 android:visibility="@{viewModel.favorites.empty ? View.VISIBLE : View.GONE}"
+                tools:visibility="invisible"
 
 
                 />

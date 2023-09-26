@@ -5,8 +5,8 @@ import com.example.marsrealestate.R
 import com.example.marsrealestate.testshared.MainCoroutineRule
 import com.example.marsrealestate.testshared.data.FakeTestRepository
 import com.example.marsrealestate.data.MarsProperty
+import com.example.marsrealestate.data.query.MarsApiFilter
 import com.example.marsrealestate.testshared.getOrAwaitValue
-import com.example.marsrealestate.data.network.MarsApiFilter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.*
@@ -86,7 +86,7 @@ class OverviewViewModelTest {
         viewModel.properties.getOrAwaitValue()
 
         //Only one property matches the search criteria
-        viewModel.filter.value = MarsApiFilter.MarsPropertyType.RENT
+        viewModel.type.value = MarsApiFilter.MarsPropertyType.RENT
         viewModel.queryString.value = "14506"
         Assert.assertEquals(1, viewModel.properties.getOrAwaitValue().size)
         //Since we are in synchronous environment, we must check the status AFTER the properties are awaited
@@ -99,8 +99,8 @@ class OverviewViewModelTest {
 
 
         //Every filter is reset, list should be one page length maximum
-        viewModel.clearQueryStringAndUpdate()
-        viewModel.filter.value = MarsApiFilter.MarsPropertyType.ALL
+        viewModel.clearQueryString()
+        viewModel.type.value = MarsApiFilter.MarsPropertyType.ALL
 
         if (props.size <= viewModel.itemsPerPage)
             Assert.assertEquals(props.size,viewModel.properties.getOrAwaitValue().size)

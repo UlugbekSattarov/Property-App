@@ -17,6 +17,7 @@ import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.data.MarsProperty
 import com.example.marsrealestate.databinding.FragmentDetailBinding
+import com.example.marsrealestate.login.CredentialsManagerImpl
 import com.example.marsrealestate.login.LoginViewModel
 import com.example.marsrealestate.login.LoginViewModelFactory
 import com.example.marsrealestate.util.helpers.SharedElementTransitionHelper
@@ -41,7 +42,9 @@ class DetailFragment : Fragment() {
     }
 
     private val loginViewModel : LoginViewModel by activityViewModels {
-        LoginViewModelFactory(ServiceLocator.getMarsRepository(requireContext()),this,null)
+        LoginViewModelFactory(ServiceLocator.getMarsRepository(requireContext()),
+            CredentialsManagerImpl(requireContext()),
+            this,null)
     }
 
     private lateinit var viewDataBinding : FragmentDetailBinding

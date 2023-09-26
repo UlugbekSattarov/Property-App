@@ -10,7 +10,7 @@ interface MarsRepository {
     suspend fun login(username : String, password : String) : String
 
     suspend fun getProperties(query: MarsApiQuery) : List<MarsProperty>
-    suspend fun getProperty(id: String) : MarsProperty?
+    suspend fun getProperty(id: String) : MarsProperty
     suspend fun addProperty(property: MarsProperty) : MarsProperty
 
     fun observeFavorites() : LiveData<List<FavoriteProperty>>

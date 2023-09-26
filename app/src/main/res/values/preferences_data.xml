@@ -46,4 +46,10 @@
     </string-array>
 
 
+
+
+    <string name="preference_key_login" translatable="false">preference_key_login</string>
+    <string name="preference_key_password" translatable="false">preference_key_password</string>
+
+
 </resources>

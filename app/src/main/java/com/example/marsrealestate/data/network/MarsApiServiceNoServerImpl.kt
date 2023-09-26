@@ -68,7 +68,7 @@ class MarsApiServiceNoServerImpl(private val dao : MarsRemotePropertyDAO,
         return dao.getProperties(query)
     }
 
-    override suspend fun getProperty(id: String): MarsProperty? = dao.getProperty(id)
+    override suspend fun getProperty(id: String): MarsProperty = dao.getProperty(id)
 
     override suspend fun addProperty(marsProperty: MarsProperty) =
         dao.addNewProperty(marsProperty)

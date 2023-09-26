@@ -55,7 +55,7 @@ class SellFragmentTest {
                 }
             }
         }
-        Thread.sleep(50000)
+//        Thread.sleep(50000)
     }
 
 

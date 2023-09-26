@@ -2,6 +2,7 @@ package com.example.marsrealestate.login
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.SavedStateHandle
+import com.example.marsrealestate.testshared.FakeCredentialsManager
 import com.example.marsrealestate.testshared.MainCoroutineRule
 import com.example.marsrealestate.testshared.data.FakeTestRepository
 import com.example.marsrealestate.testshared.getOrAwaitValue
@@ -12,6 +13,7 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
+
 
 class LoginViewModelTest {
     // Executes each task synchronously using Architecture Components.
@@ -32,7 +34,7 @@ class LoginViewModelTest {
     @ExperimentalCoroutinesApi
     @Test
     fun testLogin() = mainCoroutineRule.runBlockingTest {
-        viewModel = LoginViewModel(SavedStateHandle(), FakeTestRepository())
+        viewModel = LoginViewModel(SavedStateHandle(), FakeTestRepository(),FakeCredentialsManager())
 
         assertTrue(Result.notYetDone(viewModel.operationLogging.value))
         assertNull(viewModel.loggedInEvent.value)

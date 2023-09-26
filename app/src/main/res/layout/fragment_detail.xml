@@ -119,6 +119,7 @@
             app:scaleInDelay="@{1500L}"
 
 
+            android:contentDescription="Add to favorites"
             tools:src="@drawable/ic_favorite_border"
 
             />
@@ -522,10 +523,10 @@
                             android:layout_marginStart="@dimen/margin_medium"
 
 
-                            android:text="@{ Html.fromHtml(@string/available_for_purchase_since)}"
+                            android:text="This property has been put to sale recently"
                             style="?textAppearanceHeadline7"
                             android:textColor="?android:textColorTertiary"
-                            tools:text="This property is available for purchase since 02/03/2021"
+                            tools:text="This property is available for purchase since 02/10/2023"
                             />
 
                         <View

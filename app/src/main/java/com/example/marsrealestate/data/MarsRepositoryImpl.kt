@@ -25,7 +25,7 @@ class MarsRepositoryImpl(private val remoteDataSource: MarsApiService,
         return remoteDataSource.getProperties(query)
     }
 
-    override suspend fun getProperty(id: String): MarsProperty?  {
+    override suspend fun getProperty(id: String): MarsProperty  {
         delay(1000)
         return remoteDataSource.getProperty(id)
     }

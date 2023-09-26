@@ -1,10 +1,15 @@
 package com.example.marsrealestate.util.helpers
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import com.example.marsrealestate.R
+import com.example.marsrealestate.login.Credentials
+
 
 object PreferencesHelper {
 
@@ -19,10 +24,10 @@ object PreferencesHelper {
     }
 
 
-    fun setDarkMode(context: Context) {
+    fun getDarkMode(context: Context) : Int {
         val resources = context.resources
 
-        val mode = when (getPrefValue(context, R.string.preference_key_dark_mode, R.string.preference_dark_mode_follow_system))
+        return when (getPrefValue(context, R.string.preference_key_dark_mode, R.string.preference_dark_mode_follow_system))
         {
             resources.getString(R.string.preference_dark_mode_always_light) -> AppCompatDelegate.MODE_NIGHT_NO
             resources.getString(R.string.preference_dark_mode_always_dark) -> AppCompatDelegate.MODE_NIGHT_YES
@@ -30,23 +35,85 @@ object PreferencesHelper {
             resources.getString(R.string.preference_dark_mode_follow_battery) -> AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
             else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         }
-
-        AppCompatDelegate.setDefaultNightMode(mode)
     }
 
+    fun setDarkMode(context: Context) =
+        AppCompatDelegate.setDefaultNightMode(getDarkMode(context))
 
-    fun setFontSize(context: Context) {
+
+
+    fun getFontSize(context: Context) : Int {
         val resources = context.resources
 
-        val fontSizeTheme = when (getPrefValue(context, R.string.preference_key_font_size, R.string.pref_font_size_normal))
+        return when (getPrefValue(context, R.string.preference_key_font_size, R.string.pref_font_size_normal))
         {
             resources.getString(R.string.pref_font_size_normal) -> R.style.FontSizeNormalTheme
             resources.getString(R.string.pref_font_size_smaller) -> R.style.FontSizeSmallerTheme
             resources.getString(R.string.pref_font_size_bigger) -> R.style.FontSizeBiggerTheme
             else -> R.style.FontSizeNormalTheme
         }
+    }
 
-        context.theme.applyStyle(fontSizeTheme,true)
+
+    fun setFontSize(context: Context) =
+        context.theme.applyStyle(getFontSize(context),true)
+
+
+
+    fun getEncryptedPreferences(context: Context) : SharedPreferences {
+        val masterKey = MasterKey.Builder(context)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
+
+
+        return EncryptedSharedPreferences.create(
+            context,
+            "encrypted_shared_prefs",
+            masterKey,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+    }
+
+    fun getCredentials(context: Context) : Credentials? {
+
+        val sharedPreferences = getEncryptedPreferences(context)
+
+        val keyLogin = context.resources.getString(R.string.preference_key_login)
+        val keyPassword = context.resources.getString(R.string.preference_key_password)
+
+        val login = sharedPreferences.getString(keyLogin,null) ?: return null
+        val password = sharedPreferences.getString(keyPassword,null) ?: return null
+
+        return Credentials(login,password)
+    }
+
+    fun setCredentials(context: Context, credentials: Credentials)  {
+
+        val sharedPreferences = getEncryptedPreferences(context)
+
+        val keyLogin = context.resources.getString(R.string.preference_key_login)
+        val keyPassword = context.resources.getString(R.string.preference_key_password)
+
+
+        sharedPreferences.edit()
+            .putString(keyLogin,credentials.login)
+            .putString(keyPassword,credentials.password)
+            .apply()
+    }
+
+    fun deleteCredentials(context: Context)  {
+
+        val sharedPreferences = getEncryptedPreferences(context)
+
+        val keyLogin = context.resources.getString(R.string.preference_key_login)
+        val keyPassword = context.resources.getString(R.string.preference_key_password)
+
+
+        sharedPreferences.edit()
+            .remove(keyLogin)
+            .remove(keyPassword)
+            .apply()
     }
 
 

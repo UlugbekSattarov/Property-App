@@ -32,9 +32,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class MainActitivtyTest {
+class MainActivityTest {
 
     // Executes each task synchronously using Architecture Components.
     @get:Rule
@@ -112,7 +113,7 @@ class MainActitivtyTest {
 
 //        onData(allOf()).inAdapterView(withId(R.id.photos_grid)).atPosition(0).perform(click())
 
-        //Perform clicl at position [positionToClick]
+        //Perform click at position [positionToClick]
         onView(withId(R.id.photos_grid)).perform(
             RecyclerViewActions.actionOnItemAtPosition<OverviewAdapter.MarsPropertyViewHolder>(positionToClick,
                 click()
@@ -129,9 +130,9 @@ class MainActitivtyTest {
         onView(withId(R.id.extended_fab)).perform(click())
         //After click on the buy/rent button, the login opens so we type login info
         onView(withId(R.id.email_value))
-            .perform(scrollTo(),typeText("a@a.a"))
+            .perform(scrollTo(),replaceText("a@a.a"))
         onView(withId(R.id.pasword_value))
-            .perform(scrollTo(),typeText("aaaa"))
+            .perform(scrollTo(),replaceText("aaaa"))
 
         onView(
             Matchers.allOf(

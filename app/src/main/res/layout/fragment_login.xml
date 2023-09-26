@@ -85,8 +85,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/margin_large"
-                android:layout_marginStart="@dimen/margin_extra_large"
-                android:layout_marginEnd="@dimen/margin_extra_large"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginEnd="@dimen/margin_large"
 
                 app:cardElevation="5dp"
 
@@ -205,18 +205,40 @@
 
                         </com.google.android.material.textfield.TextInputLayout>
 
+
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/remember_me_checkbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/password"
+                            android:layout_marginTop="@dimen/margin_very_small"
+
+                            android:textAppearance="?textAppearanceSubtitle1"
+                            android:textColor="?android:textColorTertiary"
+
+                            android:paddingStart="@dimen/margin_small"
+                            android:paddingEnd="@dimen/margin_small"
+
+                            android:text="Remember me"
+                            android:checked="@={viewModel.rememberMe}"
+
+
+                            />
+
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/button_login"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_medium"
-                            app:layout_constraintTop_toBottomOf="@id/password"
+                            app:layout_constraintTop_toBottomOf="@id/remember_me_checkbox"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintWidth_min="230dp"
                             app:layout_constraintWidth_max="310dp"
-                            android:paddingTop="15dp"
-                            android:paddingBottom="15dp"
+                            android:paddingTop="17dp"
+                            android:paddingBottom="17dp"
 
                             android:text="@string/confirm"
                             android:onClick="@{ () -> viewModel.login()}"
@@ -242,6 +264,9 @@
                             />
 
 
+
+
+
                         <View
                             android:id="@+id/login_divider"
                             android:layout_width="match_parent"
@@ -249,7 +274,7 @@
 
                             app:layout_constraintTop_toBottomOf="@id/button_login"
                             android:background="?android:listDivider"
-                            android:layout_marginTop="@dimen/margin_very_large"
+                            android:layout_marginTop="@dimen/margin_large"
                             />
 
 
@@ -355,7 +380,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_medium"
                             android:layout_marginTop="@dimen/margin_very_large"
-                            android:text="@{ Html.fromHtml(`You are now logged in as &lt;b>User&lt;/b>`)}"
+                            android:text="@{ Html.fromHtml(`You are logged in as &lt;b>User&lt;/b>`)}"
                             android:textAppearance="?textAppearanceHeadline6"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/logged_in_check"

@@ -12,6 +12,7 @@ import com.example.marsrealestate.data.query.MarsApiSorting
 import com.example.marsrealestate.util.Result
 import java.lang.Exception
 import java.util.*
+import kotlin.NoSuchElementException
 
 class FakeTestRepository : MarsRepository {
 
@@ -68,19 +69,20 @@ class FakeTestRepository : MarsRepository {
        refreshFavorites()
    }
 
-    override suspend fun login(username: String, password: String): Result<Boolean> {
-        return Result.Success(true)
+    override suspend fun login(username: String, password: String): String {
+        return username
     }
 
 
-    override suspend fun getProperties(query: MarsApiQuery,
-                                       sortedBy: MarsApiSorting): List<MarsProperty> {
+
+
+    override suspend fun getProperties(query: MarsApiQuery): List<MarsProperty> {
         if (willThrowExceptionForTesting)
             throw Exception("Exception throwed for testing")
         return properties
             .filter { p -> query.filter?.matches(p) ?: true }
             .run {
-                when (sortedBy) {
+                when (query.sortedBy) {
                     MarsApiSorting.PriceAscending -> sortedBy { p -> p.price}
                     MarsApiSorting.PriceDescending -> sortedByDescending { p -> p.price}
                     else -> this
@@ -93,14 +95,15 @@ class FakeTestRepository : MarsRepository {
 
 
 
-    override suspend fun getProperty(id: String): MarsProperty? {
+    override suspend fun getProperty(id: String): MarsProperty {
         if (willThrowExceptionForTesting)
             throw Exception("Exception throwed for testing")
-        return properties.find { it.id == id }
+        return properties.find { it.id == id } ?: throw NoSuchElementException("No property found with id $id")
     }
 
-    override suspend fun addProperty(property: MarsProperty) {
+    override suspend fun addProperty(property: MarsProperty) : MarsProperty {
         properties.add(property)
+        return property
     }
 
 //    override fun observeProperty(id: String): LiveData<MarsProperty?> {

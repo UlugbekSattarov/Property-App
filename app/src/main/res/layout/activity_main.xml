@@ -62,10 +62,10 @@
                 app:menu="@menu/drawer_menu"-->
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigation_view"
-            android:layout_width="280dp"
+            android:layout_width="310dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:paddingEnd="@dimen/margin_small"
+            android:paddingEnd="@dimen/margin_very_large"
             android:paddingStart="0dp"
 
             app:marginLeftPlusInsets="@{0f}"
@@ -87,7 +87,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/bla"
                 android:name="com.example.marsrealestate.navigation.NavigationFragment"
                 tools:layout="@layout/fragment_navigation"

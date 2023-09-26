@@ -1,5 +1,6 @@
 package com.example.marsrealestate.login
 
+import android.content.Context
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +23,7 @@ import com.example.marsrealestate.R
 import com.example.marsrealestate.ServiceLocator
 import com.example.marsrealestate.databinding.FragmentLoginBinding
 import com.example.marsrealestate.util.helpers.BiometricHelper
+import com.example.marsrealestate.util.helpers.PreferencesHelper
 import com.example.marsrealestate.util.hideSoftInput
 import com.example.marsrealestate.util.setupFadeThroughTransition
 import com.example.marsrealestate.util.setupToolbarIfDrawerLayoutPresent
@@ -35,7 +37,10 @@ class LoginFragment : Fragment() {
 
 
     private val viewModel: LoginViewModel by activityViewModels {
-        LoginViewModelFactory(ServiceLocator.getMarsRepository(requireContext()),this,null)
+        LoginViewModelFactory(
+            ServiceLocator.getMarsRepository(requireContext()),
+            CredentialsManagerImpl(requireContext()),
+            this,null)
     }
 
     private lateinit var viewDataBinding: FragmentLoginBinding
@@ -57,6 +62,10 @@ class LoginFragment : Fragment() {
         setupSwitchLoginLayoutListener()
         setupCloseKeyboardOnLoading()
         setupBiometricLoginListener()
+
+
+//        viewModel.email.value = PreferencesHelper.getEmail(requireContext())
+
 
         return viewDataBinding.root
     }
@@ -193,5 +202,23 @@ class LoginFragment : Fragment() {
 
 }
 
+data class Credentials(val login: String,val password : String)
 
+interface CredentialsManager {
 
+    fun getSavedCredentials() : Credentials?
+    fun saveCredentials(credentials: Credentials)
+    fun deleteCredentials()
+}
+
+class CredentialsManagerImpl(private val context : Context) : CredentialsManager {
+
+    override fun getSavedCredentials(): Credentials? =
+        PreferencesHelper.getCredentials(context)
+
+    override fun saveCredentials(credentials: Credentials) =
+        PreferencesHelper.setCredentials(context,credentials)
+
+    override fun deleteCredentials() =
+        PreferencesHelper.deleteCredentials(context)
+}

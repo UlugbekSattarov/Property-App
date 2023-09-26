@@ -105,6 +105,7 @@ fun ImageView.startAnim(startAnim: Boolean?) {
     when (startAnim) {
         true -> (drawable as? AnimatedVectorDrawable)?.start()
         false -> (drawable as? AnimatedVectorDrawable)?.stop()
+        null -> (drawable as? AnimatedVectorDrawable)?.stop()
     }
 }
 
@@ -137,6 +138,7 @@ fun View.fadeInIf(condition: Boolean?,
                     visibility = View.INVISIBLE
                 }.start()
         }
+        null -> { }
     }
 }
 
@@ -176,6 +178,7 @@ fun View.scaleInIf(condition: Boolean?, scaleInDelay : Long? = null) {
                     visibility = View.INVISIBLE
                 }.start()
         }
+        null -> { }
     }
 }
 
@@ -200,7 +203,7 @@ const val PIVOT_BOTTOM_LEFT = 3
 @BindingAdapter("transformPivot")
 fun View.setTransformPivot(pivot : Int?) {
     pivot?.let { p ->
-        addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+        addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
             when (p) {
                 PIVOT_TOP_LEFT -> { pivotX = 0f; pivotY = 0f }
                 PIVOT_TOP_RIGHT -> { pivotX = width.toFloat(); pivotY = 0f }

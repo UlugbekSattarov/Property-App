@@ -46,14 +46,14 @@ class RecapPaymentFragment : Fragment() {
 
     private fun setupNavigation() {
 
-        viewModel.transactionCompleted.observe(viewLifecycleOwner,  {
+        viewModel.transactionCompleted.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { property ->
-                NotificationHelper.notifyPropertyBought(requireContext(),property)
+                NotificationHelper.notifyPropertyBought(requireContext(), property)
             }
-        })
+        }
 
 
-        viewModel.navigateToHome.observe(viewLifecycleOwner, {
+        viewModel.navigateToHome.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
 
                 findNavController().apply {
@@ -61,7 +61,7 @@ class RecapPaymentFragment : Fragment() {
                     navigate(R.id.dest_overview)
                 }
             }
-        })
+        }
     }
 
 

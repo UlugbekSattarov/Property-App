@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuProvider
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -36,7 +37,24 @@ class OverviewFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+
+
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.fragment_overview,menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                if (menuItem.itemId == R.id.menu_refresh) {
+                    viewModel.makeNewSearch()
+                }
+                else if (menuItem.itemId == R.id.menu_test) {
+                    testNotification()
+                }
+                return true
+            }
+        })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -65,19 +83,9 @@ class OverviewFragment : Fragment() {
 
 
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.fragment_overview,menu)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_refresh) {
-            viewModel.makeNewSearch()
-        }
-        else if (item.itemId == R.id.menu_test) {
-            testNotification()
-        }
-        return super.onOptionsItemSelected(item)
-    }
+
+
 
     private fun testNotification() {
         val property = MarsProperty("140158",
@@ -99,22 +107,21 @@ class OverviewFragment : Fragment() {
      */
     private fun setupAppBarLayoutVisualState() {
         viewDataBinding.appBarLayout.setExpanded(appBarLayoutIsShown)
-        viewDataBinding.appBarLayout.addOnOffsetChangedListener(
-            AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
-                appBarLayoutIsShown = verticalOffset == 0
-            })
+        viewDataBinding.appBarLayout.addOnOffsetChangedListener { _, verticalOffset ->
+            appBarLayoutIsShown = verticalOffset == 0
+        }
     }
 
     @Suppress("UNCHECKED_CAST")
     private fun setupRecyclerView() {
-        viewModel.properties.observe(viewLifecycleOwner, {
-            if ( it.isNotEmpty()) {
+        viewModel.properties.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
                 playListAnimationOnlyOnce()
             }
 
             (viewDataBinding.photosGrid.adapter as? androidx.recyclerview.widget.ListAdapter<Any, RecyclerView.ViewHolder>)
                 ?.submitList(it.toList())
-        })
+        }
 
 
         viewDataBinding.photosGrid.adapter = OverviewAdapter(
@@ -139,21 +146,26 @@ class OverviewFragment : Fragment() {
     }
 
     private fun setupNoMoreProperties() {
-        viewModel.endOfData.observe(viewLifecycleOwner,  {
+        viewModel.endOfData.observe(viewLifecycleOwner) {
             if (it) {
-                Snackbar.make(viewDataBinding.root,R.string.no_more_properties, Snackbar.LENGTH_LONG).show()
+                Snackbar.make(
+                    viewDataBinding.root,
+                    R.string.no_more_properties,
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
-        })
+        }
     }
 
     private fun setupNavigation() {
-        viewModel.navigateToProperty.observe(viewLifecycleOwner, {
+        viewModel.navigateToProperty.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let navigation@{ property ->
-                val action = OverviewFragmentDirections.actionOverviewToDetail().apply { marsProperty = property }
+                val action = OverviewFragmentDirections.actionOverviewToDetail()
+                    .apply { marsProperty = property }
 
-                SharedElementTransitionHelper.navigate(this,property,action)
+                SharedElementTransitionHelper.navigate(this, property, action)
             }
-        })
+        }
     }
 
 }

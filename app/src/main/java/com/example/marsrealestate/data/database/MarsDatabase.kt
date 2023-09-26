@@ -15,7 +15,7 @@ import com.example.marsrealestate.util.MarsDatabaseConverter
  */
 @Database(entities = [MarsProperty::class,Favorite::class], version = 3, exportSchema = false)
 @TypeConverters(MarsDatabaseConverter::class)
-abstract class MarsDatabase : RoomDatabase() {
+abstract class  MarsDatabase : RoomDatabase() {
 
     abstract fun marsPropertyDao(): MarsPropertyDAO
 
