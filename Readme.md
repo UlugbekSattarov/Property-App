@@ -60,16 +60,16 @@ Since the app was made a few years ago, some functions it uses are now deprecate
 
 ## Screenshots
 
-![overview](screenshots/overview.png "overview")
+<img src="screenshots/overview.png" width="300">
 
-![detail](screenshots/detail.png "detail")
+<img src="screenshots/detail.png" width="300">
 
-![drawer](screenshots/drawer.png "drawer")
+<img src="screenshots/drawer.png" width="300">
 
-![login](screenshots/login.png "login")
+<img src="screenshots/login.png" width="300">
 
-![payment](screenshots/payment.png "payment")
+<img src="screenshots/payment.png" width="300">
 
-![sell](screenshots/sell.png "sell")
+<img src="screenshots/sell.png" width="300">
 
-![overview_night](screenshots/overview_night.png "overview_night")
+<img src="screenshots/overview_night.png" width="300">

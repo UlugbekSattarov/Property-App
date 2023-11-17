@@ -233,32 +233,32 @@
                     android:id="@+id/photo_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/divider_two"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-
                     android:layout_marginTop="@dimen/margin_extra_large"
-
-                    android:text="Take a photo of your property"
+                    android:text="Add a photo of your property"
                     android:textAlignment="center"
+
                     android:textAppearance="?textAppearanceHeadline6"
+
                     android:textColor="?android:textColorTertiary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_two"
 
                     />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/photo_button"
+                    style="@style/MyStyle.Widgets.FloatingActionButton.Alternative"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/photo_label"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="@dimen/margin_very_large"
-
-                    style="@style/MyStyle.Widgets.FloatingActionButton.Alternative"
-
-                    app:srcCompat="@drawable/ic_add_a_photo_24"
+                    android:layout_marginTop="16dp"
                     android:onClick="@{ () -> fragment.askForExternalImage() }"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    app:layout_constraintTop_toBottomOf="@id/photo_label"
+                    app:srcCompat="@drawable/ic_add_a_photo_24"
 
                     />
 
@@ -323,7 +323,7 @@
 
                     android:layout_marginTop="@dimen/margin_extra_large"
 
-                    android:text="Where is located your property?"
+                    android:text="Where is your property located ?"
                     android:textAlignment="center"
                     android:textAppearance="?textAppearanceHeadline6"
                     android:textColor="?android:textColorTertiary"
@@ -467,7 +467,7 @@
 
                     android:layout_marginTop="@dimen/margin_extra_large"
 
-                    android:text="How much area does your property cover?"
+                    android:text="How much space does your property cover?"
                     android:textAlignment="center"
                     android:textAppearance="?textAppearanceHeadline6"
                     android:textColor="?android:textColorTertiary"
@@ -537,7 +537,7 @@
                     android:paddingBottom="15dp"
 
 
-                    android:text="Put on sale"
+                    android:text='@{viewModel.isRental ? "Rent" : "Put on sale" }'
 
                     android:onClick="@{ () -> viewModel.putPropertyToSale()}"
                     app:fadeOutIf="@{viewModel.status.isLoading}"
