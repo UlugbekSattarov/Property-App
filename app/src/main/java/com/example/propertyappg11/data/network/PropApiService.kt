@@ -1,16 +1,16 @@
 package com.example.propertyappg11.data.network
 
-import com.example.propertyappg11.data.MarsProperty
-import com.example.propertyappg11.data.query.MarsApiQuery
+import com.example.propertyappg11.data.PropProperty
+import com.example.propertyappg11.data.query.PropApiQuery
 
 
-interface MarsApiService {
+interface PropApiService {
 
-    suspend fun getProperties(query: MarsApiQuery): List<MarsProperty>
+    suspend fun getProperties(query: PropApiQuery): List<PropProperty>
 
-    suspend fun getProperty(id: String): MarsProperty
+    suspend fun getProperty(id: String): PropProperty
 
-    suspend fun addProperty(marsProperty: MarsProperty) : MarsProperty
+    suspend fun addProperty(propProperty: PropProperty) : PropProperty
 
     suspend fun removeProperty(propertyId: String)
 

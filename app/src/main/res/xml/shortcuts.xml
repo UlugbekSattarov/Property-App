@@ -8,8 +8,8 @@
         >
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="com.example.marsrealestate"
-            android:targetClass="com.example.marsrealestate.MainActivity"
+            android:targetPackage="com.example.propertyappg11"
+            android:targetClass="com.example.propertyappg11.MainActivity"
             android:data="https://com.example.marsrealestate/favorites"
 
             />

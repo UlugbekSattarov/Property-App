@@ -1,7 +1,6 @@
 package com.example.propertyappg11.util
 
 import android.graphics.Rect
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 

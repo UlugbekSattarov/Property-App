@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/dest_overview"
-        android:name="com.example.marsrealestate.overview.OverviewFragment"
+        android:name="com.example.propertyappg11.overview.OverviewFragment"
         android:label=""
         tools:layout="@layout/fragment_overview"
         >
@@ -20,29 +20,29 @@
 
     <fragment
         android:id="@+id/dest_detail"
-        android:name="com.example.marsrealestate.detail.DetailFragment"
+        android:name="com.example.propertyappg11.detail.DetailFragment"
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="MarsProperty"
             android:defaultValue="@null"
-            app:argType="com.example.marsrealestate.data.MarsProperty"
+            app:argType="com.example.propertyappg11.data.PropProperty"
             app:nullable="true" />
         <action
             android:id="@+id/action_dest_detail_to_dest_login"
             app:destination="@id/dest_login"
             app:popUpToInclusive="false" />
-        <action
-            android:id="@+id/action_dest_detail_to_dest_choose_payment"
-            app:destination="@id/nav_graph_payment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+<!--        <action-->
+<!--            android:id="@+id/action_dest_detail_to_dest_choose_payment"-->
+<!--            app:destination="@id/nav_graph_payment"-->
+<!--            app:enterAnim="@anim/nav_default_enter_anim"-->
+<!--            app:exitAnim="@anim/nav_default_exit_anim"-->
+<!--            app:popEnterAnim="@anim/nav_default_pop_enter_anim"-->
+<!--            app:popExitAnim="@anim/nav_default_pop_exit_anim">-->
 
-            <argument
-                android:name="propertyToBuyId"
-                app:argType="string" />
-        </action>
+<!--            <argument-->
+<!--                android:name="propertyToBuyId"-->
+<!--                app:argType="string" />-->
+<!--        </action>-->
         <deepLink
             android:id="@+id/deepLink"
             app:action="ACTION_SEND"
@@ -56,7 +56,7 @@
 
     <fragment
         android:id="@+id/dest_favorites"
-        android:name="com.example.marsrealestate.favorites.FavoritesFragment"
+        android:name="com.example.propertyappg11.favorites.FavoritesFragment"
         android:label="@string/favorites"
         tools:layout="@layout/fragment_favorites">
         <action
@@ -70,12 +70,12 @@
 
     <fragment
         android:id="@+id/dest_settings"
-        android:name="com.example.marsrealestate.settings.SettingsFragment"
+        android:name="com.example.propertyappg11.settings.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings"/>
     <fragment
         android:id="@+id/dest_login"
-        android:name="com.example.marsrealestate.login.LoginFragment"
+        android:name="com.example.propertyappg11.login.LoginFragment"
         tools:layout="@layout/fragment_login">
         <argument
             android:name="redirection"
@@ -86,77 +86,77 @@
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
-        <action
-            android:id="@+id/action_dest_login_to_dest_choose_payment"
-            app:destination="@id/nav_graph_payment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/dest_login"
-            app:popUpToInclusive="true">
-            <argument
-                android:name="propertyToBuyId"
-                app:argType="string" />
-        </action>
+<!--        <action-->
+<!--            android:id="@+id/action_dest_login_to_dest_choose_payment"-->
+<!--            app:destination="@id/nav_graph_payment"-->
+<!--            app:enterAnim="@anim/nav_default_enter_anim"-->
+<!--            app:exitAnim="@anim/nav_default_exit_anim"-->
+<!--            app:popEnterAnim="@anim/nav_default_pop_enter_anim"-->
+<!--            app:popExitAnim="@anim/nav_default_pop_exit_anim"-->
+<!--            app:popUpTo="@id/dest_login"-->
+<!--            app:popUpToInclusive="true">-->
+<!--            <argument-->
+<!--                android:name="propertyToBuyId"-->
+<!--                app:argType="string" />-->
+<!--        </action>-->
     </fragment>
 
-    <navigation
-        android:id="@+id/nav_graph_payment"
-        app:startDestination="@id/dest_choose_payment">
+<!--    <navigation-->
+<!--        android:id="@+id/nav_graph_payment"-->
+<!--        app:startDestination="@id/dest_choose_payment">-->
 
 
-        <fragment
-            android:id="@+id/dest_choose_payment"
-            android:name="com.example.marsrealestate.payment.ChoosePaymentFragment"
-            android:label="ChoosePaymentFragment"
-            tools:layout="@layout/fragment_payment_choose">
-            <argument
-                android:name="propertyToBuyId"
-                app:argType="string"
-                app:nullable="true"
-                android:defaultValue="@null" />
-            <action
-                android:id="@+id/action_dest_choose_payment_to_dest_payment_visa"
-                app:destination="@id/dest_payment_visa"
-                app:enterAnim="@anim/shared_axis_x_enter"
-                app:exitAnim="@anim/shared_axis_x_exit"
-                app:popEnterAnim="@anim/shared_axis_x_pop_enter"
-                app:popExitAnim="@anim/shared_axis_x_pop_exit"
-                />
-        </fragment>
-        <fragment
-            android:id="@+id/dest_payment_visa"
-            android:name="com.example.marsrealestate.payment.options.PaymentVisaFragment"
-            tools:layout="@layout/fragment_payment_visa" >
-            <action
-                android:id="@+id/action_dest_payment_visa_to_recapPaymentFragment"
-                app:destination="@id/dest_payment_recap"
-                app:enterAnim="@anim/shared_axis_x_enter"
-                app:exitAnim="@anim/shared_axis_x_exit"
-                app:popEnterAnim="@anim/shared_axis_x_pop_enter"
-                app:popExitAnim="@anim/shared_axis_x_pop_exit"
+<!--        <fragment-->
+<!--            android:id="@+id/dest_choose_payment"-->
+<!--            android:name="com.example.propertyappg11.payment.ChoosePaymentFragment"-->
+<!--            android:label="ChoosePaymentFragment"-->
+<!--            tools:layout="@layout/fragment_payment_choose">-->
+<!--            <argument-->
+<!--                android:name="propertyToBuyId"-->
+<!--                app:argType="string"-->
+<!--                app:nullable="true"-->
+<!--                android:defaultValue="@null" />-->
+<!--            <action-->
+<!--                android:id="@+id/action_dest_choose_payment_to_dest_payment_visa"-->
+<!--                app:destination="@id/dest_payment_visa"-->
+<!--                app:enterAnim="@anim/shared_axis_x_enter"-->
+<!--                app:exitAnim="@anim/shared_axis_x_exit"-->
+<!--                app:popEnterAnim="@anim/shared_axis_x_pop_enter"-->
+<!--                app:popExitAnim="@anim/shared_axis_x_pop_exit"-->
+<!--                />-->
+<!--        </fragment>-->
+<!--        <fragment-->
+<!--            android:id="@+id/dest_payment_visa"-->
+<!--            android:name="com.example.propertyappg11.payment.options.PaymentVisaFragment"-->
+<!--            tools:layout="@layout/fragment_payment_visa" >-->
+<!--            <action-->
+<!--                android:id="@+id/action_dest_payment_visa_to_recapPaymentFragment"-->
+<!--                app:destination="@id/dest_payment_recap"-->
+<!--                app:enterAnim="@anim/shared_axis_x_enter"-->
+<!--                app:exitAnim="@anim/shared_axis_x_exit"-->
+<!--                app:popEnterAnim="@anim/shared_axis_x_pop_enter"-->
+<!--                app:popExitAnim="@anim/shared_axis_x_pop_exit"-->
 
 
-                />
-        </fragment>
-        <fragment
-            android:id="@+id/dest_payment_recap"
-            android:name="com.example.marsrealestate.payment.RecapPaymentFragment"
-            android:label="RecapPaymentFragment"
-            tools:layout="@layout/fragment_payment_recap"
-            >
-            <argument
-                android:name="propertyToBuyId"
-                app:argType="string" />
-            <argument
-                android:name="paymentOption"
-                app:argType="com.example.marsrealestate.payment.options.PaymentOption" />
-        </fragment>
-    </navigation>
+<!--                />-->
+<!--        </fragment>-->
+<!--        <fragment-->
+<!--            android:id="@+id/dest_payment_recap"-->
+<!--            android:name="com.example.propertyappg11.payment.RecapPaymentFragment"-->
+<!--            android:label="RecapPaymentFragment"-->
+<!--            tools:layout="@layout/fragment_payment_recap"-->
+<!--            >-->
+<!--            <argument-->
+<!--                android:name="propertyToBuyId"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="paymentOption"-->
+<!--                app:argType="com.example.propertyappg11.payment.options.PaymentOption" />-->
+<!--        </fragment>-->
+<!--    </navigation>-->
     <fragment
         android:id="@+id/dest_sell"
-        android:name="com.example.marsrealestate.sell.SellFragment"
+        android:name="com.example.propertyappg11.sell.SellFragment"
         tools:layout="@layout/fragment_sell">
         <action
             android:id="@+id/action_dest_sell_to_sellCompletedFragment"
@@ -164,7 +164,7 @@
     </fragment>
     <fragment
         android:id="@+id/dest_sell_completed"
-        android:name="com.example.marsrealestate.sell.completed.SellCompletedFragment"
+        android:name="com.example.propertyappg11.sell.completed.SellCompletedFragment"
         tools:layout="@layout/fragment_sell_completed">
         <action
             android:id="@+id/action_sellCompletedFragment_to_dest_detail"

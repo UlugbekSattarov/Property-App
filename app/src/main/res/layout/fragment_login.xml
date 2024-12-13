@@ -4,14 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.example.marsrealestate.util.Result"/>
+        <import type="com.example.propertyappg11.util.Result"/>
         <import type="android.text.Html" />
-        <import type="com.example.marsrealestate.util.helpers.BiometricHelper" />
+        <import type="com.example.propertyappg11.util.helpers.BiometricHelper" />
         <import type="android.view.View" />
 
         <variable
             name="viewModel"
-            type="com.example.marsrealestate.login.LoginViewModel" />
+            type="com.example.propertyappg11.login.LoginViewModel" />
 
 
     </data>
@@ -53,12 +53,8 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:translationX="-180dp"
                 android:translationY="100dp"
-
+                android:visibility="gone"
                 android:scaleType="fitXY"
-
-
-                android:src="@drawable/ic_launcher_foreground"
-
                 />
 
             <ImageView
@@ -295,7 +291,7 @@
 
                             app:srcCompat="@drawable/ic_fingerprint_24"
                             app:maxImageSize="32dp"
-
+                            android:visibility="gone"
                             android:enabled="@{BiometricHelper.canUseBiometric(context)}"
                             tools:enabled="false"
 
@@ -310,12 +306,10 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginTop="@dimen/margin_medium"
                             app:layout_constraintWidth_max="250dp"
-
                             android:textAppearance="?textAppearanceSubtitle1"
                             android:text="Login with a fingerprint sensor"
                             android:textAlignment="center"
-
-                            android:visibility="@{BiometricHelper.canUseBiometric(context) ? View.VISIBLE : View.GONE}"
+                            android:visibility="gone"
                             />
 
 
@@ -335,7 +329,7 @@
                             android:textStyle="italic"
                             android:alpha="0.6"
 
-                            android:visibility="@{BiometricHelper.canUseBiometric(context) ? View.GONE : View.VISIBLE}"
+                            android:visibility="gone"
                             tools:visibility="gone"
 
                             />
@@ -404,7 +398,7 @@
                             android:layout_marginTop="@dimen/margin_large"
 
                             style="@style/MyStyle.Widgets.Chip.Alt"
-                            app:chipIcon="@drawable/mars_notification"
+                            app:chipIcon="@drawable/notification"
                             android:text="Browse properties"
 
                             android:onClick="@{ () -> viewModel.navigateToOverview()}"

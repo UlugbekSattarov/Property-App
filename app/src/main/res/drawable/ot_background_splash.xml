@@ -11,7 +11,7 @@
 <!--        We can't reference directly the @mipmap folder so we have to use an asset from @drawable-->
         <bitmap
             android:gravity="center"
-            android:src="@drawable/ic_launcher_pre_v23"
+            android:src="@drawable/ic_dark_mode"
 
             >
         </bitmap>

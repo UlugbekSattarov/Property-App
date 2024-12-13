@@ -6,17 +6,17 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.example.marsrealestate.util.Result"/>
+        <import type="com.example.propertyappg11.util.Result"/>
 
         <variable
             name="viewModel"
-            type="com.example.marsrealestate.overview.OverviewViewModel" />
+            type="com.example.propertyappg11.overview.OverviewViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.marsrealestate.MainActivity"
+        tools:context="com.example.propertyappg11.MainActivity"
 
 
         >
@@ -48,7 +48,7 @@
                     app:navigationContentDescription="@string/navigate_up"
                     >
 
-                    <com.example.marsrealestate.custom.SearchView
+                    <com.example.propertyappg11.custom.SearchView
                         android:id="@+id/toolbar_searchview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

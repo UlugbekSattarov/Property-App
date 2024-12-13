@@ -17,7 +17,7 @@
             android:scaleType="centerCrop"
 
             android:layout_centerVertical="true"
-            android:src="@drawable/mars_landscape_1"
+            android:src="@drawable/img1"
             />
 
 

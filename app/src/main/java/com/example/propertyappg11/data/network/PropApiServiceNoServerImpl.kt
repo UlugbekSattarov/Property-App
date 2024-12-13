@@ -1,23 +1,23 @@
 package com.example.propertyappg11.data.network
 
 import android.util.Log
-import com.example.propertyappg11.data.MarsProperty
-import com.example.propertyappg11.data.query.MarsApiQuery
-import com.example.propertyappg11.data.query.MarsApiSorting
+import com.example.propertyappg11.data.PropProperty
+import com.example.propertyappg11.data.query.PropApiQuery
+import com.example.propertyappg11.data.query.PropApiSorting
 import kotlinx.coroutines.*
 import kotlin.random.Random
 
 
-class MarsApiServiceNoServerImpl(private val dao : MarsRemotePropertyDAO,
-                                 private val imageUrls : List<String>) : MarsApiService {
+class PropApiServiceNoServerImpl(private val dao : PropRemotePropertyDAO,
+                                 private val imageUrls : List<String>) : PropApiService {
 
 
     private val types = arrayOf(
-        MarsProperty.TYPE_BUY,
-        MarsProperty.TYPE_RENT)
+        PropProperty.TYPE_BUY,
+        PropProperty.TYPE_RENT)
 
     val properties by lazy {
-        List(30) { MarsProperty("${it +140_000}",
+        List(30) { PropProperty("${it +140_000}",
             if (imageUrls.isNotEmpty()) imageUrls[it%imageUrls.size] else "",
             types.random(),
             (100_000.0 + (0..200_000).random()) / (if (types[it%types.size] == "rent") 10 else 1) ,
@@ -32,14 +32,14 @@ class MarsApiServiceNoServerImpl(private val dao : MarsRemotePropertyDAO,
         runBlocking {
             if (dao.getPropertiesCount() == 0) {
                 dao.insert(properties.toList())
-                Log.d(MarsApiServiceNoServerImpl::class.qualifiedName,"Added ${properties.count()} properties to database" )
+                Log.d(PropApiServiceNoServerImpl::class.qualifiedName,"Added ${properties.count()} properties to database" )
             }
         }
     }
 
 
     @Suppress("unused")
-    suspend fun getPropertiesInMemory(query : MarsApiQuery, sortedBy : MarsApiSorting): List<MarsProperty> {
+    suspend fun getPropertiesInMemory(query : PropApiQuery, sortedBy : PropApiSorting): List<PropProperty> {
         delay(1500)
 
 
@@ -47,8 +47,8 @@ class MarsApiServiceNoServerImpl(private val dao : MarsRemotePropertyDAO,
             .filter { p -> query.filter?.matches(p) ?: true }
             .run {
                 when (sortedBy) {
-                    MarsApiSorting.PriceAscending -> sortedBy { p -> p.price}
-                    MarsApiSorting.PriceDescending -> sortedByDescending { p -> p.price}
+                    PropApiSorting.PriceAscending -> sortedBy { p -> p.price}
+                    PropApiSorting.PriceDescending -> sortedByDescending { p -> p.price}
                     else -> this
                 }
             }
@@ -58,20 +58,20 @@ class MarsApiServiceNoServerImpl(private val dao : MarsRemotePropertyDAO,
     }
 
     @Suppress("unused")
-    fun getPropertyInMemory(id: String): MarsProperty? = properties.firstOrNull { it.id == id }
+    fun getPropertyInMemory(id: String): PropProperty? = properties.firstOrNull { it.id == id }
 
 
 
     override suspend fun getProperties(
-        query: MarsApiQuery
-    ): List<MarsProperty> {
+        query: PropApiQuery
+    ): List<PropProperty> {
         return dao.getProperties(query)
     }
 
-    override suspend fun getProperty(id: String): MarsProperty = dao.getProperty(id)
+    override suspend fun getProperty(id: String): PropProperty = dao.getProperty(id)
 
-    override suspend fun addProperty(marsProperty: MarsProperty) =
-        dao.addNewProperty(marsProperty)
+    override suspend fun addProperty(propProperty: PropProperty) =
+        dao.addNewProperty(propProperty)
 
     override suspend fun removeProperty(propertyId: String) =
         dao.removeProperty(propertyId)

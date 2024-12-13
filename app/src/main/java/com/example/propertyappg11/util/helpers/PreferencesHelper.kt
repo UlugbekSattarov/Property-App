@@ -42,21 +42,21 @@ object PreferencesHelper {
 
 
 
-    fun getFontSize(context: Context) : Int {
-        val resources = context.resources
+//    fun getFontSize(context: Context) : Int {
+//        val resources = context.resources
+//
+//        return when (getPrefValue(context, R.string.preference_key_font_size, R.string.pref_font_size_normal))
+//        {
+//            resources.getString(R.string.pref_font_size_normal) -> R.style.FontSizeNormalTheme
+//            resources.getString(R.string.pref_font_size_smaller) -> R.style.FontSizeSmallerTheme
+//            resources.getString(R.string.pref_font_size_bigger) -> R.style.FontSizeBiggerTheme
+//            else -> R.style.FontSizeNormalTheme
+//        }
+//    }
 
-        return when (getPrefValue(context, R.string.preference_key_font_size, R.string.pref_font_size_normal))
-        {
-            resources.getString(R.string.pref_font_size_normal) -> R.style.FontSizeNormalTheme
-            resources.getString(R.string.pref_font_size_smaller) -> R.style.FontSizeSmallerTheme
-            resources.getString(R.string.pref_font_size_bigger) -> R.style.FontSizeBiggerTheme
-            else -> R.style.FontSizeNormalTheme
-        }
-    }
 
-
-    fun setFontSize(context: Context) =
-        context.theme.applyStyle(getFontSize(context),true)
+//    fun setFontSize(context: Context) =
+//        context.theme.applyStyle(getFontSize(context),true)
 
 
 

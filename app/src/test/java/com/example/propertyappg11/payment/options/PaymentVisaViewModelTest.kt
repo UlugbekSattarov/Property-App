@@ -6,7 +6,6 @@ import com.example.propertyappg11.testshared.getOrAwaitValue
 import com.example.propertyappg11.util.FormValidation
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test

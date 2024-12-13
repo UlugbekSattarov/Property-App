@@ -5,14 +5,14 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.propertyappg11.data.MarsProperty
+import com.example.propertyappg11.data.PropProperty
 import com.example.propertyappg11.util.MarsDatabaseConverter
 
-@Database(entities = [MarsProperty::class], version = 2, exportSchema = false)
+@Database(entities = [PropProperty::class], version = 2, exportSchema = false)
 @TypeConverters(MarsDatabaseConverter::class)
-abstract class MarsRemoteDatabase : RoomDatabase() {
+abstract class PropRemoteDatabase : RoomDatabase() {
 
-    abstract fun marsPropertyDao(): MarsRemotePropertyDAO
+    abstract fun marsPropertyDao(): PropRemotePropertyDAO
 
 
     companion object {

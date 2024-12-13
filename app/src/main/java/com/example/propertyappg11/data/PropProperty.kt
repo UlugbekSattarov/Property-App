@@ -5,10 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
-//Parcelize is used to pass a MarsProperty as an argument for a fragment
 @Parcelize
 @Entity(tableName = "MarsProperties")
-data class MarsProperty (
+data class PropProperty (
     @PrimaryKey val id: String,
     val imgSrcUrl: String,
     val type: String,
@@ -26,10 +25,10 @@ data class MarsProperty (
         const val TYPE_BUY = "buy"
 
         @JvmField
-        val DEFAULT = MarsProperty("", "", TYPE_BUY, 0.0,surfaceArea = 0f,latitude = 0f,longitude = 0f)
+        val DEFAULT = PropProperty("", "", TYPE_BUY, 0.0,surfaceArea = 0f,latitude = 0f,longitude = 0f)
 
     }
 }
 
-fun String.isValidPropertyType() = this == MarsProperty.TYPE_BUY || this == MarsProperty.TYPE_RENT
+fun String.isValidPropertyType() = this == PropProperty.TYPE_BUY || this == PropProperty.TYPE_RENT
 

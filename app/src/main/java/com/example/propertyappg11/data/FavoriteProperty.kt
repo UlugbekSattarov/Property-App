@@ -11,7 +11,7 @@ data class Favorite(val propertyId : String,
 
 
 data class FavoriteProperty(
-    @Embedded val property : MarsProperty,
+    @Embedded val property : PropProperty,
     @Relation(parentColumn = "id",entityColumn = "propertyId")
     val favorite: Favorite
 )

@@ -36,9 +36,6 @@ fun Activity.setupToolbarIfDrawerLayoutPresentOld(fragment : Fragment, toolbar: 
                 R.id.dest_login,
                 R.id.dest_settings), it)
 
-//            This is not customizable enough, notably for the navigation icon
-//            toolbar.setupWithNavController(fragment.findNavController(),config)
-
 
             val navController = fragment.findNavController()
             val id = navController.currentDestination?.id ?: return

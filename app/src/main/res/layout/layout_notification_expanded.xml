@@ -17,7 +17,7 @@
 
             android:scaleType="centerCrop"
 
-            tools:src="@drawable/mars_landscape_3"
+            tools:src="@drawable/img3"
             />
         <ImageView
             android:layout_width="match_parent"

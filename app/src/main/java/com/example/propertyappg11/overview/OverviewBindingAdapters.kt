@@ -10,18 +10,18 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import com.example.propertyappg11.R
-import com.example.propertyappg11.data.query.MarsApiFilter
-import com.example.propertyappg11.data.query.MarsApiSorting
+import com.example.propertyappg11.data.query.PropApiFilter
+import com.example.propertyappg11.data.query.PropApiSorting
 import com.google.android.material.chip.ChipGroup
 
 
 @BindingAdapter("marsApiFilter")
-fun ChipGroup.setMarsApiFilter(oldValue: MarsApiFilter.MarsPropertyType?, newValue: MarsApiFilter.MarsPropertyType?) {
+fun ChipGroup.setMarsApiFilter(oldValue: PropApiFilter.PropPropertyType?, newValue: PropApiFilter.PropPropertyType?) {
     if (newValue != null && newValue != oldValue) {
         val chipId = when (newValue) {
-            MarsApiFilter.MarsPropertyType.ALL -> R.id.chip_all
-            MarsApiFilter.MarsPropertyType.BUY -> R.id.chip_buy
-            MarsApiFilter.MarsPropertyType.RENT -> R.id.chip_rent
+            PropApiFilter.PropPropertyType.ALL -> R.id.chip_all
+            PropApiFilter.PropPropertyType.BUY -> R.id.chip_buy
+            PropApiFilter.PropPropertyType.RENT -> R.id.chip_rent
         }
         if (checkedChipId != chipId)
             check(chipId)
@@ -30,12 +30,12 @@ fun ChipGroup.setMarsApiFilter(oldValue: MarsApiFilter.MarsPropertyType?, newVal
 
 
 @InverseBindingAdapter(attribute = "marsApiFilter")
-fun ChipGroup.getMarsApiFilter(): MarsApiFilter.MarsPropertyType {
+fun ChipGroup.getMarsApiFilter(): PropApiFilter.PropPropertyType {
     return when (checkedChipId) {
-        R.id.chip_all -> MarsApiFilter.MarsPropertyType.ALL
-        R.id.chip_buy -> MarsApiFilter.MarsPropertyType.BUY
-        R.id.chip_rent -> MarsApiFilter.MarsPropertyType.RENT
-        else -> MarsApiFilter.MarsPropertyType.ALL
+        R.id.chip_all -> PropApiFilter.PropPropertyType.ALL
+        R.id.chip_buy -> PropApiFilter.PropPropertyType.BUY
+        R.id.chip_rent -> PropApiFilter.PropPropertyType.RENT
+        else -> PropApiFilter.PropPropertyType.ALL
     }
 }
 
@@ -59,17 +59,16 @@ fun ChipGroup.setMarsApiFilterChangedListener(attrChange: InverseBindingListener
 
 
 @BindingAdapter("marsApiSorting")
-fun AutoCompleteTextView.setMarsApiSorting(oldValue: MarsApiSorting?, newValue: MarsApiSorting?) {
+fun AutoCompleteTextView.setMarsApiSorting(oldValue: PropApiSorting?, newValue: PropApiSorting?) {
     if (newValue != null && newValue != oldValue) {
         val toDisplay = when (newValue) {
-            MarsApiSorting.PriceAscending -> R.string.priceAscending
-            MarsApiSorting.PriceDescending -> R.string.priceDescending
-            MarsApiSorting.Default -> R.string.defaultSorting
+            PropApiSorting.PriceAscending -> R.string.priceAscending
+            PropApiSorting.PriceDescending -> R.string.priceDescending
+            PropApiSorting.Default -> R.string.defaultSorting
         }
         this.setText(context.getString(toDisplay),false)
     }
 
-    //We have to reset the adapter each time because only the selected value is kept otherwise,not the whole list (bug)
     val sortingOptions = listOf(context.getString(R.string.defaultSorting),context.getString(R.string.priceAscending),context.getString(R.string.priceDescending))
     val adapterSorting = ArrayAdapter(context, R.layout.view_sorting_option_item, sortingOptions)
     setAdapter(adapterSorting)
@@ -77,11 +76,11 @@ fun AutoCompleteTextView.setMarsApiSorting(oldValue: MarsApiSorting?, newValue: 
 
 
 @InverseBindingAdapter(attribute = "marsApiSorting")
-fun AutoCompleteTextView.getMarsApiSorting(): MarsApiSorting {
+fun AutoCompleteTextView.getMarsApiSorting(): PropApiSorting {
     return when (text.toString()) {
-        context.getString(R.string.priceAscending) -> MarsApiSorting.PriceAscending
-        context.getString(R.string.priceDescending) -> MarsApiSorting.PriceDescending
-        else -> MarsApiSorting.Default
+        context.getString(R.string.priceAscending) -> PropApiSorting.PriceAscending
+        context.getString(R.string.priceDescending) -> PropApiSorting.PriceDescending
+        else -> PropApiSorting.Default
     }
 }
 
@@ -91,11 +90,8 @@ fun AutoCompleteTextView.setMarsApiSortingListeners(
 ) {
     onItemClickListener =
         AdapterView.OnItemClickListener { _, _, _, _ ->
-//            setText(p0.adapter.getItem(p2).toString())
-
             attrChange.onChange()
         }
 
-//    onItemSelectedListener
 
 }

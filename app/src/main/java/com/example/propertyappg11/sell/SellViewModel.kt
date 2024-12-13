@@ -4,8 +4,8 @@ import androidx.annotation.StringRes
 import androidx.databinding.InverseMethod
 import androidx.lifecycle.*
 import com.example.propertyappg11.R
-import com.example.propertyappg11.data.MarsProperty
-import com.example.propertyappg11.data.MarsRepository
+import com.example.propertyappg11.data.PropProperty
+import com.example.propertyappg11.data.PropRepository
 import com.example.propertyappg11.data.isValidPropertyType
 import com.example.propertyappg11.util.Event
 import com.example.propertyappg11.util.FormValidation
@@ -15,23 +15,23 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 
-class SellViewModel(private val repository: MarsRepository) : ViewModel() {
+class SellViewModel(private val repository: PropRepository) : ViewModel() {
 
     private val _status = MutableLiveData<Result<Nothing>>(Result.Success())
     val status: LiveData<Result<Nothing>> = _status
 
 
-    val type : MutableLiveData<String> = MutableLiveData(MarsProperty.TYPE_BUY)
+    val type : MutableLiveData<String> = MutableLiveData(PropProperty.TYPE_BUY)
     val imgSrcUrl : MutableLiveData<String> = MutableLiveData()
     val price : MutableLiveData<Int> = MutableLiveData(0)
     val latitude : MutableLiveData<Float> = MutableLiveData(0f)
     val longitude : MutableLiveData<Float> = MutableLiveData(0f)
     val area : MutableLiveData<Float> = MutableLiveData(0f)
 
-    val isRental = type.map { it == MarsProperty.TYPE_RENT }
+    val isRental = type.map { it == PropProperty.TYPE_RENT }
 
-    private val _navigateToProperty = MutableLiveData<Event<MarsProperty>>()
-    val navigateToProperty: LiveData<Event<MarsProperty>> = _navigateToProperty
+    private val _navigateToProperty = MutableLiveData<Event<PropProperty>>()
+    val navigateToProperty: LiveData<Event<PropProperty>> = _navigateToProperty
 
 
     @StringRes
@@ -74,7 +74,7 @@ class SellViewModel(private val repository: MarsRepository) : ViewModel() {
         viewModelScope.launch {
             try {
 
-                val newProperty = MarsProperty(
+                val newProperty = PropProperty(
                     "",
                     type = type.getValueNotNull(::typeValidator),
                     imgSrcUrl = imgSrcUrl.getValueNotNull(),
@@ -98,18 +98,34 @@ class SellViewModel(private val repository: MarsRepository) : ViewModel() {
         }
     }
 
+    fun getCurrentLocation() {
+
+
+//        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+//            if (location != null) {
+//                val latitude = location.latitude
+//                val longitude = location.longitude
+//
+//                // Update the ViewModel's latitude and longitude fields
+//                _latitude.value = latitude
+//                _longitude.value = longitude
+//            } else {
+//                // Handle location not found or permission denied
+//                // ...
+//            }
+//        }
+    }
+
 }
 
 
-class SellViewModelFactory(private val repository: MarsRepository) : ViewModelProvider.NewInstanceFactory() {
+class SellViewModelFactory(private val repository: PropRepository) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return SellViewModel(repository) as T
     }
 }
-
-//TODO move elsewhere
 object SellConverter {
 
 

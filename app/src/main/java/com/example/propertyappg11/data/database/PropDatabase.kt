@@ -6,18 +6,13 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.propertyappg11.data.Favorite
-import com.example.propertyappg11.data.MarsProperty
+import com.example.propertyappg11.data.PropProperty
 import com.example.propertyappg11.util.MarsDatabaseConverter
-
-// Annotates class to be a Room Database with a table (entity) of the MarsProperty class
-/** Version 2 added [MarsProperty.surfaceArea], [MarsProperty.latitude] and [MarsProperty.longitude]
- * as attributes for [MarsProperty]
- */
-@Database(entities = [MarsProperty::class,Favorite::class], version = 3, exportSchema = false)
+@Database(entities = [PropProperty::class,Favorite::class], version = 3, exportSchema = false)
 @TypeConverters(MarsDatabaseConverter::class)
-abstract class  MarsDatabase : RoomDatabase() {
+abstract class  PropDatabase : RoomDatabase() {
 
-    abstract fun marsPropertyDao(): MarsPropertyDAO
+    abstract fun marsPropertyDao(): PropPropertyDAO
 
 
     companion object {

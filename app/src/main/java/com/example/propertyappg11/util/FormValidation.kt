@@ -3,8 +3,6 @@ package com.example.propertyappg11.util
 import androidx.annotation.StringRes
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
-import com.example.propertyappg11.util.FormValidation.NO_ERROR
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 object FormValidation {

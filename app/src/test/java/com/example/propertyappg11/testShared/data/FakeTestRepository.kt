@@ -5,16 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.example.propertyappg11.data.Favorite
 import com.example.propertyappg11.data.FavoriteProperty
-import com.example.propertyappg11.data.MarsProperty
-import com.example.propertyappg11.data.MarsRepository
-import com.example.propertyappg11.data.query.MarsApiQuery
-import com.example.propertyappg11.data.query.MarsApiSorting
-import com.example.propertyappg11.util.Result
+import com.example.propertyappg11.data.PropProperty
+import com.example.propertyappg11.data.PropRepository
+import com.example.propertyappg11.data.query.PropApiQuery
+import com.example.propertyappg11.data.query.PropApiSorting
 import java.lang.Exception
 import java.util.*
 import kotlin.NoSuchElementException
 
-class FakeTestRepository : MarsRepository {
+class FakeTestRepository : PropRepository {
 
     /**
      * The [FakeTestRepository] will throw [Exception] on [getProperties]
@@ -24,7 +23,7 @@ class FakeTestRepository : MarsRepository {
     private var properties = generateProperties()
     private var favorites = generateFavorites()
 
-    val observableProperties = MutableLiveData<List<MarsProperty>>().apply {
+    val observableProperties = MutableLiveData<List<PropProperty>>().apply {
         value = properties
     }
     val observableFavorites = MutableLiveData<List<FavoriteProperty>>().apply {
@@ -32,11 +31,11 @@ class FakeTestRepository : MarsRepository {
     }
 
 
-    private fun generateProperties() : MutableList<MarsProperty> {
+    private fun generateProperties() : MutableList<PropProperty> {
         val random = Random()
-        return MutableList<MarsProperty>(100) {
+        return MutableList<PropProperty>(100) {
             val type = if (it %2 == 0) "rent" else "buy"
-            MarsProperty(it.toString(),"",type,random.nextDouble(),45.2f,56f,250f)
+            PropProperty(it.toString(),"",type,random.nextDouble(),45.2f,56f,250f)
         }
     }
 
@@ -59,7 +58,7 @@ class FakeTestRepository : MarsRepository {
     }
 
 
-   fun setPropertiesDataset( props : List<MarsProperty>) {
+   fun setPropertiesDataset( props : List<PropProperty>) {
        properties = props.toMutableList()
        refreshProperties()
    }
@@ -76,15 +75,15 @@ class FakeTestRepository : MarsRepository {
 
 
 
-    override suspend fun getProperties(query: MarsApiQuery): List<MarsProperty> {
+    override suspend fun getProperties(query: PropApiQuery): List<PropProperty> {
         if (willThrowExceptionForTesting)
             throw Exception("Exception throwed for testing")
         return properties
             .filter { p -> query.filter?.matches(p) ?: true }
             .run {
                 when (query.sortedBy) {
-                    MarsApiSorting.PriceAscending -> sortedBy { p -> p.price}
-                    MarsApiSorting.PriceDescending -> sortedByDescending { p -> p.price}
+                    PropApiSorting.PriceAscending -> sortedBy { p -> p.price}
+                    PropApiSorting.PriceDescending -> sortedByDescending { p -> p.price}
                     else -> this
                 }
             }
@@ -95,18 +94,18 @@ class FakeTestRepository : MarsRepository {
 
 
 
-    override suspend fun getProperty(id: String): MarsProperty {
+    override suspend fun getProperty(id: String): PropProperty {
         if (willThrowExceptionForTesting)
             throw Exception("Exception throwed for testing")
         return properties.find { it.id == id } ?: throw NoSuchElementException("No property found with id $id")
     }
 
-    override suspend fun addProperty(property: MarsProperty) : MarsProperty {
+    override suspend fun addProperty(property: PropProperty) : PropProperty {
         properties.add(property)
         return property
     }
 
-//    override fun observeProperty(id: String): LiveData<MarsProperty?> {
+//    override fun observeProperty(id: String): LiveData<PropProperty?> {
 //        if (willThrowExceptionForTesting)
 //            throw Exception("Exception throwed for testing")
 //        return MutableLiveData(properties.find { it.id == id })
@@ -124,7 +123,7 @@ class FakeTestRepository : MarsRepository {
         return favorites
     }
 
-    override suspend fun saveToFavorite(property: MarsProperty, dateFavorited: Date?) {
+    override suspend fun saveToFavorite(property: PropProperty, dateFavorited: Date?) {
         val f = Favorite(property.id,Date())
         favorites.add(FavoriteProperty(property,f))
         refreshFavorites()

@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import com.example.propertyappg11.data.MarsProperty
+import com.example.propertyappg11.data.PropProperty
 import com.example.propertyappg11.util.helpers.SharedElementTransitionHelper.getTransitionName
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialContainerTransform
@@ -23,17 +23,17 @@ object SharedElementTransitionHelper {
      * Create a unique transition name for the given property
      */
     @JvmStatic
-    fun getTransitionName(marsProperty: MarsProperty) = marsProperty.id
+    fun getTransitionName(propProperty: PropProperty) = propProperty.id
 
     /**
      * Navigate to the given direction. Must be called from [Fragment] A.
      * Take care of the SharedElement transition
-     *  with a [MarsProperty] for this [Fragment].
+     *  with a [PropProperty] for this [Fragment].
      * If the transition is not possible, it falls back on the standard transition.
      */
     fun navigate(
         fragment: Fragment,
-        property: MarsProperty,
+        property: PropProperty,
         direction : NavDirections
     ) {
         val transitionName = getTransitionName(property)
@@ -56,7 +56,7 @@ object SharedElementTransitionHelper {
      * @param view An optional parameter telling into which view the transition will morph, if none
      * is provided, the [Fragment]'s root view is used
      */
-    fun setupReceiverFragment(fragment: Fragment,property: MarsProperty,view: View? = null) {
+    fun setupReceiverFragment(fragment: Fragment, property: PropProperty, view: View? = null) {
 
         ViewCompat.setTransitionName(view ?: fragment.requireView(),getTransitionName(property))
 

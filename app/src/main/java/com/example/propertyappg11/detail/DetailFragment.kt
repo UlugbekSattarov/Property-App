@@ -15,7 +15,7 @@ import androidx.navigation.get
 import androidx.viewpager2.widget.ViewPager2
 import com.example.propertyappg11.R
 import com.example.propertyappg11.ServiceLocator
-import com.example.propertyappg11.data.MarsProperty
+import com.example.propertyappg11.data.PropProperty
 import com.example.propertyappg11.databinding.FragmentDetailBinding
 import com.example.propertyappg11.login.CredentialsManagerImpl
 import com.example.propertyappg11.login.LoginViewModel
@@ -31,7 +31,6 @@ class DetailFragment : Fragment() {
 
 
     private val viewModel : DetailViewModel by viewModels {
-        //Choose whether we should retrieve the factory with a MarsProperty or propertyID depending on the arguments
         val prop = args.marsProperty
         val id = args.propertyId
         if (prop != null )
@@ -62,7 +61,6 @@ class DetailFragment : Fragment() {
 
 
         requireActivity().setupToolbarIfDrawerLayoutPresent(this,viewDataBinding.toolbar)
-        setupNavigation()
         setupViewPagerListener()
         setupSharePropertyListener()
 
@@ -77,29 +75,7 @@ class DetailFragment : Fragment() {
         return viewDataBinding.root
     }
 
-    private fun setupNavigation() {
-        viewModel.navigateToPayment.observe(viewLifecycleOwner,  {
-            it.getContentIfNotHandled()?.let { property ->
 
-                val action = if (loginViewModel.isLoggedIn.value != true)
-                    DetailFragmentDirections.actionDestDetailToDestLogin().apply {
-                        redirection = R.id.dest_choose_payment
-                        redirectionArgs = property.id
-                    }
-                else
-                    DetailFragmentDirections.actionDestDetailToDestChoosePayment(property.id)
-
-                findNavController().navigate(action)
-            }
-        })
-    }
-
-
-
-
-    /**
-     * Initialize the viewpager when a property is available from the viewmodel
-     */
     private fun setupViewPagerListener() =
         viewModel.property.observe(viewLifecycleOwner,  { property ->
             viewDataBinding.viewpager.apply {
@@ -118,10 +94,6 @@ class DetailFragment : Fragment() {
             }
         })
 
-
-    /**
-     * Fade in and out the caption below the viewpager when a new page is shown
-     */
     private fun onViewpagerPageSelected(position : Int) {
         val orientation = when (position) {
             0 -> "South"
@@ -134,10 +106,8 @@ class DetailFragment : Fragment() {
         viewDataBinding.viewpagerCaption.apply {
 
 
-            //If the text is null, we do not want to animate the transition
             val duration = if (text.isNullOrEmpty()) 0L else 300L
 
-            //Fade out old text and fade in new text
             animate().alpha(0f).setDuration(duration).withEndAction {
                 text = captionText
                 animate().alpha(1f).setDuration(duration).start()
@@ -156,10 +126,7 @@ class DetailFragment : Fragment() {
                     val sendIntent: Intent = Intent().apply {
                         action = Intent.ACTION_SEND
                         putExtra(Intent.EXTRA_TEXT, "I just bought a property, check it out! $uri")
-                        // (Optional) Here we're setting the title of the content
                         putExtra(Intent.EXTRA_TITLE, "Mars property ${prop.id}")
-//                        data = Uri.parse("android.resource://com.example.marsrealestate/drawable/astronaut.jpg")
-//                        flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
                         type = "text/plain"
                     }
                     startActivity(Intent.createChooser(sendIntent,"Share property"))
@@ -170,7 +137,7 @@ class DetailFragment : Fragment() {
 
 }
 
-object MarsCoordsToStringConverter {
+object PropCoordsToStringConverter {
 
     private fun formatLatitudeToString(value: Float): String {
         val lat = String.format("%.1f", abs(value))
@@ -181,7 +148,7 @@ object MarsCoordsToStringConverter {
     private fun formatLongitudeToString(value: Float): String  = String.format("%.1f° E",value)
 
     @JvmStatic
-    fun formatCoordsToString(prop: MarsProperty?): String  = "${formatLatitudeToString(prop?.latitude ?: 0f)}\n${formatLongitudeToString(prop?.longitude ?: 0f)}"
+    fun formatCoordsToString(prop: PropProperty?): String  = "${formatLatitudeToString(prop?.latitude ?: 0f)}\n${formatLongitudeToString(prop?.longitude ?: 0f)}"
 
 }
 

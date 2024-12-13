@@ -5,23 +5,23 @@ import androidx.lifecycle.map
 import androidx.room.*
 import com.example.propertyappg11.data.Favorite
 import com.example.propertyappg11.data.FavoriteProperty
-import com.example.propertyappg11.data.MarsProperty
+import com.example.propertyappg11.data.PropProperty
 import java.util.*
 
 @Dao
-interface MarsPropertyDAO {
+interface PropPropertyDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(marsProperty : MarsProperty)
+    suspend fun insert(propProperty : PropProperty)
 
     @Query("SELECT * from MarsProperties WHERE id = :id")
-    suspend fun getProperty(id: String) : MarsProperty?
+    suspend fun getProperty(id: String) : PropProperty?
 
     @Query("SELECT * from MarsProperties WHERE id = :id")
-    fun observeProperty(id: String) : LiveData<MarsProperty?>
+    fun observeProperty(id: String) : LiveData<PropProperty?>
 
     @Query("SELECT * from MarsProperties")
-    fun observeProperties() : LiveData<List<MarsProperty>>
+    fun observeProperties() : LiveData<List<PropProperty>>
 
     @Query("DELETE FROM MarsProperties WHERE id = :id")
     suspend fun removeProperty(id : String)
@@ -42,7 +42,7 @@ interface MarsPropertyDAO {
 
 
     @Transaction
-    suspend fun addToFavorite(property: MarsProperty, dateFavorited : Date? = null ) {
+    suspend fun addToFavorite(property: PropProperty, dateFavorited : Date? = null ) {
         insert(property)
         val dateFav = dateFavorited ?: Date()
         insert(Favorite(propertyId = property.id,dateFavorited = dateFav))

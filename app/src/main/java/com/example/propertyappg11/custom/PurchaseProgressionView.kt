@@ -74,10 +74,6 @@ class PurchaseProgressionView @JvmOverloads constructor(
         stateChanged()
     }
 
-
-    /**
-     * Used to set the size of a few UI elements dynamically
-     */
     private fun initSizes() {
 
         circles.forEach {
@@ -92,12 +88,6 @@ class PurchaseProgressionView @JvmOverloads constructor(
         progressBarBackgrounds.forEach { it.updateLayoutParams<ViewGroup.LayoutParams> { height = progressBarWidth.toInt() } }
     }
 
-
-
-    /**
-     * Sets the current step and animates the transitions in between.
-     * Valid steps are Int between 0 and [MAX_STEP]
-     */
     private fun stateChanged() {
 
         growCircle(circles[currentStep])
@@ -119,14 +109,12 @@ class PurchaseProgressionView @JvmOverloads constructor(
 
     private fun emphasizeText(textView: TextView) {
         textView.alpha = 1f
-//        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,captionFontSizeEmphasized)
         textView.setTypeface(Typeface.create(textView.typeface,Typeface.BOLD),Typeface.BOLD)
 
     }
 
     private fun minimizeText(textView: TextView) {
         textView.alpha = 0.7f
-//        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,captionFontSizeMinimized)
         textView.setTypeface(Typeface.create(textView.typeface,Typeface.NORMAL),Typeface.NORMAL)
     }
 

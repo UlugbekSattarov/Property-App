@@ -9,15 +9,15 @@
 
         <variable
             name="viewModel"
-            type="com.example.marsrealestate.navigation.NavigationViewModel" />
+            type="com.example.propertyappg11.navigation.NavigationViewModel" />
 
         <variable
             name="loginViewModel"
-            type="com.example.marsrealestate.login.LoginViewModel" />
+            type="com.example.propertyappg11.login.LoginViewModel" />
 
         <variable
             name="fragment"
-            type="com.example.marsrealestate.navigation.NavigationFragment" />
+            type="com.example.propertyappg11.navigation.NavigationFragment" />
 
     </data>
 
@@ -64,7 +64,7 @@
                     />
 
 
-                <com.example.marsrealestate.custom.NavigationItemView
+                <com.example.propertyappg11.custom.NavigationItemView
                     android:id="@+id/login"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -86,7 +86,7 @@
 
                     />
 
-                <com.example.marsrealestate.custom.NavigationItemView
+                <com.example.propertyappg11.custom.NavigationItemView
                     android:id="@+id/overview"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -95,7 +95,7 @@
 
                     android:onClick="@{ () -> fragment.changeDestination(@id/dest_overview)}"
                     app:isActive="@{ viewModel.currentDestinationId == @id/dest_overview}"
-                    app:startIcon="@drawable/mars_notification"
+                    app:startIcon="@drawable/notification"
 
                     app:textColor="@color/control_activable"
                     app:title="@string/browse"
@@ -103,7 +103,7 @@
 
                     />
 
-                <com.example.marsrealestate.custom.NavigationItemView
+                <com.example.propertyappg11.custom.NavigationItemView
                     android:id="@+id/favorites"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -121,7 +121,7 @@
                     app:title="@string/favorites"
 
                     />
-                <com.example.marsrealestate.custom.NavigationItemView
+                <com.example.propertyappg11.custom.NavigationItemView
                     android:id="@+id/sell"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -135,7 +135,7 @@
                     app:startIcon="@drawable/ic_cart_filled"
 
                     app:textColor="@color/control_activable"
-                    app:title="Sell your property"
+                    app:title="Property App"
 
                     />
                 <View
@@ -147,7 +147,7 @@
                     android:background="?android:listDivider"
                     />
 
-                <com.example.marsrealestate.custom.NavigationItemView
+                <com.example.propertyappg11.custom.NavigationItemView
                     android:id="@+id/settings"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -177,7 +177,6 @@
                     android:layout_marginBottom="@dimen/margin_large"
 
                     android:elevation="-1dp"
-                    android:src="@drawable/ic_launcher_foreground"
                     android:visibility="@{ @bool/showPlanetNavigation ? View.VISIBLE : View.GONE }"
 
 

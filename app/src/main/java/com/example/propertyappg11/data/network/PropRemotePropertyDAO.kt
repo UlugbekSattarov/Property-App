@@ -3,22 +3,22 @@ package com.example.propertyappg11.data.network
 import androidx.room.*
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
-import com.example.propertyappg11.data.MarsProperty
-import com.example.propertyappg11.data.query.MarsApiFilter
-import com.example.propertyappg11.data.query.MarsApiQuery
-import com.example.propertyappg11.data.query.MarsApiSorting
+import com.example.propertyappg11.data.PropProperty
+import com.example.propertyappg11.data.query.PropApiFilter
+import com.example.propertyappg11.data.query.PropApiQuery
+import com.example.propertyappg11.data.query.PropApiSorting
 
 @Dao
-interface MarsRemotePropertyDAO {
+interface PropRemotePropertyDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(vararg marsProperty : MarsProperty)
+    suspend fun insert(vararg propProperty : PropProperty)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(marsProperties : List<MarsProperty>)
+    suspend fun insert(marsProperties : List<PropProperty>)
 
     @Query("SELECT * from MarsProperties WHERE id = :id")
-    suspend fun getProperty(id: String) : MarsProperty
+    suspend fun getProperty(id: String) : PropProperty
 
     @Query("SELECT COUNT(*) from MarsProperties ")
     suspend fun getPropertiesCount() : Int
@@ -30,9 +30,9 @@ interface MarsRemotePropertyDAO {
      * Add a new property and auto increment the id
      */
     @Transaction
-    suspend fun addNewProperty(marsProperty: MarsProperty) : MarsProperty {
+    suspend fun addNewProperty(propProperty: PropProperty) : PropProperty {
         val newId = getLastPropertyId().toInt() + 1
-        marsProperty.copy(id = newId.toString()).also {
+        propProperty.copy(id = newId.toString()).also {
             insert(it)
             return it
         }
@@ -40,9 +40,9 @@ interface MarsRemotePropertyDAO {
 
 
     @RawQuery
-    suspend fun getProperties(query : SupportSQLiteQuery) : List<MarsProperty>
+    suspend fun getProperties(query : SupportSQLiteQuery) : List<PropProperty>
 
-    suspend fun getProperties(query: MarsApiQuery) : List<MarsProperty> {
+    suspend fun getProperties(query: PropApiQuery) : List<PropProperty> {
 
         //PageNumber starts at 1 and not 0, so we have to subtract 1
         val offset = (query.pageNumber - 1) * query.itemsPerPage
@@ -54,14 +54,14 @@ interface MarsRemotePropertyDAO {
 
         val typeFilterStr = when (query.filter?.type) {
             null -> "%"
-            MarsApiFilter.MarsPropertyType.ALL -> "%"
+            PropApiFilter.PropPropertyType.ALL -> "%"
             else -> query.filter.type
         }
 
         val sortingStr = when (query.sortedBy) {
-            MarsApiSorting.Default -> "id ASC"
-            MarsApiSorting.PriceAscending -> "price ASC"
-            MarsApiSorting.PriceDescending  -> "price DESC"
+            PropApiSorting.Default -> "id ASC"
+            PropApiSorting.PriceAscending -> "price ASC"
+            PropApiSorting.PriceDescending  -> "price DESC"
         }
 
         val dbQuery = "SELECT * FROM MarsProperties " +

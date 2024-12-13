@@ -3,27 +3,27 @@ package com.example.propertyappg11.detail
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.propertyappg11.R
-import com.example.propertyappg11.data.MarsProperty
-import com.example.propertyappg11.data.MarsRepository
+import com.example.propertyappg11.data.PropProperty
+import com.example.propertyappg11.data.PropRepository
 import com.example.propertyappg11.util.Event
 import com.example.propertyappg11.util.Result
 import com.example.propertyappg11.util.getValueNotNull
 import kotlinx.coroutines.launch
 
-class DetailViewModel private constructor(private val repository : MarsRepository) : ViewModel() {
+class DetailViewModel private constructor(private val repository : PropRepository) : ViewModel() {
 
-    constructor(property : MarsProperty,repository: MarsRepository) : this(repository) {
+    constructor(property : PropProperty, repository: PropRepository) : this(repository) {
         _property.value = property
         _statePropertyFetched.value = Result.Success()
     }
 
-    constructor(propertyId : String,repository: MarsRepository) : this(repository) {
+    constructor(propertyId : String,repository: PropRepository) : this(repository) {
         fetchProperty(propertyId)
     }
 
 
-    private val _property = MutableLiveData<MarsProperty>()
-    val property : LiveData<MarsProperty> = _property
+    private val _property = MutableLiveData<PropProperty>()
+    val property : LiveData<PropProperty> = _property
 
     private val _statePropertyFetched = MutableLiveData<Result<Nothing>>()
     val statePropertyFetched : LiveData<Result<Nothing>> = _statePropertyFetched
@@ -31,19 +31,19 @@ class DetailViewModel private constructor(private val repository : MarsRepositor
     private val _propertyViewCount = MutableLiveData((0..3).random())
     val propertyViewCount : LiveData<Int> = _propertyViewCount
 
-    private val _propertyAddedRemovedToFavorites = MutableLiveData<Result<MarsProperty>>()
-    val propertyAddedRemovedToFavorites : LiveData<Result<MarsProperty>> = _propertyAddedRemovedToFavorites
+    private val _propertyAddedRemovedToFavorites = MutableLiveData<Result<PropProperty>>()
+    val propertyAddedRemovedToFavorites : LiveData<Result<PropProperty>> = _propertyAddedRemovedToFavorites
 
     val isPropertyFavorite : LiveData<Boolean> = property
         .switchMap{ prop->
             repository.observeIsFavorite(prop.id)
         }
 
-    private val _navigateToPayment = MutableLiveData<Event<MarsProperty?>>()
-    val navigateToPayment: LiveData<Event<MarsProperty?>> = _navigateToPayment
+    private val _navigateToPayment = MutableLiveData<Event<PropProperty?>>()
+    val navigateToPayment: LiveData<Event<PropProperty?>> = _navigateToPayment
 
-    private val _shareProperty = MutableLiveData<Event<MarsProperty?>>()
-    val shareProperty: LiveData<Event<MarsProperty?>> = _shareProperty
+    private val _shareProperty = MutableLiveData<Event<PropProperty?>>()
+    val shareProperty: LiveData<Event<PropProperty?>> = _shareProperty
 
 
 
@@ -112,16 +112,16 @@ class DetailViewModel private constructor(private val repository : MarsRepositor
 }
 
 
-class DetailViewModelFactory private constructor(private val repository: MarsRepository) : ViewModelProvider.NewInstanceFactory() {
+class DetailViewModelFactory private constructor(private val repository: PropRepository) : ViewModelProvider.NewInstanceFactory() {
 
-    private var property : MarsProperty? = null
+    private var property : PropProperty? = null
     private var propertyId : String? = null
 
-    constructor(property : MarsProperty,repository: MarsRepository) : this(repository) {
+    constructor(property : PropProperty, repository: PropRepository) : this(repository) {
         this.property = property
     }
 
-    constructor(propertyId : String,repository: MarsRepository) : this(repository) {
+    constructor(propertyId : String,repository: PropRepository) : this(repository) {
         this.propertyId = propertyId
     }
 
@@ -134,8 +134,5 @@ class DetailViewModelFactory private constructor(private val repository: MarsRep
             DetailViewModel(p,repository) as T
         else
             DetailViewModel(propertyId!!,repository) as T
-
-        //It is safe to use !! because if property is null, then the other constructor of the factory
-        //has been used which means propertyId is not null
     }
 }

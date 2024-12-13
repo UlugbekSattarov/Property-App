@@ -2,13 +2,13 @@ package com.example.propertyappg11.favorites
 
 import androidx.lifecycle.*
 import com.example.propertyappg11.data.FavoriteProperty
-import com.example.propertyappg11.data.MarsRepository
+import com.example.propertyappg11.data.PropRepository
 import com.example.propertyappg11.util.Event
 import com.example.propertyappg11.util.Result
 import kotlinx.coroutines.launch
 
 
-class FavoritesViewModel(private val repository : MarsRepository) : ViewModel() {
+class FavoritesViewModel(private val repository : PropRepository) : ViewModel() {
 
     val favorites: LiveData<List<FavoriteProperty>> = repository.observeFavorites()
 
@@ -70,7 +70,7 @@ class FavoritesViewModel(private val repository : MarsRepository) : ViewModel() 
 }
 
 
-class FavoritesViewModelFactory(private val repository: MarsRepository) :  ViewModelProvider.Factory {
+class FavoritesViewModelFactory(private val repository: PropRepository) :  ViewModelProvider.Factory {
 
 
     @Suppress("UNCHECKED_CAST")

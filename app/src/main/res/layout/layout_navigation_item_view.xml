@@ -33,7 +33,7 @@
 
         tools:layout_height="50dp"
         tools:layout_width="280dp"
-        tools:context="com.example.marsrealestate.MainActivity"
+        tools:context="com.example.propertyappg11.MainActivity"
 
 
 

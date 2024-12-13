@@ -1,19 +1,19 @@
 package com.example.propertyappg11.data.query
 
-import com.example.propertyappg11.data.MarsProperty
+import com.example.propertyappg11.data.PropProperty
 
-class MarsApiFilter(val type: MarsPropertyType = MarsPropertyType.ALL,
-                         val queryString: String = "") {
+class PropApiFilter(val type: PropPropertyType = PropPropertyType.ALL,
+                    val queryString: String = "") {
 
-    enum class MarsPropertyType(val value: String) {
+    enum class PropPropertyType(val value: String) {
         ALL("all"),
-        RENT(MarsProperty.TYPE_RENT),
-        BUY(MarsProperty.TYPE_BUY)
+        RENT(PropProperty.TYPE_RENT),
+        BUY(PropProperty.TYPE_BUY)
     }
 
-    fun matches(property: MarsProperty) : Boolean{
+    fun matches(property: PropProperty) : Boolean{
         val isCorrectType =
-            if (type == MarsPropertyType.ALL) true
+            if (type == PropPropertyType.ALL) true
             else property.type == type.value
 
         val nameMatches =
@@ -28,5 +28,5 @@ class MarsApiFilter(val type: MarsPropertyType = MarsPropertyType.ALL,
 /**
  * For a more convenient use than filter.matches(property)
  */
-fun MarsProperty.matches(filter : MarsApiFilter) : Boolean =
+fun PropProperty.matches(filter : PropApiFilter) : Boolean =
     filter.matches(this)

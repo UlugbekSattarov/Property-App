@@ -3,12 +3,12 @@ package com.example.propertyappg11.data
 import androidx.lifecycle.LiveData
 import com.example.propertyappg11.data.database.PropPropertyDAO
 import com.example.propertyappg11.data.network.PropApiService
-import com.example.propertyappg11.data.query.MarsApiQuery
+import com.example.propertyappg11.data.query.PropApiQuery
 import kotlinx.coroutines.delay
 import java.util.*
 
-class MarsRepositoryImpl(private val remoteDataSource: PropApiService,
-                         private val localDataSource : PropPropertyDAO) : MarsRepository {
+class PropRepositoryImpl(private val remoteDataSource: PropApiService,
+                         private val localDataSource : PropPropertyDAO) : PropRepository {
 
     override suspend fun login(username: String, password: String): String {
         delay(1000)
@@ -18,17 +18,17 @@ class MarsRepositoryImpl(private val remoteDataSource: PropApiService,
 
 
 
-    override suspend fun getProperties(query: MarsApiQuery): List<MarsProperty> {
+    override suspend fun getProperties(query: PropApiQuery): List<PropProperty> {
         delay(1000)
         return remoteDataSource.getProperties(query)
     }
 
-    override suspend fun getProperty(id: String): MarsProperty  {
+    override suspend fun getProperty(id: String): PropProperty  {
         delay(1000)
         return remoteDataSource.getProperty(id)
     }
 
-    override suspend fun addProperty(property: MarsProperty) : MarsProperty {
+    override suspend fun addProperty(property: PropProperty) : PropProperty {
         delay(1000)
         return remoteDataSource.addProperty(property)
     }
@@ -42,7 +42,7 @@ class MarsRepositoryImpl(private val remoteDataSource: PropApiService,
         localDataSource.getFavoriteProperties()
 
 
-    override suspend fun saveToFavorite(property: MarsProperty, dateFavorited : Date?) =
+    override suspend fun saveToFavorite(property: PropProperty, dateFavorited : Date?) =
         localDataSource.addToFavorite(property,dateFavorited)
 
     override suspend fun removeFromFavorite(propertyId: String) =

@@ -42,7 +42,7 @@
                 app:navGraph="@navigation/nav_graph_main" />
 
 
-            <com.example.marsrealestate.custom.PurchaseProgressionView
+            <com.example.propertyappg11.custom.PurchaseProgressionView
                 android:id="@+id/purchase_progression"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/bla"
-                android:name="com.example.marsrealestate.navigation.NavigationFragment"
+                android:name="com.example.propertyappg11.navigation.NavigationFragment"
                 tools:layout="@layout/fragment_navigation"
 
                 />

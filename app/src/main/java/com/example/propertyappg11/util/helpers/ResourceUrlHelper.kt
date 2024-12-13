@@ -8,12 +8,12 @@ import com.example.propertyappg11.R
 object ResourceUrlHelper {
 
     fun getAllLandscapesUrl(context: Context) : List<String> =
-        listOf(R.drawable.mars_landscape_1,
-            R.drawable.mars_landscape_2,
-            R.drawable.mars_landscape_3,
-            R.drawable.mars_landscape_4,
-            R.drawable.mars_landscape_5,
-            R.drawable.mars_landscape_6,
+        listOf(R.drawable.img1,
+            R.drawable.img2,
+            R.drawable.img3,
+            R.drawable.img4,
+            R.drawable.img5,
+            R.drawable.img1,
         ).map { getResourceAsUrl(context,it) }
 
 

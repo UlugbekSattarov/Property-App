@@ -6,7 +6,7 @@
     <data>
         <variable
             name="searchView"
-            type="com.example.marsrealestate.custom.SearchView" />
+            type="com.example.propertyappg11.custom.SearchView" />
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout

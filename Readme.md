@@ -73,3 +73,4 @@ Since the app was made a few years ago, some functions it uses are now deprecate
 <img src="screenshots/sell.png" width="300">
 
 <img src="screenshots/overview_night.png" width="300">
+# Property-App

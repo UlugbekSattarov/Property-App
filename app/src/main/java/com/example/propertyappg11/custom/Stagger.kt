@@ -17,15 +17,10 @@ import androidx.transition.TransitionValues
 class Stagger : Fade(IN) {
 
     init {
-        // This duration is for a single item. See the comment below about propagation.
         duration = 3000
         interpolator = LinearOutSlowInInterpolator()
         propagation = SidePropagation().apply {
             setSide(Gravity.BOTTOM)
-            // We want the stagger effect to take as long as the duration of a single item.
-            // In other words, the last item starts to fade in around the time when the first item
-            // finishes animating. The overall animation will take about twice the duration of one
-            // item fading in.
             setPropagationSpeed(2f)
         }
 
@@ -39,12 +34,10 @@ class Stagger : Fade(IN) {
         endValues: TransitionValues?
     ): Animator? {
         val view = startValues?.view ?: endValues?.view ?: return null
-        // The parent can create an Animator for the fade-in.
         val fadeAnimator = super.createAnimator(sceneRoot, startValues, endValues) ?: return null
         return AnimatorSet().apply {
             playTogether(
                 fadeAnimator,
-                // We make the view to slide up a little as it fades in.
                 ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, view.height * 0.5f, 0f)
             )
         }

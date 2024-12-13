@@ -18,8 +18,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.propertyappg11.R
-import com.example.propertyappg11.data.MarsProperty
-import com.example.propertyappg11.detail.DetailFragmentArgs
+import com.example.propertyappg11.data.PropProperty
 import com.example.propertyappg11.util.resolveColor
 
 
@@ -47,11 +46,11 @@ object NotificationHelper {
         }
     }
 
-    fun notifyPropertyBought(context: Context,property: MarsProperty) {
+    fun notifyPropertyBought(context: Context,property: PropProperty) {
         val deeplink = NavDeepLinkBuilder(context)
             .setGraph(R.navigation.nav_graph_main)
             .setDestination(R.id.dest_detail)
-            .setArguments(bundleOf("MarsProperty" to property))
+            .setArguments(bundleOf("PropProperty" to property))
             .createPendingIntent()
 
         buildNotificationPropertyBought(context,deeplink,property) {
@@ -64,7 +63,7 @@ object NotificationHelper {
     private fun buildNotificationPropertyBought(
         context: Context,
         intent: PendingIntent,
-        property: MarsProperty,
+        property: PropProperty,
         onNotifBuilt : (notif : Notification) -> Unit) : Notification {
 
         val layout = RemoteViews(context.packageName, R.layout.layout_notification_expanded)
@@ -80,7 +79,7 @@ object NotificationHelper {
 
         return NotificationCompat.Builder(context, CHANNEL_ID_PROPERTY_BOUGHT)
             .setColor(tint)
-            .setSmallIcon(R.drawable.mars_notification)
+            .setSmallIcon(R.drawable.notification)
             .setContentTitle("Property bought !")
             .setContentText(context.resources.getString(R.string.success_bought, property.id))
 

@@ -163,9 +163,6 @@ class NavigationItemView @JvmOverloads constructor(
         viewBinding.title.setTypeface(Typeface.create(viewBinding.title.typeface,_fontSize),_fontSize)
         viewBinding.endText.setTypeface(Typeface.create(viewBinding.endText.typeface,_fontSize),_fontSize)
 
-//        (viewBinding.root as MaterialCardView).isChecked = isActive
-
-        //The color state list has a strange behavior so we apply the color manually
         (viewBinding.root as MaterialCardView).setCardBackgroundColor(_backgroundTint)
 
 

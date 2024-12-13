@@ -37,7 +37,6 @@ class FavoritesFragment : Fragment() {
     ): View {
         exitTransition = null
 
-        // Inflate the layout for this fragment
         viewDataBinding = FragmentFavoritesBinding.inflate(inflater)
         viewDataBinding.viewModel = viewModel
         viewDataBinding.lifecycleOwner = viewLifecycleOwner
@@ -50,7 +49,6 @@ class FavoritesFragment : Fragment() {
         setupNavigation()
         setupOnPropertyRemoved()
 
-        //For shared element transition
         postponeEnterTransition()
         viewDataBinding.root.doOnPreDraw { startPostponedEnterTransition() }
         return viewDataBinding.root
@@ -65,7 +63,6 @@ class FavoritesFragment : Fragment() {
         })
 
 
-        //For the animation on the first appearance of the items
         viewModel.favorites.observe(viewLifecycleOwner,  {
             if (it.isNotEmpty()) {
                 playListAnimationOnlyOnce()

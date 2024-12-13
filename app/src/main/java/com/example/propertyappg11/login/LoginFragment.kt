@@ -27,6 +27,7 @@ import com.example.propertyappg11.util.helpers.PreferencesHelper
 import com.example.propertyappg11.util.hideSoftInput
 import com.example.propertyappg11.util.setupFadeThroughTransition
 import com.example.propertyappg11.util.setupToolbarIfDrawerLayoutPresent
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -74,20 +75,6 @@ class LoginFragment : Fragment() {
 
     private fun setupNavigation() {
 
-        viewModel.loggedInEvent.observe(viewLifecycleOwner,  {
-            it.getContentIfNotHandled()?.let {
-
-                //Transition is handled by the nav controller (defined in nav_graph_main.xml)
-                exitTransition = null
-                if (navArgs.redirection == R.id.dest_choose_payment ) {
-                    navArgs.redirectionArgs?.let { args ->
-                        val direction = LoginFragmentDirections.actionDestLoginToDestChoosePayment(args)
-                        findNavController().navigate(direction)
-                    }
-                }
-            }
-        })
-
         viewModel.navigateToOverviewEvent.observe(viewLifecycleOwner,  {
             it.getContentIfNotHandled()?.let {
                 findNavController().apply {
@@ -98,17 +85,9 @@ class LoginFragment : Fragment() {
         })
     }
 
-    /**
-     * Setup a listener on viewModel.isLoggedIn to switch the layout between layoutLogin and layoutLogout.
-     * Takes care of the transition in between which is Fade out + Height -> Fade In -> CheckMark animation is played
-     */
-
     private fun setupSwitchLoginLayoutListener() {
         val delayFadeIn = 500L
         val delayCheckMarkAnimation = 1100L
-
-        //The transition that will be applied when layouts are switched, the check mark transition is done
-        //a few lines after
         val transition = TransitionSet().apply {
             addTransition(ChangeBounds()) //For the height transition
             addTransition(Fade(Fade.MODE_IN).apply { startDelay = delayFadeIn; duration = 500 })
@@ -116,10 +95,8 @@ class LoginFragment : Fragment() {
             interpolator = FastOutSlowInInterpolator()
         }
 
-        //Setup the listener
         viewModel.isLoggedIn.observe(viewLifecycleOwner,  { loggedIn ->
 
-            //Actually starting the transition
             TransitionManager.beginDelayedTransition(viewDataBinding.loginCardview, transition)
              viewDataBinding.layoutLogin.visibility = if (loggedIn) View.GONE else  View.VISIBLE
              viewDataBinding.layoutLogout.visibility = if (loggedIn) View.VISIBLE else  View.GONE
@@ -140,17 +117,12 @@ class LoginFragment : Fragment() {
     private fun playOrResetCheckMarkAnimation(delay : Long, play : Boolean) {
         lifecycleScope.launch {
             delay(delay)
-
-            //This will play the checkmark animation after the delay
-            //This is a complicated way but we have to remove entirely the drawable in order to
-            //reset the animation on API < 23  (reset() is available only for API 23+)
             viewDataBinding.loggedInCheck.apply {
                 if (play) {
                     setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.an_check, requireContext().theme))
                     (this.drawable as? AnimatedVectorDrawable)?.start()
                 }
                 else {
-                    //Animation is reset by setting drawable to null
                     viewDataBinding.loggedInCheck.setImageDrawable(null)
                 }
             }
@@ -160,13 +132,12 @@ class LoginFragment : Fragment() {
 
     private fun setupBiometricLoginListener() {
 
-        //The callback when the user uses the biometric prompt
         val callback =
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int,
                                                    errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
-//                    Snackbar.make(viewDataBinding.root,"Authentication error: $errString",Snackbar.LENGTH_SHORT)
+                    Snackbar.make(viewDataBinding.root,"Authentication error: $errString",Snackbar.LENGTH_SHORT)
                     Log.d("${LoginFragment::class.simpleName}","Biometric onAuthenticationError $errString")
                 }
 
@@ -177,7 +148,7 @@ class LoginFragment : Fragment() {
 
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
-//                    Snackbar.make(viewDataBinding.root,"Authentication failed",Snackbar.LENGTH_SHORT)
+                    Snackbar.make(viewDataBinding.root,"Authentication failed",Snackbar.LENGTH_SHORT)
                     Log.d("${LoginFragment::class.simpleName}","Biometric onAuthenticationFailed")
 
                 }

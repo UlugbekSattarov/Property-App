@@ -5,13 +5,13 @@
 
     <data>
 
-        <import type="com.example.marsrealestate.sell.SellConverter" />
+        <import type="com.example.propertyappg11.sell.SellConverter" />
         <variable
             name="viewModel"
-            type="com.example.marsrealestate.sell.SellViewModel" />
+            type="com.example.propertyappg11.sell.SellViewModel" />
         <variable
             name="fragment"
-            type="com.example.marsrealestate.sell.SellFragment" />
+            type="com.example.propertyappg11.sell.SellFragment" />
 
     </data>
 
@@ -38,7 +38,7 @@
 
                 android:background="?colorBackground"
                 app:navigationContentDescription="@string/navigate_up"
-                app:title="Sell or rent your property"
+                app:title="Property App"
                 tools:navigationIcon="@drawable/ic_drawer_menu"
                 />
 
@@ -433,6 +433,16 @@
 
                         />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/getCurrentLocationButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Get Current Location"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/location_longitude_input" />
 
                 <TextView
                     android:id="@+id/pute"

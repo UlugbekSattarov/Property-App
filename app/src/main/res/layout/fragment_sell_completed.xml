@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.marsrealestate.sell.completed.SellCompletedViewModel" />
+            type="com.example.propertyappg11.sell.completed.SellCompletedViewModel" />
 
     </data>
 
@@ -135,7 +135,7 @@
 
                 style="@style/MyStyle.Widgets.Chip.Alt"
                 android:text="Browse"
-                app:chipIcon="@drawable/mars_notification"
+                app:chipIcon="@drawable/notification"
 
                 android:onClick="@{() -> viewModel.navigateToOverview()}"
 

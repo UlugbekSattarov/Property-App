@@ -143,10 +143,6 @@ class SearchView @JvmOverloads constructor(
             onTextChangeListener?.afterTextChanged(it)
         }
 
-
-    /**
-     * Callback when this [SearchView] finished revealing or hiding the search input
-     */
     private fun setOnSearchInputVisibilityListenerInternal() =
         viewBinding.searchviewMlayout.setTransitionListener(object :
             MotionLayout.TransitionListener {

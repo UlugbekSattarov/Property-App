@@ -6,10 +6,10 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.example.marsrealestate.util.helpers.SharedElementTransitionHelper"/>
+        <import type="com.example.propertyappg11.util.helpers.SharedElementTransitionHelper"/>
         <variable
             name="property"
-            type="com.example.marsrealestate.data.MarsProperty"/>
+            type="com.example.propertyappg11.data.PropProperty"/>
 
     </data>
 
@@ -39,7 +39,7 @@
 
                 android:scaleType="centerCrop"
                 app:imageUrl="@{property.imgSrcUrl}"
-                tools:src="@drawable/mars_landscape_1"
+                tools:src="@drawable/img1"
 
                 />
 

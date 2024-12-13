@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.propertyappg11.R
 import com.example.propertyappg11.ServiceLocator
-import com.example.propertyappg11.data.MarsProperty
+import com.example.propertyappg11.data.PropProperty
 import com.example.propertyappg11.databinding.FragmentOverviewBinding
 import com.example.propertyappg11.util.helpers.NotificationHelper
 import com.example.propertyappg11.util.helpers.ResourceUrlHelper
@@ -88,8 +88,8 @@ class OverviewFragment : Fragment() {
 
 
     private fun testNotification() {
-        val property = MarsProperty("140158",
-            ResourceUrlHelper.getResourceAsUrl(requireContext(),R.drawable.mars_landscape_2),
+        val property = PropProperty("140158",
+            ResourceUrlHelper.getResourceAsUrl(requireContext(),R.drawable.img2),
             "rent",
             120_000.toDouble(),
             22f,
@@ -98,13 +98,6 @@ class OverviewFragment : Fragment() {
         NotificationHelper.notifyPropertyBought(requireActivity(),property)
     }
 
-    /**
-     * Useful to keep the visual state of the [AppBarLayout]
-     * when navigating from the detail view to this [Fragment].
-     *
-     * For example if it was hidden, then it remains hidden when the user moves from the
-     * detail view to this [Fragment].
-     */
     private fun setupAppBarLayoutVisualState() {
         viewDataBinding.appBarLayout.setExpanded(appBarLayoutIsShown)
         viewDataBinding.appBarLayout.addOnOffsetChangedListener { _, verticalOffset ->
@@ -125,12 +118,10 @@ class OverviewFragment : Fragment() {
 
 
         viewDataBinding.photosGrid.adapter = OverviewAdapter(
-            //When an item on the list is clicked
             OverviewAdapter.OnClickListener { property ->
                 viewModel.displayPropertyDetails(property)
             }
         ) {
-            //When the last item of the list has been displayed
             Log.d(this@OverviewFragment::class.java.name, "onLastItemDisplayed")
             viewModel.loadNextPage()
         }

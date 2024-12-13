@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mars Real Estate</string>
+    <string name="app_name">PROPERTY APP</string>
     <string name="show_all">Show all</string>
     <string name="show_rent">Rent</string>
     <string name="show_buy">Buy</string>
@@ -132,7 +132,7 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
-    <string name="mars_properties">Mars properties available</string>
+    <string name="mars_properties">Available Properties</string>
     <string name="search_by_name">Search by name</string>
     <string name="search_by_id">Search by id</string>
     <string name="all">All</string>

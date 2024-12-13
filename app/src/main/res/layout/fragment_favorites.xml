@@ -4,16 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.example.marsrealestate.data.FavoriteProperty" />
-        <import type="com.example.marsrealestate.util.helpers.PreferencesHelper" />
+        <import type="com.example.propertyappg11.data.FavoriteProperty" />
+        <import type="com.example.propertyappg11.util.helpers.PreferencesHelper" />
         <import type="android.view.View" />
 
         <variable
             name="viewModel"
-            type="com.example.marsrealestate.favorites.FavoritesViewModel" />
+            type="com.example.propertyappg11.favorites.FavoritesViewModel" />
         <variable
             name="fragment"
-            type="com.example.marsrealestate.favorites.FavoritesFragment" />
+            type="com.example.propertyappg11.favorites.FavoritesFragment" />
 
     </data>
 
@@ -94,7 +94,7 @@
 
                 style="@style/MyStyle.Widgets.Chip.Alt"
                 android:text="Browse"
-                app:chipIcon="@drawable/mars_notification"
+                app:chipIcon="@drawable/notification"
 
                 android:elevation="1dp"
                 android:onClick="@{() -> viewModel.navigateToOverview()}"

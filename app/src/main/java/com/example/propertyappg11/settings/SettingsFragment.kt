@@ -34,19 +34,6 @@ class SettingsFragment : Fragment(){
     }
 
 
-    fun resetTutorials() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Reset tutorials?")
-            .setMessage("Tutorials will appear again")
-            .setPositiveButton(android.R.string.yes) { _, _ ->
-                PreferencesHelper.Tuto.resetShowFavoritesSwipe(requireContext())
-            }
-            .setNegativeButton(android.R.string.no) { _, _ -> }
-            .show()
-
-    }
-
-
     class PreferenceFragment : PreferenceFragmentCompat(),
         SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -56,14 +43,6 @@ class SettingsFragment : Fragment(){
 
             findPreference<ListPreference>(
                 resources.getString(R.string.preference_key_dark_mode)
-            )?.summaryProvider =
-                Preference.SummaryProvider<ListPreference> { pref ->
-                    pref.entry
-                }
-
-
-            findPreference<ListPreference>(
-                resources.getString(R.string.preference_key_font_size)
             )?.summaryProvider =
                 Preference.SummaryProvider<ListPreference> { pref ->
                     pref.entry
@@ -89,11 +68,7 @@ class SettingsFragment : Fragment(){
 
         override fun onSharedPreferenceChanged(prefs: SharedPreferences?, key: String?) {
             if (key == resources.getString(R.string.preference_key_dark_mode)) {
-                //No need to call requireActivity().recreate()
                 PreferencesHelper.setDarkMode(requireContext())
-            }
-            else if (key == resources.getString(R.string.preference_key_font_size)) {
-                requireActivity().recreate()
             }
         }
     }

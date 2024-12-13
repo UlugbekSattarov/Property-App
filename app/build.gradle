@@ -13,7 +13,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.marsrealestate"
+        applicationId "com.example.propertyappg11"
         minSdkVersion 21
         targetSdkVersion 33
         versionCode 1
@@ -32,15 +32,19 @@ android {
         }
     }
 
-
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(17))
+        }
+    }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_18
-        targetCompatibility JavaVersion.VERSION_18
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = "18"
+        jvmTarget = "17"
     }
 
 
@@ -53,7 +57,7 @@ android {
         animationsDisabled = true
     }
 
-    namespace 'com.example.marsrealestate'
+    namespace 'com.example.propertyappg11'
 
 
 }

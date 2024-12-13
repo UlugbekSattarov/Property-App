@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.*
 import androidx.savedstate.SavedStateRegistryOwner
 import com.example.propertyappg11.R
-import com.example.propertyappg11.data.MarsRepository
+import com.example.propertyappg11.data.PropRepository
 import com.example.propertyappg11.util.Event
 import com.example.propertyappg11.util.FormValidation.NO_ERROR
 import com.example.propertyappg11.util.Result
@@ -15,7 +15,7 @@ import java.util.regex.Pattern
 
 
 class LoginViewModel(private val savedStateHandle: SavedStateHandle,
-                     private val repository: MarsRepository,
+                     private val repository: PropRepository,
                      private val credentialsManager : CredentialsManager) : ViewModel() {
 
     companion object {
@@ -156,7 +156,7 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle,
 
 
 
-class LoginViewModelFactory(private val repository: MarsRepository,
+class LoginViewModelFactory(private val repository: PropRepository,
                             private val credentialsManager : CredentialsManager,
                             owner: SavedStateRegistryOwner,
                             defaultArgs: Bundle?

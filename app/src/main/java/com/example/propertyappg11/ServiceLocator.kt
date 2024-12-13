@@ -3,69 +3,54 @@ package com.example.propertyappg11
 import android.content.Context
 import androidx.annotation.VisibleForTesting
 import androidx.room.Room
-import com.example.propertyappg11.data.MarsRepository
-import com.example.propertyappg11.data.MarsRepositoryImpl
-import com.example.propertyappg11.data.database.MarsDatabase
-import com.example.propertyappg11.data.network.MarsApiService
-import com.example.propertyappg11.data.network.MarsApiServiceNoServerImpl
-import com.example.propertyappg11.data.network.MarsRemoteDatabase
+import com.example.propertyappg11.data.PropRepository
+import com.example.propertyappg11.data.PropRepositoryImpl
+import com.example.propertyappg11.data.database.PropDatabase
+import com.example.propertyappg11.data.network.PropApiService
+import com.example.propertyappg11.data.network.PropApiServiceNoServerImpl
+import com.example.propertyappg11.data.network.PropRemoteDatabase
 import com.example.propertyappg11.util.helpers.ResourceUrlHelper
 
 object ServiceLocator {
-
-    /**
-     * Should not be set or used outside of test scope
-     */
     @Volatile
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    var marsRepository : MarsRepository? = null
+    var propRepository : PropRepository? = null
         @VisibleForTesting set
 
-    fun getMarsRepository(context : Context) : MarsRepository {
-        return marsRepository ?: synchronized(this){
-            marsRepository ?: createMarsRepository(context)
+    fun getMarsRepository(context : Context) : PropRepository {
+        return propRepository ?: synchronized(this){
+            propRepository ?: createMarsRepository(context)
         }
     }
 
 
-    private fun createMarsRepository(context: Context) : MarsRepository {
+    private fun createMarsRepository(context: Context) : PropRepository {
         val localDataSource = createLocalDataSource(context)
         val remoteDataSource = createRemoteDataSource(context)
-        val repo = MarsRepositoryImpl(remoteDataSource,localDataSource.marsPropertyDao())
-        marsRepository = repo
+        val repo = PropRepositoryImpl(remoteDataSource,localDataSource.marsPropertyDao())
+        propRepository = repo
         return repo
     }
 
 
-    private fun createLocalDataSource(context: Context) : MarsDatabase{
+    private fun createLocalDataSource(context: Context) : PropDatabase{
         return Room.databaseBuilder(context,
-            MarsDatabase::class.java,
+            PropDatabase::class.java,
             "mars_database.db")
-            .addMigrations(MarsDatabase.MIGRATION_1_2)
+            .addMigrations(PropDatabase.MIGRATION_1_2)
             .fallbackToDestructiveMigration()
             .build()
     }
 
-    private fun createRemoteDataSource(context: Context) : MarsApiService{
-//        val moshi = Moshi.Builder()
-//            .add(KotlinJsonAdapterFactory())
-//            .build()
-//
-//        val retrofit = Retrofit.Builder()
-//            .addConverterFactory(MoshiConverterFactory.create(moshi))
-//            .baseUrl(MarsApiServiceData.BASE_URL)
-//            .build()
-//
-//        return retrofit.create(MarsApiService::class.java)
-
+    private fun createRemoteDataSource(context: Context) : PropApiService{
         val db = Room.databaseBuilder(context,
-            MarsRemoteDatabase::class.java,
+            PropRemoteDatabase::class.java,
             "mars_database_remote.db")
-            .addMigrations(MarsRemoteDatabase.MIGRATION_1_2)
+            .addMigrations(PropRemoteDatabase.MIGRATION_1_2)
             .build()
 
 
-        return MarsApiServiceNoServerImpl(db.marsPropertyDao(), ResourceUrlHelper.getAllLandscapesUrl(context))
+        return PropApiServiceNoServerImpl(db.marsPropertyDao(), ResourceUrlHelper.getAllLandscapesUrl(context))
     }
 
 }

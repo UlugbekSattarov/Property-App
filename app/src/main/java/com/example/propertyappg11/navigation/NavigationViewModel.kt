@@ -1,23 +1,12 @@
 package com.example.propertyappg11.navigation
 
-import android.util.Log
 import androidx.annotation.IdRes
-import androidx.annotation.NavigationRes
 import androidx.lifecycle.*
-import androidx.navigation.NavController
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
-import com.example.propertyappg11.R
-import com.example.propertyappg11.custom.NavigationItemView
-import com.example.propertyappg11.data.MarsRepository
+import com.example.propertyappg11.data.PropRepository
 import com.example.propertyappg11.util.*
-import com.example.propertyappg11.util.FormValidation.NO_ERROR
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.lang.Exception
 
 
-class NavigationViewModel( repo : MarsRepository) : ViewModel() {
+class NavigationViewModel( repo : PropRepository) : ViewModel() {
 
     private val _currentDestinationId : MutableLiveData<Int> = MutableLiveData()
     val currentDestinationId : LiveData<Int> = _currentDestinationId
@@ -37,7 +26,7 @@ class NavigationViewModel( repo : MarsRepository) : ViewModel() {
 
 
 
-class NavigationViewModelFactory(private val repo : MarsRepository) : ViewModelProvider.NewInstanceFactory() {
+class NavigationViewModelFactory(private val repo : PropRepository) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
